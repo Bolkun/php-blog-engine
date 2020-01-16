@@ -179,99 +179,6 @@
             <div id="costsSearch" class="tab-pane fade">
                 <!-- Table Search ? -->
                 <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Results: <?php echo $data['costs_current_year'][0]->rowCount; ?></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <th style="width: 120px"><input type="text" class="form-control" placeholder="Price" id="costsSearch"></th>
-                            <th style="width: 270px"><input type="text" class="form-control" placeholder="Title" id="costsYear"></th>
-                            <th><input style="width: 60px" type="text" class="form-control" placeholder="<?php echo $data['current_year']; ?>" id="costsYear"></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th><input type="checkbox" value=""></th>
-                            <th>
-                                <button type="button" class="btn btn-success">Search</button>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Price</td>
-                            <td>Title</td>
-                            <td></td>
-                            <td>Jan</td>
-                            <td>Feb</td>
-                            <td>Mar</td>
-                            <td>Apr</td>
-                            <td>May</td>
-                            <td>Jun</td>
-                            <td>Jul</td>
-                            <td>Aug</td>
-                            <td>Sep</td>
-                            <td>Oct</td>
-                            <td>Nov</td>
-                            <td>Dec</td>
-                            <td></td>
-                        </tr>
-                        <?php
-                        if ($data['costs_current_year'][0]->rowCount > 0) {
-                            foreach ($data['costs_current_year'] as $costs) { ?>
-                                <tr>
-                                    <td><?php echo $costs->price; ?></td>
-                                    <td><?php echo $costs->title; ?></td>
-                                    <td></td>
-                                    <td><?php echo $costs->january; ?></td>
-                                    <td><?php echo $costs->february; ?></td>
-                                    <td><?php echo $costs->march; ?></td>
-                                    <td><?php echo $costs->april; ?></td>
-                                    <td><?php echo $costs->may; ?></td>
-                                    <td><?php echo $costs->june; ?></td>
-                                    <td><?php echo $costs->july; ?></td>
-                                    <td><?php echo $costs->august; ?></td>
-                                    <td><?php echo $costs->september; ?></td>
-                                    <td><?php echo $costs->october; ?></td>
-                                    <td><?php echo $costs->november; ?></td>
-                                    <td><?php echo $costs->december; ?></td>
-                                    <td></td>
-                                </tr>
-                                <?php
-                            }
-                        } else {
-                            echo '<p>No data found.</p>';
-                        } ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="costsNewEdit" class="tab-pane fade">
-                <!-- Table New/Edit/Delete ? -->
-                <div class="table-responsive">
                     <form action="<?php echo URLROOT; ?>/costs" method="post">
                         <table class="table">
                             <thead>
@@ -295,39 +202,113 @@
                             </tr>
                             <tr>
                                 <th style="width: 120px">
-                                    <input type="text" name="costsPrice" class="form-control form-control-lg <?php echo (!empty($data['costsPrice_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['costsPrice']; ?>" placeholder="Price" id="costsPrice">
+                                    <input type="text" name="costsPrice" class="form-control form-control-lg <?php echo (!empty($data['costsPrice_err'])) ? 'is-invalid' : ''; ?>" placeholder="Price" id="costsSearch" value="<?php echo $data['costsPrice']; ?>">
                                 </th>
                                 <th style="width: 270px">
-                                    <input type="text" name="costsTitle" class="form-control  form-control-lg <?php echo (!empty($data['costsTitle_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['costsTitle']; ?>" placeholder="Title" id="costsTitle">
+                                    <input type="text" name="costsTitle" class="form-control form-control-lg <?php echo (!empty($data['costsTitle_err'])) ? 'is-invalid' : ''; ?>" placeholder="Title" id="costsTitle" value="<?php echo $data['costsTitle']; ?>">
                                 </th>
                                 <th style="width: 73px">
-                                    <input type="text" name="costsYear" class="form-control  form-control-lg <?php echo (!empty($data['costsYear_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['costsYear']; ?>" placeholder="<?php echo $data['costs_current_year']; ?>" id="costsYear">
+                                    <input type="text" name="costsYear" class="form-control form-control-lg <?php echo (!empty($data['costsYear_err'])) ? 'is-invalid' : ''; ?>" placeholder="<?php echo $data['current_year']; ?>" id="costsYear" value="<?php echo $data['costsYear']; ?>">
                                 </th>
-                                <th colspan="6">
-                                    <select name="costsMonth" class="form-control" id="sel1">
-                                        <option>01 January</option>
-                                        <option>02 February</option>
-                                        <option>03 March</option>
-                                        <option>04 April</option>
-                                        <option>05 May</option>
-                                        <option>06 June</option>
-                                        <option>07 July</option>
-                                        <option>08 August</option>
-                                        <option>09 September</option>
-                                        <option>10 October</option>
-                                        <option>11 November</option>
-                                        <option>12 December</option>
-                                    </select>
-                                </th>
-                                <th colspan="6">
-                                    <select name="costsStatus" class="form-control" id="sel1">
+                                <th>
+                                    <select name="costsJanuary" class="form-control form-control-lg">
+                                        <option></option>
                                         <option>paid</option>
                                         <option>not paid</option>
                                         <option>free</option>
                                     </select>
                                 </th>
                                 <th>
-                                    <input name="submitNewEdit" type="submit" value="New/Edit" class="btn btn-success btn-block">
+                                    <select name="costsFebruary" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsMarch" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsApril" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsMay" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsJune" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsJuly" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsAugust" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsSeptember" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsOctober" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsNovember" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select name="costsDecember" class="form-control form-control-lg">
+                                        <option></option>
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <input name="submitSearch" type="submit" value="Search"
+                                           class="btn btn-success btn-block">
                                 </th>
                             </tr>
                             </thead>
@@ -369,7 +350,131 @@
                                         <td><?php echo $costs->october; ?></td>
                                         <td><?php echo $costs->november; ?></td>
                                         <td><?php echo $costs->december; ?></td>
-                                        <td><img style="width: 16px; height: 16px" src="<?php echo URLROOT; ?>/img/icon/delete.png" class="cpm__img tile__img img-responsive"></td>
+                                        <td></td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                echo '<p>No data found.</p>';
+                            } ?>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div id="costsNewEdit" class="tab-pane fade">
+                <!-- Table New/Edit/Delete ? -->
+                <div class="table-responsive">
+                    <form action="<?php echo URLROOT; ?>/costs" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Results: <?php echo $data['costs_current_year'][0]->rowCount; ?></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th style="width: 120px">
+                                    <input type="text" name="costsPrice"
+                                           class="form-control form-control-lg <?php echo (!empty($data['costsPrice_err'])) ? 'is-invalid' : ''; ?>"
+                                           value="<?php echo $data['costsPrice']; ?>" placeholder="Price"
+                                           id="costsPrice">
+                                </th>
+                                <th style="width: 270px">
+                                    <input type="text" name="costsTitle"
+                                           class="form-control  form-control-lg <?php echo (!empty($data['costsTitle_err'])) ? 'is-invalid' : ''; ?>"
+                                           value="<?php echo $data['costsTitle']; ?>" placeholder="Title"
+                                           id="costsTitle">
+                                </th>
+                                <th style="width: 73px">
+                                    <input type="text" name="costsYear"
+                                           class="form-control  form-control-lg <?php echo (!empty($data['costsYear_err'])) ? 'is-invalid' : ''; ?>"
+                                           value="<?php echo $data['costsYear']; ?>"
+                                           placeholder="<?php echo $data['current_year']; ?>" id="costsYear">
+                                </th>
+                                <th colspan="6">
+                                    <select name="costsMonth" class="form-control" id="sel1">
+                                        <option>01 January</option>
+                                        <option>02 February</option>
+                                        <option>03 March</option>
+                                        <option>04 April</option>
+                                        <option>05 May</option>
+                                        <option>06 June</option>
+                                        <option>07 July</option>
+                                        <option>08 August</option>
+                                        <option>09 September</option>
+                                        <option>10 October</option>
+                                        <option>11 November</option>
+                                        <option>12 December</option>
+                                    </select>
+                                </th>
+                                <th colspan="6">
+                                    <select name="costsStatus" class="form-control" id="sel1">
+                                        <option>paid</option>
+                                        <option>not paid</option>
+                                        <option>free</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <input name="submitNewEdit" type="submit" value="New/Edit"
+                                           class="btn btn-success btn-block">
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Price</td>
+                                <td>Title</td>
+                                <td></td>
+                                <td>Jan</td>
+                                <td>Feb</td>
+                                <td>Mar</td>
+                                <td>Apr</td>
+                                <td>May</td>
+                                <td>Jun</td>
+                                <td>Jul</td>
+                                <td>Aug</td>
+                                <td>Sep</td>
+                                <td>Oct</td>
+                                <td>Nov</td>
+                                <td>Dec</td>
+                                <td></td>
+                            </tr>
+                            <?php
+                            if ($data['costs_current_year'][0]->rowCount > 0) {
+                                foreach ($data['costs_current_year'] as $costs) { ?>
+                                    <tr>
+                                        <td><?php echo $costs->price; ?></td>
+                                        <td><?php echo $costs->title; ?></td>
+                                        <td></td>
+                                        <td><?php echo $costs->january; ?></td>
+                                        <td><?php echo $costs->february; ?></td>
+                                        <td><?php echo $costs->march; ?></td>
+                                        <td><?php echo $costs->april; ?></td>
+                                        <td><?php echo $costs->may; ?></td>
+                                        <td><?php echo $costs->june; ?></td>
+                                        <td><?php echo $costs->july; ?></td>
+                                        <td><?php echo $costs->august; ?></td>
+                                        <td><?php echo $costs->september; ?></td>
+                                        <td><?php echo $costs->october; ?></td>
+                                        <td><?php echo $costs->november; ?></td>
+                                        <td><?php echo $costs->december; ?></td>
+                                        <td><img style="width: 16px; height: 16px"
+                                                 src="<?php echo URLROOT; ?>/img/icon/delete.png"
+                                                 class="cpm__img tile__img img-responsive"></td>
                                     </tr>
                                     <?php
                                 }

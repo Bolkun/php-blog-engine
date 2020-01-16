@@ -9,18 +9,46 @@ class Cost
         $this->db = new Database;
     }
 
-    public function getCosts($year)
+    public function selectCosts($year)
     {
-        $this->db->query('SELECT *, COUNT(*) AS rowCount FROM cost WHERE `year` = :year');
+        $this->db->query('SELECT * FROM cost WHERE `year` = :year');
         /*
-         SELECT * FROM cost WHERE `year` = 2020;
+        SELECT * FROM cost WHERE `year` = 2020;
          */
         $this->db->bind(':year', $year);
 
         $row = $this->db->resultSet();
 
+        $rowCount = $this->db->rowCount();
+
+        foreach($row as $key=>$value){
+            echo $value->$rowCount;
+        }
+        $row[0]['rowCount']->$rowCount;
+
+        print_r($row);
+
         return $row;
     }
+
+    /*public function searchCosts($data)
+    {
+        $where = 'WHERE';
+        if(empty($data['costsPrice']) && empty($data['costsTitle']) && empty($data['costsYear'])){
+            $where = "";
+        }
+        if(!empty($data['costsPrice'])) $where .= " price = :price";
+
+        $this->db->query('SELECT *, COUNT(*) AS rowCount FROM cost ' . $where);
+        /*
+         SELECT *, COUNT(*) AS rowCount FROM cost WHERE price = 232;
+         */
+        /*if(!empty($data['costsPrice'])) $this->db->bind(':price', $data['costsPrice']);
+
+        $row = $this->db->resultSet();
+
+        return $row;
+    }*/
 
     public function insertCosts($data)
     {
@@ -29,6 +57,8 @@ class Cost
         /*
          INSERT INTO cost (created_by_user_id, category, `type`, price, title, repeated, year, january)
          VALUES (1, 'household', 2, 232, 'Miete', 1, 2020, 1);
+        INSERT INTO cost (created_by_user_id, category, `type`, price, title, repeated, year, january)
+         VALUES (1, 'household', 2, 16, 'Strom', 1, 2020, 1);
          */
         // Bind values
         $this->db->bind(':created_by_user_id', $data['created_by_user_id']);
