@@ -19,19 +19,21 @@ class Cost
 
         $row = $this->db->resultSet();
 
-        $rowCount = $this->db->rowCount();
-
-        foreach($row as $key=>$value){
-            echo $value->$rowCount;
+        if(!empty($row)){
+            // add new key value to object in array[0]
+            $row[0]->rowCount = $this->db->rowCount();
+        } else {
+            // NULL, than build default array of object and
+            // add new key value to object in array[0]
+            $row = array();
+            $row[0] = new \stdClass();
+            $row[0]->rowCount = 0;
         }
-        $row[0]['rowCount']->$rowCount;
-
-        print_r($row);
 
         return $row;
     }
 
-    /*public function searchCosts($data)
+    public function searchCosts($data)
     {
         $where = 'WHERE';
         if(empty($data['costsPrice']) && empty($data['costsTitle']) && empty($data['costsYear'])){
@@ -43,12 +45,12 @@ class Cost
         /*
          SELECT *, COUNT(*) AS rowCount FROM cost WHERE price = 232;
          */
-        /*if(!empty($data['costsPrice'])) $this->db->bind(':price', $data['costsPrice']);
+        if(!empty($data['costsPrice'])) $this->db->bind(':price', $data['costsPrice']);
 
         $row = $this->db->resultSet();
 
         return $row;
-    }*/
+    }
 
     public function insertCosts($data)
     {

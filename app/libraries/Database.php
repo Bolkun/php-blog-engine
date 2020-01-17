@@ -65,6 +65,9 @@ class Database {
         return $this->stmt->execute();
     }
 
+    /*
+     * returns array of objects
+     */
     // Get result set as array of objects
     public function resultSet(){
         $this->execute();

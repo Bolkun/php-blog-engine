@@ -14,13 +14,13 @@ class Costs extends Controller
     {
         // Search POST
         if (!empty($_POST['submitSearch'])) {
+            // Process form
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $current_year = date("Y");
             $last_year = date("Y") - 1;
             $costs_current_year = $this->costModel->selectCosts($current_year);
             $costs_last_year = $this->costModel->selectCosts($last_year);
-            // Process form
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             // Init data
             $data = [
                 //POST DATA DEFAULT
@@ -51,6 +51,7 @@ class Costs extends Controller
                 'costs_last_year' => $costs_last_year,
             ];
             $data['current_year'] = $this->costModel->searchCosts($data);
+            print_r($data);
             $this->view('costs/index', $data);
         }
         // New/Edit
