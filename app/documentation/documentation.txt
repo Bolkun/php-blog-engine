@@ -22,4 +22,6 @@ Examples:
     = Ignores index.php and all duplicate file names in subfolders !!!
     URL3: http://localhost/bolkun/tests/helpers/date_helper
     = Goes to Tests Controller, method date_helper
+<View>
+index.php == view.php (mode)
 

@@ -11,7 +11,7 @@
             <div class="col-sm-3">
                 <div class="text-center">
                     <div class="cpm cpm_type1 cpm_type1-a1 tile section__item">
-                        <img src="<?php echo URLROOT; ?>/img/icon/logo.jpg" class="cpm__img tile__img img-responsive" alt="logo">
+                        <img src="<?php echo URLROOT; ?>/img/icon/logo4230x3200.png" class="cpm__img tile__img img-responsive" alt="logo">
                     </div>
                     <br>
                     <span class="trainer_name">Project 2019-2020</span><br>
