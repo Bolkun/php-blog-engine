@@ -176,21 +176,26 @@ class Costs extends Controller
                 $costsStatus_err = '';
                 $post_data['STATUS'] = trim($_POST['costsStatus']);
             } else {
-                $costsStatus_err = 'Status can\'t be NULL';
+                //$costsStatus_err = 'Status can\'t be NULL';
+                $costsStatus_err = '';
+                $post_data['STATUS'] = NULL;
             }
 
             // EVERYTHING OK
-            if(empty($costsPrice_err) && empty($costsTitle_err) && empty($costsYear_err) && empty($costsMonth_err) && empty($costsStatus_err)){
+            if(empty($costsPrice_err) && empty($costsTitle_err) && empty($costsYear_err) && empty($costsMonth_err) /*&& empty($costsStatus_err)*/){
                 // generate new value
                 $change_MONTH_value = substr_replace($_POST['costsMonth'], '', 0, 3);
                 $new_MONTH_value = strtolower($change_MONTH_value);
                 $post_data['MONTH'] = $new_MONTH_value;
-                //print_r($post_data);
                 //insert or update costs
                 if($this->costModel->editCosts($post_data)){
-                    flash('costs_success', 'New record insert success!');
+                    //flash('costs_success', 'New record insert success!');
+                    flash('costs', 'New record insert success!', "alert info");
+                    flash('costs', 'New record insert success!', "alert success");
+                    flash('costs', 'New record insert success!', "alert warning");
+                    flash('costs', 'New record insert success!', "alert danger");
                 } else {
-                    flash('costs_failed', 'New record insert failed!');
+                    flash('costs', 'New record insert failed!', "alert danger");
                 }
 
             }
@@ -216,22 +221,51 @@ class Costs extends Controller
                 'costs_search' => $costs_search,
             ];
             $this->view('costs/new_edit_delete', $data);
-        } else {
-            print_r($_POST);
-            if (!empty($_POST['cost_id'])) {
-                echo "posted";
-                $data['const_id'] = $_POST['cost_id'];
+        } else if (!empty($_POST['cost_id'])) {
+            $data['cost_id'] = $_POST['cost_id'];
+            $data['year'] = $_POST['year'];
 
-                //$oDb = new Db();
-                //$oDb->updateItemStatus($iIT_ID);
-
-                //delete record
-                if($this->costModel->deleteCosts($data)){
-                    flash('costs_success', "SUCCESS: Record with id = " . $data['const_id'] ." was deleted!");
-                } else {
-                    flash('costs_failed', "FAILED: Record with id = " . $data['const_id'] ." was not deleted!");
-                }
+            //delete record
+            if($this->costModel->deleteCosts($data)){
+                flash('costs', "SUCCESS: Record with id = " . $data['cost_id'] ." was deleted!", "alert success");
+            } else {
+                flash('costs', "FAILED: Record with id = " . $data['cost_id'] ." was not deleted!", "alert danger");
             }
+
+            $search_year = $data['year'];
+            // default search data
+            $post_data['costsYear'] = $data['year'];
+            $costs_search = $this->costModel->searchCosts($post_data);
+            $data = [
+                //POST DATA DEFAULT
+                'costsPrice' => '',
+                'costsTitle' => '',
+                'costsYear' => '',
+                'costsJanuary' => '',
+                'costsFebruary' => '',
+                'costsMarch' => '',
+                'costsApril' => '',
+                'costsMay' => '',
+                'costsJune' => '',
+                'costsJuly' => '',
+                'costsAugust' => '',
+                'costsSeptember' => '',
+                'costsOctober' => '',
+                'costsNovember' => '',
+                'costsDecember' => '',
+                //POST DATA ERROR DEFAULT
+                'costsPrice_err' => '',
+                'costsTitle_err' => '',
+                'costsYear_err' => '',
+                'costsMonth_err' => '',
+                'costsStatus_err' => '',
+                //OTHER
+                'title' => "Abrechnungen",
+                'search_year' => $search_year,
+                'costs_search' => $costs_search,
+            ];
+            $this->view('costs/new_edit_delete', $data);
+        } else {
             $search_year = date("Y");
             // default search data
             $post_data['costsYear'] = $search_year;

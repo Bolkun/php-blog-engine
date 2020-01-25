@@ -113,4 +113,15 @@ create table `cost` (
   primary key (`cost_id`)
 ) engine=myisam default charset=utf8;
 
+--
+-- Daten für Tabelle `cost`
+--
+
+INSERT INTO `cost` (`cost_id`, `created_by_user_id`, `category`, `type`, `price`, `title`, `repeated`, `year`, `january`, `february`, `march`, `april`, `may`, `june`, `july`, `august`, `september`, `october`, `november`, `december`) VALUES
+(1, 1, 'household', 2, '16.00', 'Strom (Drewag)', 1, 2020, 'paid', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 1, 'household', 2, '232.00', 'Miete', 1, 2020, 'paid', NULL, 'paid', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 1, 'household', 2, '32.98', '1&1', 1, 2020, 'paid', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 1, 'household', 2, '61.50', 'Fahrkarte(Dresden)', 1, 2020, 'paid', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 1, 'household', 2, '17.00', 'ARD-ZDF', 1, 2020, 'free', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------

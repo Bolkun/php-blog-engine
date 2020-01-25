@@ -3,9 +3,10 @@
     session_start();
 
     // Flash message helper
-    // EXAMPLE 1 - flash('register_success', 'You are now registered');
-    // EXAMPLE 2 - flash('register_failed', 'You are not registered', 'alert alert-danger');
-    // DISPLAY IN VIEW - echo flash('register_success');
+    // EXAMPLE 1 - flash('register', 'You are now registered', 'alert success');
+    // EXAMPLE 2 - flash('register', 'You are not registered', 'alert danger');
+    // DISPLAY IN VIEW - echo flash('register');
+    // Params $class = [alert info, alert success, alert warning, alert danger]
     function flash($name = '', $message = '', $class = 'alert alert-success'){
         if(!empty($name)){
             if(!empty($message) && empty($_SESSION[$name])){
@@ -19,7 +20,17 @@
                 $_SESSION[$name . '_class'] = $class;
             } elseif(empty($message) && !empty($_SESSION[$name])){
                 $class = !empty($_SESSION[$name . '_class']) ? $_SESSION[$name . '_class'] : '';
-                echo '<div class="' . $class . '" id="msg-flash">' . $_SESSION[$name] . '</div>';
+                echo '<div class="' . $class . '" id="msg-flash">';
+                    echo '<span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
+                    echo $_SESSION[$name];
+                echo '</div>';
+                ?>
+                <script>
+                    setTimeout(function() {
+                        $('#msg-flash').fadeOut('fast');
+                    }, 3000); // after 3 sec hide
+                </script>
+                <?php
                 unset($_SESSION[$name]);
                 unset($_SESSION[$name . '_class']);
             }

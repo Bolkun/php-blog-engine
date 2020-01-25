@@ -12,7 +12,7 @@ class Cost
     //Param: string
     public function selectCosts($year)
     {
-        $this->db->query('SELECT * FROM cost WHERE `year` = :year');
+        $this->db->query('SELECT * FROM cost WHERE `year` = :year ORDER BY price DESC');
         /*
         SELECT * FROM cost WHERE `year` = 2020;
          */
@@ -101,7 +101,7 @@ class Cost
             $sWhere .= implode(' AND ', $data);
         }
 
-        $this->db->query('SELECT * FROM cost ' . $sWhere);
+        $this->db->query('SELECT * FROM cost ' . $sWhere . " ORDER BY price DESC");
         /*
          SELECT * FROM cost WHERE title LIKE '%mie%';
          */
@@ -130,18 +130,27 @@ class Cost
         $data['repeated'] = "1";
 
         // check if [MONTH] not NULL
-        $this->db->query("SELECT * FROM cost WHERE created_by_user_id = '". $_SESSION['user_id'] ."' AND category = '". $data['category'] ."' 
+        /*$this->db->query("SELECT * FROM cost WHERE created_by_user_id = '". $_SESSION['user_id'] ."' AND category = '". $data['category'] ."'
         AND `type` = '". $data['type'] ."' AND price = '". $data['price'] ."' AND title = '". $data['title'] ."' AND repeated = '". $data['repeated'] ."'
-         AND `year` = '". $data['year'] ."' AND " . $data['MONTH'] ." != ''");
+         AND `year` = '". $data['year'] ."' AND " . $data['MONTH'] ." != ''");*/
         /*
          * SELECT * FROM cost WHERE created_by_user_id = "1" AND category = "household" AND `type` = "2" AND price = "232" AND title = "Miete" AND repeated = "1" AND year = "2020" AND january = "paid";
          * SELECT * FROM cost WHERE created_by_user_id = "1" AND category = "household" AND `type` = "2" AND price = "232" AND title = "Miete" AND repeated = "1" AND year = "2020" AND january != '';
          */
-        $row = $this->db->resultSet();
+        //$row = $this->db->resultSet();
+        //print_r($row);
+
+        // check if the same title exists
+        $this->db->query("SELECT * FROM cost WHERE title = '". $data['title'] ."' AND `year` = '". $data['year'] ."'");
+        /*
+        * SELECT * FROM cost WHERE title = "Miete" AND year = "2018";
+        */
+        $row2 = $this->db->resultSet();
+        //print_r($row2);
 
         //is null, than insert
         //not null, than update
-        if (empty($row)) {
+        if (/*empty($row) && */empty($row2)) {
             $this->db->query("INSERT INTO cost (created_by_user_id, category, `type`, price, title, repeated, `year`, " . $data['MONTH'] . ")
                                VALUES (:created_by_user_id, :category, :type, :price, :title, :repeated, :year, :" . $data['MONTH'] . ")");
             // Bind values
@@ -156,7 +165,7 @@ class Cost
         } else {
             $this->db->query("UPDATE cost SET created_by_user_id = :created_by_user_id, category = :category, 
                                                    `type` = :type, price = :price, title = :title, repeated = :repeated,
-                                                    `year` = :year, " . $data['MONTH'] . " = :" . $data['MONTH'] . " WHERE cost_id = " . $row[0]->cost_id);
+                                                    `year` = :year, " . $data['MONTH'] . " = :" . $data['MONTH'] . " WHERE cost_id = " . $row2[0]->cost_id);
             // Bind values
             $this->db->bind(':created_by_user_id', $_SESSION['user_id']);
             $this->db->bind(':category', $data['category']);
