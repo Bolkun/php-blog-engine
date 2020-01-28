@@ -1,111 +1,132 @@
 <?php
-// Check more https://www.php.net/manual/ru/function.date.php
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: 09.04.2019 06:30:00
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example 09.04.2019 06:30:00
  */
-function formatDateTime($date)
+function formatDateTime($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("d.m.Y H:i:s");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("d.m.Y H:i:s");
 }
 
-/*
- * Params: (MySQL) Example: 2019-04-09 06:30:00
- * Return: (String) Example: 09.04.2019
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example 09.04.2019
  */
-function formatDate($date)
+function formatDate($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("d.m.Y");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("d.m.Y");
 }
 
-/*
- * Params: (MySQL) Example: 2019-04-09 06:30:00
- * Return: (String) Example: 06:30:00
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example 06:30:00
  */
-function formatTime($date)
+function formatTime($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("H:i:s");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("H:i:s");
 }
 
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: 09
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example 09
  */
-function formatDay($date)
+function formatDay($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("d");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("d");
 }
 
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: Tus
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example Tus
  */
-function formatDayNameShort($date)
+function formatDayNameShort($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("D");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("D");
 }
 
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: Tuesday
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example Tuesday
  */
-function formatDayNameLong($date)
+function formatDayNameLong($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("l");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("l");
 }
 
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: 15
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example 15
  */
-function formatWeekNumber($date)
+function formatWeekNumber($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("W");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("W");
 }
 
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: 04
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example 04
  */
-function formatMonth($date)
+function formatMonth($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("m");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("m");
 }
 
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: April
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example April
  */
-function formatMonthNameLong($date)
+function formatMonthNameLong($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("F");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("F");
 }
 
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: Apr
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example Apr
  */
-function formatMonthNameShort($date)
+function formatMonthNameShort($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("M");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("M");
 }
 
-/*
- * Params: (MySQL String) Example: 2019-04-09 06:30:00
- * Return: (String) Example: 2019
+/**
+ * @goal   convert mysql date to string date
+ * @link   https://www.php.net/manual/ru/function.date.php
+ * @param  string $sDate @example 2019-04-09 06:30:00
+ * @return string       @example 2019
  */
-function formatYear($date)
+function formatYear($sDate)
 {
-    $date = new DateTime($date);
-    return $date->format("Y");
+    $sDate = new DateTime($sDate);
+    return $sDate->format("Y");
 }
