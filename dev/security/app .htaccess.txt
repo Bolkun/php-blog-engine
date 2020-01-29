@@ -1,0 +1,9 @@
+Create .htaccess file in directories
+1)/bolkun/app
+# Denie access for app folder
+Options -Indexes
+2)libraries
+Order allow, deny
+Deny from all
+3).php.ini
+output_buffering = On
