@@ -1,6 +1,6 @@
 <?php
 /**
- * @goal    convert object data to JSON readable string
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
  * @param   object $oData @example print_r ([id] => 1 [created] => John ...)
  * @return  string        @example print_r {"id":"1","created":"John",...)
  */
