@@ -12,10 +12,11 @@ class Cost
     //Param: string
     public function selectCosts($year)
     {
-        $this->db->query('SELECT * FROM cost WHERE `year` = :year ORDER BY price DESC');
+        $this->db->query('SELECT * FROM cost WHERE created_by_user_id = :created_by_user_id AND `year` = :year ORDER BY price DESC');
         /*
-        SELECT * FROM cost WHERE `year` = 2020;
+        SELECT * FROM cost WHERE created_by_user_id = 1 AND `year` = 2020;
          */
+        $this->db->bind(':created_by_user_id', $_SESSION['user_id']);
         $this->db->bind(':year', $year);
 
         $row = $this->db->resultSet();
@@ -52,6 +53,7 @@ class Cost
                 unset($data[$key]);
             }
             // conditions for each array element
+                $data['created_by_user_id'] = "created_by_user_id = '" . $_SESSION['user_id'] . "'";
             if (array_key_exists("price", $data)) {
                 $data['price'] = "price = '" . $data['price'] . "'";
             }
@@ -101,7 +103,7 @@ class Cost
             $sWhere .= implode(' AND ', $data);
         }
 
-        $this->db->query('SELECT * FROM cost ' . $sWhere . " ORDER BY price DESC");
+        $this->db->query('SELECT * FROM cost ' . $sWhere . ' ORDER BY price DESC');
         /*
          SELECT * FROM cost WHERE title LIKE '%mie%';
          */
@@ -124,29 +126,20 @@ class Cost
     //Param: associative array
     public function editCosts($data)
     {
-        //Array ( [price] => 232 [title] => Miete [year] => 2020 [MONTH] => january [STATUS] => paid )
         $data['category'] = "household";
         $data['type'] = "2";
         $data['repeated'] = "1";
 
-        // check if [MONTH] not NULL
-        /*$this->db->query("SELECT * FROM cost WHERE created_by_user_id = '". $_SESSION['user_id'] ."' AND category = '". $data['category'] ."'
-        AND `type` = '". $data['type'] ."' AND price = '". $data['price'] ."' AND title = '". $data['title'] ."' AND repeated = '". $data['repeated'] ."'
-         AND `year` = '". $data['year'] ."' AND " . $data['MONTH'] ." != ''");*/
-        /*
-         * SELECT * FROM cost WHERE created_by_user_id = "1" AND category = "household" AND `type` = "2" AND price = "232" AND title = "Miete" AND repeated = "1" AND year = "2020" AND january = "paid";
-         * SELECT * FROM cost WHERE created_by_user_id = "1" AND category = "household" AND `type` = "2" AND price = "232" AND title = "Miete" AND repeated = "1" AND year = "2020" AND january != '';
-         */
-        //$row = $this->db->resultSet();
-        //print_r($row);
-
         // check if the same title exists
-        $this->db->query("SELECT * FROM cost WHERE title = '". $data['title'] ."' AND `year` = '". $data['year'] ."'");
+        $this->db->query('SELECT * FROM cost WHERE created_by_user_id = :created_by_user_id AND title = :title AND `year` = :year');
+
+        $this->db->bind(':created_by_user_id', $_SESSION['user_id']);
+        $this->db->bind(':title', $data['title']);
+        $this->db->bind(':year', $data['year']);
         /*
-        * SELECT * FROM cost WHERE title = "Miete" AND year = "2018";
+        * SELECT * FROM cost WHERE created_by_user_id = 1 AND title = "Miete" AND year = "2020";
         */
         $row2 = $this->db->resultSet();
-        //print_r($row2);
 
         //is null, than insert
         //not null, than update
@@ -186,8 +179,9 @@ class Cost
 
     //Param: associative array
     public function deleteCosts($data){
-        $this->db->query("DELETE FROM cost WHERE cost_id = :cost_id");
+        $this->db->query("DELETE FROM cost WHERE created_by_user_id = :created_by_user_id AND cost_id = :cost_id");
         // Bind values
+        $this->db->bind(':created_by_user_id', $_SESSION['user_id']);
         $this->db->bind(':cost_id', $data['cost_id']);
         // Execute delete
         if ($this->db->execute()) {

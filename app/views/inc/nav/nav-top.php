@@ -1,3 +1,9 @@
+<?php
+// check session
+if(isAdminLoggedIn() === true){
+    require APPROOT . '/views/inc/nav/admin-nav-top.php';
+}
+?>
 <div id="nav-stripe-top">
     <ul class="nav-top top">
         <li><a href="<?php echo URLROOT; ?>">Startseite</a></li>
