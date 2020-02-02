@@ -24,14 +24,18 @@ class Cost
         if (!empty($row)) {
             // add new key value to object in array[0]
             $row[0]->rowCount = $this->db->rowCount();
+            $rowNumber = 0;
+            foreach ($row as $r){
+                $r->rowNumber = ++$rowNumber;
+            }
         } else {
             // NULL, than build default array of object and
             // add new key value to object in array[0]
             $row = array();
             $row[0] = new \stdClass();
             $row[0]->rowCount = 0;
+            $row[0]->rowNumber = 0;
         }
-
         return $row;
     }
 
@@ -112,12 +116,17 @@ class Cost
         if (!empty($row)) {
             // add new key value to object in array[0]
             $row[0]->rowCount = $this->db->rowCount();
+            $rowNumber = 0;
+            foreach ($row as $r){
+                $r->rowNumber = ++$rowNumber;
+            }
         } else {
             // NULL, than build default array of object and
             // add new key value to object in array[0]
             $row = array();
             $row[0] = new \stdClass();
             $row[0]->rowCount = 0;
+            $row[0]->rowNumber = 0;
         }
 
         return $row;

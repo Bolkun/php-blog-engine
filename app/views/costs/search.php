@@ -12,10 +12,11 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th colspan="15">Results: <?php echo $data['costs_search'][0]->rowCount; ?></th>
+                            <th colspan="16">Results: <?php echo $data['costs_search'][0]->rowCount; ?></th>
                             <th><button class="btn btn-block" href="<?php echo URLROOT; ?>/costs/search">Reset</button></th>
                         </tr>
                         <tr>
+                            <th></th>
                             <th style="width: 120px">
                                 <input type="text" name="costsPrice"
                                        class="form-control form-control-lg <?php echo (!empty($data['costsPrice_err'])) ? 'is-invalid' : ''; ?>"
@@ -135,6 +136,7 @@
                         </thead>
                         <tbody>
                         <tr>
+                            <td>Nr</td>
                             <td>Price</td>
                             <td>Title</td>
                             <td>Year</td>
@@ -156,6 +158,7 @@
                         if ($data['costs_search'][0]->rowCount > 0) {
                             foreach ($data['costs_search'] as $costs) { ?>
                                 <tr>
+                                    <td><?php echo $costs->rowNumber; ?></td>
                                     <td><?php echo $costs->price; ?></td>
                                     <td><?php echo $costs->title; ?></td>
                                     <td><?php echo $costs->year; ?></td>

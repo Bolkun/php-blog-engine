@@ -189,11 +189,7 @@ class Costs extends Controller
                 $post_data['MONTH'] = $new_MONTH_value;
                 //insert or update costs
                 if($this->costModel->editCosts($post_data)){
-                    //flash('costs_success', 'New record insert success!');
-                    flash('costs', 'New record insert success!', "alert info");
                     flash('costs', 'New record insert success!', "alert success");
-                    flash('costs', 'New record insert success!', "alert warning");
-                    flash('costs', 'New record insert success!', "alert danger");
                 } else {
                     flash('costs', 'New record insert failed!', "alert danger");
                 }

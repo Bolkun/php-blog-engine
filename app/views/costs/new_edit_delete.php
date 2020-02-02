@@ -6,7 +6,7 @@
     <div id="costsDeleteRow_success">
         <div id="wrapper">
             <h1><?php echo $data['title']; ?></h1>
-            <?php flash('costs'); ?>
+            <div id="message"><?php flash('costs'); ?></div>
             <div id="costsNewEditDelete">
                 <!-- Table New Edit Delete ? -->
                 <div class="table-responsive">
@@ -79,7 +79,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>Nr.</td>
+                                <td>Nr</td>
                                 <td>Price</td>
                                 <td>Title</td>
                                 <td>Year</td>
@@ -97,11 +97,11 @@
                                 <td>Dec</td>
                                 <td></td>
                             </tr>
-                            <?php $i = 1;
+                            <?php
                             if ($data['costs_search'][0]->rowCount > 0) {
                                 foreach ($data['costs_search'] as $costs) { ?>
                                     <tr>
-                                        <td><?php echo $i++; ?></td>
+                                        <td><?php echo $costs->rowNumber; ?></td>
                                         <td style="text-align: right"><?php echo $costs->price; ?></td>
                                         <td><?php echo $costs->title; ?></td>
                                         <td><?php echo $costs->year; ?></td>

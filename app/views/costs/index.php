@@ -25,8 +25,10 @@
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                     <tr>
+                        <th></th>
                         <th></th>
                         <th><?php echo $data['current_year']; ?></th>
                         <th>1</th>
@@ -45,6 +47,7 @@
                     </thead>
                     <tbody>
                     <tr>
+                        <td>Nr</td>
                         <td>Price</td>
                         <td>Title</td>
                         <td>Jan</td>
@@ -64,6 +67,7 @@
                     if ($data['costs_current_year'][0]->rowCount > 0) {
                         foreach ($data['costs_current_year'] as $costs) { ?>
                             <tr>
+                                <td><?php echo $costs->rowNumber; ?></td>
                                 <td><?php echo $costs->price; ?></td>
                                 <td><?php echo $costs->title; ?></td>
                                 <td><?php if($costs->january == 'paid'){ ?>
@@ -191,8 +195,10 @@
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                     <tr>
+                        <th></th>
                         <th></th>
                         <th><?php echo $data['last_year']; ?></th>
                         <th>1</th>
@@ -211,6 +217,7 @@
                     </thead>
                     <tbody>
                     <tr>
+                        <td>Nr</td>
                         <td>Price</td>
                         <td>Title</td>
                         <td>Jan</td>
@@ -230,6 +237,7 @@
                     if ($data['costs_last_year'][0]->rowCount > 0) {
                         foreach ($data['costs_last_year'] as $costs) { ?>
                             <tr>
+                                <td><?php echo $costs->rowNumber; ?></td>
                                 <td><?php echo $costs->price; ?></td>
                                 <td><?php echo $costs->title; ?></td>
                                 <td><?php if($costs->january == 'paid'){ ?>
