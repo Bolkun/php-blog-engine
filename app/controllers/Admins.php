@@ -44,6 +44,45 @@ class Admins extends Controller
         }
     }
 
+    public function benchmark()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            /*
+             * Write Loop: foreach() vs for() vs while()
+             */
+            //foreach()
+            $aHash = benchmark_prepare();
+            $time = microtime(true);
+            foreach($aHash as $key=>$val) $aHash[$key] = "a";
+            $timeResult = microtime(true) - $time;
+
+            $writeLoop = [
+                'title' => "Rewrite Loop: foreach() vs for() vs while()",
+                'description' => "What is the best way to rewrite hash array with new values in a loop? <br>Given is a Hash array filled with one character and with 100000 elements",
+                'loopForEach' => 'foreach($aHash as $key=>$val) $aHash[$key] = "a"',
+                'loopForEachTime' => $timeResult . " ms",
+            ];
+            // Read Loop: foreach() vs for() vs while()
+
+            $readLoop = [
+                'title' => "Read Loop: foreach() vs for() vs while()",
+                'description' => "What is the best way to loop a hash array? <br>Given is a Hash array with 100 elements, 24byte key and 10k data per entry",
+
+
+            ];
+            $data = [
+                'title' => "Performance Testing",
+                'writeLoop' => $writeLoop,
+                'readLoop' => $readLoop,
+
+            ];
+            $this->view('admins/tests/benchmark', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
     public function date_helper()
     {
         // Only for Admin

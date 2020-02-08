@@ -7,7 +7,8 @@
             <div id="wrapper">
                 <h1><?php echo $data['title']; ?></h1>
                 <div id="viewsAdminsTestsIndex">
-                    <a href="<?php echo URLROOT; ?>/admins/tests/helpers/date_helper">helpers/date_helper.php</a>
+                    <a href="<?php echo URLROOT; ?>/admins/tests/helpers/date_helper">helpers/date_helper.php</a><br>
+                    <a href="<?php echo URLROOT; ?>/admins/tests/benchmark">performance testing (benchmarks)</a>
                 </div>
             </div>
         </div>
