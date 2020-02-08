@@ -2,8 +2,12 @@
     <div id="nav">
         <?php require APPROOT . '/views/inc/nav/nav-top.php'; ?>
     </div>
-    <div id="wrapper">
-        <h1><?php echo $data['title']; ?></h1>
+    <div class="container">
+        <div class="row">
+            <div id="wrapper">
+                <h1><?php echo $data['title']; ?></h1>
 
+            </div>
+        </div>
     </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

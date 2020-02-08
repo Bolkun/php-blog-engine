@@ -193,38 +193,6 @@ class Users extends Controller
         destroyUserSession();
         redirect('/users/login');
     }
-	
-	public function add()
-    {
-        $data = [
-            'title' => "Neue Mitarbeiter erstellen",
-        ];
-        $this->view('users/add', $data);
-    }
-
-    public function delete()
-    {
-        $data = [
-            'title' => "Mitarbeiter entfernen",
-        ];
-        $this->view('users/delete', $data);
-    }
-
-    public function info()
-    {
-        $data = [
-            'title' => "Mitarbeiter persönliche Informationen",
-        ];
-        $this->view('users/info', $data);
-    }
-
-    public function list()
-    {
-        $data = [
-            'title' => "Mitarbeiter Liste",
-        ];
-        $this->view('users/list', $data);
-    }
 
     public function settings()
     {

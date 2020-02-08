@@ -42,6 +42,4 @@ function costsDeleteRow_success(values){
         $("#costsDeleteRow_success").load(location.href + " #wrapper");    // parent.load(child)
     }, 3000);
 }
-/*
- *
- */
+/******************************************************************************************************/

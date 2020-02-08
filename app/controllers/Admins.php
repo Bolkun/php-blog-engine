@@ -13,8 +13,16 @@ class Admins extends Controller
     {
         // Only for Admin
         if(isAdminLoggedIn() === true){
+            $properties = [
+                "browser" => "Browser: Google Chrome",
+                "php" => "PHP: v7.3.10 (This server use PHP v". phpversion() . ")",
+                "mysql" => "Database: MySQL (PDO connection required)",
+                "jquery" => "jQuery: v3.4.1",
+                "bootstrap" => "Bootstrap: v4.4.1",
+            ];
             $data = [
-                'title' => "Dev",
+                'title' => "Development",
+                'properties' => $properties,
             ];
             $this->view('admins/devs/index', $data);
         } else {
@@ -22,6 +30,7 @@ class Admins extends Controller
         }
     }
 
+    /*****************************************************************************************************************/
     public function tests()
     {
         // Only for Admin
@@ -44,4 +53,73 @@ class Admins extends Controller
             header("HTTP/1.0 404 Not Found");
         }
     }
+
+    /*****************************************************************************************************************/
+    public function users()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            $data = [
+                'title' => "Users",
+            ];
+            $this->view('admins/users/index', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    public function add()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            $data = [
+                'title' => "Neue Mitarbeiter erstellen",
+            ];
+            $this->view('admins/users/add', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    public function delete()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            $data = [
+                'title' => "Mitarbeiter entfernen",
+            ];
+            $this->view('admins/users/delete', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    public function info()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            $data = [
+                'title' => "Mitarbeiter persönliche Informationen",
+            ];
+            $this->view('admins/users/info', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    public function list()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            $data = [
+                'title' => "Mitarbeiter Liste",
+            ];
+            $this->view('admins/users/list', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+    /*****************************************************************************************************************/
+
+
 }

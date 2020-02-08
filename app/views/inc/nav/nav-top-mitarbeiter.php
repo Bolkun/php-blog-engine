@@ -1,6 +1,7 @@
-<div id="nav-stripe-bottom">
-	<ul class="nav-top bottom">
-		<li><a href="<?php echo URLROOT; ?>/users/add">Neuen Mitarbeiter einfügen</a></li>
-		<li><a href="<?php echo URLROOT; ?>/users/list">Zeige alle Mitarbeiter</a></li>
-	</ul>
-</div>
+<nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link text-warning" href="<?php echo URLROOT; ?>/admins/users/list">Mitarbeiter List</a></li>
+        <li class="nav-item"><a class="nav-link text-warning" href="<?php echo URLROOT; ?>/admins/users/add">Neuen Mitarbeiter einfügen</a></li>
+        <li class="nav-item"><a class="nav-link text-warning" href="<?php echo URLROOT; ?>/admins/users/delete">Mitarbeiter löschen</a></li>
+    </ul>
+</nav>

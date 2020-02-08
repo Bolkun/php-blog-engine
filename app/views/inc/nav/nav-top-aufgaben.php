@@ -1,9 +1,9 @@
-<div id="nav-stripe-bottom">
-    <ul class="nav-top bottom">
-        <li><a href="<?php echo URLROOT; ?>/tasks/search">Aufgabensuche</a></li>
-        <li><a href="<?php echo URLROOT; ?>/tasks/add">Aufgabe erstellen</a></li>
-        <li><a href="<?php echo URLROOT; ?>/tasks/active">Aufgaben In Bearbeitung</a></li>
-        <li><a href="<?php echo URLROOT; ?>/tasks/complete">Abgeschlossene Aufgaben</a></li>
-        <li><a href="<?php echo URLROOT; ?>/tasks/restore">Wiederkehrende Aufgaben</a></li>
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link text-warning" href="<?php echo URLROOT; ?>/tasks/search">Suche</a></li>
+        <li class="nav-item"><a class="nav-link text-warning" href="<?php echo URLROOT; ?>/tasks/add">Erstellen</a></li>
+        <li class="nav-item"><a class="nav-link text-warning" href="<?php echo URLROOT; ?>/tasks/active">In Bearbeitung</a></li>
+        <li class="nav-item"><a class="nav-link text-warning" href="<?php echo URLROOT; ?>/tasks/complete">Abgeschlossene</a></li>
+        <li class="nav-item"><a class="nav-link text-warning" href="<?php echo URLROOT; ?>/tasks/restore">Wiederkehrende</a></li>
     </ul>
-</div>
+</nav>
