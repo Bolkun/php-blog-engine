@@ -24,6 +24,14 @@
                 <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/tests">Tests</a>
                 <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/devs">Development</a>
                 <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/users">Users</a>
+                <span class="nav-item dropleft">
+                    <a class="nav-link dropdown-toggle text-danger" href="#" id="navbardrop" data-toggle="dropleft">
+                        Pages
+                    </a>
+                    <div class="dropdown-menu bg-dark">
+                        <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/pages/pages_newEditDelete">New/Edit/Delete</a>
+                    </div>
+                </span>
             </div>
         </span>
     <?php } ?>

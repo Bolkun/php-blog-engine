@@ -2146,7 +2146,7 @@ select.form-control:focus::-ms-value {
   border-width: 1px 0;
 }
 
-.form-control-plaintext.form-control-sm, .form-control-plaintext.form-control-lg {
+.form-control-plaintext.form-control-sm, .form-control-plaintext.{
   padding-right: 0;
   padding-left: 0;
 }
@@ -2159,7 +2159,7 @@ select.form-control:focus::-ms-value {
   border-radius: 0.2rem;
 }
 
-.form-control-lg {
+.{
   height: calc(1.5em + 1rem + 2px);
   padding: 0.5rem 1rem;
   font-size: 1.25rem;

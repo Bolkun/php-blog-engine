@@ -5,7 +5,8 @@
  * @param  string $sDate @example 2019-04-09 06:30:00
  * @return string       @example 09.04.2019 06:30:00
  */
-public function benchmark_prepare(){
+function benchmark_prepare()
+{
     // preparation
     $i   = 0;
     $tmp = '';

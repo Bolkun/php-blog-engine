@@ -29,7 +29,6 @@ class Admins extends Controller
             header("HTTP/1.0 404 Not Found");
         }
     }
-
     /*****************************************************************************************************************/
     public function tests()
     {
@@ -92,7 +91,6 @@ class Admins extends Controller
             header("HTTP/1.0 404 Not Found");
         }
     }
-
     /*****************************************************************************************************************/
     public function users()
     {
@@ -159,6 +157,18 @@ class Admins extends Controller
         }
     }
     /*****************************************************************************************************************/
-
+    public function pages_NewEditDelete()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            $data = [
+                'title' => "New/Edit/Delete",
+            ];
+            $this->view('admins/pages/pages_newEditDelete', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+    /*****************************************************************************************************************/
 
 }

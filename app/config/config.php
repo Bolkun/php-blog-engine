@@ -18,6 +18,9 @@ define('SITENAME', 'Bolkun');
 define('STARTPAGE', 'Users');
 // App version
 define('APPVERSION', '1.0.2');
+// Pages list
+$aPAGES_location = array();
+$aPAGES_links = array();
 
 // Automation echo CONTROLLERS['dashboards'];
 /*define('CONTROLLERS', array(

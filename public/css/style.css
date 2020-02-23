@@ -29,3 +29,75 @@
  color: black;
 }
 /*********************************/
+/*
+ * nav-top (dropdown hover effect)
+ */
+.dropdown>.dropdown-menu {
+ top: 200%;
+ transition: 0.3s all ease-in-out;
+}
+
+.dropdown:hover>.dropdown-menu {
+ display: block;
+ top: 100%;
+}
+
+.dropdown>.dropdown-toggle:active {
+ /*Without this, clicking will make it sticky*/
+ pointer-events: none;
+}
+/*
+ * nav-top (dropleft hover effect)
+ */
+.dropleft>.dropdown-menu {
+ top: 200%;
+ transition: 0.3s all ease-in-out;
+}
+
+.dropleft:hover>.dropdown-menu {
+ display: block;
+ top: 100%;
+}
+
+.dropleft>.dropdown-toggle:active {
+ /*Without this, clicking will make it sticky*/
+ pointer-events: none;
+}
+/*********************************/
+/*
+ * folder_helper (nested lists)
+ */
+.just-padding {
+ padding: 15px;
+}
+
+.list-group.list-group-root {
+ padding: 0;
+ overflow: hidden;
+}
+
+.list-group.list-group-root .list-group {
+ margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+ border-radius: 0;
+ border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root > .list-group-item:first-child {
+ border-top-width: 0;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+ padding-left: 30px;
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+ padding-left: 45px;
+}
+
+.list-group-item .glyphicon {
+ margin-right: 5px;
+}
+/*********************************/

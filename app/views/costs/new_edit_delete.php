@@ -27,21 +27,21 @@
                                         <th></th>
                                         <th style="width: 120px">
                                             <input type="text" name="costsPrice"
-                                                   class="form-control form-control-lg <?php echo (!empty($data['costsPrice_err'])) ? 'is-invalid' : ''; ?>"
+                                                   class="form-control <?php echo (!empty($data['costsPrice_err'])) ? 'is-invalid' : ''; ?>"
                                                    value="<?php echo $data['costsPrice']; ?>" placeholder="Price"
                                                    id="costsPrice">
                                             <span class="invalid-feedback"><?php echo $data['costsPrice_err']; ?></span>
                                         </th>
                                         <th style="width: 270px">
                                             <input type="text" name="costsTitle"
-                                                   class="form-control  form-control-lg <?php echo (!empty($data['costsTitle_err'])) ? 'is-invalid' : ''; ?>"
+                                                   class="form-control  <?php echo (!empty($data['costsTitle_err'])) ? 'is-invalid' : ''; ?>"
                                                    value="<?php echo $data['costsTitle']; ?>" placeholder="Title"
                                                    id="costsTitle">
                                             <span class="invalid-feedback"><?php echo $data['costsTitle_err']; ?></span>
                                         </th>
                                         <th style="width: 90px">
                                             <input type="number" name="costsYear"
-                                                   class="form-control  form-control-lg <?php echo (!empty($data['costsYear_err'])) ? 'is-invalid' : ''; ?>"
+                                                   class="form-control  <?php echo (!empty($data['costsYear_err'])) ? 'is-invalid' : ''; ?>"
                                                    value="<?php echo $data['costsYear']; ?>"
                                                    placeholder="Year" id="costsYear">
                                             <span class="invalid-feedback"><?php echo $data['costsYear_err']; ?></span>

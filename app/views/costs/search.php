@@ -21,22 +21,22 @@
                                     <th></th>
                                     <th style="width: 120px">
                                         <input type="text" name="costsPrice"
-                                               class="form-control form-control-lg <?php echo (!empty($data['costsPrice_err'])) ? 'is-invalid' : ''; ?>"
+                                               class="form-control <?php echo (!empty($data['costsPrice_err'])) ? 'is-invalid' : ''; ?>"
                                                placeholder="Price" id="costsSearch" value="<?php echo $data['costsPrice']; ?>">
                                     </th>
                                     <th style="width: 270px">
                                         <input type="text" name="costsTitle"
-                                               class="form-control form-control-lg <?php echo (!empty($data['costsTitle_err'])) ? 'is-invalid' : ''; ?>"
+                                               class="form-control <?php echo (!empty($data['costsTitle_err'])) ? 'is-invalid' : ''; ?>"
                                                placeholder="Title" id="costsTitle" value="<?php echo $data['costsTitle']; ?>">
                                     </th>
                                     <th style="width: 73px">
                                         <input type="text" name="costsYear"
-                                               class="form-control form-control-lg <?php echo (!empty($data['costsYear_err'])) ? 'is-invalid' : ''; ?>"
+                                               class="form-control <?php echo (!empty($data['costsYear_err'])) ? 'is-invalid' : ''; ?>"
                                                placeholder="Year" id="costsYear"
                                                value="<?php echo $data['costsYear']; ?>">
                                     </th>
                                     <th>
-                                        <select name="costsJanuary" class="form-control form-control-lg">
+                                        <select name="costsJanuary" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -44,7 +44,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsFebruary" class="form-control form-control-lg">
+                                        <select name="costsFebruary" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -52,7 +52,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsMarch" class="form-control form-control-lg">
+                                        <select name="costsMarch" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -60,7 +60,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsApril" class="form-control form-control-lg">
+                                        <select name="costsApril" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -68,7 +68,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsMay" class="form-control form-control-lg">
+                                        <select name="costsMay" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -76,7 +76,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsJune" class="form-control form-control-lg">
+                                        <select name="costsJune" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -84,7 +84,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsJuly" class="form-control form-control-lg">
+                                        <select name="costsJuly" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -92,7 +92,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsAugust" class="form-control form-control-lg">
+                                        <select name="costsAugust" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -100,7 +100,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsSeptember" class="form-control form-control-lg">
+                                        <select name="costsSeptember" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -108,7 +108,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsOctober" class="form-control form-control-lg">
+                                        <select name="costsOctober" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -116,7 +116,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsNovember" class="form-control form-control-lg">
+                                        <select name="costsNovember" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
@@ -124,7 +124,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <select name="costsDecember" class="form-control form-control-lg">
+                                        <select name="costsDecember" class="form-control ">
                                             <option></option>
                                             <option>paid</option>
                                             <option>not paid</option>
