@@ -1,4 +1,24 @@
 /*
+ * view: inc/nav/admin/nav-top-admin
+ */
+/* change size of nav */
+#nav_top_admin{
+ z-index: 1;
+ padding-top: 0.25rem;
+ padding-bottom: 0.25rem;
+ line-height: 1em;
+}
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+ position: fixed;
+ top: 0;
+ width: 100%;
+}
+.sticky + .container-fluid, .sticky + .container {
+ padding-top: 40px;
+}
+/*********************************/
+/*
  * flash messages
  */
 .alert {

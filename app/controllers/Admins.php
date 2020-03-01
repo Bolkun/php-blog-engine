@@ -157,7 +157,7 @@ class Admins extends Controller
         }
     }
     /*****************************************************************************************************************/
-    public function pages_NewEditDelete()
+    public function pages_newEditDelete()
     {
         // Only for Admin
         if(isAdminLoggedIn() === true){

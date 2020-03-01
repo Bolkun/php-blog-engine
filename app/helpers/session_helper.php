@@ -69,9 +69,13 @@
      */
     function isAdminLoggedIn()
     {
-        if($_SESSION['user_role'] == 'Admin'){
-            // Admin logt in
-            return true;
+        if(isset($_SESSION['user_role'])){
+            if($_SESSION['user_role'] == 'Admin'){
+                // Admin logt in
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -83,9 +87,13 @@
      */
     function isMitarbeiterLoggedIn()
     {
-        if($_SESSION['user_role'] == 'Mitarbeiter'){
-            // Coworker logged in
-            return true;
+        if(isset($_SESSION['user_role'])) {
+            if ($_SESSION['user_role'] == 'Mitarbeiter') {
+                // Coworker logged in
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

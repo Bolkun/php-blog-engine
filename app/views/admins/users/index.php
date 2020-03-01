@@ -1,6 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
     <div id="nav">
-        <?php require APPROOT . '/views/inc/nav/nav-top.php'; ?>
         <?php require APPROOT . '/views/inc/nav/admin/nav-top-mitarbeiter.php'; ?>
     </div>
     <div class="container">

@@ -12,29 +12,6 @@
             <li class="nav-item"><a class="nav-link" href="<?php echo URLROOT; ?>/users/settings">Einstellungen</a></li>
         </ul>
     </div>
-    <?php
-    // check session
-    if(isAdminLoggedIn() === true){ ?>
-        <!-- Dropdown -->
-        <span class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-danger" href="#" id="navbardrop" data-toggle="dropdown">
-                Admin
-            </a>
-            <div class="dropdown-menu bg-dark">
-                <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/tests">Tests</a>
-                <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/devs">Development</a>
-                <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/users">Users</a>
-                <span class="nav-item dropleft">
-                    <a class="nav-link dropdown-toggle text-danger" href="#" id="navbardrop" data-toggle="dropleft">
-                        Pages
-                    </a>
-                    <div class="dropdown-menu bg-dark">
-                        <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/pages/pages_newEditDelete">New/Edit/Delete</a>
-                    </div>
-                </span>
-            </div>
-        </span>
-    <?php } ?>
     <span class="navbar-text text-success"><?php echo $_SESSION['user_firstname'] . " " . $_SESSION['user_surname'];?></span>
     <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
 </nav>

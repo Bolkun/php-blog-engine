@@ -21,6 +21,7 @@ define('APPVERSION', '1.0.2');
 // Pages list
 $aPAGES_location = array();
 $aPAGES_links = array();
+$GLOBALS['sACTUAL_LINK'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 // Automation echo CONTROLLERS['dashboards'];
 /*define('CONTROLLERS', array(

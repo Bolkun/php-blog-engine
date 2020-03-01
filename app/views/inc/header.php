@@ -9,8 +9,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo SITENAME; ?></title>
     <link rel="shortcut icon" href="<?php echo URLROOT; ?>/img/icon/logo.png" type="image/png">
@@ -21,5 +21,12 @@
     <!--<link rel="stylesheet" href="<?php //echo URLROOT; ?>/js/fullcalendar-3.9.0/fullcalendar.css">-->
 </head>
 <body>
-    
+<?php
+    // check session
+    if(isAdminLoggedIn() === true){
+        require APPROOT . '/views/inc/nav/admin/nav-top-admin.php';
+    } elseif(isMitarbeiterLoggedIn() === true) {
+        require APPROOT . '/views/inc/nav/nav-top.php';
+    }
+?>
 

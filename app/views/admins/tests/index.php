@@ -1,7 +1,4 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-    <div id="nav">
-        <?php require APPROOT . '/views/inc/nav/nav-top.php'; ?>
-    </div>
     <div class="container">
         <div class="row">
             <div id="wrapper">
