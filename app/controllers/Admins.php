@@ -161,10 +161,133 @@ class Admins extends Controller
     {
         // Only for Admin
         if(isAdminLoggedIn() === true){
-            $data = [
-                'title' => "New/Edit/Delete",
-            ];
-            $this->view('admins/pages/pages_newEditDelete', $data);
+            $aPagesPaths = getPagesPaths(APPROOT . DIRECTORY_SEPARATOR . 'views');
+            $aPagesLinks = getPagesLinks(APPROOT . DIRECTORY_SEPARATOR . 'views');
+            $iCountPagesPaths = getArraySize($aPagesPaths);
+            $iCountPagesLinks = getArraySize($aPagesLinks);
+            if ($iCountPagesPaths !== $iCountPagesLinks) {
+                die('Pages paths not match pages links!');
+            } else {
+                $iPagesCount = $iCountPagesPaths;
+            }
+            // POST
+            if (!empty($_POST['submitNewPage'])) {
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                // validate POST data
+                if(!empty(trim($_POST['pagesPath']))){
+                    $pagesPath = trim($_POST['pagesPath']);
+                    $pagesPath_err = '';
+                    if(strpos($pagesPath, VIEWSROOT . DIRECTORY_SEPARATOR) === false){
+                        $pagesPath_err = "Views root " . VIEWSROOT . DIRECTORY_SEPARATOR . " not specified";
+                    }
+                    // remove views root
+                    $pagesPathRelative = str_replace(VIEWSROOT . DIRECTORY_SEPARATOR, '', $pagesPath);
+                    // make array of parts
+                    $aPagesPathRelativeParts = explode(DIRECTORY_SEPARATOR, $pagesPathRelative);
+                    // check if minimum folder and file specified
+                    if(getArraySize($aPagesPathRelativeParts) < 2){
+                        $pagesPath_err = "Required minimum " . VIEWSROOT . DIRECTORY_SEPARATOR . "[folder]" . DIRECTORY_SEPARATOR . "[file.php]";
+                    } else {
+                        for($i=0; $i<getArraySize($aPagesPathRelativeParts); $i++) {
+                            if($i !== (getArraySize($aPagesPathRelativeParts) - 1)){
+                                // check folders
+                                if(! preg_match("/[a-z0-9_-]/", $aPagesPathRelativeParts[$i])){
+                                    $pagesPath_err = "Folder don't match regex [a-z0-9_-]";
+                                    break;
+                                }
+                            } else {
+                                // last key of array must be a file.php
+                                if(! preg_match("/[a-z0-9_-].php/", $aPagesPathRelativeParts[$i])){
+                                    print $pagesPathRelative[$i];
+                                    $pagesPath_err = "File don't match regex[a-z0-9_-].php";
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    // check if path already exists
+                    foreach ($aPagesPaths as $path){
+                        if($path === $pagesPath){
+                            $pagesPath_err = "page already exists with $path";
+                            break;
+                        }
+                    }
+                } else {
+                    $pagesPath = '';
+                    $pagesPath_err = 'Page path cannot be empty';
+                }
+                if(!empty(trim($_POST['pagesLink']))){
+                    $pagesLink = trim($_POST['pagesLink']);
+                    $pagesLink_err = '';
+                } else {
+                    $pagesLink = '';
+                    $pagesLink_err = 'Page link cannot be empty';
+                }
+                // EVERYTHING OK
+                if(empty($pagesPath_err) && empty($pagesLink_err)){
+                    // create new folders with file
+                    $path = VIEWSROOT;
+                    for($i=0; $i<getArraySize($aPagesPathRelativeParts); $i++) {
+                        if($i !== (getArraySize($aPagesPathRelativeParts) - 1)){
+                            $path .= DIRECTORY_SEPARATOR . $aPagesPathRelativeParts[$i];
+                            if(! file_exists($path)){
+                                mkdir($path, 0755);
+                            }
+                        } else {
+                            $file = $aPagesPathRelativeParts[$i];
+                        }
+                    }
+                    if(! file_exists($path . DIRECTORY_SEPARATOR . $file)){
+                        touch($path . DIRECTORY_SEPARATOR . $file);
+                    } else {
+                        die('Could not create ' . $path . DIRECTORY_SEPARATOR . $file);
+                    }
+                    flash('pages', "New page processed success!<br>link: <a href=\"$pagesLink\">$pagesLink</a>", "alert success");
+                    // reload table
+                    array_unshift($aPagesPaths, $pagesPath);    // add as first el. of an array
+                    array_unshift($aPagesLinks, $pagesLink);    // add as first el. of an array
+                    $iCountPagesPaths = getArraySize($aPagesPaths);
+                    $iCountPagesLinks = getArraySize($aPagesLinks);
+                    if ($iCountPagesPaths !== $iCountPagesLinks) {
+                        die('Pages paths not match pages links after reloading table!');
+                    } else {
+                        $iPagesCount = $iCountPagesPaths;
+                    }
+                } else {
+                    flash('pages', 'New page creation failed!', "alert danger");
+                }
+                // Init data
+                $data = [
+                    //POST DATA DEFAULT
+                    'pagesPath' => $pagesPath,
+                    'pagesLink' => $pagesLink,
+                    //POST DATA ERROR DEFAULT
+                    'pagesPath_err' => $pagesPath_err,
+                    'pagesLink_err' => $pagesLink_err,
+                    //OTHER
+                    'title' => "New/Edit/Delete",
+                    'aPagesPaths' => $aPagesPaths,
+                    'aPagesLinks' => $aPagesLinks,
+                    'iPagesCount' => $iPagesCount,
+                ];
+                $this->view('admins/pages/pages_newEditDelete', $data);
+            } else {
+                // Init data
+                $data = [
+                    //POST DATA DEFAULT
+                    'pagesPath' => '',
+                    'pagesLink' => '',
+                    //POST DATA ERROR DEFAULT
+                    'pagesPath_err' => '',
+                    'pagesLink_err' => '',
+                    //OTHER
+                    'title' => "New/Edit/Delete",
+                    'aPagesPaths' => $aPagesPaths,
+                    'aPagesLinks' => $aPagesLinks,
+                    'iPagesCount' => $iPagesCount,
+                ];
+                $this->view('admins/pages/pages_newEditDelete', $data);
+            }
         } else {
             header("HTTP/1.0 404 Not Found");
         }

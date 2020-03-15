@@ -193,7 +193,6 @@ class Costs extends Controller
                 } else {
                     flash('costs', 'New record insert failed!', "alert danger");
                 }
-
             }
 
             $costs_search = $this->costModel->selectCosts($search_year);

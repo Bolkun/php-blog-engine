@@ -12,3 +12,14 @@ function jsonEncode($oData){
     $sJSON = json_encode($aData);
     return $sJSON;
 }
+
+function jsonEncodePages($oData = NULL){
+    // convert object to associative array
+    $aData = (array) $oData;
+    // add url to array being posted to
+    $aData['URLBASE'] = URLBASE;
+    $aData['URLROOT'] = URLROOT;
+    $aData['VIEWSROOT'] = VIEWSROOT;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}
