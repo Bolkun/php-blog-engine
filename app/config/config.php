@@ -33,24 +33,3 @@ $aPagesLinks = array();
 $GLOBALS['sACTUAL_LINK'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 /*** TESTS ***/
-
-
-// Automation echo CONTROLLERS['dashboards'];
-/*define('CONTROLLERS', array(
-    "calenders"=>"Calenders",
-    "costs"=>"Costs",
-    "dashboards"=>"Dashboards",
-    "documents"=>"Documents",
-    "tasks"=>"Tasks",
-    "tests"=>"Tests",
-    "users"=>"Users",
-));
-define('MODELS', array(
-    "calender"=>"Calender",
-    "cost"=>"Cost",
-    "dashboard"=>"Dashboard",
-    "document"=>"Document",
-    "task"=>"Task",
-    "test"=>"Test",
-    "user"=>"User",
-));*/

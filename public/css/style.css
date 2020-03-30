@@ -121,3 +121,13 @@
  margin-right: 5px;
 }
 /*********************************/
+/*
+ * view: admins/tests/benchmark
+ */
+.table td:first-child{
+ width: 70%;
+}
+.table td:last-child{
+ width: 20%;
+}
+/*********************************/

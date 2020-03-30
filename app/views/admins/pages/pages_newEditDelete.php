@@ -24,7 +24,7 @@
                                         <input type="text" name="pagesPath"
                                                class="form-control <?php echo (!empty($data['pagesPath_err'])) ? 'is-invalid' : ''; ?>"
                                                value="<?php echo $data['pagesPath']; ?>" placeholder="Path"
-                                               onkeyup='pagesPathtoPagesLink(<?php echo jsonEncodePages(); ?>)'
+                                               onkeyup='pagesPathtoPagesLink(<?php echo jsonEncode(); ?>)'
                                                id="pagesPath">
                                         <span class="invalid-feedback"><?php echo $data['pagesPath_err']; ?></span>
                                     </th>
@@ -75,6 +75,7 @@
                                     pagesPath = pagesPath.replace(viewsRoot, '');  // replace 'C:\xampp\htdocs\bolkun\app\views' with ''
                                     pagesPath = pagesPath.replace(/\\/g, '\/');    // replace '\' with '/'
                                     pagesPath = pagesPath.replace('/index.php', '');
+                                    pagesPath = pagesPath.replace('.php', '');
                                     $("#pagesLink").val(linkRoot + pagesPath);
 
                                     // searchable table

@@ -1,4 +1,6 @@
 <?php
+// Load tests
+require_once APPROOT . '/tests/benchmark.php';
 
 class Admins extends Controller
 {
@@ -47,34 +49,23 @@ class Admins extends Controller
     {
         // Only for Admin
         if(isAdminLoggedIn() === true){
-            /*
-             * Write Loop: foreach() vs for() vs while()
-             */
-            //foreach()
-            $aHash = benchmark_prepare();
-            $time = microtime(true);
-            foreach($aHash as $key=>$val) $aHash[$key] = "a";
-            $timeResult = microtime(true) - $time;
+            $aEchoVsPrint = echo_vs_print();
+            $aSingleVsDoubleQuotes = single_vs_double_quotes();
+            $aIfVsSwitch = if_vs_switch();
+            $aForVsWhileCounting = for_vs_while_counting();
+            $aReedLoop = readAssocArray_foreach_vs_for();
+            $aWriteLoop = writeAssocArray_for_vs_while();
+            $aModifyLoop = modifyAssocArray_foreach_vs_for();
 
-            $writeLoop = [
-                'title' => "Rewrite Loop: foreach() vs for() vs while()",
-                'description' => "What is the best way to rewrite hash array with new values in a loop? <br>Given is a Hash array filled with one character and with 100000 elements",
-                'loopForEach' => 'foreach($aHash as $key=>$val) $aHash[$key] = "a"',
-                'loopForEachTime' => $timeResult . " ms",
-            ];
-            // Read Loop: foreach() vs for() vs while()
-
-            $readLoop = [
-                'title' => "Read Loop: foreach() vs for() vs while()",
-                'description' => "What is the best way to loop a hash array? <br>Given is a Hash array with 100 elements, 24byte key and 10k data per entry",
-
-
-            ];
             $data = [
                 'title' => "Performance Testing",
-                'writeLoop' => $writeLoop,
-                'readLoop' => $readLoop,
-
+                'stringOutputs' => $aEchoVsPrint,
+                'quotes' => $aEchoVsPrint,
+                'conditions' => $aEchoVsPrint,
+                'countingLoops' => $aEchoVsPrint,
+                'reedLoop' => $aEchoVsPrint,
+                'writeLoop' => $aEchoVsPrint,
+                'modifyLoop' => $aEchoVsPrint,
             ];
             $this->view('admins/tests/benchmark', $data);
         } else {
