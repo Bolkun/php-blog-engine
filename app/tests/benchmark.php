@@ -35,7 +35,7 @@ function echo_vs_print()
     $start = microtime(true);
     $i = 0;
     while($i < 1000){
-        echo 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+        echo '<span class="none">aaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>';
         $i++;
     }
     $result3 = microtime(true) - $start;
@@ -46,7 +46,7 @@ function echo_vs_print()
     $start = microtime(true);
     $i = 0;
     while($i < 1000){
-        print 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+        print '<span class="none">aaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>';
         $i++;
     }
     $result4 = microtime(true) - $start;
@@ -57,7 +57,7 @@ function echo_vs_print()
     $start = microtime(true);
     $i = 0;
     while($i < 1000){
-        echo 'aaaaaaa'.'aaaaaaa'.'aaaaaaa'.'aaaaaaa';
+        echo '<span class="none">aaaaaaa'.'aaaaaaa'.'aaaaaaa'.'aaaaaaa</span>';
         $i++;
     }
     $result5 = microtime(true) - $start;
@@ -68,7 +68,7 @@ function echo_vs_print()
     $start = microtime(true);
     $i = 0;
     while($i < 1000){
-        print 'aaaaaaa'.'aaaaaaa'.'aaaaaaa'.'aaaaaaa';
+        print '<span class="none">aaaaaaa'.'aaaaaaa'.'aaaaaaa'.'aaaaaaa</span>';
         $i++;
     }
     $result6 = microtime(true) - $start;
@@ -81,7 +81,7 @@ function echo_vs_print()
     $i = 0;
     while($i < 1000){
         $a = 'aaaaaaa';
-        echo 'aaaaaaa'.$a.'aaaaaaa'.$a;
+        echo '<span class="none">aaaaaaa'.$a.'aaaaaaa'.$a.'</span>';
         $i++;
     }
     $result7 = microtime(true) - $start;
@@ -95,7 +95,7 @@ function echo_vs_print()
     $i = 0;
     while($i < 1000){
         $a = 'aaaaaaa';
-        print 'aaaaaaa'.$a.'aaaaaaa'.$a;
+        print '<span class="none">aaaaaaa'.$a.'aaaaaaa'.$a.'</span>';
         $i++;
     }
     $result8 = microtime(true) - $start;
@@ -109,7 +109,7 @@ function echo_vs_print()
     $i = 0;
     while($i < 1000){
         $a = 'aaaaaaa';
-        echo $a.$a.$a.$a;
+        echo '<span class="none">'.$a.$a.$a.$a.'</span>';
         $i++;
     }
     $result9 = microtime(true) - $start;
@@ -123,7 +123,7 @@ function echo_vs_print()
     $i = 0;
     while($i < 1000){
         $a = 'aaaaaaa';
-        print $a.$a.$a.$a;
+        print '<span class="none">'.$a.$a.$a.$a.'</span>';
         $i++;
     }
     $result10 = microtime(true) - $start;
@@ -131,9 +131,37 @@ function echo_vs_print()
     unset($i);
     unset($a);
 
-    return array('test1' => $result1, 'test2' => $result2, 'test3' => $result3, 'test4' => $result4,
-                 'test5' => $result5, 'test6' => $result6, 'test7' => $result7, 'test8' => $result8,
-                 'test9' => $result9, 'test10' => $result10);
+    //compare results and
+    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
+    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
+    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+
+    if($result3 > $result4) { $class3 = 'alert-danger'; $class4 = 'alert-success'; }
+    elseif($result3 < $result4) { $class3 = 'alert-success'; $class4 = 'alert-danger'; }
+    else { $class3 = 'alert-warning'; $class4 = 'alert-warning'; }
+
+    if($result5 > $result6) { $class5 = 'alert-danger'; $class6 = 'alert-success'; }
+    elseif($result5 < $result6) { $class5 = 'alert-success'; $class6 = 'alert-danger'; }
+    else { $class5 = 'alert-warning'; $class6 = 'alert-warning'; }
+
+    if($result7 > $result8) { $class7 = 'alert-danger'; $class8 = 'alert-success'; }
+    elseif($result7 < $result8) { $class7 = 'alert-success'; $class8 = 'alert-danger'; }
+    else { $class7 = 'alert-warning'; $class8 = 'alert-warning'; }
+
+    if($result9 > $result10) { $class9 = 'alert-danger'; $class10 = 'alert-success'; }
+    elseif($result9 < $result10) { $class9 = 'alert-success'; $class10 = 'alert-danger'; }
+    else { $class9 = 'alert-warning'; $class10 = 'alert-warning'; }
+
+    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
+                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,
+                 'nr3' => 3, 'test3' => $result3, 'class3' => $class3,
+                 'nr4' => 4, 'test4' => $result4, 'class4' => $class4,
+                 'nr5' => 5, 'test5' => $result5, 'class5' => $class5,
+                 'nr6' => 6, 'test6' => $result6, 'class6' => $class6,
+                 'nr7' => 7, 'test7' => $result7, 'class7' => $class7,
+                 'nr8' => 8, 'test8' => $result8, 'class8' => $class8,
+                 'nr9' => 9, 'test9' => $result9, 'class9' => $class9,
+                 'nr10' => 10, 'test10' => $result10, 'class10' => $class10,);
 }
 
 /**
@@ -243,8 +271,31 @@ function single_vs_double_quotes()
     unset($a);
     unset($tmp);
 
-    return array('test1' => $result1, 'test2' => $result2, 'test3' => $result3, 'test4' => $result4,
-        'test5' => $result5, 'test6' => $result6, 'test7' => $result7, 'test8' => $result8);
+    //compare results and
+    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
+    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
+    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+
+    if($result3 > $result4) { $class3 = 'alert-danger'; $class4 = 'alert-success'; }
+    elseif($result3 < $result4) { $class3 = 'alert-success'; $class4 = 'alert-danger'; }
+    else { $class3 = 'alert-warning'; $class4 = 'alert-warning'; }
+
+    if($result5 > $result6) { $class5 = 'alert-danger'; $class6 = 'alert-success'; }
+    elseif($result5 < $result6) { $class5 = 'alert-success'; $class6 = 'alert-danger'; }
+    else { $class5 = 'alert-warning'; $class6 = 'alert-warning'; }
+
+    if($result7 > $result8) { $class7 = 'alert-danger'; $class8 = 'alert-success'; }
+    elseif($result7 < $result8) { $class7 = 'alert-success'; $class8 = 'alert-danger'; }
+    else { $class7 = 'alert-warning'; $class8 = 'alert-warning'; }
+
+    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
+                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,
+                 'nr3' => 3, 'test3' => $result3, 'class3' => $class3,
+                 'nr4' => 4, 'test4' => $result4, 'class4' => $class4,
+                 'nr5' => 5, 'test5' => $result5, 'class5' => $class5,
+                 'nr6' => 6, 'test6' => $result6, 'class6' => $class6,
+                 'nr7' => 7, 'test7' => $result7, 'class7' => $class7,
+                 'nr8' => 8, 'test8' => $result8, 'class8' => $class8,);
 }
 
 /**
@@ -416,8 +467,31 @@ function if_vs_switch()
     unset($i);
     unset($a);
 
-    return array('test1' => $result1, 'test2' => $result2, 'test3' => $result3, 'test4' => $result4,
-        'test5' => $result5, 'test6' => $result6, 'test7' => $result7, 'test8' => $result8);
+    //compare results and
+    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
+    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
+    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+
+    if($result3 > $result4) { $class3 = 'alert-danger'; $class4 = 'alert-success'; }
+    elseif($result3 < $result4) { $class3 = 'alert-success'; $class4 = 'alert-danger'; }
+    else { $class3 = 'alert-warning'; $class4 = 'alert-warning'; }
+
+    if($result5 > $result6) { $class5 = 'alert-danger'; $class6 = 'alert-success'; }
+    elseif($result5 < $result6) { $class5 = 'alert-success'; $class6 = 'alert-danger'; }
+    else { $class5 = 'alert-warning'; $class6 = 'alert-warning'; }
+
+    if($result7 > $result8) { $class7 = 'alert-danger'; $class8 = 'alert-success'; }
+    elseif($result7 < $result8) { $class7 = 'alert-success'; $class8 = 'alert-danger'; }
+    else { $class7 = 'alert-warning'; $class8 = 'alert-warning'; }
+
+    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
+                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,
+                 'nr3' => 3, 'test3' => $result3, 'class3' => $class3,
+                 'nr4' => 4, 'test4' => $result4, 'class4' => $class4,
+                 'nr5' => 5, 'test5' => $result5, 'class5' => $class5,
+                 'nr6' => 6, 'test6' => $result6, 'class6' => $class6,
+                 'nr7' => 7, 'test7' => $result7, 'class7' => $class7,
+                 'nr8' => 8, 'test8' => $result8, 'class8' => $class8,);
 }
 
 /**
@@ -441,7 +515,13 @@ function for_vs_while_counting()
     unset($start);
     unset($i);
 
-    return array('test1' => $result1, 'test2' => $result2);
+    //compare results and
+    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
+    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
+    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+
+    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
+                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,);
 }
 
 /**
@@ -463,7 +543,7 @@ function readAssocArray_foreach_vs_for()
 
     $start = microtime(true);
     foreach($aHash as $key => $val){
-        echo $key . '=' . $val . '\n';
+        echo '<span class="none">'.$key . '=' . $val . '</span>';
     }
     $result1 = microtime(true) - $start;
     unset($i);
@@ -488,7 +568,7 @@ function readAssocArray_foreach_vs_for()
     $size = count($aHash);
     $keys = array_keys($aHash);
     for($i=0; $i<$size; $i++){
-        echo $keys[$i] . '=' . $aHash[$keys[$i]] . '\n';
+        echo '<span class="none">'.$keys[$i] . '=' . $aHash[$keys[$i]] . '</span>';
     }
     $result2 = microtime(true) - $start;
     unset($i);
@@ -498,7 +578,13 @@ function readAssocArray_foreach_vs_for()
     unset($size);
     unset($keys);
 
-    return array('test1' => $result1, 'test2' => $result2);
+    //compare results and
+    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
+    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
+    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+
+    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
+                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,);
 }
 
 /**
@@ -539,7 +625,13 @@ function writeAssocArray_for_vs_while()
     unset($tmp);
     unset($aHash);
 
-    return array('test1' => $result1, 'test2' => $result2);
+    //compare results and
+    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
+    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
+    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+
+    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
+                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,);
 }
 
 /**
@@ -596,5 +688,11 @@ function modifyAssocArray_foreach_vs_for()
     unset($size);
     unset($keys);
 
-    return array('test1' => $result1, 'test2' => $result2);
+    //compare results and
+    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
+    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
+    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+
+    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
+                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,);
 }

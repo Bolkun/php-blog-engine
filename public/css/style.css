@@ -125,9 +125,15 @@
  * view: admins/tests/benchmark
  */
 .table td:first-child{
- width: 70%;
+ width: 5%;
+}
+.table td:nth-child(2){
+ width: 75%;
 }
 .table td:last-child{
  width: 20%;
 }
 /*********************************/
+.none {
+ display: none;
+}

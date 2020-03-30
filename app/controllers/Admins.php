@@ -53,19 +53,19 @@ class Admins extends Controller
             $aSingleVsDoubleQuotes = single_vs_double_quotes();
             $aIfVsSwitch = if_vs_switch();
             $aForVsWhileCounting = for_vs_while_counting();
-            $aReedLoop = readAssocArray_foreach_vs_for();
+            $aReadLoop = readAssocArray_foreach_vs_for();
             $aWriteLoop = writeAssocArray_for_vs_while();
             $aModifyLoop = modifyAssocArray_foreach_vs_for();
 
             $data = [
                 'title' => "Performance Testing",
                 'stringOutputs' => $aEchoVsPrint,
-                'quotes' => $aEchoVsPrint,
-                'conditions' => $aEchoVsPrint,
-                'countingLoops' => $aEchoVsPrint,
-                'reedLoop' => $aEchoVsPrint,
-                'writeLoop' => $aEchoVsPrint,
-                'modifyLoop' => $aEchoVsPrint,
+                'quotes' => $aSingleVsDoubleQuotes,
+                'conditions' => $aIfVsSwitch,
+                'countingLoops' => $aForVsWhileCounting,
+                'readLoop' => $aReadLoop,
+                'writeLoop' => $aWriteLoop,
+                'modifyLoop' => $aModifyLoop,
             ];
             $this->view('admins/tests/benchmark', $data);
         } else {
