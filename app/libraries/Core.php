@@ -20,7 +20,7 @@ class Core {
         } else {
             $url_unique = array_unique($url);
         }
-        if(count($url) != count($url_unique)){
+        if(count($url) !== count($url_unique)){
             $page = '';
             foreach ($url_unique as $dir){
                 $page .= $dir . '/';

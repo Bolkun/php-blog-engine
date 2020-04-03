@@ -64,7 +64,7 @@ class Costs extends Controller
             foreach ($_POST as $key => $value) {
                 $key = htmlspecialchars($key);
                 // do not add empty array elements and submit button element value
-                if(($value != '') && $key != 'submitSearch'){
+                if(($value !== '') && $key !== 'submitSearch'){
                     $post_data[$key] = htmlspecialchars($value);
                 }
             }

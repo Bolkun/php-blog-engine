@@ -17,7 +17,7 @@ class Users extends Controller
 	public function register()
     {
         // Check for POST
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // Process form
 
             // Sanitize POST data
@@ -112,7 +112,7 @@ class Users extends Controller
     public function login()
     {
         // Check for POST
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // Process form
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -160,7 +160,7 @@ class Users extends Controller
                 if($loggedInUserData){
                     // Create Session
                     createUserSession($loggedInUserData);
-                    redirect('dashboards/');
+                    redirect('dashboards');
                 } else {
                     $data['password_err'] = 'Password incorrect';
                     $this->view('users/login', $data);
@@ -172,7 +172,7 @@ class Users extends Controller
         } else {
             // Init data
             if(isLoggedIn() === true){
-                redirect('dashboards/');
+                redirect('dashboards');
             } else {
                 $data = [
                     'email' => '',

@@ -16,17 +16,27 @@ class Admins extends Controller
         // Only for Admin
         if(isAdminLoggedIn() === true){
             $properties = [
-                "browser" => "Browser: Google Chrome",
-                "php" => "PHP: v7.3.10 (This server use PHP v". phpversion() . ")",
-                "mysql" => "Database: MySQL (PDO connection required)",
-                "jquery" => "jQuery: v3.4.1",
-                "bootstrap" => "Bootstrap: v4.4.1",
+                "Browser" => "Google Chrome",
+                "PHP" => "v7.3.10 (This server use PHP v". phpversion() . ")",
+                "Database" => "MySQL (PDO connection required)",
+                "jQuery" => "v3.4.1",
+                "Bootstrap" => "v4.4.1",
             ];
+
             $data = [
                 'title' => "Development",
                 'properties' => $properties,
             ];
             $this->view('admins/devs/index', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+    public function phpinfo()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            $this->view('admins/devs/phpinfo');
         } else {
             header("HTTP/1.0 404 Not Found");
         }

@@ -124,13 +124,13 @@
 /*
  * view: admins/tests/benchmark
  */
-.table td:first-child{
+.benchmark td:first-child{
  width: 5%;
 }
-.table td:nth-child(2){
+.benchmark td:nth-child(2){
  width: 75%;
 }
-.table td:last-child{
+.benchmark td:last-child{
  width: 20%;
 }
 /*********************************/

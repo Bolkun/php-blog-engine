@@ -1,10 +1,7 @@
 <?php
-// count() vs sizeof() = WINNER count!!!
-// empty() vs isset()  = almost identical, but WINNER empty(), because sometimes 1 ms faster
-
 /**
  * @goal   get best results between echo and print
- * @return array (associative)
+ * @return array of associative arrays
  */
 function echo_vs_print()
 {
@@ -152,21 +149,23 @@ function echo_vs_print()
     elseif($result9 < $result10) { $class9 = 'alert-success'; $class10 = 'alert-danger'; }
     else { $class9 = 'alert-warning'; $class10 = 'alert-warning'; }
 
-    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
-                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,
-                 'nr3' => 3, 'test3' => $result3, 'class3' => $class3,
-                 'nr4' => 4, 'test4' => $result4, 'class4' => $class4,
-                 'nr5' => 5, 'test5' => $result5, 'class5' => $class5,
-                 'nr6' => 6, 'test6' => $result6, 'class6' => $class6,
-                 'nr7' => 7, 'test7' => $result7, 'class7' => $class7,
-                 'nr8' => 8, 'test8' => $result8, 'class8' => $class8,
-                 'nr9' => 9, 'test9' => $result9, 'class9' => $class9,
-                 'nr10' => 10, 'test10' => $result10, 'class10' => $class10,);
+    return array(
+        array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'echo \'\';',),
+        array('nr2' => 2, 'test2' => $result2, 'class2' => $class2, 'name2' => 'print \'\';',),
+        array('nr3' => 3, 'test3' => $result3, 'class3' => $class3, 'name3' => 'echo \'aaaaaaaaaaaaaaaaaaaaaaaaaaaa\';',),
+        array('nr4' => 4, 'test4' => $result4, 'class4' => $class4, 'name4' => 'print \'aaaaaaaaaaaaaaaaaaaaaaaaaaaa\';',),
+        array('nr5' => 5, 'test5' => $result5, 'class5' => $class5, 'name5' => 'echo \'aaaaaaa\'.\'aaaaaaa\'.\'aaaaaaa\'.\'aaaaaaa\';',),
+        array('nr6' => 6, 'test6' => $result6, 'class6' => $class6, 'name6' => 'print \'aaaaaaa\'.\'aaaaaaa\'.\'aaaaaaa\'.\'aaaaaaa\';',),
+        array('nr7' => 7, 'test7' => $result7, 'class7' => $class7, 'name7' => '$a = \'aaaaaaa\'; <br> echo \'aaaaaaa\'.$a.\'aaaaaaa\'.$a;',),
+        array('nr8' => 8, 'test8' => $result8, 'class8' => $class8, 'name8' => '$a = \'aaaaaaa\'; <br> echo \'aaaaaaa\'.$a.\'aaaaaaa\'.$a;',),
+        array('nr9' => 9, 'test9' => $result9, 'class9' => $class9, 'name9' => '$a = \'aaaaaaa\'; <br> echo $a.$a.$a.$a;',),
+        array('nr10' => 10, 'test10' => $result10, 'class10' => $class10, 'name10' => '$a = \'aaaaaaa\'; <br> print $a.$a.$a.$a;',),
+    );
 }
 
 /**
  * @goal   get best results between single- and double quotes
- * @return array (associative)
+ * @return array of associative arrays
  */
 function single_vs_double_quotes()
 {
@@ -288,19 +287,21 @@ function single_vs_double_quotes()
     elseif($result7 < $result8) { $class7 = 'alert-success'; $class8 = 'alert-danger'; }
     else { $class7 = 'alert-warning'; $class8 = 'alert-warning'; }
 
-    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
-                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,
-                 'nr3' => 3, 'test3' => $result3, 'class3' => $class3,
-                 'nr4' => 4, 'test4' => $result4, 'class4' => $class4,
-                 'nr5' => 5, 'test5' => $result5, 'class5' => $class5,
-                 'nr6' => 6, 'test6' => $result6, 'class6' => $class6,
-                 'nr7' => 7, 'test7' => $result7, 'class7' => $class7,
-                 'nr8' => 8, 'test8' => $result8, 'class8' => $class8,);
+    return array(
+        array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'single (\') quotes. Just an empty string: $tmp[] = \'\';',),
+        array('nr2' => 2, 'test2' => $result2, 'class2' => $class2, 'name2' => 'double (") quotes. Just an empty string: $tmp[] = "";',),
+        array('nr3' => 3, 'test3' => $result3, 'class3' => $class3, 'name3' => 'single (\') quotes. 20 bytes Text : $tmp[] = \'aaaaaaaaaaaaaaaaaaaa\';',),
+        array('nr4' => 4, 'test4' => $result4, 'class4' => $class4, 'name4' => 'double (") quotes. 20 bytes Text : $tmp[] = "aaaaaaaaaaaaaaaaaaaa";',),
+        array('nr5' => 5, 'test5' => $result5, 'class5' => $class5, 'name5' => 'single (\') quotes. 20 bytes Text and 3x a $ : $tmp[] = \'aa $ aaaa $ aaaa $ a\';',),
+        array('nr6' => 6, 'test6' => $result6, 'class6' => $class6, 'name6' => 'double (") quotes. 20 bytes Text and 3x a $ : $tmp[] = "aa \$ aaaa \$ aaaa \$ a";',),
+        array('nr7' => 7, 'test7' => $result7, 'class7' => $class7, 'name7' => 'single (\') quotes. $a = \'a\'; $tmp[] = $a.\' aaaa \'.$a.\' aaaa \'.$a.\' aaaa\';',),
+        array('nr8' => 8, 'test8' => $result8, 'class8' => $class8, 'name8' => 'double (") quotes. $a = \'a\'; $tmp[] = "$a aaaa $a aaaa $a aaaa";',),
+    );
 }
 
 /**
  * @goal   get best results between if and switch
- * @return array (associative)
+ * @return array of associative arrays
  */
 function if_vs_switch()
 {
@@ -484,19 +485,21 @@ function if_vs_switch()
     elseif($result7 < $result8) { $class7 = 'alert-success'; $class8 = 'alert-danger'; }
     else { $class7 = 'alert-warning'; $class8 = 'alert-warning'; }
 
-    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
-                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,
-                 'nr3' => 3, 'test3' => $result3, 'class3' => $class3,
-                 'nr4' => 4, 'test4' => $result4, 'class4' => $class4,
-                 'nr5' => 5, 'test5' => $result5, 'class5' => $class5,
-                 'nr6' => 6, 'test6' => $result6, 'class6' => $class6,
-                 'nr7' => 7, 'test7' => $result7, 'class7' => $class7,
-                 'nr8' => 8, 'test8' => $result8, 'class8' => $class8,);
+    return array(
+        array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'if and elseif (using ==)',),
+        array('nr2' => 2, 'test2' => $result2, 'class2' => $class2, 'name2' => 'switch / case',),
+        array('nr3' => 3, 'test3' => $result3, 'class3' => $class3, 'name3' => 'if, elseif and else (using ==)',),
+        array('nr4' => 4, 'test4' => $result4, 'class4' => $class4, 'name4' => 'switch / case / default',),
+        array('nr5' => 5, 'test5' => $result5, 'class5' => $class5, 'name5' => 'if and elseif (using ===)',),
+        array('nr6' => 6, 'test6' => $result6, 'class6' => $class6, 'name6' => 'switch / case',),
+        array('nr7' => 7, 'test7' => $result7, 'class7' => $class7, 'name7' => 'if, elseif and else (using ===)',),
+        array('nr8' => 8, 'test8' => $result8, 'class8' => $class8, 'name8' => 'switch / case / default',),
+    );
 }
 
 /**
  * @goal   get best results between counting for and while
- * @return array (associative)
+ * @return array of associative arrays
  */
 function for_vs_while_counting()
 {
@@ -520,13 +523,15 @@ function for_vs_while_counting()
     elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
     else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
 
-    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
-                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,);
+    return array(
+        array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'for($i = 0; $i < 1000; $i++);',),
+        array('nr2' => 2, 'test2' => $result2, 'class2' => $class2, 'name2' => '$i = 0; while($i < 1000) $i++;',),
+    );
 }
 
 /**
  * @goal   get best results printing associative array between foreach and for, while is deprecated
- * @return array (associative)
+ * @return array of associative arrays
  */
 function readAssocArray_foreach_vs_for()
 {
@@ -583,13 +588,15 @@ function readAssocArray_foreach_vs_for()
     elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
     else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
 
-    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
-                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,);
+    return array(
+        array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'foreach($aHash as $key => $val);',),
+        array('nr2' => 2, 'test2' => $result2, 'class2' => $class2, 'name2' => '$size = count($aHash); <br> $keys = array_keys($aHash); <br> for($i=0; $i<$size; $i++);',),
+    );
 }
 
 /**
  * @goal   get best results writing new associative array with for and while
- * @return array (associative)
+ * @return array of associative arrays
  */
 function writeAssocArray_for_vs_while()
 {
@@ -630,13 +637,15 @@ function writeAssocArray_for_vs_while()
     elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
     else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
 
-    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
-                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,);
+    return array(
+        array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'for($i=0; $i<1000; $i++);',),
+        array('nr2' => 2, 'test2' => $result2, 'class2' => $class2, 'name2' => 'while($i < 1000);',),
+    );
 }
 
 /**
  * @goal   get best results modifying associative array between foreach and for, while is deprecated
- * @return array (associative)
+ * @return array of associative arrays
  */
 function modifyAssocArray_foreach_vs_for()
 {
@@ -693,6 +702,8 @@ function modifyAssocArray_foreach_vs_for()
     elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
     else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
 
-    return array('nr1' => 1, 'test1' => $result1, 'class1' => $class1,
-                 'nr2' => 2, 'test2' => $result2, 'class2' => $class2,);
+    return array(
+        array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'foreach($aHash as $key=>$val) $aHash[$key] .= "a";',),
+        array('nr2' => 2, 'test2' => $result2, 'class2' => $class2, 'name2' => '$size = count($aHash); <br> $keys = array_keys($aHash); <br> for($i=0; $i<$size; $i++);',),
+    );
 }
