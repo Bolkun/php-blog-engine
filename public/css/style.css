@@ -2,6 +2,12 @@
  * view: inc/nav/admin/nav-top-admin
  */
 /* change size of nav */
+.admin_nav_link {
+ display: inline;
+}
+.pages_nav_link {
+ padding: 0 0.5em 0 0.5em;
+}
 #nav_top_admin{
  z-index: 1;
  padding-top: 0.25rem;

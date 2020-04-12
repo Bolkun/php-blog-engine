@@ -1,0 +1,28 @@
+<?php
+
+// All Vars For Automation
+/*
+CONTROLLER_CLASS         = [.:CONTROLLER_CLASS:.]
+MODEL_CLASS              = [.:MODEL_CLASS:.]
+MODEL_CLASS_TO_LOWERCASE = [.:MODEL_CLASS_TO_LOWERCASE:.]
+PAGE_NAME                = [.:PAGE_NAME:.]
+PAGE_PATH                = [.:PAGE_PATH:.]
+*/
+
+class [.:CONTROLLER_CLASS:.] extends Controller
+{
+    public function __construct()
+    {
+        $this->[.:MODEL_CLASS_TO_LOWERCASE:.]Model = $this->model('[.:MODEL_CLASS:.]');
+    }
+    /*
+     * All Pages ▼
+     */
+    public function [.:PAGE_NAME:.]()
+    {
+        $data = [
+            'title' => "[.:MODEL_CLASS:.]",
+        ];
+        $this->view('[.:PAGE_PATH:.]', $data);
+    }
+}

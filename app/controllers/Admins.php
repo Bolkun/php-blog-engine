@@ -32,6 +32,7 @@ class Admins extends Controller
             header("HTTP/1.0 404 Not Found");
         }
     }
+
     public function phpinfo()
     {
         // Only for Admin
@@ -203,13 +204,14 @@ class Admins extends Controller
                                     $pagesPath_err = "File don't match regex[a-z0-9_-].php";
                                     break;
                                 }
+                                // NEEDS CONSTRUCT FILE.PHP CLASS LINK validation with regex
                             }
                         }
                     }
                     // check if path already exists
-                    foreach ($aPagesPaths as $path){
-                        if($path === $pagesPath){
-                            $pagesPath_err = "page already exists with $path";
+                    foreach ($aPagesPaths as $viewPath){
+                        if($viewPath === $pagesPath){
+                            $pagesPath_err = "page already exists with $viewPath";
                             break;
                         }
                     }
@@ -226,23 +228,60 @@ class Admins extends Controller
                 }
                 // EVERYTHING OK
                 if(empty($pagesPath_err) && empty($pagesLink_err)){
-                    // create new folders with file
-                    $path = VIEWSROOT;
+                    // 1. create new folder tree in folder 'views'
+                    $viewPath = VIEWSROOT;
                     for($i=0; $i<getArraySize($aPagesPathRelativeParts); $i++) {
                         if($i !== (getArraySize($aPagesPathRelativeParts) - 1)){
-                            $path .= DIRECTORY_SEPARATOR . $aPagesPathRelativeParts[$i];
-                            if(! file_exists($path)){
-                                mkdir($path, 0755);
+                            $viewPath .= DIRECTORY_SEPARATOR . $aPagesPathRelativeParts[$i];
+                            if(! file_exists($viewPath)){
+                                mkdir($viewPath, 0755);
                             }
                         } else {
-                            $file = $aPagesPathRelativeParts[$i];
+                            // last element is file.php
+                            $viewFile = $aPagesPathRelativeParts[$i];
                         }
                     }
-                    if(! file_exists($path . DIRECTORY_SEPARATOR . $file)){
-                        touch($path . DIRECTORY_SEPARATOR . $file);
+                    // 2. create new file.php in a new folder
+                    if(! file_exists($viewPath . DIRECTORY_SEPARATOR . $viewFile)){
+                        touch($viewPath . DIRECTORY_SEPARATOR . $viewFile);
+                        // 2.1 copy and replace vars from inc/Model.txt in a new Model
+                        copyOneFileToAnother(VIEWSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'View.txt', $viewPath . DIRECTORY_SEPARATOR . $viewFile);
                     } else {
-                        die('Could not create ' . $path . DIRECTORY_SEPARATOR . $file);
+                        die('Could not create ' . $viewPath . DIRECTORY_SEPARATOR . $viewFile);
                     }
+                    // 3. create new file Model.php in folder 'models'
+                    $modelPath = MODELSROOT;
+                    $modelFile = getFirstDirAfterURLROOT($pagesLink);
+                    $modelFile = setFistCharUppercase($modelFile);
+                    $modelFileName = deleteCharsInStringBasedOnPosition($modelFile, -1);
+                    $modelFile = $modelFileName . '.php';
+                    if(! file_exists($modelPath . DIRECTORY_SEPARATOR . $modelFile)){
+                        touch($modelPath . DIRECTORY_SEPARATOR . $modelFile);
+                        // 3.1 copy and replace vars from inc/Model.txt in a new Model
+                        copyOneFileToAnother($modelPath . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Model.txt', $modelPath . DIRECTORY_SEPARATOR . $modelFile);
+                        replaceAllMatchesInFileWithString($modelPath . DIRECTORY_SEPARATOR . $modelFile, array('[.:MODEL_CLASS:.]'), array($modelFileName));
+                    }
+                    // 4. create new file Controller.php in folder 'controllers'
+                    $controllerPath = CONTROLLERSROOT;
+                    $controllerFile = getFirstDirAfterURLROOT($pagesLink);
+                    $controllerFileName = setFistCharUppercase($controllerFile);
+                    $controllerFile = $controllerFileName . '.php';
+                    if(! file_exists($controllerPath . DIRECTORY_SEPARATOR . $controllerFile)){
+                        touch($controllerPath . DIRECTORY_SEPARATOR . $controllerFile);
+                        // 4.1 copy and replace vars from inc/Controller.txt in a new Controller
+                        copyOneFileToAnother($controllerPath . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Controller.txt', $controllerPath . DIRECTORY_SEPARATOR . $controllerFile);
+                        $aControllerVars = array('[.:CONTROLLER_CLASS:.]', '[.:MODEL_CLASS:.]', '[.:MODEL_CLASS_TO_LOWERCASE:.]', '[.:PAGE_NAME:.]', '[.:PAGE_PATH:.]');
+                        // (1)
+                        $pages_path = str_replace(VIEWSROOT . DIRECTORY_SEPARATOR, '', $pagesPath);
+                        // (2)
+                        $pages_path = str_replace('\\', '/', $pages_path);
+                        $aControllerVarsReplace = array($controllerFileName, $modelFileName, setFistCharLowercase($modelFileName), deleteCharsInStringBasedOnPosition($viewFile, -4), deleteCharsInStringBasedOnPosition($pages_path, -4));
+                        replaceAllMatchesInFileWithString($controllerPath . DIRECTORY_SEPARATOR . $controllerFile, $aControllerVars, $aControllerVarsReplace);
+                    } else {
+                        // add new method to Controller.php
+
+                    }
+
                     flash('pages', "New page processed success!<br>link: <a href=\"$pagesLink\">$pagesLink</a>", "alert success");
                     // reload table
                     array_unshift($aPagesPaths, $pagesPath);    // add as first el. of an array

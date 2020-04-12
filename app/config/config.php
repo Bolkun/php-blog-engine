@@ -13,8 +13,13 @@ define('DB_NAME', '$bolkun_taskmanager');
 /*** APP ***/
 // App Root Folder (Hint: do not show to last files C:\xampp\htdocs\bolkun\app)
 define('APPROOT', dirname(dirname(__FILE__)));
+// Controllers Root Folder (Hint: C:\xampp\htdocs\bolkun\app\controllers)
+define('CONTROLLERSROOT', APPROOT . DIRECTORY_SEPARATOR . 'controllers');
+// Models Root Folder (Hint: C:\xampp\htdocs\bolkun\app\models)
+define('MODELSROOT', APPROOT . DIRECTORY_SEPARATOR . 'models');
 // Views Root Folder (Hint: C:\xampp\htdocs\bolkun\app\views)
 define('VIEWSROOT', APPROOT . DIRECTORY_SEPARATOR . 'views');
+
 // URL Root*
 define('URLROOT', 'http://localhost/bolkun');
 // URL Base

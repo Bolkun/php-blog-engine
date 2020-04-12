@@ -1,6 +1,11 @@
 <?php
 
-class Dashboard
+// All Vars For Automation
+/*
+MODEL_CLASS              = Example
+*/
+
+class Example
 {
     private $db;
 

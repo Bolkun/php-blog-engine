@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-6">
-                            <img width="100%"src="<?php echo URLROOT; ?>/views/admins/devs/img/popular_php_sites651x256.png" class="rounded d-block" alt="popular sites made with php framework">
+                            <img width="100%"src="<?php echo URLROOT; ?>/img/popular_php_sites651x256.png" class="rounded d-block" alt="popular sites made with php framework">
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
@@ -36,7 +36,7 @@
                     </p>
                     <div class="row">
                         <div class="col-sm-6">
-                            <img width="100%"src="<?php echo URLROOT; ?>/views/admins/devs/img/mmvc500x550.png" class="rounded d-block" alt="mvc">
+                            <img width="100%"src="<?php echo URLROOT; ?>/img/mmvc500x550.png" class="rounded d-block" alt="mvc">
                         </div>
                         <div class="col-sm-6">
                             <h2>Modified Model View Controller (MMVC)</h2>
