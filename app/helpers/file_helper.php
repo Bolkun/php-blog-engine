@@ -11,7 +11,7 @@ function copyOneFileToAnother($path1, $path2){
 }
 
 /**
- * @goal   replace all matches in a file with another string
+ * @goal   replace all matches in a file with another string, needed for page creation
  * @param  string $path, array $match, array $replace     @example C:\xampp\info.txt, change_this_a, with_this_b
  * @result modified file
  */

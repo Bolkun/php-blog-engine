@@ -134,7 +134,7 @@ class Costs extends Controller
         }
     }
 
-    public function new_edit_delete()
+    public function newEditDelete()
     {
         // Search POST
         if (!empty($_POST['submitNewUpdate'])) {
@@ -215,7 +215,7 @@ class Costs extends Controller
                 'search_year' => $search_year,
                 'costs_search' => $costs_search,
             ];
-            $this->view('costs/new_edit_delete', $data);
+            $this->view('costs/newEditDelete', $data);
         } else if (!empty($_POST['cost_id'])) {
             $data['cost_id'] = $_POST['cost_id'];
             $data['year'] = $_POST['year'];
@@ -259,7 +259,7 @@ class Costs extends Controller
                 'search_year' => $search_year,
                 'costs_search' => $costs_search,
             ];
-            $this->view('costs/new_edit_delete', $data);
+            $this->view('costs/newEditDelete', $data);
         } else {
             $search_year = date("Y");
             // default search data
@@ -293,7 +293,7 @@ class Costs extends Controller
                 'search_year' => $search_year,
                 'costs_search' => $costs_search,
             ];
-            $this->view('costs/new_edit_delete', $data);
+            $this->view('costs/newEditDelete', $data);
         }
     }
 }

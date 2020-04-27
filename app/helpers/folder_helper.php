@@ -12,6 +12,8 @@ function getPagesPaths($path){
     unset($aFolderFiles[array_search('..', $aFolderFiles, true)]);
     unset($aFolderFiles[array_search('inc', $aFolderFiles, true)]);
     unset($aFolderFiles[array_search('admins', $aFolderFiles, true)]);
+    unset($aFolderFiles[array_search('users', $aFolderFiles, true)]);
+    unset($aFolderFiles[array_search('dashboards', $aFolderFiles, true)]);
 
     if(count($aFolderFiles) < 1) return;
     foreach($aFolderFiles as $value){
@@ -40,6 +42,8 @@ function getPagesLinks($path){
     unset($aFolderFiles[array_search('..', $aFolderFiles, true)]);
     unset($aFolderFiles[array_search('inc', $aFolderFiles, true)]);
     unset($aFolderFiles[array_search('admins', $aFolderFiles, true)]);
+    unset($aFolderFiles[array_search('users', $aFolderFiles, true)]);
+    unset($aFolderFiles[array_search('dashboards', $aFolderFiles, true)]);
 
     if(count($aFolderFiles) < 1) return;
     foreach($aFolderFiles as $value){

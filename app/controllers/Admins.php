@@ -159,7 +159,7 @@ class Admins extends Controller
         }
     }
     /*****************************************************************************************************************/
-    public function pages_newEditDelete()
+    public function newEditDelete()
     {
         // Only for Admin
         if(isAdminLoggedIn() === true){
@@ -310,7 +310,25 @@ class Admins extends Controller
                     'aPagesLinks' => $aPagesLinks,
                     'iPagesCount' => $iPagesCount,
                 ];
-                $this->view('admins/pages/pages_newEditDelete', $data);
+                $this->view('admins/pages/newEditDelete', $data);
+            }elseif (!empty($_POST['ajax_sPage'])) {
+                $sPage = $_POST['ajax_sPage'];
+
+                // Init data
+                $data = [
+                    //POST DATA DEFAULT
+                    'pagesPath' => '',
+                    'pagesLink' => '',
+                    //POST DATA ERROR DEFAULT
+                    'pagesPath_err' => '',
+                    'pagesLink_err' => '',
+                    //OTHER
+                    'title' => "New/Edit/Delete",
+                    'aPagesPaths' => $aPagesPaths,
+                    'aPagesLinks' => $aPagesLinks,
+                    'iPagesCount' => $iPagesCount,
+                ];
+                $this->view('admins/pages/newEditDelete', $data);
             } else {
                 // Init data
                 $data = [
@@ -326,7 +344,7 @@ class Admins extends Controller
                     'aPagesLinks' => $aPagesLinks,
                     'iPagesCount' => $iPagesCount,
                 ];
-                $this->view('admins/pages/pages_newEditDelete', $data);
+                $this->view('admins/pages/newEditDelete', $data);
             }
         } else {
             header("HTTP/1.0 404 Not Found");

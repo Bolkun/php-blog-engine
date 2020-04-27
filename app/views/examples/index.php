@@ -12,7 +12,10 @@ BODY = [.:BODY:.]
       border: 1px solid #aaaaaa;
     }
 </style>
-<div id="body" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <?php // [.:BODY:.] ?>
+<div id="body" ondrop='drop(event, <?php echo jsonEncode(); ?>)' ondragover="allowDrop(event)">
+    <div id="body_reload">
+        <h1><?php echo $data['title']; ?></h1>
+        <?php // [.:BODY:.] ?>
+    </div>
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

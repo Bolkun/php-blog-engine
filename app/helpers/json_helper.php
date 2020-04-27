@@ -14,3 +14,20 @@ function jsonEncode($oData = NULL){
     $sJSON = json_encode($aData);
     return $sJSON;
 }
+
+/**
+ * @goal    convert object data to JSON readable string and adds 4 extra key value pairs, usable for AJAX post requests
+ * @param   object $oData, string sPage @example print_r ([id] => 1 [created] => John ...)
+ * @return  string                      @example print_r {"URLBASE":"...","URLROOT":"...","VIEWSROOT":"...","id":"1","created":"John" ...)
+ */
+function jsonEncodePage($oData = NULL, $sPage){
+    // convert object to associative array
+    $aData = (array) $oData;
+    // add url to array being posted to
+    $aData['sPage'] = $sPage;   // path
+    $aData['URLBASE'] = URLBASE;
+    $aData['URLROOT'] = URLROOT;
+    $aData['VIEWSROOT'] = VIEWSROOT;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}

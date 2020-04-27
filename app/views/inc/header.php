@@ -27,7 +27,7 @@
         require APPROOT . '/views/inc/nav/admin/nav-top-admin.php';
         require APPROOT . '/views/inc/nav/admin/nav-top-page.php';
     } elseif(isMitarbeiterLoggedIn() === true) {
-        require APPROOT . '/views/inc/nav/nav-top.php';
+        require APPROOT . '/views/inc/nav/user/nav-top-user.php';
     }
 ?>
 

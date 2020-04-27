@@ -73,25 +73,10 @@
     </ul>
 
     <!-- Tab panes -->
-    <script>
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        }
-
-        function drop(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
-        }
-    </script>
     <div class="tab-content">
         <div class="tab-pane container-fluid active" id="containers" style="border: 1px solid grey;">
             <img id="container_drag" src="<?php echo URLROOT; ?>/img/page/container634x143.png" draggable="true" ondragstart="drag(event)">
-            <img id="container_drag" src="<?php echo URLROOT; ?>/img/page/container-fluid633x143.png" draggable="true" ondragstart="drag(event)">
+            <img id="container-fluid_drag" src="<?php echo URLROOT; ?>/img/page/container-fluid633x143.png" draggable="true" ondragstart="drag(event)">
         </div>
         <div class="tab-pane container" id="alerts">
             <h3>Menu 1</h3>

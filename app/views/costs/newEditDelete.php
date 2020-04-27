@@ -11,13 +11,13 @@
                     <div id="costsNewEditDelete">
                         <!-- Table New Edit Delete ? -->
                         <div class="table-responsive">
-                            <form action="<?php echo URLROOT; ?>/costs/new_edit_delete" method="post">
+                            <form action="<?php echo URLROOT; ?>/costs/newEditDelete" method="post">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th colspan="16">Results: <?php echo $data['costs_search'][0]->rowCount; ?></th>
                                         <th>
-                                            <button class="btn btn-block" href="<?php echo URLROOT; ?>/costs/new_edit_delete">
+                                            <button class="btn btn-block" href="<?php echo URLROOT; ?>/costs/newEditDelete">
                                                 Reset
                                             </button>
                                         </th>

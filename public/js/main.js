@@ -1,5 +1,5 @@
 /*
- *   view: inc/nav/admin/nav-top-admin
+ *   view: inc/nav/admin/nav-top-admin.php
  */
 $(document).ready(function() {
     // When the user scrolls the page, execute myFunction
@@ -17,9 +17,44 @@ $(document).ready(function() {
         }
     }
 });
-/******************************************************************************************************/
+/**********************************************************************************************************************/
 /*
- *   view: costs
+ *   view: inc/nav/admin/nav-top-page.php
+ */
+function allowDrop(ev) {
+    ev.preventDefault();    // change default state to allow drop event
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+// Param: string, string
+function drop(ev, server) {
+    ev.preventDefault();
+    var drag_id = ev.dataTransfer.getData("text"); // have only id from function drag
+    //ev.target.appendChild(document.getElementById(drag_id));
+    $.ajax({
+        url: server['URLBASE'],
+        data: 'ajax_drag_id=' +drag_id,
+        type: 'post',
+        error: drop_error(server),
+        success: drop_success(server)
+    });
+}
+
+function drop_error(server){
+    //alert(server['URLBASE'] + ": error");
+    // reload new view
+    $("#body").load(location.href + " #body_reload");    // parent.load(child)
+}
+function drop_success(server){
+    //alert(server['URLBASE'] + ": success");
+    // reload new view
+    $("#body").load(location.href + " #body_reload");    // parent.load(child)
+}
+/**********************************************************************************************************************/
+/*
+ *   view: costs/newEditDelete.php
  */
 //Param assoc array
 function costsDeleteRow(values) {
@@ -62,4 +97,90 @@ function costsDeleteRow_success(values){
         $("#costsDeleteRow_success").load(location.href + " #wrapper");    // parent.load(child)
     }, 3000);
 }
-/******************************************************************************************************/
+/**********************************************************************************************************************/
+/*
+ *   view: admins/pages/newEditDelete.php
+ */
+// Autofill Link
+function pagesPathtoPagesLink(values) {
+    var linkRoot = values['URLROOT'];
+    var viewsRoot = values['VIEWSROOT'];
+    var pagesPath = $("#pagesPath").val();
+    pagesPath = pagesPath.replace(viewsRoot, '');  // replace 'C:\xampp\htdocs\bolkun\app\views' with ''
+    pagesPath = pagesPath.replace(/\\/g, '\/');    // replace '\' with '/'
+    pagesPath = pagesPath.replace('/index.php', '');
+    pagesPath = pagesPath.replace('.php', '');
+    $("#pagesLink").val(linkRoot + pagesPath);
+
+    // searchable table
+    var search = $('#pagesPath').val().toLowerCase();
+    $("#tablePages tbody tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(search) > -1)
+    });
+}
+
+// Copy Path
+function copyPath(that) {
+    var inp = document.createElement('input');
+    document.body.appendChild(inp);
+    inp.value = that.textContent;
+    inp.select();
+    document.execCommand('copy', false);
+    inp.remove();
+
+    // copy to input path
+    $("#pagesPath").val(that.textContent.trim());
+    // copy next td to input link
+    var link = $(that).closest('td').next('td').text().trim();
+    $("#pagesLink").val(link);
+
+    // searchable table
+    var search = $('#pagesPath').val().toLowerCase();
+    $("#tablePages tbody tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(search) > -1)
+    });
+}
+
+// Delete Page
+function pagesDeletePage(values) {
+    if (confirm("Want to delete Page with path="+values['sPage']+"?")) {
+        // Logic to delete the page
+        $.ajax({
+            url: values['URLBASE'],
+            data: 'ajax_sPage=' +values['sPage'],
+            type: 'post',
+            error: pagesDeletePage_error(values),
+            success: pagesDeletePage_success(values)
+        });
+    }
+}
+
+function pagesDeletePage_error(values){
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert danger" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Error: Page with path =' +values['sPage']+ ' was not deleted!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("message").innerHTML = message;
+    setTimeout(function() {
+        $('#message').fadeOut('fast');
+        // reload new view
+        $("#page_reload").load(location.href + " #page_start");    // parent.load(child)
+    }, 3000);
+}
+function pagesDeletePage_success(values){
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert success" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'SUCCESS: Page with path =' +values['sPage']+ ' was deleted!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("message").innerHTML = message;
+    setTimeout(function() {
+        $('#message').fadeOut('fast');
+        // reload new view
+        $("#page_reload").load(location.href + " #page_start");    // parent.load(child)
+    }, 3000);
+}
+/**********************************************************************************************************************/

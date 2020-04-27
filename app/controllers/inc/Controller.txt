@@ -20,9 +20,14 @@ class [.:CONTROLLER_CLASS:.] extends Controller
      */
     public function [.:PAGE_NAME:.]()
     {
-        $data = [
-            'title' => "[.:MODEL_CLASS:.]",
-        ];
+        // EDIT PAGE
+        if(!empty($_POST['ajax_drag_id'])){
+
+        } else {
+            $data = [
+                'title' => "[.:MODEL_CLASS:.]",
+            ];
+        }
         $this->view('[.:PAGE_PATH:.]', $data);
     }
 }
