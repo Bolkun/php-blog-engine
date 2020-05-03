@@ -143,7 +143,7 @@ function copyPath(that) {
 
 // Delete Page
 function pagesDeletePage(values) {
-    if (confirm("Want to delete Page with path="+values['sPage']+"?")) {
+    if (confirm("Want to delete Page with path="+values['sPage']+" ?")) {
         // Logic to delete the page
         $.ajax({
             url: values['URLBASE'],

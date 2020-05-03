@@ -7,8 +7,8 @@
             <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/dashboards') echo 'active'; ?>">
                 <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/dashboards">Start</a>
             </li>
-            <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/admins/pages/pages_newEditDelete') echo 'active'; ?>">
-                <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/admins/pages/pages_newEditDelete">Pages</a>
+            <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/admins/pages/newEditDelete') echo 'active'; ?>">
+                <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/admins/pages/newEditDelete">Pages</a>
                 <span id="pageMenu" onclick="show_page_menu()" style="color: white; cursor: pointer;">&uarr;</span>
             </li>
             <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/admins/tests') echo 'active'; ?>">
@@ -36,7 +36,7 @@
                     Pages
                 </a>
                 <div class="dropdown-menu bg-dark">
-                    <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/pages/pages_newEditDelete">New/Edit/Delete</a>
+                    <a class="dropdown-item text-danger" href="<?php echo URLROOT; ?>/admins/pages/newEditDelete">New/Edit/Delete</a>
                 </div>
             </span>
         </div>

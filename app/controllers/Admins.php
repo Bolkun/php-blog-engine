@@ -186,15 +186,21 @@ class Admins extends Controller
                     $pagesPathRelative = str_replace(VIEWSROOT . DIRECTORY_SEPARATOR, '', $pagesPath);
                     // make array of parts
                     $aPagesPathRelativeParts = explode(DIRECTORY_SEPARATOR, $pagesPathRelative);
-                    // check if minimum folder and file specified
-                    if(getArraySize($aPagesPathRelativeParts) < 2){
-                        $pagesPath_err = "Required minimum " . VIEWSROOT . DIRECTORY_SEPARATOR . "[folder]" . DIRECTORY_SEPARATOR . "[file.php]";
+                    // check if folder and file specified
+                    if(getArraySize($aPagesPathRelativeParts) !== 2){
+                        $pagesPath_err = "Required " . VIEWSROOT . DIRECTORY_SEPARATOR . "[folder]" . DIRECTORY_SEPARATOR . "[file.php]";
                     } else {
                         for($i=0; $i<getArraySize($aPagesPathRelativeParts); $i++) {
                             if($i !== (getArraySize($aPagesPathRelativeParts) - 1)){
                                 // check folders
                                 if(! preg_match("/[a-z0-9_-]/", $aPagesPathRelativeParts[$i])){
                                     $pagesPath_err = "Folder don't match regex [a-z0-9_-]";
+                                    break;
+                                }
+                                // check reserved folders
+                                if($aPagesPathRelativeParts[$i] === 'inc' || $aPagesPathRelativeParts[$i] === 'admins' ||
+                                    $aPagesPathRelativeParts[$i] === 'users' || $aPagesPathRelativeParts[$i] === 'dashboards'){
+                                    $pagesPath_err = "Folders like \"inc, admins, users, dashboards\" are reserved.";
                                     break;
                                 }
                             } else {
@@ -311,9 +317,16 @@ class Admins extends Controller
                     'iPagesCount' => $iPagesCount,
                 ];
                 $this->view('admins/pages/newEditDelete', $data);
-            }elseif (!empty($_POST['ajax_sPage'])) {
+            } elseif (!empty($_POST['ajax_sPage'])) {
                 $sPage = $_POST['ajax_sPage'];
+                // delete folder with all pages
+                if(is_dir($sPage)){
+                   deleteFolderWithAllPages($sPage);
+                }
+                // delete only one page
+                if(is_file($sPage)){
 
+                }
                 // Init data
                 $data = [
                     //POST DATA DEFAULT

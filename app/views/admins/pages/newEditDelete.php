@@ -42,64 +42,51 @@
                                                        class="btn btn-primary btn-block">
                                             </th>
                                         </tr>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Path</th>
-                                            <th>Link</th>
-                                            <th></th>
-                                        </tr>
                                         </thead>
-                                        <tbody>
-                                        <?php
-                                        // get first folder
-                                        $aDir = array();
+                                    <?php
+                                        $nr = 0;
+                                        $pagesFolderNext = '';
+                                        $pagesFolderPrevious = '';
                                         for ($i = 0; $i < $data['iPagesCount']; $i++) {
-                                            // (1) delete  URLROOT
-                                            $link = str_replace(URLROOT . '/', '', $data['aPagesLinks'][$i]);
-                                            // (2) grep folder (everything till first forward slash)
-                                            preg_match('/^([^\/]+)/', $link, $matches_in_dir);
-                                            array_push($aDir, $matches_in_dir[0]);
-                                        }
-                                        // fill colors
-                                        $class1 = 'background-color: rgba(0, 0, 0, 0.05);';
-                                        $class2 = '';
-                                        $class = $class1;
-                                        $aDirClass = array();
-                                        $aDirUnique = array_unique($aDir);  // keys are different, [0] [3] [8]
-                                        foreach($aDirUnique as $key1 => $val1){
-                                            foreach($aDir as $key2 => $val2){
-                                                if($aDirUnique[$key1] === $aDir[$key2]){
-                                                    array_push($aDirClass, $class);
-                                                    unset($aDir[$key2]);
-                                                } else {
-                                                    break;
-                                                }
+                                            $pagesFolderNext = getViewFolder($data['aPagesPaths'][$i]);
+                                            if($pagesFolderNext !== $pagesFolderPrevious){ ?>
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="3"><?php echo $pagesFolderNext; ?></th>
+                                                        <th>
+                                                            <img style="width: 16px; height: 16px"
+                                                                 src="<?php echo URLROOT; ?>/img/icon/delete24x24.png"
+                                                                 class="cpm__img tile__img img-responsive"
+                                                                 onclick='pagesDeletePage(<?php echo jsonEncodePage(NULL, VIEWSROOT . DIRECTORY_SEPARATOR . $pagesFolderNext); ?>)'>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                        for ($a = 0; $a < $data['iPagesCount']; $a++) {
+                                                            $pagesFolderNext2 = getViewFolder($data['aPagesPaths'][$a]);
+                                                            if($pagesFolderNext === $pagesFolderNext2){ ?>
+                                                                <tr>
+                                                                    <td><?php echo $nr = $nr + 1; ?></td>
+                                                                    <td style="cursor: copy;" onclick="copyPath(this)">
+                                                                        <?php echo $data['aPagesPaths'][$a]; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="<?php echo $data['aPagesLinks'][$a]; ?>"><?php echo $data['aPagesLinks'][$a]; ?></a>
+                                                                    </td>
+                                                                    <td style="text-align:center;"><img style="width: 16px; height: 16px"
+                                                                                        src="<?php echo URLROOT; ?>/img/icon/delete24x24.png"
+                                                                                        class="cpm__img tile__img img-responsive"
+                                                                                        onclick='pagesDeletePage(<?php echo jsonEncodePage(NULL, $data['aPagesPaths'][$a]); ?>)'>
+                                                                    </td>
+                                                                </tr>
+                                                    <?php   }
+                                                        }
                                             }
-                                            if($class === $class1){
-                                                $class = $class2;
-                                            } elseif ($class === $class2){
-                                                $class = $class1;
-                                            }
-                                        }
-
-                                        for ($i = 0; $i < $data['iPagesCount']; $i++) {
-                                            ?>
-                                            <tr style="<?php echo $aDirClass[$i]; ?>">
-                                                <td><?php echo $i + 1; ?></td>
-                                                <td style="cursor: copy;" onclick="copyPath(this)">
-                                                    <?php echo $data['aPagesPaths'][$i]; ?>
-                                                </td>
-                                                <td>
-                                                    <a href="<?php echo $data['aPagesLinks'][$i]; ?>"><?php echo $data['aPagesLinks'][$i]; ?></a>
-                                                </td>
-                                                <td><img style="width: 16px; height: 16px"
-                                                         src="<?php echo URLROOT; ?>/img/icon/delete24x24.png"
-                                                         class="cpm__img tile__img img-responsive"
-                                                         onclick='pagesDeletePage(<?php echo jsonEncodePage(NULL, $data['aPagesPaths'][$i]); ?>)'>
-                                                </td>
-                                            </tr>
-                                        <?php } ?>
-                                        </tbody>
+                                            $pagesFolderPrevious = $pagesFolderNext;
+                                            $nr = 0;
+                                        } ?>
+                                                </tbody>
                                     </table>
                                 </form>
                             </div>
