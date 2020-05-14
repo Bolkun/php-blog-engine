@@ -1,5 +1,5 @@
 /*
- * view: inc/nav/admin/nav-top-admin
+ * view: inc/nav/admin/nav-top-admin, inc/nav/user/nav-top-user
  */
 /* change size of nav */
 .admin_nav_link {
@@ -8,7 +8,7 @@
 .pages_nav_link {
  padding: 0 0.5em 0 0.5em;
 }
-#nav_top_admin{
+#nav_top {
  z-index: 1;
  padding-top: 0.25rem;
  padding-bottom: 0.25rem;
@@ -58,6 +58,10 @@
 /*
  * nav-top (dropdown hover effect)
  */
+.dropdown-menu {
+ margin-top: 10px;
+}
+
 .dropdown>.dropdown-menu {
  top: 200%;
  transition: 0.3s all ease-in-out;

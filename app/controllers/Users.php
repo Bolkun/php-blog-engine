@@ -188,10 +188,24 @@ class Users extends Controller
         }
     }
 
+    public function changeUserRole()
+    {
+	    if(isAdminLoggedIn()){
+            $_SESSION['temp_user_role'] = 'Mitarbeiter';
+            $_SESSION['user_role'] = 'Mitarbeiter';
+        } elseif(isMitarbeiterLoggedIn()){
+            if(isAdminLoggedInAsCoworker()){
+                $_SESSION['user_role'] = 'Admin';
+                unset($_SESSION['temp_user_role']);
+            }
+        }
+        redirect('dashboards');
+    }
+
     public function logout()
     {
         destroyUserSession();
-        redirect('/users/login');
+        redirect('users/login');
     }
 
     public function settings()

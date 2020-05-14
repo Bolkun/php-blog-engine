@@ -1,16 +1,16 @@
 /*
- *   view: inc/nav/admin/nav-top-admin.php
+ *   view: inc/nav/admin/nav-top-admin.php, inc/nav/user/nav-top-user.php
  */
 $(document).ready(function() {
     // When the user scrolls the page, execute myFunction
-    window.onscroll = function() {navTopAdmin()};
+    window.onscroll = function() { navTopAdmin() };
     // Get the navbar
-    var navbar = document.getElementById("nav_top_admin");
+    var navbar = document.getElementById("nav_top");
     // Get the offset position of the navbar
     var sticky = navbar.offsetTop;
     // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
     function navTopAdmin() {
-        if (window.pageYOffset >= sticky) {
+        if (window.pageYOffset > sticky) {
             navbar.classList.add("sticky")
         } else {
             navbar.classList.remove("sticky");
@@ -184,3 +184,11 @@ function pagesDeletePage_success(values){
     }, 3000);
 }
 /**********************************************************************************************************************/
+/*
+ *   view: inc/nav/nav-sidebar.php
+ */
+$(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+});
