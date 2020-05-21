@@ -3,6 +3,11 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
+        <!-- Left Sidebar Icon -->
+        <button type="button"  class="btn btn-info" id="sidebarCollapse">
+            <i class="fas fa-align-left"></i>
+            <span></span>
+        </button>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/dashboards') echo 'active'; ?>">
                 <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/dashboards">Start</a>
@@ -24,8 +29,11 @@
     </div>
     <!-- Dropdown -->
     <span class="nav-item dropdown">
-        <a class="nav-link admin_nav_link dropdown-toggle text-danger" href="#" id="navbardrop" data-toggle="dropdown">
+        <a class="nav-link admin_nav_link text-danger" href="#" id="navbardrop" data-toggle="dropdown">
             Admin
+            <svg class="bi bi-caret-down-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 01.753 1.659l-4.796 5.48a1 1 0 01-1.506 0z"/>
+            </svg>
         </a>
         <?php if(isAdminLoggedIn()){ ?>
             <div class="dropdown-menu bg-dark">

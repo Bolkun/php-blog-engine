@@ -34,3 +34,17 @@ function getArrayValues($array)
     return array_values($array);
 }
 
+/**
+ * @goal   reset array keys from 0 to n
+ * @param  array|array associative  @example array('Peter'=>35, 'Ben'=>37, 'Joe'=>43)
+ * @return array                    @example array([0] => '35', [1] => '37', [2] => '43')
+ */
+function resetArrayKeys($array){
+    $start = 0;
+    $aNew = array();
+    foreach ($array as $key => $val){
+        $aNew[$start] = $val;
+        $start++;
+    }
+    return $aNew;
+}

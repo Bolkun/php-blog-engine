@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
+    <?php // icons from https://fontawesome.com/v4.7.0/icons/ ?>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <?php //fullcalender-3.9.0 ?>
     <!--<link rel="stylesheet" href="<?php //echo URLROOT; ?>/js/fullcalendar-3.9.0/fullcalendar.css">-->
 </head>

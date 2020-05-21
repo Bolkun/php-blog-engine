@@ -1,6 +1,36 @@
 <?php
 /**
- * @goal   convert the first character of a string to uppercase
+ * @goal   get length of a string
+ * @param  string  @example Hello World!
+ * @return int     @example 12
+ */
+function getLengthOfString($string)
+{
+    return strlen($string);
+}
+
+/**
+ * @goal   get counted words
+ * @param  string  @example Hello World!
+ * @return int     @example 2
+ */
+function getCountedWords($string)
+{
+    return str_word_count($string);
+}
+
+/**
+ * @goal   get reverse string
+ * @param  string  @example Hello World!
+ * @return string  @example !dlroW olleH
+ */
+function getReverseString($string)
+{
+    return strrev($string);
+}
+
+/**
+ * @goal   set first character of a string to uppercase
  * @param  string   @example hello world!
  * @return string   @example Hello world!
  */
@@ -10,7 +40,7 @@ function setFistCharUppercase($string)
 }
 
 /**
- * @goal   convert the first character of a string to lowercase
+ * @goal   set first character of a string to lowercase
  * @param  string   @example Hello world!
  * @return string   @example hello world!
  */
@@ -20,17 +50,17 @@ function setFistCharLowercase($string)
 }
 
 /**
- * @goal   convert the first character of each word to uppercase
+ * @goal   set first character of each word to uppercase
  * @param  string   @example hello world!
  * @return string   @example Hello World!
  */
-function setFistCharAllWordsUppercase($string)
+function setFistCharForEachWordUppercase($string)
 {
     return ucwords($string);
 }
 
 /**
- * @goal   convert all characters to uppercase
+ * @goal   set all characters to uppercase
  * @param  string   @example Hello WORLD!
  * @return string   @example HELLO WORLD!
  */
@@ -40,7 +70,7 @@ function setAllCharsUppercase($string)
 }
 
 /**
- * @goal   convert all characters to lowercase
+ * @goal   set all characters to lowercase
  * @param  string   @example Hello WORLD!
  * @return string   @example hello world!
  */
@@ -54,7 +84,17 @@ function setAllCharsLowercase($string)
  * @param  string, int  @example Hello World!, -1
  * @return string       @example Hello World
  */
-function deleteCharsInStringBasedOnPosition($string, $position)
+function deleteCharsInStringBasedOnPosition($string, $iPosition)
 {
-    return substr_replace($string ,"", $position);
+    return substr_replace($string ,"", $iPosition);
+}
+
+/**
+ * @goal   replace string match with another string
+ * @param  string | array, string | array, string | array   @example World, User, Hello World!
+ * @return string | array                                   @example Hello User!
+ */
+function replaceString($search, $replace, $text)
+{
+    return str_replace($search, $replace, $text);
 }

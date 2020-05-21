@@ -35,3 +35,20 @@ function deleteFolderTreeRecursively($pathDir){
     return;
 }
 
+/**
+ * @goal   get all files in directory
+ * @param  string $pathDir     @example C:\xampp\htdocs\bolkun\app\views\examples
+ * @return array $aFiles
+ */
+function getAllFilesInDir($pathDir){
+    if(! is_dir($pathDir)){
+        die("getAllFilesInDir(): param is not a directory!");
+    }
+    $aFiles = scandir($pathDir);
+    // filtering dots out of the array
+    $aFiles = array_diff($aFiles, array('.', '..'));
+    // reset keys from 0 to n
+    $aFilesModify = resetArrayKeys($aFiles);
+    return $aFilesModify;
+}
+

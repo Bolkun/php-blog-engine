@@ -1,10 +1,24 @@
 <nav id="sidebar">
     <div class="sidebar-header">
-        <h3>Bootstrap Sidebar</h3>
+        <p>External links:</p>
+        <a target="_blank" href="https://www.google.com/search?q=weather">
+            <i class="fa fa-sun-o" aria-hidden="true" style="color: white;"></i>
+        </a>
+        <a target="_blank" href="https://web2.0rechner.de/">
+            <i class="fa fa-calculator" aria-hidden="true" style="color: white;"></i>
+        </a>
+        <a target="_blank" href="https://www.google.com/search?q=rub+in+euro+rechner&oq=rub+in+euro">
+            <i class="fa fa-rub" aria-hidden="true" style="color: white;"></i>
+        </a>
+        <a target="_blank" href="https://www.google.com/search?q=uah+in+euro">
+            <span style="color: white; font-size: 18px; font-weight: bold">₴</span>
+        </a>
+        <a target="_blank" href="https://darebee.com/workouts.html">
+            <i class="fas fa-dumbbell" style="color: white;"></i>
+        </a>
     </div>
 
     <ul class="list-unstyled components">
-        <p>Dummy Heading</p>
         <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">

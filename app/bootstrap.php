@@ -1,16 +1,15 @@
 <?php
 // Load Config
 require_once 'config/config.php';
-// Load Helpers
-require_once 'helpers/_page_helper.php';
 
-require_once 'helpers/array_helper.php';
-require_once 'helpers/date_helper.php';
-require_once 'helpers/dir&file_helper.php';
-require_once 'helpers/json_helper.php';
-require_once 'helpers/session_helper.php';
-require_once 'helpers/string_helper.php';
-require_once 'helpers/url_helper.php';
+// Load Helpers
+$aHelpers = scandir(APPROOT . DIRECTORY_SEPARATOR . 'helpers');
+# filtering dots out of the array
+$aHelpers = array_diff($aHelpers, array('.', '..'));
+# load helper files
+foreach ($aHelpers as $helper){
+    require_once 'helpers' . DIRECTORY_SEPARATOR . $helper;
+}
 
 // Autoload Core Libraries
 spl_autoload_register(function($className){

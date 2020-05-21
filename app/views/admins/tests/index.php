@@ -44,12 +44,14 @@
                                         (benchmarks)</a>
                                 </td>
                             </tr>
+                            <?php foreach ($data['aHelpersFiles'] as $helper) { ?>
                             <tr>
                                 <td>Unit Tests</td>
                                 <td>
-                                    <a href="<?php echo URLROOT; ?>/admins/tests/helpers/date_helper">helpers/date_helper.php</a>
+                                    <a href="<?php echo URLROOT; ?>/admins/tests/helpers/<?php echo deleteCharsInStringBasedOnPosition($helper, -4); ?>">helpers/<?php echo $helper; ?></a>
                                 </td>
                             </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>

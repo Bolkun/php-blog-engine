@@ -47,8 +47,10 @@ class Admins extends Controller
     {
         // Only for Admin
         if(isAdminLoggedIn() === true){
+            $aHelpersFiles = getAllFilesInDir(APPROOT . DIRECTORY_SEPARATOR . 'helpers');
             $data = [
                 'title' => "Tests",
+                'aHelpersFiles' => $aHelpersFiles,
             ];
             $this->view('admins/tests/index', $data);
         } else {
@@ -89,6 +91,15 @@ class Admins extends Controller
         // Only for Admin
         if(isAdminLoggedIn() === true){
             $this->view('admins/tests/helpers/date_helper');
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+    public function var_helper()
+    {
+        // Only for Admin
+        if(isAdminLoggedIn() === true){
+            $this->view('admins/tests/helpers/var_helper');
         } else {
             header("HTTP/1.0 404 Not Found");
         }
