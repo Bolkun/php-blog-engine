@@ -98,3 +98,16 @@ function replaceString($search, $replace, $text)
 {
     return str_replace($search, $replace, $text);
 }
+
+/**
+ * @goal   check if string match regex (https://www.regextester.com/)
+ * @param  string, string   @example /^.*_helper.php$/, date_helper.php
+ * @return bool             @example true
+ */
+function checkIfStringMatchRegex($regex, $string){
+    if(preg_match($regex, $string)){
+        return true;
+    } else {
+        return false;
+    }
+}

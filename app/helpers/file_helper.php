@@ -36,7 +36,7 @@ function deleteFolderTreeRecursively($pathDir){
 }
 
 /**
- * @goal   get all files in directory
+ * @goal   get all files in directory, except . and ..
  * @param  string $pathDir     @example C:\xampp\htdocs\bolkun\app\views\examples
  * @return array $aFiles
  */
