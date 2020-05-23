@@ -9,13 +9,13 @@
                             <h1><?php echo $data['title']; ?></h1>
                             <div id="message"><?php flash('pages'); ?></div>
                             <div id="views_admins_pages_newEditDelete">
-                                <form action="<?php echo $GLOBALS['sACTUAL_LINK']; ?>" method="post">
+                                <form action="<?php echo URLCURRENT; ?>" method="post">
                                     <table id="tablePages" class="table">
                                         <thead>
                                         <tr>
                                             <th id="pagesCount" colspan="3">Results: <?php echo $data['iPagesCount']; ?></th>
                                             <th>
-                                                <button class="btn btn-block" href="<?php echo $GLOBALS['sACTUAL_LINK']; ?>">
+                                                <button class="btn btn-block" href="<?php echo URLCURRENT; ?>">
                                                     Reset
                                                 </button>
                                             </th>

@@ -34,7 +34,7 @@ function drop(ev, server) {
     var drag_id = ev.dataTransfer.getData("text"); // have only id from function drag
     //ev.target.appendChild(document.getElementById(drag_id));
     $.ajax({
-        url: server['URLBASE'],
+        url: server['URLCURRENT'],
         data: 'ajax_drag_id=' +drag_id,
         type: 'post',
         error: drop_error(server),
@@ -43,12 +43,12 @@ function drop(ev, server) {
 }
 
 function drop_error(server){
-    //alert(server['URLBASE'] + ": error");
+    //alert(server['URLCURRENT'] + ": error");
     // reload new view
     $("#body").load(location.href + " #body_reload");    // parent.load(child)
 }
 function drop_success(server){
-    //alert(server['URLBASE'] + ": success");
+    //alert(server['URLCURRENT'] + ": success");
     // reload new view
     $("#body").load(location.href + " #body_reload");    // parent.load(child)
 }
@@ -61,7 +61,7 @@ function costsDeleteRow(values) {
     if (confirm("Want to delete Record with id="+values['cost_id']+"?")) {
         // Logic to delete the item
         $.ajax({
-            url: values['URLBASE'],
+            url: values['URLCURRENT'],
             data: 'cost_id=' +values['cost_id']+ '&year=' +values['year'],
             type: 'post',
             error: costsDeleteRow_error(values),
@@ -146,7 +146,7 @@ function pagesDeletePage(values) {
     if (confirm("Want to delete Page with path="+values['sPage']+" ?")) {
         // Logic to delete the page
         $.ajax({
-            url: values['URLBASE'],
+            url: values['URLCURRENT'],
             data: 'ajax_sPage=' +values['sPage'],
             type: 'post',
             error: pagesDeletePage_error(values),

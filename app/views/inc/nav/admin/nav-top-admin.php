@@ -9,20 +9,20 @@
             <span></span>
         </button>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/dashboards') echo 'active'; ?>">
+            <li class="nav-item <?php if(URLCURRENT === URLROOT . '/dashboards') echo 'active'; ?>">
                 <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/dashboards">Start</a>
             </li>
-            <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/admins/pages/newEditDelete') echo 'active'; ?>">
+            <li class="nav-item <?php if(URLCURRENT === URLROOT . '/admins/pages/newEditDelete') echo 'active'; ?>">
                 <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/admins/pages/newEditDelete">Pages</a>
                 <span id="pageMenu" onclick="show_page_menu()" style="color: white; cursor: pointer;">&uarr;</span>
             </li>
-            <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/admins/tests') echo 'active'; ?>">
+            <li class="nav-item <?php if(URLCURRENT === URLROOT . '/admins/tests') echo 'active'; ?>">
                 <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/admins/tests">Tests</a>
             </li>
-            <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/admins/devs') echo 'active'; ?>">
+            <li class="nav-item <?php if(URLCURRENT === URLROOT . '/admins/devs') echo 'active'; ?>">
                 <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/admins/devs">Development</a>
             </li>
-            <li class="nav-item <?php if($GLOBALS['sACTUAL_LINK'] === URLROOT . '/admins/users') echo 'active'; ?>">
+            <li class="nav-item <?php if(URLCURRENT === URLROOT . '/admins/users') echo 'active'; ?>">
                 <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/admins/users">Users</a>
             </li>
         </ul>
