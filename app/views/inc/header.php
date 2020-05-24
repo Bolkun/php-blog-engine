@@ -5,6 +5,10 @@
 			redirect('users/login');
         }
     }
+    /*
+     * Cache control for development
+     */
+    clearPageCache();
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -13,18 +17,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo SITENAME; ?></title>
-    <link rel="shortcut icon" href="<?php echo URLROOT; ?>/img/icon/logo.png" type="image/png">
+    <link rel="shortcut icon" href="<?php echo PUBLIC_CORE_IMG_UIURL; ?>/logo24x24.png" type="image/png">
     <?php
-        /*
-        * Autoload Stylesheet
-        */
-        $aStyles = getAllFilesInDir(CSSROOT);
-        foreach ($aStyles as $file){
-            if(preg_match("/^.*\.css$/", $file)){
-                echo '<link rel="stylesheet" href="' . URLROOT . '/css/' . $file .'">';
-            }
-        }
-        unset($aStyles);
+        // Autoload Stylesheet
+        autoload_stylesheet();
     ?>
 </head>
 <body>
@@ -33,7 +29,7 @@
     if(isAdminLoggedIn() === true){
         require APPROOT . '/views/inc/nav/admin/nav-top-admin.php';
         require APPROOT . '/views/inc/nav/admin/nav-top-page.php';
-    } elseif(isMitarbeiterLoggedIn() === true) {
+    } elseif(isUserLoggedIn() === true) {
         require APPROOT . '/views/inc/nav/user/nav-top-user.php';
     }
 ?>

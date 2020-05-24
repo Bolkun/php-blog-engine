@@ -1,6 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
     <div class="wrapper">
-        <?php require APPROOT . '/views/inc/nav/nav-sidebar.php'; ?>
         <div class="container-fluid">
             <div class="row" id="content">
                 <div class="col-sm-1"></div>

@@ -55,7 +55,7 @@
                                                         <th colspan="3"><?php echo $pagesFolderNext; ?></th>
                                                         <th>
                                                             <img style="width: 16px; height: 16px"
-                                                                 src="<?php echo URLROOT; ?>/img/icon/delete24x24.png"
+                                                                 src="<?php echo PUBLIC_CORE_IMG_UIURL; ?>/delete24x24.png"
                                                                  class="cpm__img tile__img img-responsive"
                                                                  onclick='pagesDeletePage(<?php echo jsonEncodePage(NULL, VIEWSROOT . DIRECTORY_SEPARATOR . $pagesFolderNext); ?>)'>
                                                         </th>
@@ -75,9 +75,9 @@
                                                                         <a href="<?php echo $data['aPagesLinks'][$a]; ?>"><?php echo $data['aPagesLinks'][$a]; ?></a>
                                                                     </td>
                                                                     <td style="text-align:center;"><img style="width: 16px; height: 16px"
-                                                                                        src="<?php echo URLROOT; ?>/img/icon/delete24x24.png"
-                                                                                        class="cpm__img tile__img img-responsive"
-                                                                                        onclick='pagesDeletePage(<?php echo jsonEncodePage(NULL, $data['aPagesPaths'][$a]); ?>)'>
+                                                                        src="<?php echo PUBLIC_CORE_IMG_UIURL; ?>/delete24x24.png"
+                                                                        class="cpm__img tile__img img-responsive"
+                                                                        onclick='pagesDeletePage(<?php echo jsonEncodePage(NULL, $data['aPagesPaths'][$a]); ?>)'>
                                                                     </td>
                                                                 </tr>
                                                     <?php   }

@@ -193,7 +193,7 @@ class Users extends Controller
 	    if(isAdminLoggedIn()){
             $_SESSION['temp_user_role'] = 'Mitarbeiter';
             $_SESSION['user_role'] = 'Mitarbeiter';
-        } elseif(isMitarbeiterLoggedIn()){
+        } elseif(isUserLoggedIn()){
             if(isAdminLoggedInAsCoworker()){
                 $_SESSION['user_role'] = 'Admin';
                 unset($_SESSION['temp_user_role']);

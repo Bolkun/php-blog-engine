@@ -1,6 +1,4 @@
 <?php
-// Load tests
-require_once APPROOT . '/tests/benchmark.php';
 
 class Admins extends Controller
 {

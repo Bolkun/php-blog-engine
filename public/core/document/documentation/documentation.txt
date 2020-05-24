@@ -1,0 +1,27 @@
+/*** MYSQL DATABASE ***/
+<Name Restriction>
++ ASCII: [0-9,a-z,A-Z$_] (basic Latin letters, digits 0-9, dollar, underscore)
+- Cannot be longer than 64 characters.
+- Cannot contain / \ or . characters.
+- Cannot contain characters that are not permitted in file names.
+- Cannot end with space characters.
+= $bolkun_[databasename]
+
+/*** Project ***/
+<Core construct>
+Specification:
+    ! If duplicates in URL present, than page will be reloaded to new url without duplicates.
+    !!! Files and folders must be unique in views directory.
+    ! By not existing pages, nothing will be shown.
+Examples:
+    URL0: http://localhost/[app_root_folder]
+    = Goes to STARTPAGE Controller, method index.
+    URL1: http://localhost/bolkun/tests or http://localhost/bolkun/tests/index or http://localhost/bolkun/tests/bla/foo/*/index
+    = Goes to Tests Controller, method index.
+    URL2: http://localhost/bolkun/tests/helpers or http://localhost/bolkun/tests/helpers/tests
+    = Ignores index.php and all duplicate file names in subfolders !!!
+    URL3: http://localhost/bolkun/tests/helpers/date_helper
+    = Goes to Tests Controller, method date_helper
+<View>
+index.php == view.php (mode)
+

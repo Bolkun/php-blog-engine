@@ -1,0 +1,149 @@
+/*
+ * view: inc/nav/admin/nav-top-admin, inc/nav/user/nav-top-user
+ */
+/* change size of nav */
+.admin_nav_link {
+ display: inline;
+}
+.pages_nav_link {
+ padding: 0 0.5em 0 0.5em;
+}
+#nav_top {
+ z-index: 1;
+ padding-top: 0.25rem;
+ padding-bottom: 0.25rem;
+ line-height: 1em;
+}
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+ position: fixed;
+ top: 0;
+ width: 100%;
+}
+.sticky + .container-fluid, .sticky + .container {
+ padding-top: 40px;
+}
+/*********************************/
+/*
+ * flash messages
+ */
+.alert {
+ padding: 20px;
+ background-color: #f44336;
+ color: white;
+ opacity: 1;
+ transition: opacity 0.6s;
+ margin-bottom: 15px;
+}
+
+.alert.success {background-color: #4CAF50;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+ margin-left: 15px;
+ color: white;
+ font-weight: bold;
+ float: right;
+ font-size: 22px;
+ line-height: 20px;
+ cursor: pointer;
+ transition: 0.3s;
+}
+
+.closebtn:hover {
+ color: black;
+}
+/*********************************/
+/*
+ * nav-top (dropdown hover effect)
+ */
+.dropdown-menu {
+ margin-top: 10px;
+}
+
+.dropdown>.dropdown-menu {
+ top: 200%;
+ transition: 0.3s all ease-in-out;
+}
+
+.dropdown:hover>.dropdown-menu {
+ display: block;
+ top: 100%;
+}
+
+.dropdown>.dropdown-toggle:active {
+ /*Without this, clicking will make it sticky*/
+ pointer-events: none;
+}
+/*
+ * nav-top (dropleft hover effect)
+ */
+.dropleft>.dropdown-menu {
+ top: 200%;
+ transition: 0.3s all ease-in-out;
+}
+
+.dropleft:hover>.dropdown-menu {
+ display: block;
+ top: 100%;
+}
+
+.dropleft>.dropdown-toggle:active {
+ /*Without this, clicking will make it sticky*/
+ pointer-events: none;
+}
+/*********************************/
+/*
+ * folder_helper (nested lists)
+ */
+.just-padding {
+ padding: 15px;
+}
+
+.list-group.list-group-root {
+ padding: 0;
+ overflow: hidden;
+}
+
+.list-group.list-group-root .list-group {
+ margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+ border-radius: 0;
+ border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root > .list-group-item:first-child {
+ border-top-width: 0;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+ padding-left: 30px;
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+ padding-left: 45px;
+}
+
+.list-group-item .glyphicon {
+ margin-right: 5px;
+}
+/*********************************/
+/*
+ * view: admins/tests/benchmark
+ */
+.benchmark td:first-child{
+ width: 5%;
+}
+.benchmark td:nth-child(2){
+ width: 75%;
+}
+.benchmark td:last-child{
+ width: 20%;
+}
+/*********************************/
+.none {
+ display: none;
+}

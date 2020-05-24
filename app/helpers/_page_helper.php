@@ -1,5 +1,54 @@
 <?php
 /**
+ * @goal   autoload all css files from core and custom dirs
+ * @param
+ * @result html     @example <link rel="stylesheet" href="http://localhost/bolkun/public/core/css/1.bootstrap.css">
+ */
+function autoload_stylesheet(){
+    // core styles
+    $aStyles = getAllFilesInDir(PUBLIC_CORE_CSSROOT);
+    foreach ($aStyles as $file){
+        if(preg_match("/^.*\.css$/", $file)){
+            echo '<link rel="stylesheet" href="' . PUBLIC_CORE_CSSURL . '/' . $file .'">';
+        }
+    }
+    unset($aStyles);
+
+    // custom styles
+    $aStyles = getAllFilesInDir(PUBLIC_CUSTOM_CSSROOT);
+    foreach ($aStyles as $file){
+        if(preg_match("/^.*\.css$/", $file)){
+            echo '<link rel="stylesheet" href="' . PUBLIC_CUSTOM_CSSURL . '/' . $file .'">';
+        }
+    }
+    unset($aStyles);
+}
+
+/**
+ * @goal   autoload all js files from core and custom dirs
+ * @param
+ * @result html     @example <script src="http://localhost/bolkun/core/js/1.jquery-3.4.1.min.js"></script>
+ */
+function autoload_javascript(){
+    // core js files
+    $aJs = getAllFilesInDir(PUBLIC_CORE_JSROOT);
+    foreach ($aJs as $file){
+        if(preg_match("/^.*\.js$/", $file)){
+            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file .'"></script>';
+        }
+    }
+    unset($aJs);
+
+    //custom js files
+    $aJs = getAllFilesInDir(PUBLIC_CUSTOM_JSROOT);
+    foreach ($aJs as $file){
+        if(preg_match("/^.*\.js$/", $file)){
+            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file .'"></script>';
+        }
+    }
+    unset($aJs);
+}
+/**
  * @goal   get all pages paths based on a folder tree structure
  * @param  string $path @example C:\xampp\htdocs\bolkun\app\views
  * @return array

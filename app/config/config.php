@@ -3,51 +3,136 @@
 
 /*** DB ***/
 define('DB_HOST', 'localhost');
-// User*
+# user*
 define('DB_USER', 'root');
-// Pass*
+# pass*
 define('DB_PASS', '');
-// Name*
+# name*
 define('DB_NAME', '$bolkun_taskmanager');
 
-/*** APP ***/
-// App Root Folder (absolute path)
-define('APPROOT', dirname(dirname(__FILE__)));
-// Controllers Root Folder
-define('CONTROLLERSROOT', APPROOT . DIRECTORY_SEPARATOR . 'controllers');
-// Models Root Folder
-define('MODELSROOT', APPROOT . DIRECTORY_SEPARATOR . 'models');
-// Views Root Folder
-define('VIEWSROOT', APPROOT . DIRECTORY_SEPARATOR . 'views');
-
-/*** PUBLIC ***/
-// Public Root Folder (absolute path)
-define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'public');
-// Css Root Folder
-define('CSSROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'css');
-// Download Root Folder
-define('DOWNLOADROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'download');
-// Font Root Folder
-define('FONTROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'font');
-// Img Root Folder
-define('IMGROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'img');
-// Js Root Folder
-define('JSROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'js');
-// Video Root Folder
-define('VIDEOROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'video');
-
-/*** URL ***/
-// URL Root*
-define('URLROOT', 'http://localhost/bolkun');
-// URL Base (actual page)
-define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-// Site Name*
+/*** PROJECT ***/
+# site name*
 define('SITENAME', 'Bolkun');
-// Start Page* (Hint: libraries/Core.php calls controllers/Users/index() and method calls login())
-define('STARTPAGE', 'Users');
-// App version*
-define('APPVERSION', '1.0.2');
+# app version*
+define('APPVERSION', '1.0.0');
+# clear page cache*
+define('CLEARPAGECACHE', true);
 
 /*** GLOBALS ***/
 $aPagesPaths = array();
 $aPagesLinks = array();
+
+/*** APP ***/
+# app folder (absolute path)
+define('APPROOT', dirname(dirname(__FILE__)));
+# controllers folder
+define('CONTROLLERSROOT', APPROOT . DIRECTORY_SEPARATOR . 'controllers');
+# models folder
+define('MODELSROOT', APPROOT . DIRECTORY_SEPARATOR . 'models');
+# views Folder
+define('VIEWSROOT', APPROOT . DIRECTORY_SEPARATOR . 'views');
+
+/*** PUBLIC ***/
+# public folder (absolute path)
+define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'public');
+    /*** CORE ***/
+    define('PUBLIC_COREROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'core');
+        # css folder
+        define('PUBLIC_CORE_CSSROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'css');
+        # document folder
+        define('PUBLIC_CORE_DOCUMENTROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'document');
+        # download folder
+        define('PUBLIC_CORE_DOWNLOADROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'download');
+        # font folder
+        define('PUBLIC_CORE_FONTROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'font');
+        # img folder
+        define('PUBLIC_CORE_IMGROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'img');
+            # dev folder
+            define('PUBLIC_CORE_IMG_DEVROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'dev');
+            # ui folder
+            define('PUBLIC_CORE_IMG_UIROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'ui');
+        # js folder
+        define('PUBLIC_CORE_JSROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'js');
+        # music folder
+        define('PUBLIC_CORE_MUSICROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'music');
+        # object folder
+        define('PUBLIC_CORE_OBJECTROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'object');
+        # video folder
+        define('PUBLIC_CORE_VIDEOROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'video');
+    /*** CUSTOM ***/
+    define('PUBLIC_CUSTOMROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'custom');
+        # css folder
+        define('PUBLIC_CUSTOM_CSSROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'css');
+        # document folder
+        define('PUBLIC_CUSTOM_DOCUMENTROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'document');
+        # download folder
+        define('PUBLIC_CUSTOM_DOWNLOADROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'download');
+        # font folder
+        define('PUBLIC_CCUSTOM_FONTROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'font');
+        # img folder
+        define('PUBLIC_CUSTOM_IMGROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'img');
+        # js folder
+        define('PUBLIC_CUSTOM_JSROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'js');
+        # music folder
+        define('PUBLIC_CUSTOM_MUSICROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'music');
+        # object folder
+        define('PUBLIC_CUSTOM_OBJECTROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'object');
+        # video folder
+        define('PUBLIC_CUSTOM_VIDEOROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'video');
+
+/*** URL ***/
+# url root*
+define('URLROOT', 'http://localhost/bolkun');
+# url of current page
+define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+# start page* (Hint: libraries/Core.php calls controllers/Users/index() and method calls login())
+define('STARTPAGE', 'Users');
+/*** PUBLIC ***/
+# public url
+define('PUBLICURL', URLROOT . '/public');
+    /*** CORE ***/
+    define('PUBLIC_COREURL', PUBLICURL . '/core');
+        # css folder
+        define('PUBLIC_CORE_CSSURL', PUBLIC_COREURL . '/css');
+        # document folder
+        define('PUBLIC_CORE_DOCUMENTURL', PUBLIC_COREURL . '/document');
+        # download folder
+        define('PUBLIC_CORE_DOWNLOADURL', PUBLIC_COREURL . '/download');
+        # font folder
+        define('PUBLIC_CORE_FONTURL', PUBLIC_COREURL . '/font');
+        # img folder
+        define('PUBLIC_CORE_IMGURL', PUBLIC_COREURL . '/img');
+            # dev folder
+            define('PUBLIC_CORE_IMG_DEVURL', PUBLIC_CORE_IMGURL . '/dev');
+            # ui folder
+            define('PUBLIC_CORE_IMG_UIURL', PUBLIC_CORE_IMGURL . '/ui');
+        # js folder
+        define('PUBLIC_CORE_JSURL', PUBLIC_COREURL . '/js');
+        # music folder
+        define('PUBLIC_CORE_MUSICURL', PUBLIC_COREURL . '/music');
+        # object folder
+        define('PUBLIC_CORE_OBJECTURL', PUBLIC_COREURL . '/object');
+        # video folder
+        define('PUBLIC_CORE_VIDEOURL', PUBLIC_COREURL . '/video');
+    /*** CUSTOM ***/
+    define('PUBLIC_CUSTOMURL', PUBLICURL . '/core');
+        # css folder
+        define('PUBLIC_CUSTOM_CSSURL', PUBLIC_CUSTOMURL . '/css');
+        # document folder
+        define('PUBLIC_CUSTOM_DOCUMENTURL', PUBLIC_CUSTOMURL . '/document');
+        # download folder
+        define('PUBLIC_CUSTOM_DOWNLOADURL', PUBLIC_CUSTOMURL . '/download');
+        # font folder
+        define('PUBLIC_CCUSTOM_FONTURL', PUBLIC_CUSTOMURL . '/font');
+        # img folder
+        define('PUBLIC_CUSTOM_IMGURL', PUBLIC_CUSTOMURL . '/img');
+        # js folder
+        define('PUBLIC_CUSTOM_JSURL', PUBLIC_CUSTOMURL . '/js');
+        # music folder
+        define('PUBLIC_CUSTOM_MUSICURL', PUBLIC_CUSTOMURL . '/music');
+        # object folder
+        define('PUBLIC_CUSTOM_OBJECTURL', PUBLIC_CUSTOMURL . '/object');
+        # video folder
+        define('PUBLIC_CUSTOM_VIDEOURL', PUBLIC_CUSTOMURL . '/video');
+
+

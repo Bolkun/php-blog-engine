@@ -3,11 +3,6 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-        <!-- Left Sidebar Icon -->
-        <button type="button"  class="btn btn-info" id="sidebarCollapse">
-            <i class="fas fa-align-left"></i>
-            <span></span>
-        </button>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item <?php if(URLCURRENT === URLROOT . '/dashboards') echo 'active'; ?>">
                 <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/dashboards">Start</a>

@@ -71,7 +71,7 @@ function isAdminLoggedIn()
 {
     if(isset($_SESSION['user_role'])){
         if($_SESSION['user_role'] === 'Admin'){
-            // Admin logt in
+            // Admin logged in
             return true;
         } else {
             return false;
@@ -85,7 +85,7 @@ function isAdminLoggedIn()
  * @goal   check if coworker logged in
  * @return bool
  */
-function isMitarbeiterLoggedIn()
+function isUserLoggedIn()
 {
     if(isset($_SESSION['user_role'])) {
         if ($_SESSION['user_role'] === 'Mitarbeiter') {

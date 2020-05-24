@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4">
-                <img width="300" height="250" src="<?php echo URLROOT; ?>/img/icon/logo4230x3200.png" class="rounded d-block" alt="logo">
+                <img width="300" height="250" src="<?php echo PUBLIC_CORE_IMG_DEVURL; ?>/logo4230x3200.png" class="rounded d-block" alt="logo">
                 <br>
                 <span class="trainer_name">Project: 2019-2020</span><br>
                 <span class="trainer_lizenz">Version: <strong><?php echo APPVERSION; ?></strong></span>

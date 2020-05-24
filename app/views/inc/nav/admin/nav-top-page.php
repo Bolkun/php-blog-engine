@@ -75,8 +75,8 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div class="tab-pane container-fluid active" id="containers" style="border: 1px solid grey;">
-            <img id="container_drag" src="<?php echo URLROOT; ?>/img/page/container634x143.png" draggable="true" ondragstart="drag(event)">
-            <img id="container-fluid_drag" src="<?php echo URLROOT; ?>/img/page/container-fluid633x143.png" draggable="true" ondragstart="drag(event)">
+            <img id="container_drag" src="<?php echo PUBLIC_CORE_IMG_DEVURL; ?>/container634x143.png" draggable="true" ondragstart="drag(event)">
+            <img id="container-fluid_drag" src="<?php echo PUBLIC_CORE_IMG_DEVURL; ?>/container-fluid633x143.png" draggable="true" ondragstart="drag(event)">
         </div>
         <div class="tab-pane container" id="alerts">
             <h3>Menu 1</h3>
