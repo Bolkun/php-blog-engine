@@ -172,8 +172,8 @@ class Admins extends Controller
     {
         // Only for Admin
         if(isAdminLoggedIn() === true){
-            $aPagesPaths = getPagesPaths(APPROOT . DIRECTORY_SEPARATOR . 'views');
-            $aPagesLinks = getPagesLinks(APPROOT . DIRECTORY_SEPARATOR . 'views');
+            $aPagesPaths = getPagesPaths();
+            $aPagesLinks = getPagesLinks();
             $iCountPagesPaths = getArraySize($aPagesPaths);
             $iCountPagesLinks = getArraySize($aPagesLinks);
             if ($iCountPagesPaths !== $iCountPagesLinks) {
@@ -226,7 +226,7 @@ class Admins extends Controller
                     // check if path already exists
                     foreach ($aPagesPaths as $viewPath){
                         if($viewPath === $pagesPath){
-                            $pagesPath_err = "page already exists with $viewPath";
+                            $pagesPath_err = "Page already exists with $viewPath";
                             break;
                         }
                     }
@@ -243,59 +243,14 @@ class Admins extends Controller
                 }
                 // EVERYTHING OK
                 if(empty($pagesPath_err) && empty($pagesLink_err)){
-                    // 1. create new folder tree in folder 'views'
-                    $viewPath = VIEWSROOT;
-                    for($i=0; $i<getArraySize($aPagesPathRelativeParts); $i++) {
-                        if($i !== (getArraySize($aPagesPathRelativeParts) - 1)){
-                            $viewPath .= DIRECTORY_SEPARATOR . $aPagesPathRelativeParts[$i];
-                            if(! file_exists($viewPath)){
-                                mkdir($viewPath, 0755);
-                            }
-                        } else {
-                            // last element is file.php
-                            $viewFile = $aPagesPathRelativeParts[$i];
-                        }
-                    }
+                    // 1. create new folder in dir 'views'
+                    createViewsFolder($pagesPath);
                     // 2. create new file.php in a new folder
-                    if(! file_exists($viewPath . DIRECTORY_SEPARATOR . $viewFile)){
-                        touch($viewPath . DIRECTORY_SEPARATOR . $viewFile);
-                        // 2.1 copy and replace vars from inc/Model.txt in a new Model
-                        copyOneFileToAnother(VIEWSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'View.txt', $viewPath . DIRECTORY_SEPARATOR . $viewFile);
-                    } else {
-                        die('Could not create ' . $viewPath . DIRECTORY_SEPARATOR . $viewFile);
-                    }
+                    createViewsFile($pagesPath);
                     // 3. create new file Model.php in folder 'models'
-                    $modelPath = MODELSROOT;
-                    $modelFile = getFirstDirAfterURLROOT($pagesLink);
-                    $modelFile = setFistCharUppercase($modelFile);
-                    $modelFileName = deleteCharsInStringBasedOnPosition($modelFile, -1);
-                    $modelFile = $modelFileName . '.php';
-                    if(! file_exists($modelPath . DIRECTORY_SEPARATOR . $modelFile)){
-                        touch($modelPath . DIRECTORY_SEPARATOR . $modelFile);
-                        // 3.1 copy and replace vars from inc/Model.txt in a new Model
-                        copyOneFileToAnother($modelPath . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Model.txt', $modelPath . DIRECTORY_SEPARATOR . $modelFile);
-                        replaceAllMatchesInFileWithString($modelPath . DIRECTORY_SEPARATOR . $modelFile, array('[.:MODEL_CLASS:.]'), array($modelFileName));
-                    }
-                    // 4. create new file Controller.php in folder 'controllers'
-                    $controllerPath = CONTROLLERSROOT;
-                    $controllerFile = getFirstDirAfterURLROOT($pagesLink);
-                    $controllerFileName = setFistCharUppercase($controllerFile);
-                    $controllerFile = $controllerFileName . '.php';
-                    if(! file_exists($controllerPath . DIRECTORY_SEPARATOR . $controllerFile)){
-                        touch($controllerPath . DIRECTORY_SEPARATOR . $controllerFile);
-                        // 4.1 copy and replace vars from inc/Controller.txt in a new Controller
-                        copyOneFileToAnother($controllerPath . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Controller.txt', $controllerPath . DIRECTORY_SEPARATOR . $controllerFile);
-                        $aControllerVars = array('[.:CONTROLLER_CLASS:.]', '[.:MODEL_CLASS:.]', '[.:MODEL_CLASS_TO_LOWERCASE:.]', '[.:PAGE_NAME:.]', '[.:PAGE_PATH:.]');
-                        // (1)
-                        $pages_path = str_replace(VIEWSROOT . DIRECTORY_SEPARATOR, '', $pagesPath);
-                        // (2)
-                        $pages_path = str_replace('\\', '/', $pages_path);
-                        $aControllerVarsReplace = array($controllerFileName, $modelFileName, setFistCharLowercase($modelFileName), deleteCharsInStringBasedOnPosition($viewFile, -4), deleteCharsInStringBasedOnPosition($pages_path, -4));
-                        replaceAllMatchesInFileWithString($controllerPath . DIRECTORY_SEPARATOR . $controllerFile, $aControllerVars, $aControllerVarsReplace);
-                    } else {
-                        // add new method to Controller.php
-
-                    }
+                    createModelsFile($pagesPath);
+                    // 4. create new file Controller.php in folder 'controllers' or add new function
+                    createControllersFile($pagesPath);
 
                     flash('pages', "New page processed success!<br>link: <a href=\"$pagesLink\">$pagesLink</a>", "alert success");
                     // reload table
@@ -330,11 +285,11 @@ class Admins extends Controller
                 $sPage = $_POST['ajax_sPage'];
                 // delete folder with all pages
                 if(is_dir($sPage)){
-                   deleteFolderWithAllPages($sPage);
+                   deleteAllPages($sPage);
                 }
                 // delete only one page
                 if(is_file($sPage)){
-
+                    deleteOnePage($sPage);
                 }
                 // Init data
                 $data = [

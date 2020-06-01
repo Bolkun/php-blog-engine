@@ -18,10 +18,6 @@ define('APPVERSION', '1.0.0');
 # clear page cache*
 define('CLEARPAGECACHE', true);
 
-/*** GLOBALS ***/
-$aPagesPaths = array();
-$aPagesLinks = array();
-
 /*** APP ***/
 # app folder (absolute path)
 define('APPROOT', dirname(dirname(__FILE__)));

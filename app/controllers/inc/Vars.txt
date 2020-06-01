@@ -1,0 +1,8 @@
+// All Vars For Automation
+
+CONTROLLER_CLASS         = [.:CONTROLLER_CLASS:.]
+MODEL_CLASS              = [.:MODEL_CLASS:.]
+MODEL_CLASS_TO_LOWERCASE = [.:MODEL_CLASS_TO_LOWERCASE:.]
+PAGE_NAME                = [.:PAGE_NAME:.]
+SHORT_PAGE_PATH          = [.:SHORT_PAGE_PATH:.]
+NEW_FUNCTION             = /* [.:NEW_FUNCTION:.] */

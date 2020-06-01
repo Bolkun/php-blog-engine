@@ -1,4 +1,6 @@
 <?php
+# basename ( string $path [, string $suffix ] ) : string    // get file name from given path
+
 /**
  * @goal   copy text from one file to another file
  * @param  string $pathFile1, string $pathFile2     @example C:\xampp\info.txt, C:\xampp\result\backlog.txt

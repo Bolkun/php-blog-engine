@@ -1,14 +1,5 @@
 <?php
 
-// All Vars For Automation
-/*
-CONTROLLER_CLASS         = [.:CONTROLLER_CLASS:.]
-MODEL_CLASS              = [.:MODEL_CLASS:.]
-MODEL_CLASS_TO_LOWERCASE = [.:MODEL_CLASS_TO_LOWERCASE:.]
-PAGE_NAME                = [.:PAGE_NAME:.]
-PAGE_PATH                = [.:PAGE_PATH:.]
-*/
-
 class [.:CONTROLLER_CLASS:.] extends Controller
 {
     public function __construct()
@@ -18,16 +9,5 @@ class [.:CONTROLLER_CLASS:.] extends Controller
     /*
      * All Pages ▼
      */
-    public function [.:PAGE_NAME:.]()
-    {
-        // EDIT PAGE
-        if(!empty($_POST['ajax_drag_id'])){
-
-        } else {
-            $data = [
-                'title' => "[.:MODEL_CLASS:.]",
-            ];
-        }
-        $this->view('[.:PAGE_PATH:.]', $data);
-    }
+    /* [.:NEW_FUNCTION:.] */
 }

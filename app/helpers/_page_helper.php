@@ -48,30 +48,34 @@ function autoload_javascript(){
     }
     unset($aJs);
 }
+
 /**
  * @goal   get all pages paths based on a folder tree structure
- * @param  string $path @example C:\xampp\htdocs\bolkun\app\views
+ * @param
  * @return array
  */
-function getPagesPaths($path){
-    global $aPagesPaths;
-    $aFolderFiles = scandir($path);
+function getPagesPaths(){
+    // get list of views folders
+    $aPagesDirs = getAllFilesInDir(VIEWSROOT);
 
-    unset($aFolderFiles[array_search('.',  $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('..', $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('inc', $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('admins', $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('users', $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('dashboards', $aFolderFiles, true)]);
+    // hide reserved pages
+    unset($aPagesDirs[array_search('inc', $aPagesDirs, true)]);
+    unset($aPagesDirs[array_search('admins', $aPagesDirs, true)]);
+    unset($aPagesDirs[array_search('users', $aPagesDirs, true)]);
+    unset($aPagesDirs[array_search('dashboards', $aPagesDirs, true)]);
 
-    if(count($aFolderFiles) < 1) return;
-    foreach($aFolderFiles as $value){
-        if(is_dir($path . DIRECTORY_SEPARATOR . $value)){
-            // look for files and dirs deeper
-            getPagesPaths($path . DIRECTORY_SEPARATOR . $value);
-        }
-        if(is_file($path . DIRECTORY_SEPARATOR . $value)){
-            array_push($aPagesPaths, $path . DIRECTORY_SEPARATOR . $value);
+    // reset keys from 0 to n
+    $aPagesDirs = resetArrayKeys($aPagesDirs);
+
+    // fill array with built absolute paths
+    $aPagesPaths = array();
+
+    foreach($aPagesDirs as $dir){
+        if(is_dir(VIEWSROOT . DIRECTORY_SEPARATOR . $dir)){
+            $aPagesFiles = getAllFilesInDir(VIEWSROOT . DIRECTORY_SEPARATOR . $dir);
+            foreach($aPagesFiles as $file){
+                array_push($aPagesPaths, VIEWSROOT . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $file);
+            }
         }
     }
 
@@ -80,39 +84,32 @@ function getPagesPaths($path){
 
 /**
  * @goal   get all pages links based on a folder tree structure
- * @param  string $path @example C:\xampp\htdocs\bolkun\app\views
+ * @param
  * @return array
  */
-function getPagesLinks($path){
-    global $aPagesLinks;
-    $aFolderFiles = scandir($path);
+function getPagesLinks(){
+    $aPagesPaths = getPagesPaths();
+    $aPagesLinks = array();
 
-    unset($aFolderFiles[array_search('.',  $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('..', $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('inc', $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('admins', $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('users', $aFolderFiles, true)]);
-    unset($aFolderFiles[array_search('dashboards', $aFolderFiles, true)]);
-
-    if(count($aFolderFiles) < 1) return;
-    foreach($aFolderFiles as $value){
-        if(is_dir($path . DIRECTORY_SEPARATOR . $value)){
-            getPagesLinks($path . DIRECTORY_SEPARATOR . $value);
-        } else {
-            // convert $path to link
-            // (1) replace "\" with "/"
-            $link = str_replace('\\', '/', $path);
-            // (2) delete everything before "views"
-            $link = strstr($link, 'views');
-            // (3) delete "views/"
-            $link = preg_replace('/views/', '', $link);
-            if($value != 'index.php'){
-                // (4) add file.php
-                $link = $link . '/' . $value;
-                // (5) remove '.php'
-                $link = str_replace('.php', '', $link);
+    foreach($aPagesPaths as $path){
+        if(is_file($path)){
+            if(preg_match("/^.*\.php$/", $path)){
+                // convert path to link
+                $fileName = basename($path);
+                // (1) replace "\" with "/"
+                $link = str_replace('\\', '/', $path);
+                // (2) delete everything before "views"
+                $link = strstr($link, 'views');
+                // (3) delete "views/"
+                $link = preg_replace('/views/', '', $link);
+                if($fileName != 'index.php'){
+                    // (4) remove '.php'
+                    $link = str_replace('.php', '', $link);
+                } else {
+                    $link = str_replace('/index.php', '', $link);
+                }
+                array_push($aPagesLinks, URLROOT . $link);
             }
-            array_push($aPagesLinks, URLROOT . $link);
         }
     }
 
@@ -121,7 +118,7 @@ function getPagesLinks($path){
 
 /**
  * @goal   get view dir name of a page
- * @param  string $pathView      @example C:\xampp\htdocs\bolkun\app\views\examples or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @param  string $pathView      @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
  * @return string                @example examples
  */
 function getViewFolder($pathView){
@@ -136,8 +133,8 @@ function getViewFolder($pathView){
 
 /**
  * @goal   get page file name
- * @param  string $pathViewFile      @example C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @return string                    @example test.php
+ * @param  string $pathViewFile      @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @return string                    @example index.php or test.php
  */
 function getViewFile($pathViewFile){
     if(! is_file($pathViewFile)){
@@ -183,6 +180,96 @@ function getModelFile($pathViewDir){
 }
 
 /**
+ * @goal   create new page directory in folder views
+ * @param  string $pagePath     @example C:\xampp\htdocs\bolkun\app\views\examples or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @result new dir              @example dir name 'examples'
+ */
+function createViewsFolder($pagePath){
+    $pageFolderName = getViewFolder($pagePath);
+    $pageFolderPath = VIEWSROOT . DIRECTORY_SEPARATOR . $pageFolderName;
+
+    if(! file_exists($pageFolderPath)){
+        mkdir($pageFolderPath, 0755);
+    }
+}
+
+/**
+ * @goal   create new php file for a new page
+ * @param  string $pagePath     @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @result new php file         @wxample new file with name 'index.php' or 'test.php'
+ */
+function createViewsFile($pagePath){
+    $pathIncView = VIEWSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'View.txt';
+
+    if(! file_exists($pagePath)){
+        // copy and replace vars from inc/Views.txt in a new View
+        copyOneFileToAnother($pathIncView, $pagePath);
+    } else {
+        die('Could not create ' . $pagePath . '! File already exists.');
+    }
+}
+
+/**
+ * @goal   create new file Model.php in folder 'models'
+ * @param  string $pagePath     @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @result new php file         @wxample new file with name 'Example.php'
+ */
+function createModelsFile($pagePath){
+    $pageModelFile = getModelFile($pagePath);
+    $pageModelPath = MODELSROOT . DIRECTORY_SEPARATOR . $pageModelFile;
+    $pathIncModel = MODELSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Model.txt';
+
+    if(! file_exists($pageModelFile)){
+        // copy from inc/Model.txt in a new 'Model.php'
+        copyOneFileToAnother($pathIncModel, $pageModelPath);
+        // replace vars in 'Model.php'
+        $pageModelFileName = deleteCharsInStringBasedOnPosition($pageModelFile, -4);    # delete .php
+        replaceAllMatchesInFileWithString($pageModelPath, array('[.:MODEL_CLASS:.]'), array($pageModelFileName));
+    }
+}
+
+/**
+ * @goal   create new file Controller.php in folder 'controllers'
+ * @param  string $pagePath     @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @result new php file         @wxample new file with name 'Examples.php'
+ */
+function createControllersFile($pagePath){
+    $pageControllerFile = getControllerFile($pagePath);
+    $pageControllerPath = CONTROLLERSROOT . DIRECTORY_SEPARATOR . $pageControllerFile;
+    $pathIncController = CONTROLLERSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Controller.txt';
+
+    $pageModelFile = getModelFile($pagePath);
+    $pageViewFile = getViewFile($pagePath);
+
+    if(! file_exists($pageControllerPath)){
+        // copy from inc/Controller.txt in a new 'Controller.php'
+        copyOneFileToAnother($pathIncController, $pageControllerPath);
+    }
+
+    // add new method to Controller.php
+    # (1) save Function.txt to string
+    $pathIncFunction = CONTROLLERSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Function.txt';
+    $sNewFunction = file_get_contents($pathIncFunction);
+    # (2) replace /* [.:NEW_FUNCTION:.] */ in Controller.php with string
+    replaceAllMatchesInFileWithString($pageControllerPath, array('/* [.:NEW_FUNCTION:.] */'), array($sNewFunction));
+    # (3) replace vars in Controller.php
+    $aControllerVars = array(
+        '[.:CONTROLLER_CLASS:.]',
+        '[.:MODEL_CLASS:.]',
+        '[.:MODEL_CLASS_TO_LOWERCASE:.]',
+        '[.:PAGE_NAME:.]',
+        '[.:SHORT_PAGE_PATH:.]');
+    $shortPagePath = getViewFolder($pagePath) . '/' . getViewFile($pagePath);
+    $aControllerVarsReplace = array(
+        deleteCharsInStringBasedOnPosition($pageControllerFile, -4),
+        deleteCharsInStringBasedOnPosition($pageModelFile, -4),
+        deleteCharsInStringBasedOnPosition(setFistCharLowercase($pageModelFile), -4),
+        deleteCharsInStringBasedOnPosition($pageViewFile, -4),
+        deleteCharsInStringBasedOnPosition($shortPagePath, -4));
+    replaceAllMatchesInFileWithString($pageControllerPath, $aControllerVars, $aControllerVarsReplace);
+}
+
+/**
  * @goal   replace all matches in a file with another string, needed for page creation
  * @param  string $path, array $match, array $replace     @example C:\xampp\info.txt, change_this_a, with_this_b
  * @result modified file
@@ -211,7 +298,7 @@ function replaceAllMatchesInFileWithString($path, $match, $replace){
  * @param  string $pathViewDir  @example C:\xampp\htdocs\bolkun\app\views\examples
  * @result deleted files
  */
-function deleteFolderWithAllPages($pathViewDir){
+function deleteAllPages($pathViewDir){
     // (1) delete View folder tree
     deleteFolderTreeRecursively($pathViewDir);
     // (2) delete Controller file
@@ -221,4 +308,20 @@ function deleteFolderWithAllPages($pathViewDir){
     $pathModelFile = MODELSROOT . DIRECTORY_SEPARATOR . getModelFile($pathViewDir);
     deleteFile($pathModelFile);
     // (4) clear Database
+}
+
+/**
+ * @goal   delete one page
+ * @param  string $pathViewFile @example C:\xampp\htdocs\bolkun\app\views\examples\index.php
+ * @result deleted files
+ */
+function deleteOnePage($pathViewFile){
+    // (1) delete View file
+    deleteFile($pathViewFile);
+    // (2) delete Controller function
+    $pathControllerFile = CONTROLLERSROOT . DIRECTORY_SEPARATOR . getControllerFile($pathViewFile);
+    $functionName = basename($pathViewFile);
+    // ... delete function
+
+    // (4) clear Database, NEEDS CONSTRUCT!
 }
