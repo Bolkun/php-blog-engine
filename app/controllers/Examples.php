@@ -9,7 +9,7 @@ class Examples extends Controller
     /*
      * All Pages ▼
      */
-    public function index() /* [.:FUNCTION_START:.] */
+    public function index()
     {
         // EDIT PAGE
         if(!empty($_POST['ajax_drag_id'])){
@@ -20,7 +20,7 @@ class Examples extends Controller
             ];
         }
         $this->view('examples/index', $data);
-    } /* [.:FUNCTION_END:.] */
+    } /* index */
 
     public function test()
     {
@@ -33,20 +33,7 @@ class Examples extends Controller
             ];
         }
         $this->view('examples/test', $data);
-    }
-
-    public function love()
-    {
-        // EDIT PAGE
-        if(!empty($_POST['ajax_drag_id'])){
-
-        } else {
-            $data = [
-                'title' => "love",
-            ];
-        }
-        $this->view('examples/love', $data);
-    }
+    } /* test */
 
     /* [.:NEW_FUNCTION:.] */
 }

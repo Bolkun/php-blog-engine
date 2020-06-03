@@ -320,8 +320,15 @@ function deleteOnePage($pathViewFile){
     deleteFile($pathViewFile);
     // (2) delete Controller function
     $pathControllerFile = CONTROLLERSROOT . DIRECTORY_SEPARATOR . getControllerFile($pathViewFile);
-    $functionName = basename($pathViewFile);
-    // ... delete function
-
-    // (4) clear Database, NEEDS CONSTRUCT!
+    $viewFile = basename($pathViewFile);    # index.php
+    $functionName = deleteCharsInStringBasedOnPosition($viewFile, -4); # index
+    # Controller.php to string
+    $sNewFunction = file_get_contents($pathControllerFile);
+    # replace everything between two matches (inclusive matches)
+    $start = 'public function ' . $functionName . '\(\)';
+    $end = '} \/\* ' . $functionName . ' \*\/';
+    $sNewFunction = preg_replace('/(' . $start. ')(.+?)(' . $end . '\s+)/s','', $sNewFunction);
+    // rewrite a file
+    file_put_contents($pathControllerFile, $sNewFunction);
+    // (4) clear Database, NEEDS CONSTRUCT!*/
 }

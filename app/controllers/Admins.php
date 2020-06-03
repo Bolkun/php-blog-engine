@@ -285,10 +285,8 @@ class Admins extends Controller
                 $sPage = $_POST['ajax_sPage'];
                 // delete folder with all pages
                 if(is_dir($sPage)){
-                   deleteAllPages($sPage);
-                }
-                // delete only one page
-                if(is_file($sPage)){
+                    deleteAllPages($sPage);
+                } else {
                     deleteOnePage($sPage);
                 }
                 // Init data

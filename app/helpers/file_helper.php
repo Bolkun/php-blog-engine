@@ -1,5 +1,7 @@
 <?php
 # basename ( string $path [, string $suffix ] ) : string    // get file name from given path
+# file_get_contents($pathIncFunction)
+# file_put_contents('file.txt', 'bar');
 
 /**
  * @goal   copy text from one file to another file
