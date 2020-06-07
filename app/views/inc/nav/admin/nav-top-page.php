@@ -1,4 +1,4 @@
-<div class="container-fluid" id="nav_top_page" style="display: none;">
+<div class="container-fluid bg-white" id="nav_top_page" style="z-index: 1; display: none;">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">

@@ -326,7 +326,7 @@ function deleteOnePage($pathViewFile){
     $sNewFunction = file_get_contents($pathControllerFile);
     # replace everything between two matches (inclusive matches)
     $start = 'public function ' . $functionName . '\(\)';
-    $end = '} \/\* ' . $functionName . ' \*\/';
+    $end = '} \/\* ' . $functionName . ' function end \*\/';
     $sNewFunction = preg_replace('/(' . $start. ')(.+?)(' . $end . '\s+)/s','', $sNewFunction);
     // rewrite a file
     file_put_contents($pathControllerFile, $sNewFunction);

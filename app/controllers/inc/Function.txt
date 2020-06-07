@@ -9,6 +9,6 @@ public function [.:PAGE_NAME:.]()
             ];
         }
         $this->view('[.:SHORT_PAGE_PATH:.]', $data);
-    } /* [.:PAGE_NAME:.] */
+    } /* [.:PAGE_NAME:.] function end */
 
     /* [.:NEW_FUNCTION:.] */

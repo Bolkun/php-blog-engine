@@ -2,21 +2,39 @@
  *   view: inc/nav/admin/nav-top-admin.php, inc/nav/user/nav-top-user.php
  */
 $(document).ready(function() {
-    // When the user scrolls the page, execute myFunction
-    window.onscroll = function() { navTopAdmin() };
-    // Get the navbar
-    var navbar = document.getElementById("nav_top");
-    // Get the offset position of the navbar
-    var sticky = navbar.offsetTop;
-    // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-    function navTopAdmin() {
-        if (window.pageYOffset > sticky) {
-            navbar.classList.add("sticky")
-        } else {
-            navbar.classList.remove("sticky");
+        // When the user scrolls the page, execute myFunction
+        window.onscroll = function() { navTopAdmin() };
+        // Get the navbar
+        var navbar = document.getElementById("nav_top");
+        var navbar2 = document.getElementById("nav_top_page");
+        // Get the offset position of the navbar
+        var sticky = navbar.offsetTop;
+        // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function navTopAdmin() {
+            if (window.pageYOffset > sticky) {
+                navbar.classList.add("sticky");
+                if(navbar2.style.display === "block"){
+                    navbar2.classList.add("sticky2");
+                }
+            } else {
+                navbar.classList.remove("sticky");
+                if(navbar2.style.display === "block"){
+                    navbar2.classList.remove("sticky2");
+                }
+            }
         }
-    }
 });
+
+function show_page_menu(){
+    var x = document.getElementById("nav_top_page");
+    if (x.style.display === "none") {
+        document.getElementById("pageMenu").innerHTML = "&darr;&nbsp;";
+        x.style.display = "block";
+    } else {
+        document.getElementById("pageMenu").innerHTML = "&uarr;&nbsp;";
+        x.style.display = "none";
+    }
+}
 /**********************************************************************************************************************/
 /*
  *   view: inc/nav/admin/nav-top-page.php
@@ -101,7 +119,7 @@ function costsDeleteRow_success(values){
 /*
  *   view: admins/pages/newEditDelete.php
  */
-// Autofill Link
+// Auto generate link from given path
 function pagesPathtoPagesLink(values) {
     var linkRoot = values['URLROOT'];
     var viewsRoot = values['VIEWSROOT'];
@@ -119,7 +137,7 @@ function pagesPathtoPagesLink(values) {
     });
 }
 
-// Copy Path
+// On click copy path
 function copyPath(that) {
     var inp = document.createElement('input');
     document.body.appendChild(inp);
@@ -141,7 +159,7 @@ function copyPath(that) {
     });
 }
 
-// Delete Page
+// Delete all or one page
 function pagesDeletePage(values) {
     if (confirm("Want to delete Page with path="+values['sPage']+" ?")) {
         // Logic to delete the page
@@ -154,7 +172,6 @@ function pagesDeletePage(values) {
         });
     }
 }
-
 function pagesDeletePage_error(values){
     // [alert info, alert success, alert warning, alert danger]
     var message = '<div class="alert danger" id="msg-flash">' +

@@ -20,20 +20,7 @@ class Examples extends Controller
             ];
         }
         $this->view('examples/index', $data);
-    } /* index */
-
-    public function test()
-    {
-        // EDIT PAGE
-        if(!empty($_POST['ajax_drag_id'])){
-
-        } else {
-            $data = [
-                'title' => "test",
-            ];
-        }
-        $this->view('examples/test', $data);
-    } /* test */
+    } /* index function end */
 
     /* [.:NEW_FUNCTION:.] */
 }

@@ -39,18 +39,3 @@
     <span class="navbar-text text-success"><?php echo $_SESSION['user_firstname'] . " " . $_SESSION['user_surname'];?></span>
     <a class="nav-link admin_nav_link" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
 </nav>
-
-<script>
-    function show_page_menu(){
-        var x = document.getElementById("nav_top_page");
-        if (x.style.display === "none") {
-            document.getElementById("pageMenu").innerHTML = "&darr;&nbsp;";
-            x.style.display = "block";
-        } else {
-            document.getElementById("pageMenu").innerHTML = "&uarr;&nbsp;";
-            x.style.display = "none";
-        }
-    }
-</script>
-
-

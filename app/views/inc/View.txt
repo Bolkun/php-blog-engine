@@ -7,15 +7,20 @@ BODY = [.:BODY:.]
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <style>
     #body {
-      width: 100%;
-      height: 100%;
-      border: 1px solid #aaaaaa;
+        margin 0;
+        border: 5px dashed orange;
+        background-color: #1c7430;
+    }
+    .container_text {
+        color: orange;
+        text-align: center;
     }
 </style>
 <div id="body" ondrop='drop(event, <?php echo jsonEncode(); ?>)' ondragover="allowDrop(event)">
     <div id="body_reload">
-        <h1><?php echo $data['title']; ?></h1>
-        <?php // [.:BODY:.] ?>
+        <?php // body starts ?>
+        <h1 class="container_text"><?php echo "Add container"; ?></h1>
+        <?php // body ends ?>
     </div>
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
