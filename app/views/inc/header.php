@@ -29,8 +29,9 @@
     if(isAdminLoggedIn() === true){
         require APPROOT . '/views/inc/nav/admin/nav-top-admin.php';
         require APPROOT . '/views/inc/nav/admin/nav-top-page.php';
+        echo '<script src="' . PUBLIC_CORE_JSURL . '/tinymce/1.tinymce.min.js' . '"></script>';
+        echo '<script src="' . PUBLIC_CORE_JSURL . '/tinymce/2.init-tinymce.js' . '"></script>';
     } elseif(isUserLoggedIn() === true) {
         require APPROOT . '/views/inc/nav/user/nav-top-user.php';
     }
 ?>
-
