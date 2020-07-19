@@ -5,8 +5,17 @@
                 <div class="col-sm-1"></div>
                 <div class="col-sm-10">
                     <div id="wrapper">
-                        <h1><?php echo $data['title']; ?></h1>
-                        <!-- <iframe src="https://web2.0rechner.de/" height="600" width="800"></iframe> -->
+                        <?php if(isAdminLoggedIn() === true){ ?>
+                            <form action="<?php echo URLCURRENT; ?>" method="post">
+                                <textarea class="tinymce" name="textarea_tinymce">
+
+                                </textarea>
+                                <input name="submitTinyMCEContent" type="submit" value="Save" class="btn btn-success btn-block">
+                            </form>
+                        <?php } ?>
+                        <div id="tinymce_data">
+                            <?php echo $data['textareaTinyMCE']; ?>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-1"></div>
