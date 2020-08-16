@@ -1,75 +1,3 @@
-/*
- *   view: inc/nav/admin/nav-top-admin.php, inc/nav/user/nav-top-user.php
- */
-$(document).ready(function() {
-        // When the user scrolls the page, execute myFunction
-        window.onscroll = function() { navTopAdmin() };
-        // Get the navbar
-        var navbar = document.getElementById("nav_top");
-        var navbar2 = document.getElementById("nav_top_page");
-        // Get the offset position of the navbar
-        var sticky = navbar.offsetTop;
-        // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-        function navTopAdmin() {
-            if (window.pageYOffset > sticky) {
-                navbar.classList.add("sticky");
-                if(navbar2.style.display === "block"){
-                    navbar2.classList.add("sticky2");
-                }
-            } else {
-                navbar.classList.remove("sticky");
-                if(navbar2.style.display === "block"){
-                    navbar2.classList.remove("sticky2");
-                }
-            }
-        }
-});
-
-function show_page_menu(){
-    var x = document.getElementById("nav_top_page");
-    if (x.style.display === "none") {
-        document.getElementById("pageMenu").innerHTML = "&darr;&nbsp;";
-        x.style.display = "block";
-    } else {
-        document.getElementById("pageMenu").innerHTML = "&uarr;&nbsp;";
-        x.style.display = "none";
-    }
-}
-/**********************************************************************************************************************/
-/*
- *   view: inc/nav/admin/nav-top-page.php
- */
-function allowDrop(ev) {
-    ev.preventDefault();    // change default state to allow drop event
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-// Param: string, string
-function drop(ev, server) {
-    ev.preventDefault();
-    var drag_id = ev.dataTransfer.getData("text"); // have only id from function drag
-    //ev.target.appendChild(document.getElementById(drag_id));
-    $.ajax({
-        url: server['URLCURRENT'],
-        data: 'ajax_drag_id=' +drag_id,
-        type: 'post',
-        error: drop_error(server),
-        success: drop_success(server)
-    });
-}
-
-function drop_error(server){
-    //alert(server['URLCURRENT'] + ": error");
-    // reload new view
-    $("#body").load(location.href + " #body_reload");    // parent.load(child)
-}
-function drop_success(server){
-    //alert(server['URLCURRENT'] + ": success");
-    // reload new view
-    $("#body").load(location.href + " #body_reload");    // parent.load(child)
-}
 /**********************************************************************************************************************/
 /*
  *   view: costs/newEditDelete.php
@@ -201,3 +129,9 @@ function pagesDeletePage_success(values){
     }, 3000);
 }
 /**********************************************************************************************************************/
+function loginRegister(hide, show){
+    document.getElementById(hide).style.display = "none";
+    document.getElementById(show).style.display = "block";
+    //var element = document.getElementById("collapse_login_menu");
+    //element.classList.add("show");
+}

@@ -77,12 +77,12 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
         define('PUBLIC_CUSTOM_VIDEOROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'video');
 
 /*** URL ***/
-# url root*
+# url root* redirects to STARTPAGE
 define('URLROOT', 'http://localhost/bolkun');
 # url of current page
 define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-# start page* (Hint: libraries/Core.php calls controllers/Users/index() and method calls login())
-define('STARTPAGE', 'Users');
+# start page* ( Hint: libraries/Core.php calls controllers/Dashboards and method always index() )
+define('STARTPAGE', 'Dashboards');
 /*** PUBLIC ***/
 # public url
 define('PUBLICURL', URLROOT . '/public');
@@ -130,5 +130,7 @@ define('PUBLICURL', URLROOT . '/public');
         define('PUBLIC_CUSTOM_OBJECTURL', PUBLIC_CUSTOMURL . '/object');
         # video folder
         define('PUBLIC_CUSTOM_VIDEOURL', PUBLIC_CUSTOMURL . '/video');
+
+/*** STYLE ***/
 
 

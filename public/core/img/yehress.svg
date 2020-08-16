@@ -1,0 +1,17 @@
+<svg width="719" height="396" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="398" width="721" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <text stroke="#000" transform="matrix(18.966907019435833,0,0,29.28165606337842,-9792.030326575898,-10516.596291878388) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_1" y="419.453125" x="504.5" stroke-width="0" fill="#000000"/>
+  <text font-style="normal" font-weight="normal" stroke="#000" transform="matrix(16.320926558835957,0,0,13.91434023674609,-8378.812242459842,-4895.581206047026) " xml:space="preserve" text-anchor="start" font-family="'Shadows Into Light', serif" font-size="14" id="svg_2" y="370.604629" x="513.56151" stroke-opacity="null" stroke-width="0" fill="#76b901">Yehress</text>
+  <path transform="matrix(18.966907019435833,0,0,29.28165606337842,-9792.030326575898,-10516.596291878388) " d="m77.5,70.453125c7,-1 15,-4 32,-4c20,0 40.154648,2.219223 56,0c7.209747,-1.009758 12.733246,-5.232735 18,-11c2.860977,-3.132862 1.588547,-3.57547 -7,3c-8.44046,6.46209 -11,13 -11,14c0,2 13.069016,12.081841 31,3c12.001968,-6.078865 10.414215,-11.585785 9,-13c-0.707108,-0.707108 -6,6 -10,16l0,7l0,3" id="svg_5" stroke-opacity="null" stroke-width="0" stroke="#000" fill="none"/>
+  <path transform="matrix(18.966907019435833,0,0,29.28165606337842,-9792.030326575898,-10516.596291878388) " d="m357.5,75.453125c1,0 3.287018,0.651306 7,4c4.330048,3.90522 14.722321,7.883415 23,10c6.850647,1.751694 11,1 17,1c11,0 26.919739,-0.689262 24,0c-15.233765,3.596199 -24,12 -25,15l0,1l3,0" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="#000" fill="none"/>
+ </g>
+</svg>

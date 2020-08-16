@@ -18,7 +18,8 @@ class Admins extends Controller
                 "PHP" => "v7.3.10 (This server use PHP v". phpversion() . ")",
                 "Database" => "MySQL (PDO connection required)",
                 "jQuery" => "v3.4.1",
-                "Bootstrap" => "v4.4.1",
+                "Bootstrap" => "v4.5.2",
+                "Tinymce" => "v5.4.1",
             ];
 
             $data = [

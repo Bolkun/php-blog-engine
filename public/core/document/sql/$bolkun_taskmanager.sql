@@ -133,3 +133,37 @@ INSERT INTO `cost` (`cost_id`, `created_by_user_id`, `category`, `type`, `price`
 (5, 1, 'household', 2, '17.00', 'ARD-ZDF', 1, 2020, 'free', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `page`
+--
+create table `page` (
+  `page_id`                     bigint(20)      unsigned not null auto_increment,
+  `created_by_user_id`          int(10)         unsigned not null                   comment 'user-id who created the page',
+  `creation_date`               datetime        default current_timestamp,
+  `observe_permissions`         varchar(20)     not null                            comment '1-everyone, 2-registered, 3-administered',
+  `observed_count`              bigint(20)      unsigned default "0",
+  `path`                        varchar(100)    not null                            comment 'absolute path to file',
+  `link`                        varchar(100)    not null,
+  `content`                     text            default null                        comment 'page main content',
+  primary key (`page_id`)
+) engine=myisam default charset=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `page`
+--
+create table `blog` (
+  `article_id`                  bigint(20)      unsigned not null auto_increment,
+  `created_by_user_id`          int(10)         unsigned not null                   comment 'user-id who created the page',
+  `creation_date`               datetime        default current_timestamp,
+  `category`                    varchar(100)    not null,
+  `title`                       varchar(100)    not null,
+  `rank`                        tinyint(1)      unsigned default "5",
+  `views`                       bigint(20)      unsigned default "0",
+  `content`                     text            default null                        comment 'blog main content',
+  primary key (`article_id`)
+) engine=myisam default charset=utf8;
+
+-- --------------------------------------------------------

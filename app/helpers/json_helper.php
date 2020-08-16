@@ -31,3 +31,21 @@ function jsonEncodePage($oData = NULL, $sPage){
     $sJSON = json_encode($aData);
     return $sJSON;
 }
+
+function jsonEncodeString($string){
+    $oData = NULL;
+    // convert object to associative array
+    $aData = (array) $oData;
+    $aData['string'] = $string;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}
+
+function jsonEncodeArray($array){
+    $oData = NULL;
+    // convert object to associative array
+    $aData = (array) $oData;
+    $aData['array'] = $array;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}

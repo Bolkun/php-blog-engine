@@ -22,18 +22,5 @@ class Examples extends Controller
         $this->view('examples/index', $data);
     } /* index function end */
 
-    public function test()
-    {
-        // EDIT PAGE
-        if(!empty($_POST['ajax_drag_id'])){
-
-        } else {
-            $data = [
-                'title' => "test",
-            ];
-        }
-        $this->view('examples/test', $data);
-    } /* test function end */
-
     /* [.:NEW_FUNCTION:.] */
 }

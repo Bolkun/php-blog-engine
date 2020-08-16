@@ -7,10 +7,6 @@ class Users extends Controller
         $this->userModel = $this->model('User');
     }
 
-    public function index()
-    {
-        $this->login();
-    }
     /*
      * All Pages ▼
      */
@@ -18,8 +14,6 @@ class Users extends Controller
     {
         // Check for POST
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // Process form
-
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -81,13 +75,13 @@ class Users extends Controller
                 // Register User
                 if($this->userModel->register($data)){
                     flash('register_success', 'You are registered and can log in', 'alert success');
-                    redirect('users/login');
+                    redirect(strtolower(STARTPAGE));
                 } else {
                     die('Something went wrong');
                 }
             } else {
-                // Load view with errors
-                $this->view('users/register', $data);
+                // Return errors
+                return $data;
             }
         } else {
             // Init data
@@ -104,8 +98,7 @@ class Users extends Controller
                 'confirm_password_err' => ''
             ];
 
-            // Load view
-            $this->view('users/register', $data);
+            return $data;
         }
     }
 
@@ -160,19 +153,19 @@ class Users extends Controller
                 if($loggedInUserData){
                     // Create Session
                     createUserSession($loggedInUserData);
-                    redirect('dashboards');
+                    redirect(strtolower(STARTPAGE));
                 } else {
                     $data['password_err'] = 'Password incorrect';
-                    $this->view('users/login', $data);
+                    return $data;
                 }
             } else {
-                // Load view with errors
-                $this->view('users/login', $data);
+                // return errors
+                return $data;
             }
         } else {
             // Init data
             if(isLoggedIn() === true){
-                redirect('dashboards');
+                redirect(strtolower(STARTPAGE));
             } else {
                 $data = [
                     'email' => '',
@@ -183,7 +176,7 @@ class Users extends Controller
                 ];
 
                 // Load view
-                $this->view('users/login', $data);
+                return $data;
             }
         }
     }
@@ -199,13 +192,13 @@ class Users extends Controller
                 unset($_SESSION['temp_user_role']);
             }
         }
-        redirect('dashboards');
+        redirect(strtolower(STARTPAGE));
     }
 
     public function logout()
     {
         destroyUserSession();
-        redirect('users/login');
+        redirect(strtolower(STARTPAGE));
     }
 
     public function settings()

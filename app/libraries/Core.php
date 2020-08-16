@@ -16,7 +16,7 @@ class Core {
         $url = $this->getUrl();
         //delete duplicates from array
         if($url == NULL){
-            redirect('users/login');
+            redirect(strtolower($this->currentController));
         } else {
             $url_unique = array_unique($url);
         }

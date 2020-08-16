@@ -23,4 +23,4 @@ BODY = [.:BODY:.]
         <?php // body ends ?>
     </div>
 </div>
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+<?php require APPROOT . '/views/inc/4-footer.php'; ?>

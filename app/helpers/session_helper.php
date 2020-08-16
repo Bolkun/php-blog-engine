@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-
 /**
  * @goal   display flash messages in view with echo flash('name');
  * @param  string $name, string $message, string $class @example flash('register', 'You are now registered', '[alert info, alert success, alert warning, alert danger]');

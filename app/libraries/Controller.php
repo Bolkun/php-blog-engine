@@ -7,6 +7,16 @@
 
 class Controller
 {
+    // Load controller
+    public function controller($controller)
+    {
+        // Require controller file
+        require_once '../app/controllers/' . $controller . '.php';
+
+        // Instantiate controller
+        return new $controller();
+    }
+
     // Load model
     public function model($model)
     {
