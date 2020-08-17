@@ -31,13 +31,63 @@
         <!-- Toggler Login Menu -->
         <div id="collapse_login_menu" class="dropdown-menu bg-dark">
             <?php if (isLoggedIn() === true) { ?>
-                <h4 class="h4_nav_top_user"><?php echo $_SESSION['user_firstname'] . " " . $_SESSION['user_surname']; ?></h4>
-                <div class="form-group">
-                    <a id="logout" href="<?php echo URLROOT; ?>/users/logout" class="btn btn-light btn-block">Logout</a>
+                <!-- Setting Form -->
+                <div id="setting_form">
+                    <h4 class="h4_nav_top_user"><?php echo $_SESSION['user_firstname'] . " " . $_SESSION['user_surname']; ?></h4>
+                    <!-- Change Email -->
+                    <form action="<?php echo URLROOT; ?>/dashboards" method="post">
+                        <div class="form-group">
+                            <p class="p_nav_top_user">Change email</p>
+                            <input id="setting_email" type="email" name="email"
+                                   class="form-control <?php echo (!empty($data['set_email_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['set_email']; ?>" placeholder="Email">
+                            <span class="invalid-feedback"><?php echo $data['set_email_err']; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <button name="submitUserEmail" id="setting_submit_email" class="btn btn-success" type="submit">
+                                <i class="fa fa-envelope"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <hr class="hr_menu">
+                    <!-- Change Password -->
+                    <form action="<?php echo URLROOT; ?>/dashboards" method="post">
+                        <p class="p_nav_top_user">Change password</p>
+                        <div class="form-group">
+                            <input id="setting_old_password" type="password" name="old_password"
+                                   class="form-control <?php echo (!empty($data['set_old_password_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['set_old_password']; ?>" placeholder="Old Password">
+                            <span class="invalid-feedback"><?php echo $data['set_old_password_err']; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <input id="setting_new_password" type="password" name="new_password"
+                                   class="form-control <?php echo (!empty($data['set_new_password_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['set_new_password']; ?>" placeholder="New Password">
+                            <span class="invalid-feedback"><?php echo $data['set_new_password_err']; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <input id="setting_new_password_confirm" type="password" name="new_password_confirm"
+                                   class="form-control <?php echo (!empty($data['set_new_password_confirm_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['set_new_password_confirm']; ?>" placeholder="Confirm New Password">
+                            <span class="invalid-feedback"><?php echo $data['set_new_password_confirm_err']; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <button name="submitUserPassword" id="setting_submit_password" class="btn btn-success" type="submit">
+                                <i class="fa fa-lock"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <hr class="hr_menu">
+                    <!-- logout -->
+                    <div class="form-group">
+                        <a id="logout" href="<?php echo URLROOT; ?>/users/logout"
+                           class="btn btn-light btn-block">Logout</a>
+                    </div>
                 </div>
             <?php } else { ?>
+                <!-- Authentication Form -->
                 <div id="login_form">
-                    <h4 class="h4_nav_top_user">Authentification</h4>
+                    <h4 class="h4_nav_top_user">Authentication</h4>
                     <div id="accordion">
                         <?php flash('register_success'); ?>
                         <form action="<?php echo URLROOT; ?>/dashboards" method="post">
@@ -60,11 +110,13 @@
                         </form>
                         <div class="form-group">
                             <button onclick="loginRegister('login_form', 'registration_form')" id="register_link"
-                                    class="btn btn-light btn-block" data-toggle="collapse" data-target="#registration_form">No account? Register
+                                    class="btn btn-light btn-block" data-toggle="collapse"
+                                    data-target="#registration_form">No account? Register
                             </button>
                         </div>
                     </div>
                 </div>
+                <!-- Registration Form -->
                 <div id="registration_form" style="display: none;">
                     <h4 class="h4_nav_top_user">Registration</h4>
                     <div id="accordion">
@@ -96,7 +148,8 @@
                             <div class="form-group">
                                 <input id="register_confirm_password" type="password" name="confirm_password"
                                        class="form-control <?php echo (!empty($data['reg_confirm_password_err'])) ? 'is-invalid' : ''; ?>"
-                                       value="<?php echo $data['reg_confirm_password']; ?>" placeholder="Confirm password">
+                                       value="<?php echo $data['reg_confirm_password']; ?>"
+                                       placeholder="Confirm password">
                                 <span class="invalid-feedback"><?php echo $data['reg_confirm_password_err']; ?></span>
                             </div>
                             <div class="form-group">
@@ -106,7 +159,8 @@
                         </form>
                         <div class="form-group">
                             <button id="login_link" onclick="loginRegister('registration_form', 'login_form')"
-                                    class="btn btn-light btn-block" data-toggle="collapse" data-target="#login_form">Have an account? Login
+                                    class="btn btn-light btn-block" data-toggle="collapse" data-target="#login_form">
+                                Have an account? Login
                             </button>
                         </div>
                     </div>

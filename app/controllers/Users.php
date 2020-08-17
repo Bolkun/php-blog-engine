@@ -181,7 +181,17 @@ class Users extends Controller
         }
     }
 
-    public function changeUserRole()
+    public function settingsUserEmail()
+    {
+
+    }
+
+    public function settingsUserPassword()
+    {
+
+    }
+
+    public function settingsAdminChangeRole()
     {
 	    if(isAdminLoggedIn()){
             $_SESSION['temp_user_role'] = 'Mitarbeiter';
@@ -199,13 +209,5 @@ class Users extends Controller
     {
         destroyUserSession();
         redirect(strtolower(STARTPAGE));
-    }
-
-    public function settings()
-    {
-        $data = [
-            'title' => "Einstellungen",
-        ];
-        $this->view('users/settings', $data);
     }
 }

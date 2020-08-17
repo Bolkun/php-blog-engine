@@ -129,9 +129,3 @@ function pagesDeletePage_success(values){
     }, 3000);
 }
 /**********************************************************************************************************************/
-function loginRegister(hide, show){
-    document.getElementById(hide).style.display = "none";
-    document.getElementById(show).style.display = "block";
-    //var element = document.getElementById("collapse_login_menu");
-    //element.classList.add("show");
-}
