@@ -77,7 +77,9 @@ class Users extends Controller
                     flash('register_success', 'You are registered and can log in', 'alert success');
                     redirect(strtolower(STARTPAGE));
                 } else {
-                    die('Something went wrong');
+                    // never be here!
+                    header('HTTP/1.0 404 Not Found');
+                    die('Something went wrong during registration process, please try again later');
                 }
             } else {
                 // Return errors
@@ -106,7 +108,6 @@ class Users extends Controller
     {
         // Check for POST
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // Process form
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -146,7 +147,6 @@ class Users extends Controller
 
             // Make sure errors are empty
             if(empty($data['email_err']) && empty($data['password_err'])){
-                // Validated
                 // Check and set logged in user
                 $loggedInUserData = $this->userModel->login($data['email'], $data['password']);
 
@@ -183,12 +183,127 @@ class Users extends Controller
 
     public function settingsUserEmail()
     {
+        // Check for POST
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Process form
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+            // Init data
+            $data = [
+                'email' => trim($_POST['email']),
+                'email_err' => '',
+            ];
+
+            // Validate Email
+            if(empty($data['email'])){
+                $data['email_err'] = 'Please enter new email';
+            }
+
+            if($this->userModel->findUserByEmail($data['email'])){
+                // User exists with this email
+                $data['email_err'] = 'User with ' . $data['email'] . "already exists";
+            }
+
+            // Make sure errors are empty
+            if(empty($data['email_err'])){
+                // Change email and logout
+                $setEmailStatus = $this->userModel->setEmail($data);
+
+                if($setEmailStatus){
+                    // logout
+                    destroyUserSession();
+                } else {
+                    // never be here!
+                    header('HTTP/1.0 404 Not Found');
+                    die('Something went wrong during email changing process, please try again later');
+                }
+            } else {
+                // return errors
+                return $data;
+            }
+        } else {
+            // Init data
+            $data = [
+                'email' => '',
+                'email_err' => '',
+            ];
+
+            return $data;
+        }
     }
 
     public function settingsUserPassword()
     {
+        // Check for POST
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Process form
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+            // Init data
+            $data = [
+                'old_password' => trim($_POST['old_password']),
+                'new_password' => trim($_POST['new_password']),
+                'new_password_confirm' => trim($_POST['new_password_confirm']),
+                'old_password_err' => '',
+                'new_password_err' => '',
+                'new_password_confirm_err' => '',
+            ];
+
+            // Validate
+            if(empty($data['old_password'])){
+                $data['old_password_err'] = 'Please enter old password';
+            } else {
+                // Check if old password match existing password
+                $loggedInUserData = $this->userModel->login($_SESSION['user_email'], $data['old_password']);
+                if($loggedInUserData === false) {
+                    $data['old_password_err'] = 'Old password incorrect';
+                }
+            }
+            if(empty($data['new_password'])){
+                $data['new_password_err'] = 'Please enter new password';
+            }
+            if(empty($data['new_password_confirm'])){
+                $data['new_password_confirm_err'] = 'Please confirm new password';
+            }
+
+            if($data['new_password'] !== $data['new_password_confirm']){
+                $data['new_password_err'] = 'New password mismatch confirm password';
+            }
+
+            // Make sure errors are empty
+            if(empty($data['old_password_err']) && empty($data['new_password_err']) && empty($data['new_password_confirm_err'])){
+                // Hash new password
+                $data['new_password'] = password_hash($data['new_password'], PASSWORD_DEFAULT);
+                // Change password and logout
+                $setPasswordStatus = $this->userModel->setPassword($data);
+
+                if($setPasswordStatus){
+                    // logout
+                    destroyUserSession();
+                } else {
+                    // never be here!
+                    header('HTTP/1.0 404 Not Found');
+                    die('Something went wrong during password changing process, please try again later');
+                }
+            } else {
+                // return errors
+                return $data;
+            }
+        } else {
+            // Init data
+            $data = [
+                'old_password' => '',
+                'new_password' => '',
+                'new_password_confirm' => '',
+                'old_password_err' => '',
+                'new_password_err' => '',
+                'new_password_confirm_err' => '',
+            ];
+
+            return $data;
+        }
     }
 
     public function settingsAdminChangeRole()

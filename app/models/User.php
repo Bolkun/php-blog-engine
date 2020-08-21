@@ -8,8 +8,8 @@ class User
     {
         $this->db = new Database;
     }
-	
-	// Register User
+
+    // Register User
     public function register($data)
     {
         $this->db->query('INSERT INTO user (firstname, surname, email, password) VALUES (:firstname, :surname, :email, :password)');
@@ -20,7 +20,37 @@ class User
         $this->db->bind(':password', $data['password']);
 
         // Execute
-        if($this->db->execute()){
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setEmail($data)
+    {
+        $this->db->query('UPDATE user SET email = :new_email WHERE email = :session_email');
+        // Bind values
+        $this->db->bind(':new_email', $data['email']);
+        $this->db->bind(':session_email', $_SESSION['user_email']);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setPassword($data)
+    {
+        $this->db->query('UPDATE user SET password = :new_password WHERE email = :session_email');
+        // Bind values
+        $this->db->bind(':new_password', $data['new_password']);
+        $this->db->bind(':session_email', $_SESSION['user_email']);
+
+        // Execute
+        if ($this->db->execute()) {
             return true;
         } else {
             return false;
@@ -35,7 +65,9 @@ class User
         $row = $this->db->single();
 
         $hashed_password = $row->password;
-        if(password_verify($password, $hashed_password)){
+
+        // compare password with hashed password from DB
+        if (password_verify($password, $hashed_password)) {
             return $row;
         } else {
             return false;
@@ -52,7 +84,7 @@ class User
         $row = $this->db->single();
 
         // Check row
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return true;
         } else {
             return false;

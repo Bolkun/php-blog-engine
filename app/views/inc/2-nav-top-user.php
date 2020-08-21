@@ -41,12 +41,10 @@
                             <input id="setting_email" type="email" name="email"
                                    class="form-control <?php echo (!empty($data['set_email_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['set_email']; ?>" placeholder="Email">
-                            <span class="invalid-feedback"><?php echo $data['set_email_err']; ?></span>
-                        </div>
-                        <div class="form-group">
                             <button name="submitUserEmail" id="setting_submit_email" class="btn btn-success" type="submit">
                                 <i class="fa fa-envelope"></i>
                             </button>
+                            <span class="invalid-feedback"><?php echo $data['set_email_err']; ?></span>
                         </div>
                     </form>
                     <hr class="hr_menu">
@@ -69,12 +67,10 @@
                             <input id="setting_new_password_confirm" type="password" name="new_password_confirm"
                                    class="form-control <?php echo (!empty($data['set_new_password_confirm_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['set_new_password_confirm']; ?>" placeholder="Confirm New Password">
-                            <span class="invalid-feedback"><?php echo $data['set_new_password_confirm_err']; ?></span>
-                        </div>
-                        <div class="form-group">
                             <button name="submitUserPassword" id="setting_submit_password" class="btn btn-success" type="submit">
                                 <i class="fa fa-lock"></i>
                             </button>
+                            <span class="invalid-feedback"><?php echo $data['set_new_password_confirm_err']; ?></span>
                         </div>
                     </form>
                     <hr class="hr_menu">
