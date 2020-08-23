@@ -1,8 +1,10 @@
 // change color and hide another opened togglers
 function changeNavTopUserColor(id, cid) {
     // just add one more id in array
-    var icons_ids = ['toggle_bell_menu', 'toggle_login_menu', 'toggle_main_menu'];
+    var icons_ids = ['home_menu', 'toggle_bell_menu', 'toggle_login_menu', 'toggle_main_menu'];
     var collapse_ids = ['collapse_bell_menu', 'collapse_login_menu', 'collapse_main_menu'];
+    var icons_ids_length = icons_ids.length;
+    var count = 0;
     var getColor = document.getElementById(id).style.color;
     var getDisplay = document.getElementById(cid).style.display;
 
@@ -19,6 +21,17 @@ function changeNavTopUserColor(id, cid) {
             document.getElementById(icon_id).style.border = "1px solid white";
         }
     });
+
+    // if all icons white make home icon green
+    icons_ids.forEach(function(icon_id) {
+        if (document.getElementById(icon_id).style.color === "white") {
+            count++;
+        }
+    });
+    if(count === icons_ids_length){
+        document.getElementById(icons_ids[0]).style.color = "rgb(118, 185, 1)";  // green
+        document.getElementById(icons_ids[0]).style.border = "1px solid rgb(118, 185, 1)";
+    }
 
     collapse_ids.forEach(function(collapse_id) {
         // change display
@@ -39,3 +52,20 @@ function loginRegister(hide, show){
     //var element = document.getElementById("collapse_login_menu");
     //element.classList.add("show");
 }
+
+//Replace Value by Registration
+$(function () {
+    count = 0;
+    wordsArray = ["Register", "Send Verification Code"];
+    setInterval(function () {
+        count++;
+        $("#submit_register").fadeOut(1000, function () {
+            document.registration_form.submitRegister.value = wordsArray[count % wordsArray.length];
+            // $(this).text(wordsArray[count % wordsArray.length]).fadeIn(500);
+        });
+        $("#submit_register").fadeIn(2000, function () {
+            document.registration_form.submitRegister.value = wordsArray[count % wordsArray.length];
+            // $(this).text(wordsArray[count % wordsArray.length]).fadeIn(500);
+        });
+    }, 6000);
+});

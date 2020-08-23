@@ -12,12 +12,15 @@ class User
     // Register User
     public function register($data)
     {
-        $this->db->query('INSERT INTO user (firstname, surname, email, password) VALUES (:firstname, :surname, :email, :password)');
+        $this->db->query('INSERT INTO user (firstname, surname, email, password, ip, verification_code) 
+          VALUES (:firstname, :surname, :email, :password, :ip, :verification_code)');
         // Bind values
         $this->db->bind(':firstname', $data['firstname']);
         $this->db->bind(':surname', $data['surname']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
+        $this->db->bind(':ip', $data['ip']);
+        $this->db->bind(':verification_code', $data['verification_code']);
 
         // Execute
         if ($this->db->execute()) {
@@ -57,9 +60,54 @@ class User
         }
     }
 
+    public function updateAccountStatus($data)
+    {
+        $this->db->query('UPDATE user SET account_status = :account_status WHERE email = :email');
+        // Bind values
+        $this->db->bind(':account_status', $data['account_status']);
+        $this->db->bind(':email', $data['email']);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateVerificationCode($data, $verification_code)
+    {
+        $this->db->query('UPDATE user SET verification_code = :verification_code WHERE email = :email');
+        // Bind values
+        $this->db->bind(':verification_code', $verification_code);
+        $this->db->bind(':email', $data['email']);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updatePasswordTries($data)
+    {
+        $this->db->query('UPDATE user SET password_tries = :password_tries WHERE email = :email');
+        // Bind values
+        $this->db->bind(':password_tries', $data['password_tries']);
+        $this->db->bind(':email', $data['email']);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function login($email, $password)
     {
-        $this->db->query('SELECT * FROM user WHERE email = :email AND acount_status = 1');
+        $this->db->query('SELECT * FROM user WHERE email = :email');
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
@@ -69,6 +117,20 @@ class User
         // compare password with hashed password from DB
         if (password_verify($password, $hashed_password)) {
             return $row;
+        } else {
+            return false;
+        }
+    }
+
+    public function findUserIPs($ip)
+    {
+        $this->db->query('SELECT COUNT(*) AS "ip_count" FROM user WHERE ip = :ip');
+        $this->db->bind(':ip', $ip);
+
+        $row = $this->db->single();
+
+        if ($row->ip_count < 6) {
+            return true;
         } else {
             return false;
         }
@@ -102,6 +164,40 @@ class User
 
         return $row;
     }
+
+    public function getUserAccountStatusByEmail($email)
+    {
+        $this->db->query('SELECT account_status FROM user WHERE email = :email');
+        // Bind values
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function getUserVerificationCodeByEmail($email)
+    {
+        $this->db->query('SELECT verification_code FROM user WHERE email = :email');
+        // Bind values
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function getPasswordTries($data)
+    {
+        $this->db->query('SELECT password_tries FROM user WHERE email = :email');
+        // Bind values
+        $this->db->bind(':email', $data['email']);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
 
     // Get User By ID
     public function getUserById($id)

@@ -12,11 +12,16 @@ class Core {
     // <Core construct>
     public function __construct()
     {
-        //print_r($this->getUrl());
-        $url = $this->getUrl();
-        //delete duplicates from array
+        //get split array after bolkun ( Example: http://localhost/bolkun/index/ )
+        $url = $this->getUrl(); // [0] => index
+        // delete duplicates from array
         if($url == NULL){
-            redirect(strtolower($this->currentController));
+            require_once '../app/controllers/' . $this->currentController . '.php';
+            $this->currentController = new $this->currentController;
+            $this->currentMethod = 'index';
+            // Call a callback with array of params
+            call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+            return;
         } else {
             $url_unique = array_unique($url);
         }

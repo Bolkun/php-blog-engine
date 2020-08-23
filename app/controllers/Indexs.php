@@ -1,10 +1,9 @@
 <?php
 
-class Dashboards extends Controller
+class Indexs extends Controller
 {
     public function __construct()
     {
-        $this->dashboardModel = $this->model('Dashboard');
         $this->userController = $this->controller('Users');
     }
     /*
@@ -28,9 +27,11 @@ class Dashboards extends Controller
             // login
             'log_email' => '',
             'log_password' => '',
+            'log_verification_code' => '',
             'log_role' => '',
             'log_email_err' => '',
             'log_password_err' => '',
+            'log_verification_code_err' => '',
             // setting email
             'set_email' => '',
             'set_email_err' => '',
@@ -53,14 +54,16 @@ class Dashboards extends Controller
                 // login
                 'log_email' => $user_data['email'],
                 'log_password' => $user_data['password'],
+                'log_verification_code' => $user_data['verification_code'],
                 'log_role' => $user_data['role'],
                 'log_email_err' => $user_data['email_err'],
                 'log_password_err' => $user_data['password_err'],
+                'log_verification_code_err' => $user_data['verification_code_err'],
                 // other
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('dashboards/index', $data);
+            $this->view('index/index', $data);
         }
         elseif (isset($_POST['submitRegister'])){
             $user = new Users();
@@ -78,10 +81,17 @@ class Dashboards extends Controller
                 'reg_password_err' => $user_data['password_err'],
                 'reg_confirm_password_err' => $user_data['confirm_password_err'],
                 // other
-                'display_div' => array('registration_form'),
+                'display_div' => array('registration_form'),  // display errors
             ];
+
+            // display login
+            if(empty($new_data['reg_firstname_err']) && empty($new_data['reg_surname_err']) && empty($new_data['reg_email_err'])
+                && empty($new_data['reg_password_err']) && empty($new_data['reg_confirm_password_err'])){
+                $new_data['display_div'] = array('collapse_login_menu');
+            }
+
             $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('dashboards/index', $data);
+            $this->view('index/index', $data);
         }
         elseif (isset($_POST['submitUserEmail'])){
             $user = new Users();
@@ -94,7 +104,7 @@ class Dashboards extends Controller
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('dashboards/index', $data);
+            $this->view('index/index', $data);
         }
         elseif (isset($_POST['submitUserPassword'])){
             $user = new Users();
@@ -111,10 +121,10 @@ class Dashboards extends Controller
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('dashboards/index', $data);
+            $this->view('index/index', $data);
         }
         else {
-            $this->view('dashboards/index', $default_data);
+            $this->view('index/index', $default_data);
         }
         // index end
     }

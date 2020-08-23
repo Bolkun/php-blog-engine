@@ -82,7 +82,7 @@ define('URLROOT', 'http://localhost/bolkun');
 # url of current page
 define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 # start page* ( Hint: libraries/Core.php calls controllers/Dashboards and method always index() )
-define('STARTPAGE', 'Dashboards');
+define('STARTPAGE', 'Indexs');
 /*** PUBLIC ***/
 # public url
 define('PUBLICURL', URLROOT . '/public');

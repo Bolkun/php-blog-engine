@@ -57,7 +57,7 @@ create table `task` (
 create table `document` (
   `document_id`                 bigint(20)      unsigned not null auto_increment,
   `task_id`                     bigint(20)      unsigned default null,
-  `uploaded_by_user_id`         int(10)         unsigned not null,
+  `uploaded_by_user_id`         bigint(20)      unsigned not null,
   `upload_date`                 datetime        default current_timestamp,
   `type`                        varchar(10)     default null                        comment 'txt, pdf, png ...',
   `name`                        varchar(50)     not null,
@@ -72,14 +72,17 @@ create table `document` (
 --
 
 create table `user` (
-  `user_id`                     int(10)         unsigned not null auto_increment,
-  `acount_status`               tinyint(1)      unsigned not null default 1         comment '1 account ist aktiv, 0 account ist inaktiv.',
+  `user_id`                     bigint(20)      unsigned not null auto_increment,
+  `account_status`              tinyint(1)      unsigned not null default 0         comment '1 account is active, 0 account ist inactive',
   `role`                        varchar(15)     default 'Mitarbeiter'               comment 'Mitarbeiter oder Admin',
   `firstname`                   varchar(70)     not null                            comment 'vorname',
   `surname`                     varchar(70)     not null                            comment 'nachname',
   `email`                       varchar(80)     not null                            comment 'email',
-  `password`                    varchar(1000)   not null                            comment 'hashed password',
+  `password`                    varchar(100)    not null                            comment 'hashed password',
+  `password_tries`              int(1)          not null default 5                  comment 'max 5 tries available, 0 no tries available',
+  `ip`                          varchar(45)     not null                            comment 'ip',
   `creation_date`               datetime        default current_timestamp,
+  `verification_code`           varchar(100)    default null,
   `inactive_date`               datetime        default null,
   primary key (`user_id`)
 ) engine=myisam default charset=utf8                                                comment='hier werden alle mitarbeiter gespeichert';
@@ -88,9 +91,9 @@ create table `user` (
 -- Daten für Tabelle `user`
 --
 
-INSERT INTO `user` (`user_id`, `acount_status`, `role`, `firstname`, `surname`, `email`, `password`, `creation_date`, `inactive_date`) VALUES
-(1, 1, 'Admin', 'Serhiy', 'Bolkun', 'serhij16@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '2020-07-02 10:53:21', NULL),
-(2, 1, 'Mitarbeiter', 'John', 'Snow', 'john@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '2020-07-02 10:53:21', NULL);
+INSERT INTO `user` (`user_id`, `account_status`, `role`, `firstname`, `surname`, `email`, `password`, `ip`, `creation_date`, `verification_code`, `inactive_date`) VALUES
+(1, 1, 'Admin', 'Serhiy', 'Bolkun', 'serhij16@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '::1', '2020-07-02 10:53:21', '666666',  NULL),
+(2, 1, 'Mitarbeiter', 'John', 'Snow', 'john@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '::1', '2020-07-02 10:53:21', '666666',  NULL);
 
 -- --------------------------------------------------------
 
@@ -152,7 +155,7 @@ create table `page` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `page`
+-- Tabellenstruktur für Tabelle `blog`
 --
 create table `blog` (
   `article_id`                  bigint(20)      unsigned not null auto_increment,

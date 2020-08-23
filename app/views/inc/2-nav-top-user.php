@@ -35,7 +35,7 @@
                 <div id="setting_form">
                     <h4 class="h4_nav_top_user"><?php echo $_SESSION['user_firstname'] . " " . $_SESSION['user_surname']; ?></h4>
                     <!-- Change Email -->
-                    <form action="<?php echo URLROOT; ?>/dashboards" method="post">
+                    <form action="<?php echo URLROOT; ?>/index" method="post">
                         <div class="form-group">
                             <p class="p_nav_top_user">Change email</p>
                             <input id="setting_email" type="email" name="email"
@@ -49,7 +49,7 @@
                     </form>
                     <hr class="hr_menu">
                     <!-- Change Password -->
-                    <form action="<?php echo URLROOT; ?>/dashboards" method="post">
+                    <form action="<?php echo URLROOT; ?>/index" method="post">
                         <p class="p_nav_top_user">Change password</p>
                         <div class="form-group">
                             <input id="setting_old_password" type="password" name="old_password"
@@ -86,7 +86,7 @@
                     <h4 class="h4_nav_top_user">Authentication</h4>
                     <div id="accordion">
                         <?php flash('register_success'); ?>
-                        <form action="<?php echo URLROOT; ?>/dashboards" method="post">
+                        <form action="<?php echo URLROOT; ?>/index" method="post">
                             <div class="form-group">
                                 <input id="login_email" type="email" name="email"
                                        class="form-control <?php echo (!empty($data['log_email_err'])) ? 'is-invalid' : ''; ?>"
@@ -98,6 +98,12 @@
                                        class="form-control <?php echo (!empty($data['log_password_err'])) ? 'is-invalid' : ''; ?>"
                                        value="<?php echo $data['log_password']; ?>" placeholder="Password">
                                 <span class="invalid-feedback"><?php echo $data['log_password_err']; ?></span>
+                            </div>
+                            <div class="form-group">
+                                <input id="login_verification_code" type="text" name="verification_code"
+                                       class="form-control <?php echo (!empty($data['log_verification_code_err'])) ? 'is-invalid' : ''; ?>"
+                                       value="<?php echo $data['log_verification_code']; ?>" placeholder="Verification Code">
+                                <span class="invalid-feedback"><?php echo $data['log_verification_code_err']; ?></span>
                             </div>
                             <div class="form-group">
                                 <input id="submit_login" name="submitLogin" type="submit" value="Login"
@@ -116,7 +122,7 @@
                 <div id="registration_form" style="display: none;">
                     <h4 class="h4_nav_top_user">Registration</h4>
                     <div id="accordion">
-                        <form action="<?php echo URLROOT; ?>/dashboards" method="post">
+                        <form name="registration_form" action="<?php echo URLROOT; ?>/index" method="post">
                             <div class="form-group">
                                 <input id="register_firstname" type="text" name="firstname"
                                        class="form-control <?php echo (!empty($data['reg_firstname_err'])) ? 'is-invalid' : ''; ?>"

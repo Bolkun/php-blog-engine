@@ -2,7 +2,7 @@
 /*
  *   view: costs/newEditDelete.php
  */
-//Param assoc array
+// Param assoc array
 function costsDeleteRow(values) {
     if (confirm("Want to delete Record with id="+values['cost_id']+"?")) {
         // Logic to delete the item

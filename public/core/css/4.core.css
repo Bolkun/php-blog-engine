@@ -31,10 +31,10 @@
 }
 
 #home_menu {
-    color: white;
+    color: rgb(118, 185, 1);
     font-size: 25px;
     float: left;
-    border: 1px solid white;
+    border: 1px solid rgb(118, 185, 1);
     border-radius: .25rem;
 }
 
@@ -78,7 +78,7 @@
 }
 
 #register_firstname, #register_surname, #register_email, #register_password, #register_confirm_password, #submit_register,
-#login_email, #login_password, #submit_login,
+#login_email, #login_password, #login_verification_code, #submit_login,
 #setting_old_password, #setting_new_password {
     width: 96%;
     border-color: #76b901;

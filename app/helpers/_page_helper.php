@@ -61,8 +61,7 @@ function getPagesPaths(){
     // hide reserved pages
     unset($aPagesDirs[array_search('inc', $aPagesDirs, true)]);
     unset($aPagesDirs[array_search('admins', $aPagesDirs, true)]);
-    unset($aPagesDirs[array_search('users', $aPagesDirs, true)]);
-    unset($aPagesDirs[array_search('dashboards', $aPagesDirs, true)]);
+    unset($aPagesDirs[array_search('index', $aPagesDirs, true)]);
 
     // reset keys from 0 to n
     $aPagesDirs = resetArrayKeys($aPagesDirs);
@@ -331,4 +330,29 @@ function deleteOnePage($pathViewFile){
     // rewrite a file
     file_put_contents($pathControllerFile, $sNewFunction);
     // (4) clear Database, NEEDS CONSTRUCT!*/
+}
+
+/**
+ * @goal   get real ip address from a visitor, when they are also using a proxy
+ * @result string
+ */
+function getUserIP(){
+    // Get real visitor IP behind CloudFlare network
+    if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
+        $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+        $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
+    }
+    $client  = @$_SERVER['HTTP_CLIENT_IP'];
+    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote  = $_SERVER['REMOTE_ADDR'];
+
+    if(filter_var($client,FILTER_VALIDATE_IP)) {
+        $ip = $client;
+    } elseif(filter_var($forward,FILTER_VALIDATE_IP)) {
+        $ip = $forward;
+    } else {
+        $ip = $remote;
+    }
+
+    return $ip;
 }

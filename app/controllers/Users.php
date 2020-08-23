@@ -32,23 +32,26 @@ class Users extends Controller
             ];
 
             // Validate Email
-            if(empty($data['email'])){
+            if(empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
-            } else {
-                // Check email
-                if($this->userModel->findUserByEmail($data['email'])){
-                    $data['email_err'] = 'Email is already taken';
-                }
+            } else if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                $data['email_err'] = 'Invalid email format';
+            } else if($this->userModel->findUserByEmail($data['email'])){
+                $data['email_err'] = 'Email not allowed';
             }
 
             // Validate Firstname
             if(empty($data['firstname'])){
                 $data['firstname_err'] = 'Please enter firstname';
+            } else if(!preg_match("/^[a-zA-Z ]*$/", $data['firstname'])){
+                $data['firstname_err'] = 'Only letters and white space allowed';
             }
 
             // Validate Surname
             if(empty($data['surname'])){
                 $data['surname_err'] = 'Please enter surname';
+            } else if(!preg_match("/^[a-zA-Z ]*$/", $data['surname'])){
+                $data['surname_err'] = 'Only letters and white space allowed';
             }
 
             // Validate Password
@@ -61,30 +64,45 @@ class Users extends Controller
             // Validate Confirm Password
             if(empty($data['confirm_password'])){
                 $data['confirm_password_err'] = 'Please confirm password';
-            } else {
-                if($data['password'] != $data['confirm_password']){
-                    $data['confirm_password_err'] = 'Password do not match';
-                }
+            } else if($data['password'] != $data['confirm_password']){
+                $data['confirm_password_err'] = 'Password do not match';
             }
             
             // Make sure errors are empty
             if(empty($data['email_err']) && empty($data['firstname_err']) && empty($data['surname_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])){
-                // Hash Password
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                $data['ip'] = getUserIP();
+                if($this->userModel->findUserIPs($data['ip'])){
+                    // Hash Password
+                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                    // Generate verification code
+                    $data['verification_code'] = mt_rand(100000, 999999);   // between 100,000 and 999,999
 
-                // Register User
-                if($this->userModel->register($data)){
-                    flash('register_success', 'You are registered and can log in', 'alert success');
-                    redirect(strtolower(STARTPAGE));
+                    // Register User
+                    if($this->userModel->register($data)){
+                        // Send verification mail
+                        $message = "Hallo " . $data['firstname'] . ' ' . $data['surname'] . "!\n\n" .
+                            "A sign in attempt requires further verification because we did not recognize your device. To complete the sign in, enter the verification code on the unrecognized device.\n\n" .
+                            "Verification code: " . $data['verification_code'] . "\n\n" .
+                            "Thanks,\n" .
+                            "The " . SITENAME . " Team";
+                        $headers = 'From: noreply@company.com';
+
+                        if(mail($data['email'], '[' . SITENAME . '] Please verify your device', $message, $headers)){
+                            // mail send
+                        } else {
+                            $data['confirm_password_err'] = 'Could not send mail, due to server problems';
+                        }
+
+                        $data['password'] = trim($_POST['password']);
+                    } else {
+                        $data['confirm_password_err'] = 'Could not register user, due to server problems';
+                    }
                 } else {
-                    // never be here!
-                    header('HTTP/1.0 404 Not Found');
-                    die('Something went wrong during registration process, please try again later');
+                    $data['confirm_password_err'] = 'Could not register user, to much registrations';
                 }
-            } else {
-                // Return errors
-                return $data;
             }
+
+            return $data;
         } else {
             // Init data
             $data = [
@@ -115,69 +133,140 @@ class Users extends Controller
             $data = [
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
+                'verification_code' => trim($_POST['verification_code']),
                 'role' => '',
                 'email_err' => '',
                 'password_err' => '',
+                'verification_code_err' => '',
             ];
 
-            // Validate Email
+            // Validate email
             if(empty($data['email'])){
                 $data['email_err'] = 'Please enter email';
+            } else if($this->userModel->findUserByEmail($data['email'])){
+                // User found
+                // Validate verification code
+                if($this->userModel->getUserAccountStatusByEmail($data['email'])->account_status === '0'){    // inactive
+                    if($data['verification_code'] === $this->userModel->getUserVerificationCodeByEmail($data['email'])->verification_code){
+                        $data['account_status'] = 1;
+                        // make account active
+                        if($this->userModel->updateAccountStatus($data)){
+                            unset($data['account_status']);
+                        } else {
+                            $data['verification_code_err'] = 'Could not change account status, due to server problem';
+                        }
+                    } else {
+                        $data['verification_code_err'] = 'Verification code incorrect';
+                    }
+                }
+            } else {
+                // User not found
+                $data['password_err'] = 'Username or password incorrect';
             }
 
-            // Validate Password
+            // Validate password
             if(empty($data['password'])){
                 $data['password_err'] = 'Please enter password';
             }
 
-            // Check for user/email
-            if($this->userModel->findUserByEmail($data['email'])){
-                // User found
-            } else {
-                // User not found
-                $data['email_err'] = 'No user found';
-            }
-
-            // Check for user/role
-            if($this->userModel->getUserRoleByEmail($data['email']) == 'Admin'){
+            // Check for role
+            if($this->userModel->getUserRoleByEmail($data['email']) === 'Admin'){
                 $data['role'] = 'Admin';
             } else {
                 $data['role'] = 'Mitarbeiter';
             }
 
             // Make sure errors are empty
-            if(empty($data['email_err']) && empty($data['password_err'])){
-                // Check and set logged in user
-                $loggedInUserData = $this->userModel->login($data['email'], $data['password']);
-
-                if($loggedInUserData){
-                    // Create Session
-                    createUserSession($loggedInUserData);
-                    redirect(strtolower(STARTPAGE));
-                } else {
-                    $data['password_err'] = 'Password incorrect';
-                    return $data;
+            if(empty($data['email_err']) && empty($data['password_err']) && empty($data['verification_code_err'])){
+                // Check password tries
+                $passwordTries = $this->userModel->getPasswordTries($data)->password_tries;
+                if($passwordTries === '-1'){
+                    $passwordTries = 1;
                 }
-            } else {
-                // return errors
-                return $data;
+
+                if($passwordTries > '0'){
+                    // Check if user logged in successfully
+                    $loggedInUserData = $this->userModel->login($data['email'], $data['password']);
+                    if($loggedInUserData){
+                        // Update password tries if necessary
+                        if($loggedInUserData->password_tries !== '5'){
+                            $data['password_tries'] = '5';
+                            if($this->userModel->updatePasswordTries($data)){
+                                // OK
+                            } else {
+                                $data['password_err'] = 'Could not reset password tries, due to server problems';
+                            }
+                        }
+                        // Create Session
+                        createUserSession($loggedInUserData);
+                    } else {
+                        // Password try -1
+                        $data['password_tries'] = $passwordTries - 1;
+                        if($this->userModel->updatePasswordTries($data)){
+                            // OK
+                        } else {
+                            $data['password_err'] = 'Could not reset password tries, due to server problems';
+                        }
+                        // Password was incorrect
+                        $data['password_err'] = 'Username or password incorrect';
+                    }
+                } else if($passwordTries === '0'){
+                    // deactivate email
+                    $data['account_status'] = '0';
+                    if($this->userModel->updateAccountStatus($data)){
+                        unset($data['account_status']);
+                    } else {
+                        $data['verification_code_err'] = 'Could not change account status, due to server problem';
+                    }
+                    // Update verification code
+                    $randomNumber = mt_rand(100000, 999999);
+                    $verification_code = password_hash($randomNumber, PASSWORD_DEFAULT);
+                    if($this->userModel->updateVerificationCode($data, $verification_code)){
+                        // OK
+                    } else {
+                        $data['password_err'] = 'Could not update verification code, due to server problems';
+                    }
+                    // send new verification code
+                    $message = "Hallo User!\n\n" .
+                        "A sign in attempt requires further verification code because password try limit was reached.\n\n" .
+                        "Verification code: " . $verification_code . "\n\n" .
+                        "PS: Just copy and paste this long string!" . "\n\n" .
+                        "Thanks,\n" .
+                        "The " . SITENAME . " Team";
+                    $headers = 'From: noreply@company.com';
+
+                    if(mail($data['email'], '[' . SITENAME . '] Please verify your device', $message, $headers)){
+                        // mail send
+                    } else {
+                        $data['password_err'] = 'Could not send mail, due to server problems';
+                    }
+                    // set password tries -1
+                    $data['password_tries'] = '-1';
+                    if($this->userModel->updatePasswordTries($data)){
+                        // OK
+                    } else {
+                        $data['password_err'] = 'Could not reset password tries, due to server problems';
+                    }
+
+                    $data['password_err'] = 'Email was blocked, check email for verification code';
+                } else {
+                    $data['password_err'] = 'Password try limit reached, check email for verification code';
+                }
+
             }
+
+            return $data;
         } else {
             // Init data
-            if(isLoggedIn() === true){
-                redirect(strtolower(STARTPAGE));
-            } else {
-                $data = [
-                    'email' => '',
-                    'password' => '',
-                    'role' => '',
-                    'email_err' => '',
-                    'password_err' => ''
-                ];
+            $data = [
+                'email' => '',
+                'password' => '',
+                'role' => '',
+                'email_err' => '',
+                'password_err' => ''
+            ];
 
-                // Load view
-                return $data;
-            }
+            return $data;
         }
     }
 
@@ -185,7 +274,6 @@ class Users extends Controller
     {
         // Check for POST
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // Process form
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -198,30 +286,54 @@ class Users extends Controller
             // Validate Email
             if(empty($data['email'])){
                 $data['email_err'] = 'Please enter new email';
-            }
-
-            if($this->userModel->findUserByEmail($data['email'])){
+            } else if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                $data['email_err'] = 'Invalid email format';
+            } else if($this->userModel->findUserByEmail($data['email'])){
                 // User exists with this email
-                $data['email_err'] = 'User with ' . $data['email'] . "already exists";
+                $data['email_err'] = 'This email not allowed';
             }
 
             // Make sure errors are empty
             if(empty($data['email_err'])){
-                // Change email and logout
-                $setEmailStatus = $this->userModel->setEmail($data);
+                // Generate verification code
+                $data['email'] = $_SESSION['user_email'];
+                $verification_code = mt_rand(100000, 999999);   // between 100,000 and 999,999
+                // Update verification code
+                if($this->userModel->updateVerificationCode($data, $verification_code)){
+                    // Send verification mail
+                    $data['email'] = trim($_POST['email']);
+                    $message = "Hallo User!\n\n" .
+                        "A sign in attempt requires further verification. To complete the sign in, enter the verification code on the next login session.\n\n" .
+                        "Verification code: " . $verification_code . "\n\n" .
+                        "Thanks,\n" .
+                        "The " . SITENAME . " Team";
+                    $headers = 'From: noreply@company.com';
 
-                if($setEmailStatus){
-                    // logout
-                    destroyUserSession();
+                    if(mail($data['email'], '[' . SITENAME . '] Email settings were changed', $message, $headers)){
+                        // Change account status to inactive
+                        $data['email'] = $_SESSION['user_email'];
+                        $data['account_status'] = 0;
+                        if($this->userModel->updateAccountStatus($data)){
+                            // Change email and logout
+                            $data['email'] = trim($_POST['email']);
+                            if($this->userModel->setEmail($data)){
+                                // logout
+                                destroyUserSession();
+                            } else {
+                                $data['email_err'] = 'Could not change email, due to server problems';
+                            }
+                        } else {
+                            $data['email_err'] = 'Could not change account status, due to server problems';
+                        }
+                    } else {
+                        $data['email_err'] = 'Could not send mail, due to server problems';
+                    }
                 } else {
-                    // never be here!
-                    header('HTTP/1.0 404 Not Found');
-                    die('Something went wrong during email changing process, please try again later');
+                    $data['email_err'] = 'Could not change mail, due to server problems';
                 }
-            } else {
-                // return errors
-                return $data;
             }
+
+            return $data;
         } else {
             // Init data
             $data = [
@@ -237,7 +349,6 @@ class Users extends Controller
     {
         // Check for POST
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // Process form
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -317,12 +428,12 @@ class Users extends Controller
                 unset($_SESSION['temp_user_role']);
             }
         }
-        redirect(strtolower(STARTPAGE));
+        redirect('');
     }
 
     public function logout()
     {
         destroyUserSession();
-        redirect(strtolower(STARTPAGE));
+        redirect(strtolower(''));
     }
 }
