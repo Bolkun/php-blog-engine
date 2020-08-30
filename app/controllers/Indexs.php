@@ -4,6 +4,7 @@ class Indexs extends Controller
 {
     public function __construct()
     {
+        $this->menuController = $this->controller('Menus');
         $this->userController = $this->controller('Users');
     }
     /*
@@ -13,6 +14,8 @@ class Indexs extends Controller
     {
         // Init data
         $default_data = [
+            // main menu
+            'main_menu' => (new Menus)->getMainMenu(),
             // register
             'reg_firstname' => '',
             'reg_surname' => '',

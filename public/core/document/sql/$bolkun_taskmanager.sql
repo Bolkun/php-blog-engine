@@ -98,6 +98,31 @@ INSERT INTO `user` (`user_id`, `account_status`, `role`, `firstname`, `surname`,
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `main_menu`
+--
+create table `main_menu` (
+  `id`        int(11)       NOT NULL AUTO_INCREMENT,
+  `title`     varchar(200)  NOT NULL,
+  `link`      varchar(100)  NOT NULL default '#',
+  `parent_id` varchar(11)   NOT NULL,
+  primary key (`id`)
+) engine=myisam default charset=utf8;
+
+INSERT INTO `main_menu` (`id`, `title`, `parent_id`) VALUES
+(1, 'task1 child', '2'),
+(2, 'task1', '0'),
+(3, 'task2', '0'),
+(4, 'task2 child1', '3'),
+(5, 'task2 child2', '3'),
+(6, 'task2 child2 child', '5'),
+(7, 'task3', '0'),
+(8, 'task2 child4', '3'),
+(9, 'task2 child2 child1 child', '6'),
+(10, 'task2 child2 child1 child1 child', '9');
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `cost`
 --
 create table `cost` (

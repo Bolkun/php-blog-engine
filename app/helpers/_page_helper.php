@@ -4,21 +4,22 @@
  * @param
  * @result html     @example <link rel="stylesheet" href="http://localhost/bolkun/public/core/css/1.bootstrap.css">
  */
-function autoload_stylesheet(){
+function autoload_stylesheet()
+{
     // core styles
     $aStyles = getAllFilesInDir(PUBLIC_CORE_CSSROOT);
-    foreach ($aStyles as $file){
-        if(preg_match("/^.*\.css$/", $file)){
-            echo '<link rel="stylesheet" href="' . PUBLIC_CORE_CSSURL . '/' . $file .'">';
+    foreach ($aStyles as $file) {
+        if (preg_match("/^.*\.css$/", $file)) {
+            echo '<link rel="stylesheet" href="' . PUBLIC_CORE_CSSURL . '/' . $file . '">';
         }
     }
     unset($aStyles);
 
     // custom styles
     $aStyles = getAllFilesInDir(PUBLIC_CUSTOM_CSSROOT);
-    foreach ($aStyles as $file){
-        if(preg_match("/^.*\.css$/", $file)){
-            echo '<link rel="stylesheet" href="' . PUBLIC_CUSTOM_CSSURL . '/' . $file .'">';
+    foreach ($aStyles as $file) {
+        if (preg_match("/^.*\.css$/", $file)) {
+            echo '<link rel="stylesheet" href="' . PUBLIC_CUSTOM_CSSURL . '/' . $file . '">';
         }
     }
     unset($aStyles);
@@ -29,21 +30,22 @@ function autoload_stylesheet(){
  * @param
  * @result html     @example <script src="http://localhost/bolkun/core/js/1.jquery-3.4.1.min.js"></script>
  */
-function autoload_javascript(){
+function autoload_javascript()
+{
     // core js files
     $aJs = getAllFilesInDir(PUBLIC_CORE_JSROOT);
-    foreach ($aJs as $file){
-        if(preg_match("/^.*\.js$/", $file)){
-            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file .'"></script>';
+    foreach ($aJs as $file) {
+        if (preg_match("/^.*\.js$/", $file)) {
+            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file . '"></script>';
         }
     }
     unset($aJs);
 
     //custom js files
     $aJs = getAllFilesInDir(PUBLIC_CUSTOM_JSROOT);
-    foreach ($aJs as $file){
-        if(preg_match("/^.*\.js$/", $file)){
-            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file .'"></script>';
+    foreach ($aJs as $file) {
+        if (preg_match("/^.*\.js$/", $file)) {
+            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file . '"></script>';
         }
     }
     unset($aJs);
@@ -54,7 +56,8 @@ function autoload_javascript(){
  * @param
  * @return array
  */
-function getPagesPaths(){
+function getPagesPaths()
+{
     // get list of views folders
     $aPagesDirs = getAllFilesInDir(VIEWSROOT);
 
@@ -69,10 +72,10 @@ function getPagesPaths(){
     // fill array with built absolute paths
     $aPagesPaths = array();
 
-    foreach($aPagesDirs as $dir){
-        if(is_dir(VIEWSROOT . DIRECTORY_SEPARATOR . $dir)){
+    foreach ($aPagesDirs as $dir) {
+        if (is_dir(VIEWSROOT . DIRECTORY_SEPARATOR . $dir)) {
             $aPagesFiles = getAllFilesInDir(VIEWSROOT . DIRECTORY_SEPARATOR . $dir);
-            foreach($aPagesFiles as $file){
+            foreach ($aPagesFiles as $file) {
                 array_push($aPagesPaths, VIEWSROOT . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $file);
             }
         }
@@ -86,13 +89,14 @@ function getPagesPaths(){
  * @param
  * @return array
  */
-function getPagesLinks(){
+function getPagesLinks()
+{
     $aPagesPaths = getPagesPaths();
     $aPagesLinks = array();
 
-    foreach($aPagesPaths as $path){
-        if(is_file($path)){
-            if(preg_match("/^.*\.php$/", $path)){
+    foreach ($aPagesPaths as $path) {
+        if (is_file($path)) {
+            if (preg_match("/^.*\.php$/", $path)) {
                 // convert path to link
                 $fileName = basename($path);
                 // (1) replace "\" with "/"
@@ -101,7 +105,7 @@ function getPagesLinks(){
                 $link = strstr($link, 'views');
                 // (3) delete "views/"
                 $link = preg_replace('/views/', '', $link);
-                if($fileName != 'index.php'){
+                if ($fileName != 'index.php') {
                     // (4) remove '.php'
                     $link = str_replace('.php', '', $link);
                 } else {
@@ -117,10 +121,11 @@ function getPagesLinks(){
 
 /**
  * @goal   get view dir name of a page
- * @param  string $pathView      @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @return string                @example examples
+ * @param  string $pathView @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @return string           @example examples
  */
-function getViewFolder($pathView){
+function getViewFolder($pathView)
+{
     // remove views root
     $sPathViewDirNoViewRoot = str_replace(VIEWSROOT . DIRECTORY_SEPARATOR, '', $pathView);
     // make array of parts
@@ -132,11 +137,12 @@ function getViewFolder($pathView){
 
 /**
  * @goal   get page file name
- * @param  string $pathViewFile      @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @return string                    @example index.php or test.php
+ * @param  string $pathViewFile @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @return string               @example index.php or test.php
  */
-function getViewFile($pathViewFile){
-    if(! is_file($pathViewFile)){
+function getViewFile($pathViewFile)
+{
+    if (!is_file($pathViewFile)) {
         die("Error getPageFile(): param is not a file!");
     } else {
         // remove views root
@@ -151,10 +157,11 @@ function getViewFile($pathViewFile){
 
 /**
  * @goal   get controller file name
- * @param  string $pathViewDir      @example C:\xampp\htdocs\bolkun\app\views\examples or C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @return string                   @example Examples.php
+ * @param  string $pathViewDir @example C:\xampp\htdocs\bolkun\app\views\examples or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @return string              @example Examples.php
  */
-function getControllerFile($pathViewDir){
+function getControllerFile($pathViewDir)
+{
     $viewFolder = getViewFolder($pathViewDir);
 
     $controllerFileNoExtension = setFistCharUppercase($viewFolder);
@@ -165,10 +172,11 @@ function getControllerFile($pathViewDir){
 
 /**
  * @goal   get model file name
- * @param  string $pathViewDir      @example C:\xampp\htdocs\bolkun\app\views\examples or C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @return string                   @example Example.php
+ * @param  string $pathViewDir @example C:\xampp\htdocs\bolkun\app\views\examples or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @return string              @example Example.php
  */
-function getModelFile($pathViewDir){
+function getModelFile($pathViewDir)
+{
     $viewFolder = getViewFolder($pathViewDir);
 
     $controllerFileNoExtension = setFistCharUppercase($viewFolder);
@@ -180,27 +188,29 @@ function getModelFile($pathViewDir){
 
 /**
  * @goal   create new page directory in folder views
- * @param  string $pagePath     @example C:\xampp\htdocs\bolkun\app\views\examples or C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @result new dir              @example dir name 'examples'
+ * @param  string $pagePath @example C:\xampp\htdocs\bolkun\app\views\examples or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @result new dir          @example dir name 'examples'
  */
-function createViewsFolder($pagePath){
+function createViewsFolder($pagePath)
+{
     $pageFolderName = getViewFolder($pagePath);
     $pageFolderPath = VIEWSROOT . DIRECTORY_SEPARATOR . $pageFolderName;
 
-    if(! file_exists($pageFolderPath)){
+    if (!file_exists($pageFolderPath)) {
         mkdir($pageFolderPath, 0755);
     }
 }
 
 /**
  * @goal   create new php file for a new page
- * @param  string $pagePath     @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @result new php file         @wxample new file with name 'index.php' or 'test.php'
+ * @param  string $pagePath @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @result new php file     @example new file with name 'index.php' or 'test.php'
  */
-function createViewsFile($pagePath){
+function createViewsFile($pagePath)
+{
     $pathIncView = VIEWSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'View.txt';
 
-    if(! file_exists($pagePath)){
+    if (!file_exists($pagePath)) {
         // copy and replace vars from inc/Views.txt in a new View
         copyOneFileToAnother($pathIncView, $pagePath);
     } else {
@@ -210,15 +220,16 @@ function createViewsFile($pagePath){
 
 /**
  * @goal   create new file Model.php in folder 'models'
- * @param  string $pagePath     @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @result new php file         @wxample new file with name 'Example.php'
+ * @param  string $pagePath @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @result new php file     @example new file with name 'Example.php'
  */
-function createModelsFile($pagePath){
+function createModelsFile($pagePath)
+{
     $pageModelFile = getModelFile($pagePath);
     $pageModelPath = MODELSROOT . DIRECTORY_SEPARATOR . $pageModelFile;
     $pathIncModel = MODELSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Model.txt';
 
-    if(! file_exists($pageModelFile)){
+    if (!file_exists($pageModelFile)) {
         // copy from inc/Model.txt in a new 'Model.php'
         copyOneFileToAnother($pathIncModel, $pageModelPath);
         // replace vars in 'Model.php'
@@ -229,10 +240,11 @@ function createModelsFile($pagePath){
 
 /**
  * @goal   create new file Controller.php in folder 'controllers'
- * @param  string $pagePath     @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
- * @result new php file         @wxample new file with name 'Examples.php'
+ * @param  string $pagePath @example C:\xampp\htdocs\bolkun\app\views\examples\index.php or C:\xampp\htdocs\bolkun\app\views\examples\test.php
+ * @result new php file     @example new file with name 'Examples.php'
  */
-function createControllersFile($pagePath){
+function createControllersFile($pagePath)
+{
     $pageControllerFile = getControllerFile($pagePath);
     $pageControllerPath = CONTROLLERSROOT . DIRECTORY_SEPARATOR . $pageControllerFile;
     $pathIncController = CONTROLLERSROOT . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'Controller.txt';
@@ -240,7 +252,7 @@ function createControllersFile($pagePath){
     $pageModelFile = getModelFile($pagePath);
     $pageViewFile = getViewFile($pagePath);
 
-    if(! file_exists($pageControllerPath)){
+    if (!file_exists($pageControllerPath)) {
         // copy from inc/Controller.txt in a new 'Controller.php'
         copyOneFileToAnother($pathIncController, $pageControllerPath);
     }
@@ -270,23 +282,24 @@ function createControllersFile($pagePath){
 
 /**
  * @goal   replace all matches in a file with another string, needed for page creation
- * @param  string $path, array $match, array $replace     @example C:\xampp\info.txt, change_this_a, with_this_b
+ * @param  string $path , array $match, array $replace     @example C:\xampp\info.txt, change_this_a, with_this_b
  * @result modified file
  */
-function replaceAllMatchesInFileWithString($path, $match, $replace){
+function replaceAllMatchesInFileWithString($path, $match, $replace)
+{
     $sizeMatch = count($match);
     $sizeReplace = count($replace);
-    if($sizeMatch !== $sizeReplace){
+    if ($sizeMatch !== $sizeReplace) {
         die("Error replaceAllMatchesInFileWithString(): two arrays don't match the same size.");
     } else {
         // read the entire string
         $fileContent = file_get_contents($path);
-        for($i=0; $i<$sizeMatch; $i++){
+        for ($i = 0; $i < $sizeMatch; $i++) {
             // replace matches with a string
             $fileContent = str_replace($match[$i], $replace[$i], $fileContent);
         }
         // rewrite the entire file
-        if (! file_put_contents($path, $fileContent)) {
+        if (!file_put_contents($path, $fileContent)) {
             die("Error replaceAllMatchesInFileWithString(): couldn't rewrite the file");
         }
     }
@@ -294,10 +307,11 @@ function replaceAllMatchesInFileWithString($path, $match, $replace){
 
 /**
  * @goal   delete folder with all pages
- * @param  string $pathViewDir  @example C:\xampp\htdocs\bolkun\app\views\examples
+ * @param  string $pathViewDir @example C:\xampp\htdocs\bolkun\app\views\examples
  * @result deleted files
  */
-function deleteAllPages($pathViewDir){
+function deleteAllPages($pathViewDir)
+{
     // (1) delete View folder tree
     deleteFolderTreeRecursively($pathViewDir);
     // (2) delete Controller file
@@ -314,7 +328,8 @@ function deleteAllPages($pathViewDir){
  * @param  string $pathViewFile @example C:\xampp\htdocs\bolkun\app\views\examples\index.php
  * @result deleted files
  */
-function deleteOnePage($pathViewFile){
+function deleteOnePage($pathViewFile)
+{
     // (1) delete View file
     deleteFile($pathViewFile);
     // (2) delete Controller function
@@ -326,7 +341,7 @@ function deleteOnePage($pathViewFile){
     # replace everything between two matches (inclusive matches)
     $start = 'public function ' . $functionName . '\(\)';
     $end = '} \/\* ' . $functionName . ' function end \*\/';
-    $sNewFunction = preg_replace('/(' . $start. ')(.+?)(' . $end . '\s+)/s','', $sNewFunction);
+    $sNewFunction = preg_replace('/(' . $start . ')(.+?)(' . $end . '\s+)/s', '', $sNewFunction);
     // rewrite a file
     file_put_contents($pathControllerFile, $sNewFunction);
     // (4) clear Database, NEEDS CONSTRUCT!*/
@@ -336,19 +351,20 @@ function deleteOnePage($pathViewFile){
  * @goal   get real ip address from a visitor, when they are also using a proxy
  * @result string
  */
-function getUserIP(){
+function getUserIP()
+{
     // Get real visitor IP behind CloudFlare network
     if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
         $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
         $_SERVER['HTTP_CLIENT_IP'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
     }
-    $client  = @$_SERVER['HTTP_CLIENT_IP'];
+    $client = @$_SERVER['HTTP_CLIENT_IP'];
     $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
-    $remote  = $_SERVER['REMOTE_ADDR'];
+    $remote = $_SERVER['REMOTE_ADDR'];
 
-    if(filter_var($client,FILTER_VALIDATE_IP)) {
+    if (filter_var($client, FILTER_VALIDATE_IP)) {
         $ip = $client;
-    } elseif(filter_var($forward,FILTER_VALIDATE_IP)) {
+    } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
         $ip = $forward;
     } else {
         $ip = $remote;
@@ -356,3 +372,43 @@ function getUserIP(){
 
     return $ip;
 }
+
+/**
+ * @goal   convert array of objects to array of arrays
+ * @param  array of objects $array
+ * @return array of arrays
+ */
+function stdToArray($array)
+{
+    $reaged = (array)$array;
+    foreach ($reaged as $key => &$field) {
+        if (is_object($field)) $field = stdToArray($field);
+    }
+    return $reaged;
+}
+
+/**
+ * @goal   create dynamic tree view
+ * @param  int $parent, array (prepared) $menu
+ * @return string html
+ */
+function createTreeView($parent, $menu)
+{
+    $html = "";
+    if (isset($menu['parents'][$parent])) {
+        $html .= "<ol class='tree'>";
+        foreach ($menu['parents'][$parent] as $itemId) {
+            if (!isset($menu['parents'][$itemId])) {
+                $html .= "<li><label for='subfolder2'><a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label> <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
+            }
+            if (isset($menu['parents'][$itemId])) {
+                $html .= "<li><label for='subfolder2'><a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label> <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
+                $html .= createTreeView($itemId, $menu);
+                $html .= "</li>";
+            }
+        }
+        $html .= "</ol>";
+    }
+    return $html;
+}
+

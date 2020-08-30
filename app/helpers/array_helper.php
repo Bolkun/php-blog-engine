@@ -62,3 +62,5 @@ function mergeAsocArrays($aArray1, $aArray2)
 
     return $aArray1;
 }
+
+

@@ -187,33 +187,7 @@
                     </button>
                 </form>
                 <!----------------------------------------------------------------------------------------------------->
-                <?php for ($menu_category_count = 0; $menu_category_count < 3; $menu_category_count++) { ?>
-                    <!-- Thema -->
-                    <div class="card">
-                        <a class="card-link" data-toggle="collapse"
-                           href="#collapse_<?php echo $menu_category_count; ?>">
-                            <div class="card-header">
-                                <span class="badge badge-primary badge-pill">1</span>
-                                Sport
-                            </div>
-                        </a>
-                        <!-- Kategorien -->
-                        <div id="collapse_<?php echo $menu_category_count; ?>" class="collapse"
-                             data-parent="#accordion">
-                            <div class="card-body">
-                                <!------------------------------------------------------------------------------------->
-                                <?php for ($menu_thema_count = 0; $menu_thema_count < 3; $menu_thema_count++) { ?>
-                                    <a class="nav-link" href="#1">
-                                        <li class="list-group-item ">
-                                            Football
-                                        </li>
-                                    </a>
-                                <?php } ?>
-                                <!------------------------------------------------------------------------------------->
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
+                <?php echo createTreeView(0, $data['main_menu']); ?>
                 <!----------------------------------------------------------------------------------------------------->
             </div>
         </div>
