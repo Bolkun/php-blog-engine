@@ -41,7 +41,8 @@
                             <input id="setting_email" type="email" name="email"
                                    class="form-control <?php echo (!empty($data['set_email_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['set_email']; ?>" placeholder="Email">
-                            <button name="submitUserEmail" id="setting_submit_email" class="btn btn-success" type="submit">
+                            <button name="submitUserEmail" id="setting_submit_email" class="btn btn-success"
+                                    type="submit">
                                 <i class="fa fa-envelope"></i>
                             </button>
                             <span class="invalid-feedback"><?php echo $data['set_email_err']; ?></span>
@@ -66,8 +67,10 @@
                         <div class="form-group">
                             <input id="setting_new_password_confirm" type="password" name="new_password_confirm"
                                    class="form-control <?php echo (!empty($data['set_new_password_confirm_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['set_new_password_confirm']; ?>" placeholder="Confirm New Password">
-                            <button name="submitUserPassword" id="setting_submit_password" class="btn btn-success" type="submit">
+                                   value="<?php echo $data['set_new_password_confirm']; ?>"
+                                   placeholder="Confirm New Password">
+                            <button name="submitUserPassword" id="setting_submit_password" class="btn btn-success"
+                                    type="submit">
                                 <i class="fa fa-lock"></i>
                             </button>
                             <span class="invalid-feedback"><?php echo $data['set_new_password_confirm_err']; ?></span>
@@ -102,7 +105,8 @@
                             <div class="form-group">
                                 <input id="login_verification_code" type="text" name="verification_code"
                                        class="form-control <?php echo (!empty($data['log_verification_code_err'])) ? 'is-invalid' : ''; ?>"
-                                       value="<?php echo $data['log_verification_code']; ?>" placeholder="Verification Code">
+                                       value="<?php echo $data['log_verification_code']; ?>"
+                                       placeholder="Verification Code">
                                 <span class="invalid-feedback"><?php echo $data['log_verification_code_err']; ?></span>
                             </div>
                             <div class="form-group">
@@ -180,15 +184,43 @@
         <div id="collapse_main_menu" class="dropdown-menu bg-dark">
             <h4 class="h4_nav_top_user">Main</h4>
             <div id="accordion">
-                <form class="form-inline" action="/action_page3.php">
-                    <input id="search_input" class="form-control" type="text" placeholder="Search">
-                    <button id="submit_search_input" class="btn btn-success" type="submit">
+                <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                    <input id="search_main_menu" type="text" name="search_main_menu"
+                           class="form-control <?php echo (!empty($data['mm_search_err'])) ? 'is-invalid' : ''; ?>"
+                           value="<?php echo $data['mm_search']; ?>"
+                           placeholder="Search">
+                    <button id="submit_search_input" name="submit_search_input" class="btn btn-success" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
+                    <span class="invalid-feedback"><?php echo $data['mm_search_err']; ?></span>
                 </form>
                 <div id="main_menu_message"><?php flash('main_menu'); ?></div>
                 <!----------------------------------------------------------------------------------------------------->
-                <?php echo createTreeView(0, $data['main_menu']); ?>
+                <?php
+                    if(isset($_POST['submit_search_input'])){
+                        // change branches that have no root node
+                        foreach ($data['mm']['items'] as $key => $value){
+                            if($data['mm']['items'][$key]['parent_id'] !== '0' && !in_array($data['mm']['items'][$key]['parent_id'], array_column($data['mm']['items'], 'id'))){
+                                // set not found parents as root node
+                                $data['mm']['items'][$key]['parent_id'] = '0';
+                                // add not found parent ids to root group
+                                $data['mm']['parents'][0][] = $data['mm']['items'][$key]['id'];
+                                // delete old group with no root
+                                foreach ($data['mm']['parents'] as $pk => $pv){
+                                    foreach ($pv as $i => $v){
+                                        if($pk !== 0 && $data['mm']['parents'][$pk][$i] === $data['mm']['items'][$key]['id']){
+                                            unset($data['mm']['parents'][$pk][$i]);
+                                        }
+                                    }
+                                    if(empty($data['mm']['parents'][$pk])){
+                                        unset($data['mm']['parents'][$pk]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    echo createTreeView(0, $data['mm']);
+                ?>
                 <!----------------------------------------------------------------------------------------------------->
             </div>
         </div>

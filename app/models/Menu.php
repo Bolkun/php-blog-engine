@@ -11,7 +11,7 @@ class Menu
 
     public function selectMainMenuData()
     {
-        $this->db->query('SELECT * FROM main_menu ORDER BY title');
+        $this->db->query('SELECT * FROM main_menu ORDER BY title ASC');
 
         $row = $this->db->resultSet();
 
@@ -33,6 +33,20 @@ class Menu
             return true;
         } else {
             return false;
+        }
+    }
+
+
+    public function searchMainMenu($data)
+    {
+        $this->db->query("SELECT * FROM main_menu WHERE title LIKE '%" . $data['search'] . "%' ORDER BY title ASC");
+
+        $row = $this->db->resultSet();
+
+        if (empty($row)) {
+            return false;
+        } else {
+            return $row;
         }
     }
 

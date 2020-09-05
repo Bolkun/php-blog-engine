@@ -9,6 +9,10 @@ function displayDivs(id) {
             document.getElementById('toggle_login_menu').style.color = "rgb(118, 185, 1)";  // green
             document.getElementById('toggle_login_menu').style.border = "1px solid rgb(118, 185, 1)";
             loginRegister('login_form', id['array'][0]);
+        }else if(id['array'][0] === 'collapse_main_menu') {
+            document.getElementById('collapse_main_menu').style.display = "block";
+            document.getElementById('toggle_main_menu').style.color = "rgb(118, 185, 1)";  // green
+            document.getElementById('toggle_main_menu').style.border = "1px solid rgb(118, 185, 1)";
         }
         // console.log(id['array']);
     }

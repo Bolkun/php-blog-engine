@@ -15,7 +15,9 @@ class Indexs extends Controller
         // Init data
         $default_data = [
             // main menu
-            'main_menu' => (new Menus)->getMainMenu(),
+            'mm_search' => '',
+            'mm_search_err' => '',
+            'mm' => (new Menus)->getMainMenu(),
             // register
             'reg_firstname' => '',
             'reg_surname' => '',
@@ -50,9 +52,23 @@ class Indexs extends Controller
         ];
 
         // POST
-        if (isset($_POST['ajax_sMainMenuID'])) {
+        if (isset($_POST['submit_search_input'])) {
             $main_menu = new Menus();
-            $main_menu->deleteBranch($_POST['ajax_sMainMenuID']);
+            $main_menu_data = $main_menu->search();
+            $new_data = [
+                // main menu
+                'mm_search' => $main_menu_data['search'],
+                'mm_search_err' => $main_menu_data['search_err'],
+                'mm' => $main_menu_data['mm_content'],
+                // other
+                'display_div' => array('collapse_main_menu'),
+            ];
+            $data = mergeAsocArrays($default_data, $new_data);
+            $this->view('index/index', $data);
+        }
+        elseif (isset($_POST['ajax_sMainMenuID'])) {
+            $main_menu = new Menus();
+            $main_menu->deleteBranch();
         }
         elseif (isset($_POST['submitLogin'])) {
             $user = new Users();

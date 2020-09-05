@@ -107,7 +107,7 @@ a:hover {
     color: deepskyblue;
 }
 
-#search_input,
+#search_main_menu,
 #setting_email, #setting_new_password_confirm {
     width: 81%;
     border-color: #76b901;
