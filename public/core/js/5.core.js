@@ -129,3 +129,45 @@ function pagesDeletePage_success(values){
     }, 3000);
 }
 /**********************************************************************************************************************/
+// Delete main menu item
+function menuDeleteTree(values) {
+    if (confirm("Want to delete Menu Item with title="+values['title']+" ?")) {
+        // Logic to delete the page
+        $.ajax({
+            url: values['URLCURRENT'],
+            data: 'ajax_sMainMenuID=' +values['id'],
+            type: 'post',
+            error: menuDeleteTree_error(values),
+            success: menuDeleteTree_success(values)
+        });
+    }
+}
+function menuDeleteTree_error(values){
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert danger" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Menu with title=' +values['title']+ ' was not deleted!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("main_menu_message").innerHTML = message;
+    setTimeout(function() {
+        $('#main_menu_message').fadeOut('fast');
+        // reload new view
+        $("#collapse_main_menu").load(location.href + " #accordion");    // parent.load(child)
+    }, 5000);
+}
+function menuDeleteTree_success(values){
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert success" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Menu with title=' +values['title']+ ' was deleted!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("main_menu_message").innerHTML = message;
+    setTimeout(function() {
+        $('#main_menu_message').fadeOut('fast');
+        // reload new view
+        $("#collapse_main_menu").load(location.href + " #accordion");    // parent.load(child)
+    }, 5000);
+}
+/**********************************************************************************************************************/

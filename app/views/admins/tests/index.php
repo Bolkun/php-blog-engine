@@ -7,7 +7,7 @@
                     <h1><?php echo $data['title']; ?></h1>
                     <div class="row">
                         <div class="col-sm-4">
-                            <img width="100%"src="<?php echo PUBLIC_CORE_IMG_DEVURL; ?>/testing_pyramid1400x1031.png" class="rounded d-block" alt="logo">
+                            <img width="100%" src="<?php echo PUBLIC_CORE_IMG_DEVURL; ?>/testing_pyramid1400x1031.png" class="rounded d-block" alt="logo">
                         </div>
                         <div class="col-sm-8">
                             <h2>Intro</h2>

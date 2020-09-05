@@ -50,7 +50,11 @@ class Indexs extends Controller
         ];
 
         // POST
-        if (isset($_POST['submitLogin'])) {
+        if (isset($_POST['ajax_sMainMenuID'])) {
+            $main_menu = new Menus();
+            $main_menu->deleteBranch($_POST['ajax_sMainMenuID']);
+        }
+        elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
             $user_data = $user->login();
             $new_data = [

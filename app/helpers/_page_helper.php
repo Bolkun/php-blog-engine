@@ -399,16 +399,63 @@ function createTreeView($parent, $menu)
         $html .= "<ol class='tree'>";
         foreach ($menu['parents'][$parent] as $itemId) {
             if (!isset($menu['parents'][$itemId])) {
-                $html .= "<li><label for='subfolder2'><a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label> <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
+                // node with no children
+                if(isAdminLoggedIn()){
+                    $html .= "<li><label for='subfolder2'>
+                    <img src='" . PUBLIC_CORE_IMG_UIURL . "/edit_white12x12.png'>
+                    <a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
+                    <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='menuDeleteTree(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")'></label>
+                    <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
+                } else {
+                    $html .= "<li><label for='subfolder2'>
+                    <a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label> 
+                    <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
+                }
             }
             if (isset($menu['parents'][$itemId])) {
-                $html .= "<li><label for='subfolder2'><a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label> <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
-                $html .= createTreeView($itemId, $menu);
-                $html .= "</li>";
+                // node with children
+                if(isAdminLoggedIn()) {
+                    $html .= "<li><label for='subfolder2'>
+                    <img src='" . PUBLIC_CORE_IMG_UIURL . "/edit_white12x12.png'>
+                    <a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
+                    <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='menuDeleteTree(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")'></label>
+                    <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
+                    $html .= createTreeView($itemId, $menu);
+                    $html .= "</li>";
+                } else {
+                    $html .= "<li><label for='subfolder2'>
+                    <a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label>
+                    <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
+                    $html .= createTreeView($itemId, $menu);
+                    $html .= "</li>";
+                }
             }
         }
         $html .= "</ol>";
     }
     return $html;
+}
+
+/**
+ * @goal   get all ids of a certain branch without root id
+ * @param  array $elements, string $parentId
+ * @return array
+ */
+function getBranchIds(array $elements, $parentId) {
+    $branch = array();
+
+    foreach ($elements as $element) {
+        if ($element['parent_id'] == $parentId) {
+            $children = getBranchIds($elements, $element['id']);
+            if ($children) {
+                foreach ($children as $child){
+                    array_push($branch, $child);
+                }
+            }
+            array_push($branch, $element['id']);
+        }
+    }
+
+    return $branch;
 }
 

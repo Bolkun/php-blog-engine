@@ -23,11 +23,11 @@ function flash($name = '', $message = '', $class = 'alert alert-success'){
                 echo $_SESSION[$name];
             echo '</div>';
             ?>
-            <script>
+            <!--<script>
                 setTimeout(function() {
                     $('#msg-flash').fadeOut('fast');
                 }, 3000); // after 3 sec hide
-            </script>
+            </script>-->
             <?php
             unset($_SESSION[$name]);
             unset($_SESSION[$name . '_class']);

@@ -154,7 +154,7 @@ a:hover {
 /*****************************************************************************************************************/
 /* CSS to style Treeview main menu  */
 ol.tree {
-    padding: 5px 10px 0 27px;
+    padding: 0px 10px 0 27px;
     width: inherit;
     margin-bottom: 5px;
 }
@@ -212,6 +212,20 @@ li input:checked + ol > li:last-child {
 }
 .main_menu_checkbox {
     margin: 5px 0 0 -7px;
+}
+.delete_main_menu_el {
+    float: right;
+    padding: 5px 0 0 15px;
+}
+/* message flash */
+#main_menu_message {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 0.5rem;
+}
+#msg-flash {
+    padding: 15px 15px 15px 15px;
+    margin-bottom: 0.5rem;
 }
 /**********************************************************************************************************************/
 
