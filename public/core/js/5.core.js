@@ -131,6 +131,7 @@ function pagesDeletePage_success(values){
 /**********************************************************************************************************************/
 // Delete main menu item
 function menuDeleteTree(values) {
+
     if (confirm("Want to delete Menu Item with title="+values['title']+" ?")) {
         // Logic to delete the page
         $.ajax({
@@ -171,3 +172,84 @@ function menuDeleteTree_success(values){
     }, 5000);
 }
 /**********************************************************************************************************************/
+// Edit main menu title
+function mmEditTitle(values) {
+    var id = values['id'];
+    var title = values['title'];
+    var current_item_id = "mmEditTitle" +id;
+    var color = document.getElementById(current_item_id).style.color;
+
+    if(color == "grey"){
+        document.getElementById("mm_search_form").style.display = "none";
+        document.getElementById("mm_edit_title_form").style.display = "block";
+        document.getElementById("mm_add_child_form").style.display = "none";
+        // Change all edit class elements to grey
+        var edit_classes = document.getElementsByClassName("mm_edit_title_icon");
+        for(var i=0, len=edit_classes.length; i<len; i++)
+        {
+            if(edit_classes[i].style["color"] != "grey"){
+                edit_classes[i].style["color"] = "grey";
+            }
+        }
+        // Change all add class elements to grey
+        var add_classes = document.getElementsByClassName("mm_add_child_icon");
+        for(var i=0, len=add_classes.length; i<len; i++)
+        {
+            if(add_classes[i].style["color"] != "grey"){
+                add_classes[i].style["color"] = "grey";
+            }
+        }
+        // Set selected element to green
+        document.getElementById(current_item_id).style.color="rgb(118, 185, 1)";
+        // Change placeholder
+        document.getElementById("mm_edit_title").placeholder = "Edit title: " +title;
+    } else {
+        // green, than roll back
+        document.getElementById("mm_search_form").style.display = "block";
+        document.getElementById("mm_edit_title_form").style.display = "none";
+        document.getElementById("mm_add_child_form").style.display = "none";
+        // Set selected element to green
+        document.getElementById(current_item_id).style.color="grey";
+    }
+}
+/**********************************************************************************************************************/
+// Edit main menu title
+function mmAddChild(values) {
+    var id = values['id'];
+    var title = values['title'];
+    var current_item_id = "mmAddChild" +id;
+    var color = document.getElementById(current_item_id).style.color;
+
+    if(color == "grey"){
+        document.getElementById("mm_search_form").style.display = "none";
+        document.getElementById("mm_edit_title_form").style.display = "none";
+        document.getElementById("mm_add_child_form").style.display = "block";
+        // Change all edit class elements to grey
+        var edit_classes = document.getElementsByClassName("mm_edit_title_icon");
+        for(var i=0, len=edit_classes.length; i<len; i++)
+        {
+            if(edit_classes[i].style["color"] != "grey"){
+                edit_classes[i].style["color"] = "grey";
+            }
+        }
+        // Change all add class elements to grey
+        var add_classes = document.getElementsByClassName("mm_add_child_icon");
+        for(var i=0, len=add_classes.length; i<len; i++)
+        {
+            if(add_classes[i].style["color"] != "grey"){
+                add_classes[i].style["color"] = "grey";
+            }
+        }
+        // Set selected element to green
+        document.getElementById(current_item_id).style.color="rgb(118, 185, 1)";
+        // Change placeholder
+        document.getElementById("mm_add_child").placeholder = "Add child to " +title;
+    } else {
+        // green, than roll back
+        document.getElementById("mm_search_form").style.display = "block";
+        document.getElementById("mm_edit_title_form").style.display = "none";
+        document.getElementById("mm_add_child_form").style.display = "none";
+        // Set selected element to green
+        document.getElementById(current_item_id).style.color="grey";
+    }
+}

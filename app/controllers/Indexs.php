@@ -15,9 +15,13 @@ class Indexs extends Controller
         // Init data
         $default_data = [
             // main menu
-            'mm_search' => '',
-            'mm_search_err' => '',
             'mm' => (new Menus)->getMainMenu(),
+            'mm_search' => '',
+            'mm_edit_title' => '',
+            'mm_add_child' => '',
+            'mm_search_err' => '',
+            'mm_edit_title_err' => '',
+            'mm_add_child_err' => '',
             // register
             'reg_firstname' => '',
             'reg_surname' => '',

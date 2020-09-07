@@ -108,6 +108,8 @@ a:hover {
 }
 
 #search_main_menu,
+#mm_edit_title,
+#mm_add_child,
 #setting_email, #setting_new_password_confirm {
     width: 81%;
     border-color: #76b901;
@@ -118,6 +120,8 @@ a:hover {
 }
 
 #submit_search_input,
+#submit_edit_input,
+#submit_add_child_input,
 #setting_submit_email {
     margin-left: 3px;
     border-color: #76b901;
@@ -210,6 +214,9 @@ li input:checked + ol > li:last-child {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     font-size: 16px;
 }
+.main_menu_link:hover {
+    color: white;
+}
 .main_menu_checkbox {
     margin: 5px 0 0 -7px;
 }
@@ -226,6 +233,16 @@ li input:checked + ol > li:last-child {
 #msg-flash {
     padding: 15px 15px 15px 15px;
     margin-bottom: 0.5rem;
+}
+/* mm edit title */
+.mm_edit_title_icon,
+.mm_add_child_icon {
+    height: 12px;
+    width: 12px;
+}
+#mm_edit_title_form,
+#mm_add_child_form {
+    display: none;
 }
 /**********************************************************************************************************************/
 
