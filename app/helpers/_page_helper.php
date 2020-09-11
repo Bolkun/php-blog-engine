@@ -405,7 +405,7 @@ function createTreeView($parent, $menu)
                     <i style='color: grey;' id='mmAddChild" . $menu['items'][$itemId]['id'] . "' onclick='mmAddChild(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-plus mm_add_child_icon' aria-hidden='true'></i>
                     <i style='color: grey;' id='mmEditTitle" . $menu['items'][$itemId]['id'] . "' onclick='mmEditTitle(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-pencil mm_edit_title_icon' aria-hidden='true'></i>
                     <a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
-                    <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='menuDeleteTree(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")'></label>
+                    <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='ajax_menuDeleteTree(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")'></label>
                     <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
                 } else {
                     $html .= "<li><label for='subfolder2'>
@@ -420,7 +420,7 @@ function createTreeView($parent, $menu)
                     <i style='color: grey;' id='mmAddChild" . $menu['items'][$itemId]['id'] . "' onclick='mmAddChild(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-plus mm_add_child_icon' aria-hidden='true'></i>
                     <i style='color: grey;' id='mmEditTitle" . $menu['items'][$itemId]['id'] . "' onclick='mmEditTitle(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-pencil mm_edit_title_icon' aria-hidden='true'></i>
                     <a class='main_menu_link' href='" . $menu['items'][$itemId]['link'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
-                    <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='menuDeleteTree(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")'></label>
+                    <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='ajax_menuDeleteTree(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['id'], $menu['items'][$itemId]['title']) . ")'></label>
                     <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
                     $html .= createTreeView($itemId, $menu);
                     $html .= "</li>";
