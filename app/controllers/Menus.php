@@ -75,6 +75,46 @@ class Menus extends Controller
         }
     }
 
+    public function editTitle()
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // Init data
+            $data = [
+                'id' => trim($_POST['ajax_mm_edit_title_id']),
+                'title' => trim($_POST['ajax_mm_edit_title']),
+            ];
+
+            if(empty($data['id'])){
+                die("Error: id cannot be empty");
+            } else {
+                // delete ""
+                $data['id'] = replaceString('&#34;', '', $data['id']);
+            }
+
+            if(empty($data['title'])){
+                die("Error: Title cannot be empty");
+            } else {
+                // delete ""
+                $data['title'] = replaceString('&#34;', '', $data['title']);
+            }
+
+            // Make sure errors are empty
+            if(empty($data['mm_add_child_err'])){
+                $state = $this->menuModel->updateTitle($data);
+                if($state){
+                    // OK
+                } else {
+                    die("Error: Could not update title, due to server problems");
+                }
+            }
+        } else {
+            die("Error: Something went wrong during post request to edit title");
+        }
+    }
+
     public function deleteBranch()
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {

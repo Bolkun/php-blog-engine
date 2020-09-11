@@ -71,3 +71,12 @@ function jsonEncodeMenuAddChild($oData = NULL){
     $sJSON = json_encode($aData);
     return $sJSON;
 }
+
+function jsonEncodeMenuEditTitle($oData = NULL){
+    // convert object to associative array
+    $aData = (array) $oData;
+    // add url to array being posted to
+    $aData['URLCURRENT'] = URLCURRENT;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}

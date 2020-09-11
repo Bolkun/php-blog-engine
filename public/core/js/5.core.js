@@ -3,7 +3,7 @@
  *   view: costs/newEditDelete.php
  */
 // Param assoc array
-function costsDeleteRow(values) {
+function costsDeleteRow(values){
     if (confirm("Want to delete Record with id="+values['cost_id']+"?")) {
         // Logic to delete the item
         $.ajax({
@@ -48,7 +48,7 @@ function costsDeleteRow_success(values){
  *   view: admins/pages/newEditDelete.php
  */
 // Auto generate link from given path
-function pagesPathtoPagesLink(values) {
+function pagesPathtoPagesLink(values){
     var linkRoot = values['URLROOT'];
     var viewsRoot = values['VIEWSROOT'];
     var pagesPath = $("#pagesPath").val();
@@ -64,9 +64,8 @@ function pagesPathtoPagesLink(values) {
         $(this).toggle($(this).text().toLowerCase().indexOf(search) > -1)
     });
 }
-
 // On click copy path
-function copyPath(that) {
+function copyPath(that){
     var inp = document.createElement('input');
     document.body.appendChild(inp);
     inp.value = that.textContent;
@@ -86,9 +85,8 @@ function copyPath(that) {
         $(this).toggle($(this).text().toLowerCase().indexOf(search) > -1)
     });
 }
-
 // Delete all or one page
-function pagesDeletePage(values) {
+function pagesDeletePage(values){
     if (confirm("Want to delete Page with path="+values['sPage']+" ?")) {
         // Logic to delete the page
         $.ajax({
@@ -130,7 +128,7 @@ function pagesDeletePage_success(values){
 }
 /**********************************************************************************************************************/
 // Delete main menu item
-function menuDeleteTree(values) {
+function menuDeleteTree(values){
 
     if (confirm("Want to delete Menu Item with title="+values['title']+" ?")) {
         // Logic to delete the page
@@ -173,7 +171,7 @@ function menuDeleteTree_success(values){
 }
 /**********************************************************************************************************************/
 // Edit main menu title
-function mmEditTitle(values) {
+function mmEditTitle(values){
     var id = values['id'];
     var title = values['title'];
     var current_item_id = "mmEditTitle" +id;
@@ -217,10 +215,10 @@ function mmEditTitle(values) {
         document.getElementById("search_main_menu").select();
     }
     // set parent id input
-    document.getElementById('mm_add_child_parentId').value = id;
+    document.getElementById('mm_edit_title_id').value = id;
 }
 /**********************************************************************************************************************/
-function mmAddChild(values) {
+function mmAddChild(values){
     var id = values['id'];
     var title = values['title'];
     var current_item_id = "mmAddChild" +id;
@@ -273,9 +271,8 @@ function mmAddChild(values) {
     document.getElementById('mm_add_child_parentId').value = id;
 }
 /**********************************************************************************************************************/
-// Add new Node
-function ajax_mmAddChild(values) {
-    // Logic to delete the page
+// Add main menu node
+function ajax_mmAddChild(values){
     var formdata = $("#mmAddChildForm").serializeArray();
     var title = formdata[0]['value'];
     title = JSON.stringify(title);
@@ -294,7 +291,7 @@ function mmAddChild_error(title, parent_id){
     // [alert info, alert success, alert warning, alert danger]
     var message = '<div class="alert danger" id="msg-flash">' +
         '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Add title=' + title + ' to parent id' + parent_id + ' failed!' +
+        'Add title=' + title + ' to parent_id=' + parent_id + ' failed!' +
         '</div>';
     // Inserting the code block
     document.getElementById("main_menu_message").innerHTML = message;
@@ -308,7 +305,53 @@ function mmAddChild_success(title, parent_id){
     // [alert info, alert success, alert warning, alert danger]
     var message = '<div class="alert success" id="msg-flash">' +
         '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Added title=' + title + ' to parent id' + parent_id +
+        'Added title=' + title + ' to parent_id=' + parent_id +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("main_menu_message").innerHTML = message;
+    setTimeout(function() {
+        $('#main_menu_message').fadeOut('fast');
+        // reload new view
+        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
+    }, 3000);
+}
+/**********************************************************************************************************************/
+// Edit main menu title
+function ajax_mmEditTitle(values){
+    var formdata = $("#mmEditTitleForm").serializeArray();
+    var id = formdata[0]['value'];
+    id = JSON.stringify(id);
+    var title = formdata[1]['value'];
+    title = JSON.stringify(title);
+
+    //console.log(id+' '+title)
+    $.ajax({
+        url: values['URLCURRENT'],
+        data: 'ajax_mm_edit_title_id='+id+'&ajax_mm_edit_title='+title,  // var="value"&var2="value2"
+        type: 'post',
+        error: mmEditTitle_error(title, id),
+        success: mmEditTitle_success(title, id)
+    });
+}
+function mmEditTitle_error(title, id){
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert danger" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Edit title=' + title + ' with id=' + id + ' failed!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("main_menu_message").innerHTML = message;
+    setTimeout(function() {
+        $('#main_menu_message').fadeOut('fast');
+        // reload new view
+        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
+    }, 3000);
+}
+function mmEditTitle_success(title, id){
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert success" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Edit title=' + title + ' with id=' + id +
         '</div>';
     // Inserting the code block
     document.getElementById("main_menu_message").innerHTML = message;

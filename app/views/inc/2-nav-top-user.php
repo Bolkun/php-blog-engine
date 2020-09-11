@@ -206,8 +206,7 @@
                         </form>
                     </div>
                     <div id="mm_add_child_form">
-                        <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index"
-                              method="post">
+                        <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
                             <input id="mm_add_child" type="text" name="mm_add_child"
                                    class="form-control <?php echo (!empty($data['mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['mm_add_child']; ?>"
@@ -227,13 +226,20 @@
                         </form>
                     </div>
                     <div id="mm_edit_title_form">
-                        <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                        <form id="mmEditTitleForm" class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                            <input id="mm_edit_title_id" type="text" name="mm_edit_title_id"
+                                   style="display: none"
+                                   class="form-control"
+                                   value=""
+                                   placeholder="Id">
                             <input id="mm_edit_title" type="text" name="mm_edit_title"
                                    class="form-control <?php echo (!empty($data['mm_edit_title_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['mm_edit_title']; ?>"
                                    placeholder="Edit title">
-                            <button id="submit_edit_input" name="submit_edit_input" class="btn btn-success"
-                                    type="submit">
+                            <button type="button"
+                                    id="submit_edit_input"
+                                    onclick='ajax_mmEditTitle(<?php echo jsonEncodeMenuEditTitle(NULL); ?>)'
+                                    class="btn btn-success">
                                 <i class='fa fa-pencil'></i>
                             </button>
                             <span class="invalid-feedback"><?php echo $data['mm_edit_title_err']; ?></span>

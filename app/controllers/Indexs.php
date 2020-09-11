@@ -74,6 +74,10 @@ class Indexs extends Controller
             $main_menu = new Menus();
             $main_menu->addNode();
         }
+        elseif (isset($_POST['ajax_mm_edit_title_id']) && isset($_POST['ajax_mm_edit_title'])) {
+            $main_menu = new Menus();
+            $main_menu->editTitle();
+        }
         elseif (isset($_POST['ajax_sMainMenuID'])) {
             $main_menu = new Menus();
             $main_menu->deleteBranch();
