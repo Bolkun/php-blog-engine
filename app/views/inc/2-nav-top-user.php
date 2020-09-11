@@ -182,63 +182,67 @@
         </button>
         <!-- Toggler Main Menu -->
         <div id="collapse_main_menu" class="dropdown-menu bg-dark">
-            <h4 class="h4_nav_top_user">Main</h4>
-            <div id="accordion">
-                <div id="mm_search_form">
-                    <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
-                        <input id="search_main_menu" type="text" name="search_main_menu"
-                               class="form-control <?php echo (!empty($data['mm_search_err'])) ? 'is-invalid' : ''; ?>"
-                               value="<?php echo $data['mm_search']; ?>"
-                               placeholder="Search">
-                        <button id="submit_search_input" name="submit_search_input" class="btn btn-success" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        <span class="invalid-feedback"><?php echo $data['mm_search_err']; ?></span>
-                    </form>
-                </div>
-                <div id="mm_add_child_form">
-                    <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
-                        <input id="mm_add_child" type="text" name="mm_add_child"
-                               class="form-control <?php echo (!empty($data['mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
-                               value="<?php echo $data['mm_add_child']; ?>"
-                               placeholder="Add child">
-                        <button id="submit_add_child_input" name="submit_add_child_input" class="btn btn-success" type="submit">
-                            <i class='fa fa-plus'></i>
-                        </button>
-                        <span class="invalid-feedback"><?php echo $data['mm_add_child_err']; ?></span>
-                    </form>
-                </div>
-                <div id="mm_edit_title_form">
-                    <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
-                        <input id="mm_edit_title" type="text" name="mm_edit_title"
-                               class="form-control <?php echo (!empty($data['mm_edit_title_err'])) ? 'is-invalid' : ''; ?>"
-                               value="<?php echo $data['mm_edit_title']; ?>"
-                               placeholder="Edit title">
-                        <button id="submit_edit_input" name="submit_edit_input" class="btn btn-success" type="submit">
-                            <i class='fa fa-pencil'></i>
-                        </button>
-                        <span class="invalid-feedback"><?php echo $data['mm_edit_title_err']; ?></span>
-                    </form>
-                </div>
-                <div id="main_menu_message"><?php flash('main_menu'); ?></div>
-                <!----------------------------------------------------------------------------------------------------->
-                <?php
-                    if(isset($_POST['submit_search_input']) && $_POST['submit_search_input'] !== ''){
+            <div id="mm_load">
+                <h4 class="h4_nav_top_user">Main</h4>
+                <div id="accordion">
+                    <div id="mm_search_form">
+                        <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                            <input id="search_main_menu" type="text" name="search_main_menu"
+                                   class="form-control <?php echo (!empty($data['mm_search_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['mm_search']; ?>"
+                                   placeholder="Search">
+                            <button id="submit_search_input" name="submit_search_input" class="btn btn-success"
+                                    type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <span class="invalid-feedback"><?php echo $data['mm_search_err']; ?></span>
+                        </form>
+                    </div>
+                    <div id="mm_add_child_form">
+                        <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                            <input id="mm_add_child" type="text" name="mm_add_child"
+                                   class="form-control <?php echo (!empty($data['mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['mm_add_child']; ?>"
+                                   placeholder="Add child">
+                            <button id="submit_add_child_input" name="submit_add_child_input" class="btn btn-success"
+                                    type="submit">
+                                <i class='fa fa-plus'></i>
+                            </button>
+                            <span class="invalid-feedback"><?php echo $data['mm_add_child_err']; ?></span>
+                        </form>
+                    </div>
+                    <div id="mm_edit_title_form">
+                        <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                            <input id="mm_edit_title" type="text" name="mm_edit_title"
+                                   class="form-control <?php echo (!empty($data['mm_edit_title_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['mm_edit_title']; ?>"
+                                   placeholder="Edit title">
+                            <button id="submit_edit_input" name="submit_edit_input" class="btn btn-success"
+                                    type="submit">
+                                <i class='fa fa-pencil'></i>
+                            </button>
+                            <span class="invalid-feedback"><?php echo $data['mm_edit_title_err']; ?></span>
+                        </form>
+                    </div>
+                    <div id="main_menu_message"><?php flash('main_menu'); ?></div>
+                    <!----------------------------------------------------------------------------------------------------->
+                    <?php
+                    if (isset($_POST['submit_search_input']) && $_POST['submit_search_input'] !== '') {
                         // change branches that have no root node
-                        foreach ($data['mm']['items'] as $key => $value){
-                            if($data['mm']['items'][$key]['parent_id'] !== '0' && !in_array($data['mm']['items'][$key]['parent_id'], array_column($data['mm']['items'], 'id'))){
+                        foreach ($data['mm']['items'] as $key => $value) {
+                            if ($data['mm']['items'][$key]['parent_id'] !== '0' && !in_array($data['mm']['items'][$key]['parent_id'], array_column($data['mm']['items'], 'id'))) {
                                 // set not found parents as root node
                                 $data['mm']['items'][$key]['parent_id'] = '0';
                                 // add not found parent ids to root group
                                 $data['mm']['parents'][0][] = $data['mm']['items'][$key]['id'];
                                 // delete old group with no root
-                                foreach ($data['mm']['parents'] as $pk => $pv){
-                                    foreach ($pv as $i => $v){
-                                        if($pk !== 0 && $data['mm']['parents'][$pk][$i] === $data['mm']['items'][$key]['id']){
+                                foreach ($data['mm']['parents'] as $pk => $pv) {
+                                    foreach ($pv as $i => $v) {
+                                        if ($pk !== 0 && $data['mm']['parents'][$pk][$i] === $data['mm']['items'][$key]['id']) {
                                             unset($data['mm']['parents'][$pk][$i]);
                                         }
                                     }
-                                    if(empty($data['mm']['parents'][$pk])){
+                                    if (empty($data['mm']['parents'][$pk])) {
                                         unset($data['mm']['parents'][$pk]);
                                     }
                                 }
@@ -246,10 +250,10 @@
                         }
                     }
                     echo createTreeView(0, $data['mm']);
-                ?>
-                <!----------------------------------------------------------------------------------------------------->
+                    ?>
+                    <!----------------------------------------------------------------------------------------------------->
+                </div>
             </div>
         </div>
-
     </div>
 </nav>

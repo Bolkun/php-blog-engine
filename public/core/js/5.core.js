@@ -154,7 +154,7 @@ function menuDeleteTree_error(values){
     setTimeout(function() {
         $('#main_menu_message').fadeOut('fast');
         // reload new view
-        $("#collapse_main_menu").load(location.href + " #accordion");    // parent.load(child)
+        $("#collapse_main_menu").load(location.href + " #mm_load");    // parent.load(child)
     }, 5000);
 }
 function menuDeleteTree_success(values){
@@ -168,7 +168,7 @@ function menuDeleteTree_success(values){
     setTimeout(function() {
         $('#main_menu_message').fadeOut('fast');
         // reload new view
-        $("#collapse_main_menu").load(location.href + " #accordion");    // parent.load(child)
+        $("#collapse_main_menu").load(location.href + " #mm_load");    // parent.load(child)
     }, 5000);
 }
 /**********************************************************************************************************************/
