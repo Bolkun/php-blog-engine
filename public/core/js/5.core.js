@@ -202,7 +202,9 @@ function mmEditTitle(values) {
         // Set selected element to green
         document.getElementById(current_item_id).style.color="rgb(118, 185, 1)";
         // Change placeholder
-        document.getElementById("mm_edit_title").placeholder = "Edit title: " +title;
+        document.getElementById("mm_edit_title").placeholder = "Edit title \"" +title+ "\"";
+        document.getElementById("mm_edit_title").focus();
+        document.getElementById("mm_edit_title").select();
     } else {
         // green, than roll back
         document.getElementById("mm_search_form").style.display = "block";
@@ -210,10 +212,14 @@ function mmEditTitle(values) {
         document.getElementById("mm_add_child_form").style.display = "none";
         // Set selected element to green
         document.getElementById(current_item_id).style.color="grey";
+        // Focus on search input
+        document.getElementById("search_main_menu").focus();
+        document.getElementById("search_main_menu").select();
     }
+    // set parent id input
+    document.getElementById('mm_add_child_parentId').value = id;
 }
 /**********************************************************************************************************************/
-// Edit main menu title
 function mmAddChild(values) {
     var id = values['id'];
     var title = values['title'];
@@ -242,8 +248,16 @@ function mmAddChild(values) {
         }
         // Set selected element to green
         document.getElementById(current_item_id).style.color="rgb(118, 185, 1)";
-        // Change placeholder
-        document.getElementById("mm_add_child").placeholder = "Add child to " +title;
+        // Change placeholder and focus on input
+        if(id == '0'){
+            document.getElementById("mm_add_child").placeholder = "Add root";
+            document.getElementById("mm_add_child").focus();
+            document.getElementById("mm_add_child").select();
+        } else {
+            document.getElementById("mm_add_child").placeholder = "Add child to \"" +title+"\"";
+            document.getElementById("mm_add_child").focus();
+            document.getElementById("mm_add_child").select();
+        }
     } else {
         // green, than roll back
         document.getElementById("mm_search_form").style.display = "block";
@@ -251,5 +265,11 @@ function mmAddChild(values) {
         document.getElementById("mm_add_child_form").style.display = "none";
         // Set selected element to green
         document.getElementById(current_item_id).style.color="grey";
+        // Focus on search input
+        document.getElementById("search_main_menu").focus();
+        document.getElementById("search_main_menu").select();
     }
+    // set parent id input
+    document.getElementById('mm_add_child_parentId').value = id;
 }
+/**********************************************************************************************************************/

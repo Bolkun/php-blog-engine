@@ -183,7 +183,14 @@
         <!-- Toggler Main Menu -->
         <div id="collapse_main_menu" class="dropdown-menu bg-dark">
             <div id="mm_load">
-                <h4 class="h4_nav_top_user">Main</h4>
+                <h4 class="h4_nav_top_user">
+                    Main
+                    <?php if (isAdminLoggedIn()) { ?>
+                        <i id='mmAddChild0' style='color: grey; cursor: pointer'
+                           onclick="mmAddChild({id:'0', title:''})" class='fa fa-plus mm_add_child_icon'
+                           aria-hidden='true'></i>
+                    <?php } ?>
+                </h4>
                 <div id="accordion">
                     <div id="mm_search_form">
                         <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
@@ -199,13 +206,19 @@
                         </form>
                     </div>
                     <div id="mm_add_child_form">
-                        <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                        <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
                             <input id="mm_add_child" type="text" name="mm_add_child"
                                    class="form-control <?php echo (!empty($data['mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['mm_add_child']; ?>"
                                    placeholder="Add child">
-                            <button id="submit_add_child_input" name="submit_add_child_input" class="btn btn-success"
-                                    type="submit">
+                            <input id="mm_add_child_parentId" type="text" name="mm_add_child_parentId" style="display: none"
+                                   class="form-control"
+                                   value=""
+                                   placeholder="Parent id">
+                            <button type="button"
+                                    id="submit_add_child_input"
+                                    onclick='ajax_mmAddChild(<?php echo jsonEncodeMenuAddChild(NULL); ?>)'
+                                    class="btn btn-success">
                                 <i class='fa fa-plus'></i>
                             </button>
                             <span class="invalid-feedback"><?php echo $data['mm_add_child_err']; ?></span>
