@@ -46,7 +46,7 @@ function deleteFolderTreeRecursively($pathDir){
  */
 function getAllFilesInDir($pathDir){
     if(! is_dir($pathDir)){
-        die("getAllFilesInDir(): param is not a directory!");
+        die("getAllFilesInDir(): param is not a directory! $pathDir");
     }
     $aFiles = scandir($pathDir);
     // filtering dots out of the array
