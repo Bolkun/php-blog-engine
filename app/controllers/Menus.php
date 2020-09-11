@@ -62,13 +62,11 @@ class Menus extends Controller
             }
 
             // Make sure errors are empty
-            if(empty($data['mm_add_child_err'])){
-                $state = $this->menuModel->insertNode($data);
-                if($state){
-                    // OK
-                } else {
-                    die("Error: Could not insert node, due to server problems");
-                }
+            $state = $this->menuModel->insertNode($data);
+            if($state){
+                // OK
+            } else {
+                die("Error: Could not insert node, due to server problems");
             }
         } else {
             die("Error: Something went wrong during post request to add new node");
@@ -102,13 +100,11 @@ class Menus extends Controller
             }
 
             // Make sure errors are empty
-            if(empty($data['mm_add_child_err'])){
-                $state = $this->menuModel->updateTitle($data);
-                if($state){
-                    // OK
-                } else {
-                    die("Error: Could not update title, due to server problems");
-                }
+            $state = $this->menuModel->updateTitle($data);
+            if($state){
+                // OK
+            } else {
+                die("Error: Could not update title, due to server problems");
             }
         } else {
             die("Error: Something went wrong during post request to edit title");
