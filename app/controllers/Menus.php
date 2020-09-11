@@ -96,7 +96,7 @@ class Menus extends Controller
                     }
                     $data['mm_content'] = $aDataSort;
                 } else {
-                    $data['search_err'] = 'Could not search, due to server problems';
+                    $data['search_err'] = 'Nothing found';
                 }
             }
 
