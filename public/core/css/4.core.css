@@ -215,7 +215,8 @@ li input:checked + ol > li:last-child {
     font-size: 16px;
 }
 .main_menu_link:hover {
-    color: white;
+    color: #76b901;
+    text-decoration: none;
 }
 .main_menu_checkbox {
     margin: 5px 0 0 -7px;
