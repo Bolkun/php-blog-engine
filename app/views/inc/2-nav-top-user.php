@@ -206,12 +206,14 @@
                         </form>
                     </div>
                     <div id="mm_add_child_form">
-                        <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                        <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index"
+                              method="post">
                             <input id="mm_add_child" type="text" name="mm_add_child"
                                    class="form-control <?php echo (!empty($data['mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['mm_add_child']; ?>"
                                    placeholder="Add child">
-                            <input id="mm_add_child_parentId" type="text" name="mm_add_child_parentId" style="display: none"
+                            <input id="mm_add_child_parentId" type="text" name="mm_add_child_parentId"
+                                   style="display: none"
                                    class="form-control"
                                    value=""
                                    placeholder="Parent id">
@@ -237,34 +239,38 @@
                             <span class="invalid-feedback"><?php echo $data['mm_edit_title_err']; ?></span>
                         </form>
                     </div>
-                    <div id="main_menu_message"><?php flash('main_menu'); ?></div>
-                    <!----------------------------------------------------------------------------------------------------->
-                    <?php
-                    if (isset($_POST['submit_search_input']) && $_POST['submit_search_input'] !== '') {
-                        // change branches that have no root node
-                        foreach ($data['mm']['items'] as $key => $value) {
-                            if ($data['mm']['items'][$key]['parent_id'] !== '0' && !in_array($data['mm']['items'][$key]['parent_id'], array_column($data['mm']['items'], 'id'))) {
-                                // set not found parents as root node
-                                $data['mm']['items'][$key]['parent_id'] = '0';
-                                // add not found parent ids to root group
-                                $data['mm']['parents'][0][] = $data['mm']['items'][$key]['id'];
-                                // delete old group with no root
-                                foreach ($data['mm']['parents'] as $pk => $pv) {
-                                    foreach ($pv as $i => $v) {
-                                        if ($pk !== 0 && $data['mm']['parents'][$pk][$i] === $data['mm']['items'][$key]['id']) {
-                                            unset($data['mm']['parents'][$pk][$i]);
+                    <div id="mm_load_box">
+                        <div id="mm_load_trees">
+                            <div id="main_menu_message"><?php flash('main_menu'); ?></div>
+                            <!----------------------------------------------------------------------------------------------------->
+                            <?php
+                            if (isset($_POST['submit_search_input']) && $_POST['submit_search_input'] !== '') {
+                                // change branches that have no root node
+                                foreach ($data['mm']['items'] as $key => $value) {
+                                    if ($data['mm']['items'][$key]['parent_id'] !== '0' && !in_array($data['mm']['items'][$key]['parent_id'], array_column($data['mm']['items'], 'id'))) {
+                                        // set not found parents as root node
+                                        $data['mm']['items'][$key]['parent_id'] = '0';
+                                        // add not found parent ids to root group
+                                        $data['mm']['parents'][0][] = $data['mm']['items'][$key]['id'];
+                                        // delete old group with no root
+                                        foreach ($data['mm']['parents'] as $pk => $pv) {
+                                            foreach ($pv as $i => $v) {
+                                                if ($pk !== 0 && $data['mm']['parents'][$pk][$i] === $data['mm']['items'][$key]['id']) {
+                                                    unset($data['mm']['parents'][$pk][$i]);
+                                                }
+                                            }
+                                            if (empty($data['mm']['parents'][$pk])) {
+                                                unset($data['mm']['parents'][$pk]);
+                                            }
                                         }
-                                    }
-                                    if (empty($data['mm']['parents'][$pk])) {
-                                        unset($data['mm']['parents'][$pk]);
                                     }
                                 }
                             }
-                        }
-                    }
-                    echo createTreeView(0, $data['mm']);
-                    ?>
-                    <!----------------------------------------------------------------------------------------------------->
+                            echo createTreeView(0, $data['mm']);
+                            ?>
+                            <!----------------------------------------------------------------------------------------------------->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

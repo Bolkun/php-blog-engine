@@ -155,7 +155,7 @@ function menuDeleteTree_error(values){
         $('#main_menu_message').fadeOut('fast');
         // reload new view
         $("#collapse_main_menu").load(location.href + " #mm_load");    // parent.load(child)
-    }, 5000);
+    }, 3000);
 }
 function menuDeleteTree_success(values){
     // [alert info, alert success, alert warning, alert danger]
@@ -169,7 +169,7 @@ function menuDeleteTree_success(values){
         $('#main_menu_message').fadeOut('fast');
         // reload new view
         $("#collapse_main_menu").load(location.href + " #mm_load");    // parent.load(child)
-    }, 5000);
+    }, 3000);
 }
 /**********************************************************************************************************************/
 // Edit main menu title
@@ -271,5 +271,51 @@ function mmAddChild(values) {
     }
     // set parent id input
     document.getElementById('mm_add_child_parentId').value = id;
+}
+/**********************************************************************************************************************/
+// Add new Node
+function ajax_mmAddChild(values) {
+    // Logic to delete the page
+    var formdata = $("#mmAddChildForm").serializeArray();
+    var title = formdata[0]['value'];
+    title = JSON.stringify(title);
+    var parent_id = formdata[1]['value'];
+    parent_id = JSON.stringify(parent_id);
+
+    $.ajax({
+        url: values['URLCURRENT'],
+        data: 'ajax_mm_add_child='+title+'&ajax_mm_add_child_parentId='+parent_id,  // var="value"&var2="value2"
+        type: 'post',
+        error: mmAddChild_error(title, parent_id),
+        success: mmAddChild_success(title, parent_id)
+    });
+}
+function mmAddChild_error(title, parent_id){
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert danger" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Add title=' + title + ' to parent id' + parent_id + ' failed!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("main_menu_message").innerHTML = message;
+    setTimeout(function() {
+        $('#main_menu_message').fadeOut('fast');
+        // reload new view
+        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
+    }, 3000);
+}
+function mmAddChild_success(title, parent_id){
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert success" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Added title=' + title + ' to parent id' + parent_id +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("main_menu_message").innerHTML = message;
+    setTimeout(function() {
+        $('#main_menu_message').fadeOut('fast');
+        // reload new view
+        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
+    }, 3000);
 }
 /**********************************************************************************************************************/

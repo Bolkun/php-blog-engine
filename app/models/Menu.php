@@ -22,6 +22,22 @@ class Menu
         }
     }
 
+    public function insertNode($data)
+    {
+        $this->db->query('INSERT INTO main_menu (title, link, parent_id) VALUES (:title, :link, :parent_id)');
+        // Bind values
+        $this->db->bind(':title', $data['title']);
+        $this->db->bind(':link', $data['link']);
+        $this->db->bind(':parent_id', $data['parent_id']);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function deleteBranch($aIds)
     {
         $ids = implode("','", $aIds);

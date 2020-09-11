@@ -70,6 +70,10 @@ class Indexs extends Controller
             $data = mergeAsocArrays($default_data, $new_data);
             $this->view('index/index', $data);
         }
+        elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
+            $main_menu = new Menus();
+            $main_menu->addNode();
+        }
         elseif (isset($_POST['ajax_sMainMenuID'])) {
             $main_menu = new Menus();
             $main_menu->deleteBranch();
