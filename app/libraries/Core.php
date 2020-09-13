@@ -19,6 +19,8 @@ class Core {
             require_once '../app/controllers/' . $this->currentController . '.php';
             $this->currentController = new $this->currentController;
             $this->currentMethod = 'index';
+            // Get params
+            $this->params = $url ? array_values($url) : []; // if params set or not then leave array leer
             // Call a callback with array of params
             call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
             return;

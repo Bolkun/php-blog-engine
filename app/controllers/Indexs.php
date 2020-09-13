@@ -4,16 +4,21 @@ class Indexs extends Controller
 {
     public function __construct()
     {
+        $this->blogController = $this->controller('Blogs');
         $this->menuController = $this->controller('Menus');
         $this->userController = $this->controller('Users');
     }
     /*
      * All Pages ▼
      */
-    public function index()
+    public function index($blog_id=0)
     {
         // Init data
         $default_data = [
+            // blog
+            'blog_id' => $blog_id,
+            'blog_content' => '',
+            'blog_id_err' => '',
             // main menu
             'mm' => (new Menus)->getMainMenu(),
             'mm_search' => '',
@@ -54,6 +59,18 @@ class Indexs extends Controller
             // other
             'display_div' => array(),
         ];
+
+        // Get article content
+        if($blog_id !== 0){
+            $blog = new Blogs();
+            $blog_data = $blog->search($blog_id);
+            $new_data = [
+                'blog_content' => $blog_data['content'],
+                'blog_id_err' => $blog_data['id_err'],
+            ];
+            $data = mergeAsocArrays($default_data, $new_data);
+            $this->view('index/index', $data);
+        }
 
         // POST
         if (isset($_POST['submit_search_input'])) {
@@ -163,5 +180,4 @@ class Indexs extends Controller
         }
         // index end
     }
-
 }

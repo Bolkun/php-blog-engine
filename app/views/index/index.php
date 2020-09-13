@@ -2,32 +2,85 @@
 <?php require APPROOT . '/views/inc/2-nav-top-user.php'; ?>
 <?php require APPROOT . '/views/inc/3-nav-top-admin.php'; ?>
 <br><br><br>
-<div class="container scrollpane">
-    <div class="row" id="results">
-        <?php
-        $article_count = 0;
-        for ($i = 0; $i < 2; $i++) {
-            if ($i % 2 == 0) {
-                // display 2 divs in a row
-                for ($j = 0; $j < 2; $j++) {
+<?php if(($data['blog_id'] !== 0) && ($data['blog_id_err'] === '')){ ?>
+    <h1><?php echo $data['blog_content']; ?></h1>
+<?php } else { ?>
+    <div class="container scrollpane">
+        <div class="row" id="results">
+            <?php
+            $article_count = 0;
+            for ($i = 0; $i < 2; $i++) {
+                if ($i % 2 == 0) {
+                    // display 2 divs in a row
+                    for ($j = 0; $j < 2; $j++) {
+                        ?>
+                        <div class="col-lg-6">
+                            <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/astronomy-800x600.jpg'; ?>"
+                                 data-toggle="modal" data-target="#articleModal_<?php echo $article_count; ?>">
+                            <div class="img-rank-block">
+                                <p class="col-lg-6_p">
+                                    <?php for ($article_rank = 5; $article_rank > 0; $article_rank--) { ?>
+                                        <i class="fa fa-star"></i>
+                                    <?php } ?>
+                                </p>
+                            </div>
+                            <div class="img-text-block">
+                                <h2>Nature</h2>
+                                <p class="col-lg-6_p">What a beautiful sunrise, and still be yourself</p>
+                            </div>
+                            <div class="img-text-clicked">
+                                <p class="col-lg-6_p">
+                                    <i class="fa fa-eye"></i> 1.299.345
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="articleModal_<?php echo $article_count;
+                        $article_count++; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>What a beautiful sunrise, and still be yourself</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                }
+                // display 4 divs in a row
+                for ($j = 0; $j < 4; $j++) {
                     ?>
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/astronomy-800x600.jpg'; ?>"
-                             data-toggle="modal" data-target="#articleModal_<?php echo $article_count; ?>">
+                             data-toggle="modal"
+                             data-target="#articleModal_<?php echo $article_count; ?>">
                         <div class="img-rank-block">
-                            <p class="col-lg-6_p">
+                            <p>
                                 <?php for ($article_rank = 5; $article_rank > 0; $article_rank--) { ?>
                                     <i class="fa fa-star"></i>
                                 <?php } ?>
                             </p>
                         </div>
                         <div class="img-text-block">
-                            <h2>Nature</h2>
-                            <p class="col-lg-6_p">What a beautiful sunrise, and still be yourself</p>
+                            <h4>Nature</h4>
+                            <p>What a beautiful sunrise, and still be yourself.</p>
                         </div>
                         <div class="img-text-clicked">
-                            <p class="col-lg-6_p">
-                                <i class="fa fa-eye"></i> 1.299.345
+                            <p>
+                                <i class="fa fa-eye"></i> 999.345
                             </p>
                         </div>
                     </div>
@@ -35,7 +88,7 @@
                     <div class="modal fade" id="articleModal_<?php echo $article_count;
                     $article_count++; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
                          aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
@@ -44,7 +97,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>What a beautiful sunrise, and still be yourself</p>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -56,58 +109,9 @@
                     </div>
                     <?php
                 }
-            }
-            // display 4 divs in a row
-            for ($j = 0; $j < 4; $j++) {
-                ?>
-                <div class="col-lg-3">
-                    <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/astronomy-800x600.jpg'; ?>"
-                         data-toggle="modal"
-                         data-target="#articleModal_<?php echo $article_count; ?>">
-                    <div class="img-rank-block">
-                        <p>
-                            <?php for ($article_rank = 5; $article_rank > 0; $article_rank--) { ?>
-                                <i class="fa fa-star"></i>
-                            <?php } ?>
-                        </p>
-                    </div>
-                    <div class="img-text-block">
-                        <h4>Nature</h4>
-                        <p>What a beautiful sunrise, and still be yourself.</p>
-                    </div>
-                    <div class="img-text-clicked">
-                        <p>
-                            <i class="fa fa-eye"></i> 999.345
-                        </p>
-                    </div>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="articleModal_<?php echo $article_count;
-                $article_count++; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php
-            }
-        } ?>
+            } ?>
+        </div>
     </div>
-</div>
+<?php } ?>
 <?php require APPROOT . '/views/inc/4-footer.php'; ?>
 <?php require APPROOT . '/views/inc/5-cookies.php'; ?>
