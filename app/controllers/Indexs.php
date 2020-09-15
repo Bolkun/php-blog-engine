@@ -63,6 +63,13 @@ class Indexs extends Controller
         // Get article content
         if($blog_id !== 0){
             $blog = new Blogs();
+
+            if(isset($_POST['submit_blog_ta_tinymce'])){
+                if(! $blog->saveContent($blog_id)){
+                    die("Could not save blog content");
+                }
+            }
+
             $blog_data = $blog->search($blog_id);
             $new_data = [
                 'blog_content' => $blog_data['content'],

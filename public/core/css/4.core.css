@@ -9,9 +9,7 @@ a:hover {
 
 /**********************************************************************************************************************/
 
-/*
- * view: inc/2-nav-top-user
- */
+/* view: inc/2-nav-top-user */
 .hr_menu {
     border-top: 1px solid grey;
     width: 81%;
@@ -247,9 +245,7 @@ li input:checked + ol > li:last-child {
 }
 /**********************************************************************************************************************/
 
-/*
- * view: inc/3-nav-top-admin
- */
+/* view: inc/3-nav-top-admin */
 #nav_top_admin {
     z-index: 1;
     padding-top: 0.25rem;
@@ -277,9 +273,7 @@ li input:checked + ol > li:last-child {
 
 /**********************************************************************************************************************/
 
-/*
- * flash messages
- */
+/* flash messages */
 .alert {
     padding: 20px;
     background-color: #f44336;
@@ -318,9 +312,7 @@ li input:checked + ol > li:last-child {
 
 /**********************************************************************************************************************/
 
-/*
- * view: admins/tests/benchmark
- */
+/* view: admins/tests/benchmark */
 .benchmark td:first-child {
     width: 5%;
 }
@@ -339,11 +331,15 @@ li input:checked + ol > li:last-child {
 
 /**********************************************************************************************************************/
 
-/*
- * views/dashboards/index
- */
+/* views/index */
 body {
     background: whitesmoke; /* fallback for old browsers */
+}
+
+#submitTinyMCEContent {
+    position: relative;
+    top: 10px;
+    margin-bottom: 10px;
 }
 
 /* Container holding the image and the text */
@@ -435,9 +431,7 @@ body {
 
 /**********************************************************************************************************************/
 
-/*
- * scrollbar
- */
+/* scrollbar */
 ::-webkit-scrollbar {
     height: 8px;
     width: 8px;

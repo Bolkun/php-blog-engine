@@ -25,4 +25,19 @@ class Blog
         }
     }
 
+    public function updateContent($data)
+    {
+        $this->db->query('UPDATE blog SET content = :content WHERE blog_id = :blog_id');
+        // Bind values
+        $this->db->bind(':content', $data['content']);
+        $this->db->bind(':blog_id', $data['blog_id']);
+
+        // Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

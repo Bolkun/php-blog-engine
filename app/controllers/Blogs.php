@@ -37,4 +37,28 @@ class Blogs extends Controller
 
         return $data;
     }
+
+    public function saveContent($id)
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // Init data
+            $data = [
+                'blog_id' => trim($id),
+                'content' => $_POST['blog_ta_tinymce'],
+            ];
+
+            $oData = $this->blogModel->updateContent($data);
+            if ($oData) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            die("Not a post request for updating blog content");
+        }
+    }
 }
