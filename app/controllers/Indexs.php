@@ -11,14 +11,13 @@ class Indexs extends Controller
     /*
      * All Pages ▼
      */
-    public function index($blog_id=0)
+    public function index($blog_title=0)
     {
         // Init data
         $default_data = [
             // blog
-            'blog_id' => $blog_id,
+            'blog_title' => $blog_title,
             'blog_content' => '',
-            'blog_id_err' => '',
             // main menu
             'mm' => (new Menus)->getMainMenu(),
             'mm_search' => '',
@@ -61,26 +60,22 @@ class Indexs extends Controller
         ];
 
         // Get article content
-        if($blog_id !== 0){
+        if($blog_title !== 0 && $blog_title !== 'index') {
             $blog = new Blogs();
-
-            if(isset($_POST['submit_blog_ta_tinymce'])){
-                if(! $blog->saveContent($blog_id)){
-                    die("Could not save blog content");
-                }
-            }
-
-            $blog_data = $blog->search($blog_id);
+            $blog_data = $blog->search($blog_title);
             $new_data = [
                 'blog_content' => $blog_data['content'],
-                'blog_id_err' => $blog_data['id_err'],
             ];
             $data = mergeAsocArrays($default_data, $new_data);
             $this->view('index/index', $data);
         }
 
         // POST
-        if (isset($_POST['submit_search_input'])) {
+        if(isset($_POST['submit_blog_ta_tinymce'])){
+            $blog = new Blogs();
+            $blog->saveContent($blog_title);
+        }
+        elseif (isset($_POST['submit_search_input'])) {
             $main_menu = new Menus();
             $main_menu_data = $main_menu->search();
             $new_data = [

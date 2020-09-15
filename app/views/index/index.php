@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/2-nav-top-user.php'; ?>
 <?php require APPROOT . '/views/inc/3-nav-top-admin.php'; ?>
 <br><br><br>
-<?php if (($data['blog_id'] !== 0) && ($data['blog_id_err'] === '')) { ?>
+<?php if ($data['blog_title'] !== 0 && $data['blog_title'] !== 'index') { ?>
     <div class="container">
         <div class="row" style="padding-top: 5px; z-index: -1;">
             <?php if (isAdminLoggedIn() === true) { ?>

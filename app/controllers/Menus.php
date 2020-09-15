@@ -2,9 +2,14 @@
 
 class Menus extends Controller
 {
+
+    private $menuModel;
+    private $blogModel;
+
     public function __construct()
     {
         $this->menuModel = $this->model('Menu');
+        $this->blogModel = $this->model('Blog');
     }
 
     /*
@@ -43,7 +48,6 @@ class Menus extends Controller
             // Init data
             $data = [
                 'title' => trim($_POST['ajax_mm_add_child']),
-                'link' => '#',
                 'parent_id' => trim($_POST['ajax_mm_add_child_parentId']),
             ];
 
@@ -62,9 +66,13 @@ class Menus extends Controller
             }
 
             // Make sure errors are empty
-            $state = $this->menuModel->insertNode($data);
-            if($state){
-                // OK
+            if($this->menuModel->insertNode($data)){
+                // create new blog page
+                if($this->blogModel->insert($data)){
+                    // OK
+                } else {
+                    die("Error: Could not insert blog page, due to server problems");
+                }
             } else {
                 die("Error: Could not insert node, due to server problems");
             }

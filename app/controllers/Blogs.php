@@ -2,6 +2,8 @@
 
 class Blogs extends Controller
 {
+    private $blogModel;
+
     public function __construct()
     {
         $this->blogModel = $this->model('Blog');
@@ -10,35 +12,25 @@ class Blogs extends Controller
     /*
      * All Pages ▼
      */
-    public function search($id)
+    public function search($title)
     {
         // Init data
         $data = [
-            'id' => trim($id),
+            'title' => trim($title),
             'content' => '',
-            'id_err' => '',
         ];
 
-        if(! checkIfStringMatchRegex("/^[0-9]+$/", $data['id'])){
-            $data['id_err'] = "Is not an id";
-            //die("Is not an id");
-        }
-
-        // Make sure errors are empty
-        if (empty($data['id_err'])) {
-            $oData = $this->blogModel->search($data);
-            if ($oData) {
-                $data['content'] = $oData->content;
-            } else {
-                $data['id_err'] = '404 not found';
-                //die("404 not found");
-            }
+        $oData = $this->blogModel->search($data);
+        if ($oData) {
+            $data['content'] = $oData->content;
+        } else {
+            die("Blog title not found");
         }
 
         return $data;
     }
 
-    public function saveContent($id)
+    public function saveContent($title)
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // Sanitize POST data
@@ -46,15 +38,14 @@ class Blogs extends Controller
 
             // Init data
             $data = [
-                'blog_id' => trim($id),
+                'title' => trim($title),
                 'content' => $_POST['blog_ta_tinymce'],
             ];
 
-            $oData = $this->blogModel->updateContent($data);
-            if ($oData) {
-                return true;
+            if ($this->blogModel->updateContent($data)) {
+                // OK
             } else {
-                return false;
+                die("Could not save blog content");
             }
 
         } else {

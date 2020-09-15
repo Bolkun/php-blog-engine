@@ -103,7 +103,6 @@ INSERT INTO `user` (`user_id`, `account_status`, `role`, `firstname`, `surname`,
 create table `main_menu` (
   `id`        int(11)       NOT NULL AUTO_INCREMENT,
   `title`     varchar(200)  NOT NULL,
-  `link`      varchar(100)  NOT NULL default '#',
   `parent_id` varchar(11)   NOT NULL,
   primary key (`id`)
 ) engine=myisam default charset=utf8;

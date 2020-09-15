@@ -247,6 +247,8 @@ function ajax_mmAddChild(values) {
     var parent_id = formdata[1]['value'];
     parent_id = JSON.stringify(parent_id);
 
+    //console.log(title + ' ' + parent_id);
+
     if (title !== "\"\"") {
         $.ajax({
             url: values['URLCURRENT'],

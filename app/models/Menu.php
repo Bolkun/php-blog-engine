@@ -37,10 +37,9 @@ class Menu
 
     public function insertNode($data)
     {
-        $this->db->query('INSERT INTO main_menu (title, link, parent_id) VALUES (:title, :link, :parent_id)');
+        $this->db->query('INSERT INTO main_menu (title, parent_id) VALUES (:title, :parent_id)');
         // Bind values
         $this->db->bind(':title', $data['title']);
-        $this->db->bind(':link', $data['link']);
         $this->db->bind(':parent_id', $data['parent_id']);
 
         // Execute
