@@ -25,7 +25,7 @@ class Blog
 
     public function updateContent($data)
     {
-        $this->db->query('UPDATE blog SET content = :content WHERE title = :title');
+        $this->db->query('UPDATE blog SET last_edit_date = CURRENT_TIMESTAMP, content = :content WHERE title = :title');
         $this->db->bind(':content', $data['content']);
         $this->db->bind(':title', $data['title']);
 
@@ -38,9 +38,10 @@ class Blog
 
     public function insert($data)
     {
-        $this->db->query('INSERT INTO blog (created_by_user_id, title) VALUES (:created_by_user_id, :title)');
+        $this->db->query('INSERT INTO blog (created_by_user_id, title, mm_id) VALUES (:created_by_user_id, :title, :mm_id)');
         $this->db->bind(':created_by_user_id', $_SESSION['user_id']);
         $this->db->bind(':title', $data['title']);
+        $this->db->bind(':mm_id', $data['mm_id']);
 
         if ($this->db->execute()) {
             return true;
@@ -48,5 +49,6 @@ class Blog
             return false;
         }
     }
+
 
 }

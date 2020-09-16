@@ -47,6 +47,7 @@ class Menus extends Controller
 
             // Init data
             $data = [
+                'mm_id' => '',
                 'title' => trim($_POST['ajax_mm_add_child']),
                 'parent_id' => trim($_POST['ajax_mm_add_child_parentId']),
             ];
@@ -66,7 +67,8 @@ class Menus extends Controller
             }
 
             // Make sure errors are empty
-            if($this->menuModel->insertNode($data)){
+            $data['mm_id'] = $this->menuModel->insertNode($data);
+            if($data['mm_id']){
                 // create new blog page
                 if($this->blogModel->insert($data)){
                     // OK

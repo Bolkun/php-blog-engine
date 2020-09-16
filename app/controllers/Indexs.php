@@ -16,7 +16,7 @@ class Indexs extends Controller
     /*
      * All Pages ▼
      */
-    public function index($blog_title=0)
+    public function index($blog_title = 0)
     {
         // Init data
         $default_data = [
@@ -64,8 +64,8 @@ class Indexs extends Controller
             'display_div' => array(),
         ];
 
-        // Get article content
-        if($blog_title !== 0 && $blog_title !== 'index') {
+        // Get blog content
+        if ($blog_title !== 0 && $blog_title !== 'index') {
             $blog = new Blogs();
             $blog_data = $blog->search($blog_title);
             $new_data = [
@@ -76,11 +76,10 @@ class Indexs extends Controller
         }
 
         // POST
-        if(isset($_POST['submit_blog_ta_tinymce'])){
+        if (isset($_POST['submit_blog_ta_tinymce'])) {
             $blog = new Blogs();
             $blog->saveContent($blog_title);
-        }
-        elseif (isset($_POST['submit_search_input'])) {
+        } elseif (isset($_POST['submit_search_input'])) {
             $main_menu = new Menus();
             $main_menu_data = $main_menu->search();
             $new_data = [
@@ -93,20 +92,16 @@ class Indexs extends Controller
             ];
             $data = mergeAsocArrays($default_data, $new_data);
             $this->view('index/index', $data);
-        }
-        elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
+        } elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
             $main_menu = new Menus();
             $main_menu->addNode();
-        }
-        elseif (isset($_POST['ajax_mm_edit_title_id']) && isset($_POST['ajax_mm_edit_title'])) {
+        } elseif (isset($_POST['ajax_mm_edit_title_id']) && isset($_POST['ajax_mm_edit_title'])) {
             $main_menu = new Menus();
             $main_menu->editTitle();
-        }
-        elseif (isset($_POST['ajax_sMainMenuID'])) {
+        } elseif (isset($_POST['ajax_sMainMenuID'])) {
             $main_menu = new Menus();
             $main_menu->deleteBranch();
-        }
-        elseif (isset($_POST['submitLogin'])) {
+        } elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
             $user_data = $user->login();
             $new_data = [
@@ -123,8 +118,7 @@ class Indexs extends Controller
             ];
             $data = mergeAsocArrays($default_data, $new_data);
             $this->view('index/index', $data);
-        }
-        elseif (isset($_POST['submitRegister'])){
+        } elseif (isset($_POST['submitRegister'])) {
             $user = new Users();
             $user_data = $user->register();
             $new_data = [
@@ -144,15 +138,14 @@ class Indexs extends Controller
             ];
 
             // display login
-            if(empty($new_data['reg_firstname_err']) && empty($new_data['reg_surname_err']) && empty($new_data['reg_email_err'])
-                && empty($new_data['reg_password_err']) && empty($new_data['reg_confirm_password_err'])){
+            if (empty($new_data['reg_firstname_err']) && empty($new_data['reg_surname_err']) && empty($new_data['reg_email_err'])
+                && empty($new_data['reg_password_err']) && empty($new_data['reg_confirm_password_err'])) {
                 $new_data['display_div'] = array('collapse_login_menu');
             }
 
             $data = mergeAsocArrays($default_data, $new_data);
             $this->view('index/index', $data);
-        }
-        elseif (isset($_POST['submitUserEmail'])){
+        } elseif (isset($_POST['submitUserEmail'])) {
             $user = new Users();
             $user_data = $user->settingsUserEmail();
             $new_data = [
@@ -164,8 +157,7 @@ class Indexs extends Controller
             ];
             $data = mergeAsocArrays($default_data, $new_data);
             $this->view('index/index', $data);
-        }
-        elseif (isset($_POST['submitUserPassword'])){
+        } elseif (isset($_POST['submitUserPassword'])) {
             $user = new Users();
             $user_data = $user->settingsUserPassword();
             $new_data = [
@@ -181,10 +173,9 @@ class Indexs extends Controller
             ];
             $data = mergeAsocArrays($default_data, $new_data);
             $this->view('index/index', $data);
-        }
-        else {
+        } else {
             $this->view('index/index', $default_data);
         }
-        // index end
     }
+
 }

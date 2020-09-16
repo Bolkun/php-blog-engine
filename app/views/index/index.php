@@ -4,7 +4,7 @@
 <br><br><br>
 <?php if ($data['blog_title'] !== 0 && $data['blog_title'] !== 'index') { ?>
     <div class="container">
-        <div class="row" style="padding-top: 5px; z-index: -1;">
+        <div class="row" style="margin-top: -6px; z-index: -1;">
             <?php if (isAdminLoggedIn() === true) { ?>
                 <form style="z-index: 0;" class="form-inline" action="<?php echo URLCURRENT; ?>/index" method="post">
                     <textarea class="tinymce" name="blog_ta_tinymce">

@@ -22,6 +22,20 @@ class Menu
         }
     }
 
+    public function selectMainMenuNode($data)
+    {
+        $this->db->query('SELECT * FROM main_menu WHERE title = :title');
+        $this->db->bind(':title', $data['title']);
+
+        $row = $this->db->single();
+
+        if (empty($row)) {
+            return false;
+        } else {
+            return $row;
+        }
+    }
+
     public function searchMainMenu($data)
     {
         $this->db->query("SELECT * FROM main_menu WHERE title LIKE '%" . $data['search'] . "%' ORDER BY title ASC");
@@ -42,7 +56,7 @@ class Menu
         $this->db->bind(':parent_id', $data['parent_id']);
 
         if ($this->db->execute()) {
-            return true;
+            return $this->db->getLastInsertId();
         } else {
             return false;
         }

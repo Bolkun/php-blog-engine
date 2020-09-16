@@ -52,4 +52,5 @@ class Blogs extends Controller
             die("Not a post request for updating blog content");
         }
     }
+
 }

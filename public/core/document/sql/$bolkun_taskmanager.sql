@@ -169,7 +169,7 @@ create table `page` (
   `created_by_user_id`          int(10)         unsigned not null                   comment 'user-id who created the page',
   `creation_date`               datetime        default current_timestamp,
   `observe_permissions`         varchar(20)     not null                            comment 'everyone, registered_users, admins',
-  `observed_count`              bigint(20)      unsigned default "0",
+  `observed_count`              bigint(20)      unsigned default 0,
   `path`                        varchar(100)    not null                            comment 'absolute path to file',
   `link`                        varchar(100)    not null,
   `content`                     text            default null                        comment 'page main content',
@@ -186,16 +186,14 @@ create table `blog` (
   `created_by_user_id`          int(10)         unsigned not null                   comment 'user-id who created the article',
   `creation_date`               datetime        default current_timestamp,
   `last_edit_date`              datetime        default current_timestamp,
-  `observe_permissions`         varchar(20)     not null default "admins"           comment 'everyone, registered_users, admins',
+  `observe_permissions`         varchar(20)     not null default 'admins'           comment 'everyone, registered_users, admins',
   `category`                    varchar(100)    not null,
   `title`                       varchar(100)    not null,
-  `rank`                        tinyint(1)      unsigned default "5",
-  `views`                       bigint(20)      unsigned default "0",
+  `rank`                        tinyint(1)      unsigned default 5,
+  `views`                       bigint(20)      unsigned default 0,
   `content`                     text            default null                        comment 'blog main content',
+  `mm_id`                       int(11)         not null                            comment 'secondary key from main_menu',
   primary key (`blog_id`)
 ) engine=myisam default charset=utf8;
-
-INSERT INTO `blog` (`created_by_user_id`, `observe_permissions`, `category`, `title`, `rank`, `views`, `content`) VALUES
-(1, 'admins', 'Coding', 'Test', '5', '999999', 'Hello World!');
 
 -- --------------------------------------------------------
