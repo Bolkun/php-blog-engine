@@ -2,6 +2,8 @@
 
 class Admins extends Controller
 {
+    private $pageModel;
+
     public function __construct()
     {
         $this->pageModel = $this->model('Admin');

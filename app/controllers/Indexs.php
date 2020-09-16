@@ -2,12 +2,17 @@
 
 class Indexs extends Controller
 {
+    private $blogController;
+    private $menuController;
+    private $userController;
+
     public function __construct()
     {
         $this->blogController = $this->controller('Blogs');
         $this->menuController = $this->controller('Menus');
         $this->userController = $this->controller('Users');
     }
+
     /*
      * All Pages ▼
      */
