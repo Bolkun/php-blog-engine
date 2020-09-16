@@ -9,12 +9,10 @@ class User
         $this->db = new Database;
     }
 
-    // Register User
     public function register($data)
     {
         $this->db->query('INSERT INTO user (firstname, surname, email, password, ip, verification_code) 
           VALUES (:firstname, :surname, :email, :password, :ip, :verification_code)');
-        // Bind values
         $this->db->bind(':firstname', $data['firstname']);
         $this->db->bind(':surname', $data['surname']);
         $this->db->bind(':email', $data['email']);
@@ -22,7 +20,6 @@ class User
         $this->db->bind(':ip', $data['ip']);
         $this->db->bind(':verification_code', $data['verification_code']);
 
-        // Execute
         if ($this->db->execute()) {
             return true;
         } else {
@@ -33,11 +30,9 @@ class User
     public function setEmail($data)
     {
         $this->db->query('UPDATE user SET email = :new_email WHERE email = :session_email');
-        // Bind values
         $this->db->bind(':new_email', $data['email']);
         $this->db->bind(':session_email', $_SESSION['user_email']);
 
-        // Execute
         if ($this->db->execute()) {
             return true;
         } else {
@@ -48,11 +43,9 @@ class User
     public function setPassword($data)
     {
         $this->db->query('UPDATE user SET password = :new_password WHERE email = :session_email');
-        // Bind values
         $this->db->bind(':new_password', $data['new_password']);
         $this->db->bind(':session_email', $_SESSION['user_email']);
 
-        // Execute
         if ($this->db->execute()) {
             return true;
         } else {
@@ -63,11 +56,9 @@ class User
     public function updateAccountStatus($data)
     {
         $this->db->query('UPDATE user SET account_status = :account_status WHERE email = :email');
-        // Bind values
         $this->db->bind(':account_status', $data['account_status']);
         $this->db->bind(':email', $data['email']);
 
-        // Execute
         if ($this->db->execute()) {
             return true;
         } else {
@@ -78,11 +69,9 @@ class User
     public function updateVerificationCode($data, $verification_code)
     {
         $this->db->query('UPDATE user SET verification_code = :verification_code WHERE email = :email');
-        // Bind values
         $this->db->bind(':verification_code', $verification_code);
         $this->db->bind(':email', $data['email']);
 
-        // Execute
         if ($this->db->execute()) {
             return true;
         } else {
@@ -93,11 +82,9 @@ class User
     public function updatePasswordTries($data)
     {
         $this->db->query('UPDATE user SET password_tries = :password_tries WHERE email = :email');
-        // Bind values
         $this->db->bind(':password_tries', $data['password_tries']);
         $this->db->bind(':email', $data['email']);
 
-        // Execute
         if ($this->db->execute()) {
             return true;
         } else {
@@ -114,7 +101,7 @@ class User
 
         $hashed_password = $row->password;
 
-        // compare password with hashed password from DB
+        // Compare password with hashed password from DB
         if (password_verify($password, $hashed_password)) {
             return $row;
         } else {
@@ -136,16 +123,13 @@ class User
         }
     }
 
-    // Find User By Email
     public function findUserByEmail($email)
     {
         $this->db->query('SELECT * FROM user WHERE email = :email');
-        // Bind values
         $this->db->bind(':email', $email);
 
-        $row = $this->db->single();
+        $this->db->single();
 
-        // Check row
         if ($this->db->rowCount() > 0) {
             return true;
         } else {
@@ -153,11 +137,9 @@ class User
         }
     }
 
-    // Get User Role By Email
     public function getUserRoleByEmail($email)
     {
         $this->db->query('SELECT role FROM user WHERE email = :email');
-        // Bind values
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
@@ -168,7 +150,6 @@ class User
     public function getUserAccountStatusByEmail($email)
     {
         $this->db->query('SELECT account_status FROM user WHERE email = :email');
-        // Bind values
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
@@ -179,7 +160,6 @@ class User
     public function getUserVerificationCodeByEmail($email)
     {
         $this->db->query('SELECT verification_code FROM user WHERE email = :email');
-        // Bind values
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
@@ -190,7 +170,6 @@ class User
     public function getPasswordTries($data)
     {
         $this->db->query('SELECT password_tries FROM user WHERE email = :email');
-        // Bind values
         $this->db->bind(':email', $data['email']);
 
         $row = $this->db->single();
@@ -198,16 +177,14 @@ class User
         return $row;
     }
 
-
-    // Get User By ID
     public function getUserById($id)
     {
         $this->db->query('SELECT * FROM user WHERE user_id = :id');
-        // Bind values
         $this->db->bind(':id', $id);
 
         $row = $this->db->single();
 
         return $row;
     }
+
 }

@@ -38,11 +38,9 @@ class Menu
     public function insertNode($data)
     {
         $this->db->query('INSERT INTO main_menu (title, parent_id) VALUES (:title, :parent_id)');
-        // Bind values
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':parent_id', $data['parent_id']);
 
-        // Execute
         if ($this->db->execute()) {
             return true;
         } else {
@@ -53,11 +51,9 @@ class Menu
     public function updateTitle($data)
     {
         $this->db->query('UPDATE main_menu SET title = :title WHERE id = :id');
-        // Bind values
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':title', $data['title']);
 
-        // Execute
         if ($this->db->execute()) {
             return true;
         } else {
@@ -71,7 +67,6 @@ class Menu
 
         $this->db->query("DELETE FROM main_menu WHERE id IN ('".$ids."')");
 
-        // Execute delete
         if ($this->db->execute()) {
             return true;
         } else {
