@@ -191,7 +191,7 @@ create table `blog` (
   `title`                       varchar(100)    not null,
   `rank`                        tinyint(1)      unsigned default 5,
   `views`                       bigint(20)      unsigned default 0,
-  `content`                     text            default null                        comment 'blog main content',
+  `content`                     blob            default null                        comment 'blog main content',
   `mm_id`                       int(11)         not null                            comment 'secondary key from main_menu',
   primary key (`blog_id`)
 ) engine=myisam default charset=utf8;

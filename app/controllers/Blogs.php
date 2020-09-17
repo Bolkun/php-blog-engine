@@ -22,7 +22,8 @@ class Blogs extends Controller
 
         $oData = $this->blogModel->search($data);
         if ($oData) {
-            $data['content'] = $oData->content;
+            // Decode from db
+            $data['content'] = base64_decode($oData->content);
         } else {
             die("Blog title not found");
         }
@@ -34,12 +35,12 @@ class Blogs extends Controller
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            //$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             // Init data
             $data = [
                 'title' => trim($title),
-                'content' => $_POST['blog_ta_tinymce'],
+                'content' => base64_encode($_POST['blog_ta_tinymce']),
             ];
 
             if ($this->blogModel->updateContent($data)) {

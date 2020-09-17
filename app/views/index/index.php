@@ -12,11 +12,11 @@
                     </textarea>
                     <input id="submitTinyMCEContent" name="submit_blog_ta_tinymce" type="submit" value="Save" class="btn btn-success btn-block">
                 </form>
-            <?php } else { ?>
+            <?php } //else { ?>
                 <div id="tinymce_data">
                     <?php echo $data['blog_content']; ?>
                 </div>
-            <?php }  ?>
+            <?php// }  ?>
         </div>
     </div>
 <?php } else { ?>
