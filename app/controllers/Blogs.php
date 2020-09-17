@@ -34,9 +34,6 @@ class Blogs extends Controller
     public function saveContent($title)
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // Sanitize POST data
-            //$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
             // Init data
             $data = [
                 'title' => trim($title),

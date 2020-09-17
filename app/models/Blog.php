@@ -36,6 +36,19 @@ class Blog
         }
     }
 
+    public function updateTitle($data)
+    {
+        $this->db->query('UPDATE blog SET last_edit_date = CURRENT_TIMESTAMP, title = :title WHERE mm_id = :mm_id');
+        $this->db->bind(':title', $data['title']);
+        $this->db->bind(':mm_id', $data['mm_id']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function insert($data)
     {
         $this->db->query('INSERT INTO blog (created_by_user_id, title, mm_id) VALUES (:created_by_user_id, :title, :mm_id)');

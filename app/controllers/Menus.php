@@ -109,12 +109,15 @@ class Menus extends Controller
                 $data['title'] = replaceString('&#34;', '', $data['title']);
             }
 
-            // Make sure errors are empty
-            $state = $this->menuModel->updateTitle($data);
-            if($state){
-                // OK
+            if($this->menuModel->updateTitle($data)){
+                $data['mm_id'] = $data['id'];
+                if($this->blogModel->updateTitle($data)){
+                    // OK
+                } else {
+                    die("Error: Could not update blog title, due to server problems");
+                }
             } else {
-                die("Error: Could not update title, due to server problems");
+                die("Error: Could not update mm title, due to server problems");
             }
         } else {
             die("Error: Something went wrong during post request to edit title");
