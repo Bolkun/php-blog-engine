@@ -63,5 +63,17 @@ class Blog
         }
     }
 
+    public function deleteBranch($aIds)
+    {
+        $mm_ids = implode("','", $aIds);
+
+        $this->db->query("DELETE FROM blog WHERE mm_id IN ('".$mm_ids."')");
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

@@ -142,7 +142,11 @@ class Menus extends Controller
                 array_push($branch_ids, $id);
                 // delete branch
                 if($this->menuModel->deleteBranch($branch_ids)){
-                    return true;
+                    if($this->blogModel->deleteBranch($branch_ids)){
+                        // OK
+                    }else {
+                        die("Error: Something went wrong during deletion of blog pages");
+                    }
                 }else {
                     die("Error: Something went wrong during branch deletion 1");
                 }
