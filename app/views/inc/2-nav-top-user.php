@@ -248,33 +248,9 @@
                     <div id="mm_load_box">
                         <div id="mm_load_trees">
                             <div id="main_menu_message"><?php flash('main_menu'); ?></div>
-                            <!----------------------------------------------------------------------------------------------------->
-                            <?php
-                            if (isset($_POST['submit_search_input']) && $_POST['submit_search_input'] !== '') {
-                                // change branches that have no root node
-                                foreach ($data['mm']['items'] as $key => $value) {
-                                    if ($data['mm']['items'][$key]['parent_id'] !== '0' && !in_array($data['mm']['items'][$key]['parent_id'], array_column($data['mm']['items'], 'id'))) {
-                                        // set not found parents as root node
-                                        $data['mm']['items'][$key]['parent_id'] = '0';
-                                        // add not found parent ids to root group
-                                        $data['mm']['parents'][0][] = $data['mm']['items'][$key]['id'];
-                                        // delete old group with no root
-                                        foreach ($data['mm']['parents'] as $pk => $pv) {
-                                            foreach ($pv as $i => $v) {
-                                                if ($pk !== 0 && $data['mm']['parents'][$pk][$i] === $data['mm']['items'][$key]['id']) {
-                                                    unset($data['mm']['parents'][$pk][$i]);
-                                                }
-                                            }
-                                            if (empty($data['mm']['parents'][$pk])) {
-                                                unset($data['mm']['parents'][$pk]);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            echo createTreeView(0, $data['mm']);
-                            ?>
-                            <!----------------------------------------------------------------------------------------------------->
+                            <!----------------------------------------------------------------------------------------->
+                            <?php echo createTreeView(0, $data['mm']); ?>
+                            <!----------------------------------------------------------------------------------------->
                         </div>
                     </div>
                 </div>
