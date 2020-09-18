@@ -65,7 +65,7 @@ class Indexs extends Controller
         ];
 
         // Get blog content
-        if ($blog_title !== 0 && $blog_title !== 'index') {
+        if ($blog_title !== 0 && $blog_title !== 'index' && !isset($_POST['submit_blog_ta_tinymce'])) {
             $blog = new Blogs();
             $blog_data = $blog->search($blog_title);
             $new_data = [
@@ -79,6 +79,13 @@ class Indexs extends Controller
         if (isset($_POST['submit_blog_ta_tinymce'])) {
             $blog = new Blogs();
             $blog->saveContent($blog_title);
+            // reload blog content
+            $blog_data = $blog->search($blog_title);
+            $new_data = [
+                'blog_content' => $blog_data['content'],
+            ];
+            $data = mergeAsocArrays($default_data, $new_data);
+            $this->view('index/index', $data);
         } elseif (isset($_POST['submit_search_input'])) {
             $main_menu = new Menus();
             $main_menu_data = $main_menu->search();
@@ -176,6 +183,7 @@ class Indexs extends Controller
         } else {
             $this->view('index/index', $default_data);
         }
+
     }
 
 }
