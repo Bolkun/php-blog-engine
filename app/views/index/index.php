@@ -31,7 +31,7 @@
                         ?>
                         <div class="col-lg-6">
                             <img class="article_main_img"
-                                 src="<?php echo PUBLIC_CORE_IMGURL . '/astronomy-800x600.jpg'; ?>"
+                                 src="<?php echo PUBLIC_CORE_IMGURL . '/default_blog_page-min.png'; ?>"
                                  data-toggle="modal" data-target="#articleModal_<?php echo $article_count; ?>">
                             <div class="img-rank-block">
                                 <p class="col-lg-6_p">
@@ -80,7 +80,7 @@
                 for ($j = 0; $j < 4; $j++) {
                     ?>
                     <div class="col-lg-3">
-                        <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/astronomy-800x600.jpg'; ?>"
+                        <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/default_blog_page-min.png'; ?>"
                              data-toggle="modal"
                              data-target="#articleModal_<?php echo $article_count; ?>">
                         <div class="img-rank-block">
