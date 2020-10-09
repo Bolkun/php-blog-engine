@@ -393,6 +393,21 @@ body {
     font-size: 1.3rem;
 }
 
+@media (max-width: 991px) {
+    .img-rank-block {
+        font-size: 1.3rem;
+    }
+    .img-text-clicked {
+        font-size: 1.3rem;
+    }
+    .img-text-block h4 {
+        font-size: 2rem;
+    }
+    .img-text-block p {
+        font-size: 1.3rem;
+    }
+}
+
 /* Hidden Main Context */
 .modal-dialog {
     margin: unset;
