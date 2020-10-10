@@ -9,9 +9,12 @@ class Menu
         $this->db = new Database;
     }
 
-    public function selectMainMenuData()
+    public function selectMainMenuData($observe_permissions)
     {
-        $this->db->query('SELECT * FROM main_menu ORDER BY title ASC');
+        $sObserve_permissions = implode("','", $observe_permissions);
+
+        $this->db->query("SELECT * FROM main_menu INNER JOIN blog ON main_menu.id = blog.mm_id
+          WHERE blog.observe_permissions IN ('".$sObserve_permissions."') ORDER BY main_menu.title ASC");
 
         $row = $this->db->resultSet();
 
@@ -36,9 +39,12 @@ class Menu
         }
     }
 
-    public function searchMainMenu($data)
+    public function searchMainMenu($data, $observe_permissions)
     {
-        $this->db->query("SELECT * FROM main_menu WHERE title LIKE '%" . $data['search'] . "%' ORDER BY title ASC");
+        $sObserve_permissions = implode("','", $observe_permissions);
+
+        $this->db->query("SELECT * FROM main_menu INNER JOIN blog ON main_menu.id = blog.mm_id 
+          WHERE blog.observe_permissions IN ('".$sObserve_permissions."') AND main_menu.title LIKE '%" . $data['search'] . "%' ORDER BY main_menu.title ASC");
 
         $row = $this->db->resultSet();
 

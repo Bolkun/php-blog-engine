@@ -15,9 +15,9 @@ class Menus extends Controller
     /*
      * All Pages ▼
      */
-    public function getMainMenu()
+    public function getMainMenu($observe_permissions)
     {
-        $oData = $this->menuModel->selectMainMenuData();
+        $oData = $this->menuModel->selectMainMenuData($observe_permissions);
 
         if($oData){
             // Convert object to array
@@ -187,7 +187,7 @@ class Menus extends Controller
         }
     }
 
-    public function search()
+    public function search($observe_permissions)
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // Sanitize POST data
@@ -202,7 +202,7 @@ class Menus extends Controller
 
             // Make sure errors are empty
             if(empty($data['search_err'])){
-                $oData = $this->menuModel->searchMainMenu($data);
+                $oData = $this->menuModel->searchMainMenu($data, $observe_permissions);
                 if($oData){
                     // Convert object to array
                     $aData = stdToArray($oData);

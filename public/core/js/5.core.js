@@ -128,10 +128,12 @@ function menuDeleteTree_success(values) {
         '</div>';
     // Inserting the code block
     document.getElementById("main_menu_message").innerHTML = message;
+
     setTimeout(function () {
         $('#main_menu_message').fadeOut('fast');
         // reload new view
         $("#collapse_main_menu").load(location.href + " #mm_load");    // parent.load(child)
+        $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
     }, 3000);
 }
 
@@ -300,10 +302,12 @@ function mmAddChild_success(title, parent_id) {
         '</div>';
     // Inserting the code block
     document.getElementById("main_menu_message").innerHTML = message;
+
     setTimeout(function () {
         $('#main_menu_message').fadeOut('fast');
         // reload new view
         $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
+        $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
     }, 3000);
 }
 
@@ -369,10 +373,12 @@ function mmEditTitle_success(title, id) {
         '</div>';
     // Inserting the code block
     document.getElementById("main_menu_message").innerHTML = message;
+
     setTimeout(function () {
         $('#main_menu_message').fadeOut('fast');
         // reload new view
         $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
+        $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
     }, 3000);
 }
 

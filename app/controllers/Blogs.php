@@ -12,7 +12,7 @@ class Blogs extends Controller
     /*
      * All Pages ▼
      */
-    public function start()
+    public function start($observe_permissions)
     {
         // Init data
         $data = [
@@ -24,18 +24,6 @@ class Blogs extends Controller
             'rank' => [],
             'views' => [],
         ];
-
-        // permissions
-        if(isset($_SESSION['user_role'])){
-            if($_SESSION['user_role'] === 'Admin'){
-                $I = $_SESSION['user_email'];
-                $observe_permissions = [$I, 'Admins', 'RegisteredUsers', 'All'];
-            } else if($_SESSION['user_role'] === 'RegisteredUser'){
-                $observe_permissions = ['RegisteredUsers', 'All'];
-            }
-        } else {
-            $observe_permissions = ['All'];
-        }
 
         $oData = $this->blogModel->start($observe_permissions);
         if ($oData) {
@@ -55,7 +43,7 @@ class Blogs extends Controller
         return $data;
     }
 
-    public function search($title)
+    public function search($title, $observe_permissions)
     {
         // Init data
         $data = [
@@ -63,7 +51,7 @@ class Blogs extends Controller
             'content' => '',
         ];
 
-        $oData = $this->blogModel->search($data);
+        $oData = $this->blogModel->search($data, $observe_permissions);
         if ($oData) {
             // Decode from db
             $data['content'] = base64_decode($oData->content);

@@ -116,6 +116,27 @@ function isAdminLoggedInAsCoworker()
 }
 
 /**
+ * @goal   get user permissions to view a content
+ * @return array
+ */
+function getUserPermissions(){
+    if(isset($_SESSION['user_role'])){
+        if($_SESSION['user_role'] === 'Admin'){
+            $I = $_SESSION['user_email'];
+            $observe_permissions = [$I, 'Admins', 'RegisteredUsers', 'All'];
+        } else if($_SESSION['user_role'] === 'RegisteredUser'){
+            $observe_permissions = ['RegisteredUsers', 'All'];
+        } else {
+            $observe_permissions = ['All'];
+        }
+    } else {
+        $observe_permissions = ['All'];
+    }
+
+    return $observe_permissions;
+}
+
+/**
  * @goal destroy session for specific user
  */
 function destroyUserSession()

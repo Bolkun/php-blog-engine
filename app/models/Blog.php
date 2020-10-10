@@ -25,9 +25,11 @@ class Blog
         }
     }
 
-    public function search($data)
+    public function search($data, $observe_permissions)
     {
-        $this->db->query("SELECT * FROM blog WHERE title = :title");
+        $sObserve_permissions = implode("','", $observe_permissions);
+
+        $this->db->query("SELECT * FROM blog WHERE observe_permissions IN ('".$sObserve_permissions."') AND title = :title");
         $this->db->bind(':title', $data['title']);
 
         $row = $this->db->single();

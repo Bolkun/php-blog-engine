@@ -18,6 +18,9 @@ class Indexs extends Controller
      */
     public function index($blog_title = 0)
     {
+        // observe permissions
+        $observe_permissions = getUserPermissions();
+        
         // Init data
         $data = [
             // blog
@@ -30,7 +33,7 @@ class Indexs extends Controller
             'blog_views' => [],
             'blog_content' => [],
             // main menu
-            'mm' => (new Menus)->getMainMenu(),
+            'mm' => (new Menus)->getMainMenu($observe_permissions),
             'mm_search' => '',
             'mm_edit_title' => '',
             'mm_add_child' => '',
@@ -75,14 +78,15 @@ class Indexs extends Controller
             $blog = new Blogs();
             $blog->saveContent($blog_title);
             // reload blog content
-            $blog_data = $blog->search($blog_title);
+            $blog_data = $blog->search($blog_title, $observe_permissions);
             $new_data = [
                 'blog_content' => $blog_data['content'],
             ];
             $data = mergeAsocArrays($data, $new_data);
-        } elseif (isset($_POST['submit_search_input'])) {
+        }
+        elseif (isset($_POST['submit_search_input'])) {
             $main_menu = new Menus();
-            $main_menu_data = $main_menu->search();
+            $main_menu_data = $main_menu->search($observe_permissions);
             $new_data = [
                 // main menu
                 'mm_search' => $main_menu_data['search'],
@@ -92,7 +96,8 @@ class Indexs extends Controller
                 'display_div' => array('collapse_main_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        } elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
+        }
+        elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
             $main_menu = new Menus();
             $main_menu->addNode();
         } elseif (isset($_POST['ajax_mm_edit_title_id']) && isset($_POST['ajax_mm_edit_title'])) {
@@ -101,9 +106,15 @@ class Indexs extends Controller
         } elseif (isset($_POST['ajax_sMainMenuID'])) {
             $main_menu = new Menus();
             $main_menu->deleteBranch();
-        } elseif (isset($_POST['submitLogin'])) {
+        }
+        elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
             $user_data = $user->login();
+
+            // reload data
+            $observe_permissions = getUserPermissions();
+            $data['mm'] = (new Menus)->getMainMenu($observe_permissions);
+
             $new_data = [
                 // login
                 'log_email' => $user_data['email'],
@@ -117,7 +128,8 @@ class Indexs extends Controller
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        } elseif (isset($_POST['submitRegister'])) {
+        }
+        elseif (isset($_POST['submitRegister'])) {
             $user = new Users();
             $user_data = $user->register();
             $new_data = [
@@ -143,7 +155,8 @@ class Indexs extends Controller
             }
 
             $data = mergeAsocArrays($data, $new_data);
-        } elseif (isset($_POST['submitUserEmail'])) {
+        }
+        elseif (isset($_POST['submitUserEmail'])) {
             $user = new Users();
             $user_data = $user->settingsUserEmail();
             $new_data = [
@@ -154,7 +167,8 @@ class Indexs extends Controller
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        } elseif (isset($_POST['submitUserPassword'])) {
+        }
+        elseif (isset($_POST['submitUserPassword'])) {
             $user = new Users();
             $user_data = $user->settingsUserPassword();
             $new_data = [
@@ -174,15 +188,16 @@ class Indexs extends Controller
         if (is_string($blog_title) && $blog_title !== 'index') {
             // one page
             $blog = new Blogs();
-            $blog_data = $blog->search($blog_title);
+            $blog_data = $blog->search($blog_title, $observe_permissions);
             $new_data = [
                 'blog_content' => $blog_data['content'],
             ];
             $data = mergeAsocArrays($data, $new_data);
-        } elseif (is_int($blog_title) || $blog_title === 'index') {
+        }
+        elseif (is_int($blog_title) || $blog_title === 'index') {
             // start page
             $blog = new Blogs();
-            $blog_data = $blog->start();
+            $blog_data = $blog->start($observe_permissions);
             if ($blog_data !== false) {
                 $new_data = [
                     // blog index
@@ -196,7 +211,8 @@ class Indexs extends Controller
                 ];
                 $data = mergeAsocArrays($data, $new_data);
             }
-        } else {
+        }
+        else {
             die('Page Not Found!');
         }
 
