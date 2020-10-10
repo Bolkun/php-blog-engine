@@ -19,10 +19,16 @@ class Indexs extends Controller
     public function index($blog_title = 0)
     {
         // Init data
-        $default_data = [
+        $data = [
             // blog
-            'blog_title' => $blog_title,
-            'blog_content' => '',
+            'blog_created_by_user_id' => [],
+            'blog_last_edit_date' => [],
+            'blog_preview_image' => [],
+            'blog_category' => [],
+            'blog_title' => $blog_title,    // string or array
+            'blog_rank' => [],
+            'blog_views' => [],
+            'blog_content' => [],
             // main menu
             'mm' => (new Menus)->getMainMenu(),
             'mm_search' => '',
@@ -64,17 +70,6 @@ class Indexs extends Controller
             'display_div' => array(),
         ];
 
-        // Get blog content
-        if ($blog_title !== 0 && $blog_title !== 'index' && !isset($_POST['submit_blog_ta_tinymce'])) {
-            $blog = new Blogs();
-            $blog_data = $blog->search($blog_title);
-            $new_data = [
-                'blog_content' => $blog_data['content'],
-            ];
-            $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('index/index', $data);
-        }
-
         // POST
         if (isset($_POST['submit_blog_ta_tinymce'])) {
             $blog = new Blogs();
@@ -84,8 +79,7 @@ class Indexs extends Controller
             $new_data = [
                 'blog_content' => $blog_data['content'],
             ];
-            $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('index/index', $data);
+            $data = mergeAsocArrays($data, $new_data);
         } elseif (isset($_POST['submit_search_input'])) {
             $main_menu = new Menus();
             $main_menu_data = $main_menu->search();
@@ -97,8 +91,7 @@ class Indexs extends Controller
                 // other
                 'display_div' => array('collapse_main_menu'),
             ];
-            $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('index/index', $data);
+            $data = mergeAsocArrays($data, $new_data);
         } elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
             $main_menu = new Menus();
             $main_menu->addNode();
@@ -123,8 +116,7 @@ class Indexs extends Controller
                 // other
                 'display_div' => array('collapse_login_menu'),
             ];
-            $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('index/index', $data);
+            $data = mergeAsocArrays($data, $new_data);
         } elseif (isset($_POST['submitRegister'])) {
             $user = new Users();
             $user_data = $user->register();
@@ -150,8 +142,7 @@ class Indexs extends Controller
                 $new_data['display_div'] = array('collapse_login_menu');
             }
 
-            $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('index/index', $data);
+            $data = mergeAsocArrays($data, $new_data);
         } elseif (isset($_POST['submitUserEmail'])) {
             $user = new Users();
             $user_data = $user->settingsUserEmail();
@@ -162,8 +153,7 @@ class Indexs extends Controller
                 // other
                 'display_div' => array('collapse_login_menu'),
             ];
-            $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('index/index', $data);
+            $data = mergeAsocArrays($data, $new_data);
         } elseif (isset($_POST['submitUserPassword'])) {
             $user = new Users();
             $user_data = $user->settingsUserPassword();
@@ -178,12 +168,39 @@ class Indexs extends Controller
                 // other
                 'display_div' => array('collapse_login_menu'),
             ];
-            $data = mergeAsocArrays($default_data, $new_data);
-            $this->view('index/index', $data);
-        } else {
-            $this->view('index/index', $default_data);
+            $data = mergeAsocArrays($data, $new_data);
         }
 
-    }
+        if (is_string($blog_title) && $blog_title !== 'index') {
+            // one page
+            $blog = new Blogs();
+            $blog_data = $blog->search($blog_title);
+            $new_data = [
+                'blog_content' => $blog_data['content'],
+            ];
+            $data = mergeAsocArrays($data, $new_data);
+        } elseif (is_int($blog_title) || $blog_title === 'index') {
+            // start page
+            $blog = new Blogs();
+            $blog_data = $blog->start();
+            if ($blog_data !== false) {
+                $new_data = [
+                    // blog index
+                    'blog_created_by_user_id' => $blog_data['created_by_user_id'],
+                    'blog_last_edit_date' => $blog_data['last_edit_date'],
+                    'blog_preview_image' => $blog_data['preview_image'],
+                    'blog_category' => $blog_data['category'],
+                    'blog_title' => $blog_data['title'],
+                    'blog_rank' => $blog_data['rank'],
+                    'blog_views' => $blog_data['views'],
+                ];
+                $data = mergeAsocArrays($data, $new_data);
+            }
+        } else {
+            die('Page Not Found!');
+        }
 
-}
+        $this->view('index/index', $data);
+    } // end function
+
+} // end class

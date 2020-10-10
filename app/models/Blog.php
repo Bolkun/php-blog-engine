@@ -9,6 +9,22 @@ class Blog
         $this->db = new Database;
     }
 
+    public function start($observe_permissions)
+    {
+        $sObserve_permissions = implode("','", $observe_permissions);
+
+        $this->db->query("SELECT created_by_user_id, last_edit_date, preview_image, category, title, rank, views FROM blog 
+          WHERE observe_permissions IN ('".$sObserve_permissions."') ORDER BY last_edit_date DESC LIMIT 10");
+
+        $row = $this->db->resultSet();
+
+        if (empty($row)) {
+            return false;
+        } else {
+            return $row;
+        }
+    }
+
     public function search($data)
     {
         $this->db->query("SELECT * FROM blog WHERE title = :title");
@@ -51,10 +67,11 @@ class Blog
 
     public function insert($data)
     {
-        $this->db->query('INSERT INTO blog (created_by_user_id, title, mm_id) VALUES (:created_by_user_id, :title, :mm_id)');
+        $this->db->query('INSERT INTO blog (created_by_user_id, observe_permissions, title, mm_id) VALUES (:created_by_user_id, :observe_permissions, :title, :mm_id)');
         $this->db->bind(':created_by_user_id', $_SESSION['user_id']);
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':mm_id', $data['mm_id']);
+        $this->db->bind(':observe_permissions', $_SESSION['user_email']);
 
         if ($this->db->execute()) {
             return true;

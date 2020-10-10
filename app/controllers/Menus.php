@@ -18,6 +18,7 @@ class Menus extends Controller
     public function getMainMenu()
     {
         $oData = $this->menuModel->selectMainMenuData();
+
         if($oData){
             // Convert object to array
             $aData = stdToArray($oData);

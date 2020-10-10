@@ -12,8 +12,10 @@ clearPageCache();
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>
         <?php
-        if($data['blog_title'] !== 0){
-            echo '▶ ' . $data['blog_title'];
+        if(is_string($data['blog_title'])){
+            if($data['blog_title'] !== 0){
+                echo '▶ ' . $data['blog_title'];
+            }
         } else {
             echo SITENAME;
         }

@@ -74,7 +74,7 @@ create table `document` (
 create table `user` (
   `user_id`                     bigint(20)      unsigned not null auto_increment,
   `account_status`              tinyint(1)      unsigned not null default 0         comment '1 account is active, 0 account ist inactive',
-  `role`                        varchar(15)     default 'Mitarbeiter'               comment 'Mitarbeiter oder Admin',
+  `role`                        varchar(15)     default 'RegisteredUser'            comment 'RegisteredUser oder Admin',
   `firstname`                   varchar(70)     not null                            comment 'vorname',
   `surname`                     varchar(70)     not null                            comment 'nachname',
   `email`                       varchar(80)     not null                            comment 'email',
@@ -85,7 +85,7 @@ create table `user` (
   `verification_code`           varchar(100)    default null,
   `inactive_date`               datetime        default null,
   primary key (`user_id`)
-) engine=myisam default charset=utf8                                                comment='hier werden alle mitarbeiter gespeichert';
+) engine=myisam default charset=utf8                                                comment='hier werden alle registrierte users gespeichert';
 
 --
 -- Daten für Tabelle `user`
@@ -93,7 +93,7 @@ create table `user` (
 
 INSERT INTO `user` (`user_id`, `account_status`, `role`, `firstname`, `surname`, `email`, `password`, `ip`, `creation_date`, `verification_code`, `inactive_date`) VALUES
 (1, 1, 'Admin', 'Serhiy', 'Bolkun', 'serhij16@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '::1', '2020-07-02 10:53:21', '666666',  NULL),
-(2, 1, 'Mitarbeiter', 'John', 'Snow', 'john@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '::1', '2020-07-02 10:53:21', '666666',  NULL);
+(2, 1, 'RegisteredUser', 'John', 'Snow', 'john@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '::1', '2020-07-02 10:53:21', '666666',  NULL);
 
 -- --------------------------------------------------------
 
@@ -106,18 +106,6 @@ create table `main_menu` (
   `parent_id` varchar(11)   NOT NULL,
   primary key (`id`)
 ) engine=myisam default charset=utf8;
-
-INSERT INTO `main_menu` (`id`, `title`, `parent_id`) VALUES
-(1, 'task1 child', '2'),
-(2, 'task1', '0'),
-(3, 'task2', '0'),
-(4, 'task2 child1', '3'),
-(5, 'task2 child2', '3'),
-(6, 'task2 child2 child', '5'),
-(7, 'task3', '0'),
-(8, 'task2 child4', '3'),
-(9, 'task2 child2 child1 child', '6'),
-(10, 'task2 child2 child1 child1 child', '9');
 
 -- --------------------------------------------------------
 
@@ -186,8 +174,9 @@ create table `blog` (
   `created_by_user_id`          int(10)         unsigned not null                   comment 'user-id who created the article',
   `creation_date`               datetime        default current_timestamp,
   `last_edit_date`              datetime        default current_timestamp,
-  `observe_permissions`         varchar(20)     not null default 'admins'           comment 'everyone, registered_users, admins',
-  `category`                    varchar(100)    not null,
+  `preview_image`               varchar(100)    not null default 'default_blog_page-min.png',
+  `observe_permissions`         varchar(20)     not null                            comment 'All, RegisteredUsers, Admins, (I is [UserEmail])',
+  `category`                    varchar(100)    not null default 'Info',
   `title`                       varchar(100)    not null,
   `rank`                        tinyint(1)      unsigned default 5,
   `views`                       bigint(20)      unsigned default 0,

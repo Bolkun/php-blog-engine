@@ -175,7 +175,7 @@ class Users extends Controller
             if($this->userModel->getUserRoleByEmail($data['email']) === 'Admin'){
                 $data['role'] = 'Admin';
             } else {
-                $data['role'] = 'Mitarbeiter';
+                $data['role'] = 'RegisteredUser';
             }
 
             // Make sure errors are empty
@@ -422,8 +422,8 @@ class Users extends Controller
     public function settingsAdminChangeRole()
     {
 	    if(isAdminLoggedIn()){
-            $_SESSION['temp_user_role'] = 'Mitarbeiter';
-            $_SESSION['user_role'] = 'Mitarbeiter';
+            $_SESSION['temp_user_role'] = 'RegisteredUser';
+            $_SESSION['user_role'] = 'RegisteredUser';
         } elseif(isUserLoggedIn()){
             if(isAdminLoggedInAsCoworker()){
                 $_SESSION['user_role'] = 'Admin';
