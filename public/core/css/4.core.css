@@ -362,23 +362,24 @@ body {
 /* Rank */
 .img-rank-block {
     position: absolute; /* Position the background text */
-    top: 2.5%; /* At the bottom. Use top:0 to append it to the top */
+    top: 5px; /* At the bottom. Use top:0 to append it to the top */
     background: rgb(0, 0, 0); /* Fallback color */
     background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
     color: yellow; /* Grey text */
-    height: 30px;
-    left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* Views */
 .img-text-clicked {
     position: absolute; /* Position the background text */
-    top: 2.5%; /* At the bottom. Use top:0 to append it to the top */
-    right: 2%;
+    top: 5px; /* At the bottom. Use top:0 to append it to the top */
+    right: 5px;
     background: rgb(0, 0, 0); /* Fallback color */
     background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
     color: #f1f1f1; /* Grey text */
-    height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .col-lg-3, .col-lg-6 {

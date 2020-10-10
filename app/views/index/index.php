@@ -29,20 +29,20 @@
                         <div class="col-lg-6">
                             <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/' . $data['blog_preview_image'][$i]; ?>">
                             <div class="img-rank-block">
-                                <p class="col-lg-6_p">
+                                <span class="col-lg-6_p">
                                     <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>
                                         <i class="fa fa-star"></i>
                                     <?php } ?>
-                                </p>
+                                </span>
                             </div>
                             <div class="img-text-block">
                                 <h2><?php echo $data['blog_category'][$i]; ?></h2>
                                 <p class="col-lg-6_p"><?php echo $data['blog_title'][$i]; ?></p>
                             </div>
                             <div class="img-text-clicked">
-                                <p class="col-lg-6_p">
+                                <span class="col-lg-6_p">
                                     <i class="fa fa-eye"></i> <?php echo $data['blog_views'][$i]; ?>
-                                </p>
+                                </span>
                             </div>
                         </div>
                         <?php
@@ -51,20 +51,20 @@
                         <div class="col-lg-3">
                             <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL  . '/' . $data['blog_preview_image'][$i]; ?>">
                             <div class="img-rank-block">
-                                <p>
+                                <span class="col-lg-3_p">
                                     <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>
                                         <i class="fa fa-star"></i>
                                     <?php } ?>
-                                </p>
+                                </span>
                             </div>
                             <div class="img-text-block">
                                 <h4><?php echo $data['blog_category'][$i]; ?></h4>
                                 <p><?php echo $data['blog_title'][$i]; ?></p>
                             </div>
                             <div class="img-text-clicked">
-                                <p>
+                                <span class="col-lg-3_p">
                                     <i class="fa fa-eye"></i> <?php echo $data['blog_views'][$i]; ?>
-                                </p>
+                                </span>
                             </div>
                         </div>
                         <?php
