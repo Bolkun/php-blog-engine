@@ -249,9 +249,9 @@ function ajax_mmAddChild(values) {
     var parent_id = formdata[1]['value'];
     parent_id = JSON.stringify(parent_id);
 
-    //console.log(title + ' ' + parent_id);
+    //console.log(title + ' ' + title);
 
-    if (title !== "\"\"") {
+    if (title !== "\"\"" && title !== "\"index\"") {
         $.ajax({
             url: values['URLCURRENT'],
             data: 'ajax_mm_add_child=' + title + '&ajax_mm_add_child_parentId=' + parent_id,  // var="value"&var2="value2"
@@ -268,7 +268,7 @@ function mmAddEmptyChild_error(title, parent_id) {
     // [alert info, alert success, alert warning, alert danger]
     var message = '<div class="alert danger" id="msg-flash">' +
         '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Title=' + title + ' of parent_id=' + parent_id + ' cannot be empty!' +
+        'Title=' + title + ' of parent_id=' + parent_id + ' cannot be empty and title name \"index\" is not allowed!' +
         '</div>';
     // Inserting the code block
     document.getElementById("main_menu_message").innerHTML = message;
@@ -322,7 +322,7 @@ function ajax_mmEditTitle(values) {
     title = JSON.stringify(title);
 
     //console.log(id+' '+title);
-    if (title !== "\"\"") {
+    if (title !== "\"\"" && title !== "\"index\"") {
         $.ajax({
             url: values['URLCURRENT'],
             data: 'ajax_mm_edit_title_id=' + id + '&ajax_mm_edit_title=' + title,  // var="value"&var2="value2"
@@ -339,7 +339,7 @@ function mmEmptyTitle_error(title, id) {
     // [alert info, alert success, alert warning, alert danger]
     var message = '<div class="alert danger" id="msg-flash">' +
         '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Title=' + title + ' with id=' + id + ' cannot be empty!' +
+        'Title=' + title + ' with id=' + id + ' cannot be empty and title name "index" is not allowed!' +
         '</div>';
     // Inserting the code block
     document.getElementById("main_menu_message").innerHTML = message;

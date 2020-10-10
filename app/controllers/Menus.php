@@ -95,6 +95,7 @@ class Menus extends Controller
                 $data['parent_id'] = replaceString('&#34;', '', $data['parent_id']);
             }
 
+
             // Make sure errors are empty
             $data['mm_id'] = $this->menuModel->insertNode($data);
             if($data['mm_id']){
