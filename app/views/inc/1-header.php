@@ -12,13 +12,7 @@ clearPageCache();
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>
         <?php
-        if(is_string($data['blog_title'])){
-            if($data['blog_title'] !== 0){
-                echo '▶ ' . $data['blog_title'];
-            }
-        } else {
             echo SITENAME;
-        }
         ?>
     </title>
     <link rel="shortcut icon" href="<?php echo PUBLIC_CORE_IMG_UIURL . '/logo24x24.png'; ?>" type="image/png">

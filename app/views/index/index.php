@@ -4,7 +4,7 @@
 <br><br><br>
 <div id="load_blog_box">
     <div id="load_blog_divs">
-        <?php if(is_string($data['blog_title']) && $data['blog_title'] !== 'index'){ ?>
+        <?php if(is_numeric($data['blog_id']) && $data['blog_id'] != '0'){ ?>
             <div class="container">
                 <div class="row" style="margin-top: -6px; z-index: -1;">
                     <?php if (isAdminLoggedIn() === true) { ?>
@@ -21,7 +21,7 @@
                     <?php// }  ?>
                 </div>
             </div>
-        <?php } elseif(is_array($data['blog_title']) || $data['blog_title'] === 'index'){ ?>
+        <?php } elseif($data['blog_id'] == '0' || $data['blog_id'] === 'index'){ ?>
             <div class="container scrollpane">
                 <div class="row" id="results">
                     <?php

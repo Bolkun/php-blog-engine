@@ -101,8 +101,8 @@ INSERT INTO `user` (`user_id`, `account_status`, `role`, `firstname`, `surname`,
 -- Tabellenstruktur für Tabelle `main_menu`
 --
 create table `main_menu` (
-  `id`        int(11)       NOT NULL AUTO_INCREMENT,
-  `title`     varchar(200)  NOT NULL,
+  `id`        bigint(20)    unsigned not null auto_increment,
+  `title`     text          NOT NULL,
   `parent_id` varchar(11)   NOT NULL,
   primary key (`id`)
 ) engine=myisam default charset=utf8;
@@ -177,7 +177,7 @@ create table `blog` (
   `preview_image`               varchar(100)    not null default 'default_blog_page-min.png',
   `observe_permissions`         varchar(20)     not null                            comment 'All, RegisteredUsers, Admins, (I is [UserEmail])',
   `category`                    varchar(100)    not null default 'Info',
-  `title`                       varchar(100)    not null,
+  `title`                       text            not null,
   `rank`                        tinyint(1)      unsigned default 5,
   `views`                       bigint(20)      unsigned default 0,
   `content`                     blob            default null                        comment 'blog main content',

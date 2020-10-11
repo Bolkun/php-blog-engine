@@ -43,11 +43,11 @@ class Blogs extends Controller
         return $data;
     }
 
-    public function search($title, $observe_permissions)
+    public function search($blog_id, $observe_permissions)
     {
         // Init data
         $data = [
-            'title' => trim($title),
+            'blog_id' => $blog_id,
             'content' => '',
         ];
 
@@ -62,12 +62,12 @@ class Blogs extends Controller
         return $data;
     }
 
-    public function saveContent($title)
+    public function saveContent($blog_id)
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // Init data
             $data = [
-                'title' => trim($title),
+                'blog_id' => trim($blog_id),
                 'content' => base64_encode($_POST['blog_ta_tinymce']),
             ];
 

@@ -29,8 +29,8 @@ class Blog
     {
         $sObserve_permissions = implode("','", $observe_permissions);
 
-        $this->db->query("SELECT * FROM blog WHERE observe_permissions IN ('".$sObserve_permissions."') AND title = :title");
-        $this->db->bind(':title', $data['title']);
+        $this->db->query("SELECT * FROM blog WHERE observe_permissions IN ('".$sObserve_permissions."') AND blog_id = :blog_id");
+        $this->db->bind(':blog_id', $data['blog_id']);
 
         $row = $this->db->single();
 
@@ -43,9 +43,9 @@ class Blog
 
     public function updateContent($data)
     {
-        $this->db->query('UPDATE blog SET last_edit_date = CURRENT_TIMESTAMP, content = :content WHERE title = :title');
+        $this->db->query('UPDATE blog SET last_edit_date = CURRENT_TIMESTAMP, content = :content WHERE blog_id = :blog_id');
         $this->db->bind(':content', $data['content']);
-        $this->db->bind(':title', $data['title']);
+        $this->db->bind(':blog_id', $data['blog_id']);
 
         if ($this->db->execute()) {
             return true;
