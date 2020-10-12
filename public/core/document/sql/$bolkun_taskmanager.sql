@@ -98,18 +98,6 @@ INSERT INTO `user` (`user_id`, `account_status`, `role`, `firstname`, `surname`,
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `main_menu`
---
-create table `main_menu` (
-  `id`        bigint(20)    unsigned not null auto_increment,
-  `title`     text          NOT NULL,
-  `parent_id` varchar(11)   NOT NULL,
-  primary key (`id`)
-) engine=myisam default charset=utf8;
-
--- --------------------------------------------------------
-
---
 -- Tabellenstruktur für Tabelle `cost`
 --
 create table `cost` (
@@ -181,7 +169,7 @@ create table `blog` (
   `rank`                        tinyint(1)      unsigned default 5,
   `views`                       bigint(20)      unsigned default 0,
   `content`                     blob            default null                        comment 'blog main content',
-  `mm_id`                       int(11)         not null                            comment 'secondary key from main_menu',
+  `parent_id`                   bigint(20)      not null                            comment 'id for main_menu',
   primary key (`blog_id`)
 ) engine=myisam default charset=utf8;
 

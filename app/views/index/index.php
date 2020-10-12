@@ -4,7 +4,7 @@
 <br><br><br>
 <div id="load_blog_box">
     <div id="load_blog_divs">
-        <?php if(is_numeric($data['blog_id']) && $data['blog_id'] != '0'){ ?>
+        <?php if(is_numeric($data['url_param']) && $data['url_param'] != '0'){ ?>
             <div class="container">
                 <div class="row" style="margin-top: -6px; z-index: -1;">
                     <?php if (isAdminLoggedIn() === true) { ?>
@@ -21,7 +21,7 @@
                     <?php// }  ?>
                 </div>
             </div>
-        <?php } elseif($data['blog_id'] == '0' || $data['blog_id'] === 'index'){ ?>
+        <?php } elseif($data['url_param'] == '0' || $data['url_param'] === 'index'){ ?>
             <div class="container scrollpane">
                 <div class="row" id="results">
                     <?php
@@ -29,8 +29,9 @@
                             if ($i === 0 || $i === 1) {
                                 // display 2 divs in a row ?>
                                 <div class="col-lg-6">
-                                    <a href
-                                    <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/' . $data['blog_preview_image'][$i]; ?>">
+                                    <a href="<?php echo URLROOT . '/' . $data['blog_id'][$i]; ?>">
+                                        <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/' . $data['blog_preview_image'][$i]; ?>">
+                                    </a>
                                     <div class="img-rank-block">
                                         <span class="col-lg-6_p">
                                             <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>
@@ -52,7 +53,9 @@
                             } else {
                                 // display 4 divs in a row ?>
                                 <div class="col-lg-3">
-                                    <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL  . '/' . $data['blog_preview_image'][$i]; ?>">
+                                    <a href="<?php echo URLROOT . '/' . $data['blog_id'][$i]; ?>">
+                                        <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL  . '/' . $data['blog_preview_image'][$i]; ?>">
+                                    </a>
                                     <div class="img-rank-block">
                                         <span class="col-lg-3_p">
                                             <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>

@@ -14,13 +14,14 @@ class Indexs extends Controller
     /*
      * All Pages ▼
      */
-    public function index($blog_id = 0)
+    public function index($url_param = 0)
     {
         // Init data
         $observe_permissions = getUserPermissions();
         $data = [
+            'url_param' => $url_param,
             // blog
-            'blog_id' => $blog_id,
+            'blog_id' => [],
             'blog_created_by_user_id' => [],
             'blog_last_edit_date' => [],
             'blog_preview_image' => [],
@@ -72,9 +73,9 @@ class Indexs extends Controller
         // POST
         if (isset($_POST['submit_blog_ta_tinymce'])) {
             $blog = new Blogs();
-            $blog->saveContent($blog_id);
+            $blog->saveContent($url_param);
             // reload blog content
-            $blog_data = $blog->getAll($blog_id, $observe_permissions);
+            $blog_data = $blog->getAll($url_param, $observe_permissions);
             $new_data = [
                 'blog_content' => $blog_data['content'],
             ];
@@ -183,22 +184,23 @@ class Indexs extends Controller
             $data = mergeAsocArrays($data, $new_data);
         }
 
-        if (is_numeric($blog_id) && $blog_id != '0') {
+        if (is_numeric($url_param) && $url_param != '0') {
             // one page
             $blog = new Blogs();
-            $blog_data = $blog->getAll($blog_id, $observe_permissions);
+            $blog_data = $blog->getRecord($url_param, $observe_permissions);
             $new_data = [
                 'blog_content' => $blog_data['content'],
             ];
             $data = mergeAsocArrays($data, $new_data);
         }
-        elseif ($blog_id == '0' || $blog_id === 'index') {
+        elseif ($url_param == '0' || $url_param === 'index') {
             // start page
             $blog = new Blogs();
             $blog_data = $blog->index($observe_permissions);
             if ($blog_data !== false) {
                 $new_data = [
                     // blog index
+                    'blog_id' => $blog_data['blog_id'],
                     'blog_created_by_user_id' => $blog_data['created_by_user_id'],
                     'blog_last_edit_date' => $blog_data['last_edit_date'],
                     'blog_preview_image' => $blog_data['preview_image'],

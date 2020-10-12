@@ -16,6 +16,7 @@ class Blogs extends Controller
     {
         // Init data
         $data = [
+            'blog_id' => [],
             'created_by_user_id' => [],
             'last_edit_date' => [],
             'preview_image' => [],
@@ -28,6 +29,7 @@ class Blogs extends Controller
         $oData = $this->blogModel->start($observe_permissions);
         if ($oData) {
             for($i=0; $i<count($oData); $i++){
+                array_push($data['blog_id'], $oData[$i]->blog_id);
                 array_push($data['created_by_user_id'], $oData[$i]->created_by_user_id);
                 array_push($data['last_edit_date'], $oData[$i]->last_edit_date);
                 array_push($data['preview_image'], $oData[$i]->preview_image);
@@ -43,7 +45,7 @@ class Blogs extends Controller
         return $data;
     }
 
-    public function getAll($blog_id, $observe_permissions)
+    public function getRecord($blog_id, $observe_permissions)
     {
         // Init data
         $data = [
@@ -51,7 +53,7 @@ class Blogs extends Controller
             'content' => '',
         ];
 
-        $oData = $this->blogModel->select($data, $observe_permissions);
+        $oData = $this->blogModel->selectRecord($data, $observe_permissions);
         if ($oData) {
             // Decode from db
             $data['content'] = base64_decode($oData->content);
