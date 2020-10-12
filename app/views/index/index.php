@@ -47,11 +47,11 @@
                                     <?php
                                          if(isset($_SESSION['user_role'])) {
                                              if ($data['blog_observe_permissions'][$i] === $_SESSION['user_email']) {
-                                                 echo "red";
+                                                 echo "#ff7f50";
                                              } else if ($data['blog_observe_permissions'][$i] === 'Admins') {
-                                                 echo "yellow";
+                                                 echo "#f1f227";
                                              } else if ($data['blog_observe_permissions'][$i] === 'RegisteredUsers') {
-                                                 echo "#76b901";
+                                                 echo "#98fb98";
                                              }
                                          }
                                     ?>;">
@@ -82,11 +82,11 @@
                                     <?php
                                         if(isset($_SESSION['user_role'])) {
                                             if ($data['blog_observe_permissions'][$i] === $_SESSION['user_email']) {
-                                                echo "red";
+                                                echo "#ff7f50";
                                             } else if ($data['blog_observe_permissions'][$i] === 'Admins') {
-                                                echo "yellow";
+                                                echo "#f1f227";
                                             } else if ($data['blog_observe_permissions'][$i] === 'RegisteredUsers') {
-                                                echo "#76b901";
+                                                echo "#98fb98";
                                             }
                                         }
                                     ?>;">
