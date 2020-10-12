@@ -56,7 +56,7 @@ class Blog
 
     public function updateViews($data)
     {
-        $max = 100000000000;    // 100 billions (100 000 000 000) (99999999999+1)
+        $max = 1000000000;
         $this->db->query('UPDATE blog SET views = views + 1 WHERE blog_id = :blog_id AND views != :max');
         $this->db->bind(':blog_id', $data['blog_id']);
         $this->db->bind(':max', $max);
