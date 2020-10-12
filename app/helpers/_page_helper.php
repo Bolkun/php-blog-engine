@@ -448,13 +448,13 @@ function getBranchIds(array $elements, $parentId) {
 
     foreach ($elements as $element) {
         if ($element['parent_id'] == $parentId) {
-            $children = getBranchIds($elements, $element['id']);
+            $children = getBranchIds($elements, $element['blog_id']);
             if ($children) {
                 foreach ($children as $child){
                     array_push($branch, $child);
                 }
             }
-            array_push($branch, $element['id']);
+            array_push($branch, $element['blog_id']);
         }
     }
 

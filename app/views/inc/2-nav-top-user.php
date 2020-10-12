@@ -187,7 +187,7 @@
                     Main
                     <?php if (isAdminLoggedIn()) { ?>
                         <i id='mmAddChild0' style='color: grey; cursor: pointer'
-                           onclick="mmAddChild({id:'0', title:''})" class='fa fa-plus mm_add_child_icon'
+                           onclick="mmAddChild({blog_id:'0', title:''})" class='fa fa-plus mm_add_child_icon'
                            aria-hidden='true'></i>
                     <?php } ?>
                 </h4>

@@ -97,7 +97,7 @@ function ajax_menuDeleteTree(values) {
         // Logic to delete the page
         $.ajax({
             url: values['URLCURRENT'],
-            data: 'ajax_sMainMenuID=' + values['id'],
+            data: 'ajax_sMainMenuID=' + values['blog_id'],
             type: 'post',
             error: menuDeleteTree_error(values),
             success: menuDeleteTree_success(values)
@@ -141,7 +141,7 @@ function menuDeleteTree_success(values) {
 
 // Style main menu title gui
 function mmEditTitle(values) {
-    var id = values['id'];
+    var id = values['blog_id'];
     var title = values['title'];
     var current_item_id = "mmEditTitle" + id;
     var color = document.getElementById(current_item_id).style.color;
@@ -189,7 +189,7 @@ function mmEditTitle(values) {
 
 // Style main menu node gui
 function mmAddChild(values) {
-    var id = values['id'];
+    var id = values['blog_id'];
     var title = values['title'];
     var current_item_id = "mmAddChild" + id;
     var color = document.getElementById(current_item_id).style.color;

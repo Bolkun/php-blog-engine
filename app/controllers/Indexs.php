@@ -104,7 +104,7 @@ class Indexs extends Controller
         }
         elseif (isset($_POST['ajax_sMainMenuID'])) {
             $blog = new Blogs();
-            $blog->deleteBranch();
+            $blog->deleteBranch($observe_permissions);
         }
         elseif (isset($_POST['submitLogin'])) {
             $user = new Users();

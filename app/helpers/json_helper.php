@@ -54,7 +54,7 @@ function jsonEncodeMenu($oData = NULL, $sID, $sTitle){
     // convert object to associative array
     $aData = (array) $oData;
     // add url to array being posted to
-    $aData['id'] = $sID;
+    $aData['blog_id'] = $sID;
     $aData['title'] = $sTitle;
     $aData['URLCURRENT'] = URLCURRENT;
     $aData['URLROOT'] = URLROOT;

@@ -27,6 +27,7 @@ class Blogs extends Controller
         ];
 
         $oData = $this->blogModel->start($observe_permissions);
+
         if ($oData) {
             for($i=0; $i<count($oData); $i++){
                 array_push($data['blog_id'], $oData[$i]->blog_id);
@@ -104,6 +105,9 @@ class Blogs extends Controller
                 // Creates list of all items with children
                 $aDataSort['parents'][$aData[$i]['parent_id']][] = $aData[$i]['blog_id'];
             }
+
+            // change branches that have no root node
+            $aDataSort = $this->menu_changeBranchesWithNoRootNode($aDataSort);
 
             return $aDataSort;
         } else {
@@ -185,14 +189,15 @@ class Blogs extends Controller
         }
     }
 
-    public function deleteBranch()
+    public function deleteBranch($observe_permissions)
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $id = trim($_POST['ajax_sMainMenuID']);
-            $oData = $this->blogModel->selectMenuData();
+
+            $oData = $this->blogModel->selectMenuData($observe_permissions);
 
             if($oData){
                 // Convert object to array
@@ -203,7 +208,8 @@ class Blogs extends Controller
                 array_push($branch_ids, $id);
                 // delete branch
                 if($this->blogModel->deleteBranch($branch_ids)){
-                    // OK
+                    // replace leaf with no root as a root
+
                 } else {
                     die("Error: Something went wrong during deletion of blog pages");
                 }
@@ -293,6 +299,5 @@ class Blogs extends Controller
 
         return $data['mm'];
     }
-
-
+    
 }
