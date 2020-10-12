@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="img-text-clicked">
                                         <span class="col-lg-6_p">
-                                            <i class="fa fa-eye"></i> <?php echo $data['blog_views'][$i]; ?>
+                                            <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
                                         </span>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="img-text-clicked">
                                         <span class="col-lg-3_p">
-                                            <i class="fa fa-eye"></i> <?php echo $data['blog_views'][$i]; ?>
+                                            <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
                                         </span>
                                     </div>
                                 </div>

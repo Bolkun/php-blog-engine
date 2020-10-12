@@ -57,6 +57,8 @@ class Blogs extends Controller
         if ($oData) {
             // Decode from db
             $data['content'] = base64_decode($oData->content);
+            // update views count
+            $this->blogModel->updateViews($data);
         } else {
             die("Blog title not found");
         }
