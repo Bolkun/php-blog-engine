@@ -29,6 +29,7 @@
                             if ($i === 0 || $i === 1) {
                                 // display 2 divs in a row ?>
                                 <div class="col-lg-6">
+                                    <a href
                                     <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMGURL . '/' . $data['blog_preview_image'][$i]; ?>">
                                     <div class="img-rank-block">
                                         <span class="col-lg-6_p">

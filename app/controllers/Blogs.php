@@ -12,7 +12,7 @@ class Blogs extends Controller
     /*
      * All Pages ▼
      */
-    public function start($observe_permissions)
+    public function index($observe_permissions)
     {
         // Init data
         $data = [
@@ -43,7 +43,7 @@ class Blogs extends Controller
         return $data;
     }
 
-    public function search($blog_id, $observe_permissions)
+    public function getAll($blog_id, $observe_permissions)
     {
         // Init data
         $data = [
@@ -51,7 +51,7 @@ class Blogs extends Controller
             'content' => '',
         ];
 
-        $oData = $this->blogModel->search($data, $observe_permissions);
+        $oData = $this->blogModel->select($data, $observe_permissions);
         if ($oData) {
             // Decode from db
             $data['content'] = base64_decode($oData->content);
@@ -81,5 +81,214 @@ class Blogs extends Controller
             die("Not a post request for updating blog content");
         }
     }
+
+    public function menu($observe_permissions)
+    {
+        $oData = $this->blogModel->selectMenuData($observe_permissions);
+
+        if($oData){
+            // Convert object to array
+            $aData = stdToArray($oData);
+            // sort data items
+            $aDataSort = array(
+                'items' => array(),
+                'parents' => array()
+            );
+            for($i=0; $i<count($aData); $i++){
+                // Create current menus item id into array
+                $aDataSort['items'][$aData[$i]['blog_id']] = $aData[$i];
+                // Creates list of all items with children
+                $aDataSort['parents'][$aData[$i]['parent_id']][] = $aData[$i]['blog_id'];
+            }
+
+            return $aDataSort;
+        } else {
+            return false;
+        }
+    }
+
+    public function add()
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // Init data
+            $data = [
+                'id' => '',
+                'title' => trim($_POST['ajax_mm_add_child']),
+                'parent_id' => trim($_POST['ajax_mm_add_child_parentId']),
+            ];
+
+            if(empty($data['title'])){
+                die("Error: Title cannot be empty");
+            } else {
+                // delete ""
+                $data['title'] = replaceString('&#34;', '', $data['title']);
+            }
+
+            if(empty($data['parent_id'])){
+                die("Error: Parent id cannot be empty");
+            } else {
+                // delete ""
+                $data['parent_id'] = replaceString('&#34;', '', $data['parent_id']);
+            }
+
+            // Make sure errors are empty
+            if($this->blogModel->insert($data)){
+                // OK
+            } else {
+                die("Error: Could not insert new blog page, due to server problems");
+            }
+        } else {
+            die("Error: Something went wrong during post request to add new node");
+        }
+    }
+
+    public function editTitle()
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // Init data
+            $data = [
+                'blog_id' => trim($_POST['ajax_mm_edit_title_id']),
+                'title' => trim($_POST['ajax_mm_edit_title']),
+            ];
+
+            if(empty($data['blog_id'])){
+                die("Error: blog_id cannot be empty");
+            } else {
+                // delete ""
+                $data['blog_id'] = replaceString('&#34;', '', $data['blog_id']);
+            }
+
+            if(empty($data['title'])){
+                die("Error: Title cannot be empty");
+            } else {
+                // delete ""
+                $data['title'] = replaceString('&#34;', '', $data['title']);
+            }
+
+            if($this->blogModel->updateTitle($data)){
+                // OK
+            } else {
+                die("Error: Could not update blog title, due to server problems");
+            }
+        } else {
+            die("Error: Something went wrong during post request to edit title");
+        }
+    }
+
+    public function deleteBranch()
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $id = trim($_POST['ajax_sMainMenuID']);
+            $oData = $this->blogModel->selectMenuData();
+
+            if($oData){
+                // Convert object to array
+                $aData = stdToArray($oData);
+                // Get branch ids
+                $branch_ids = getBranchIds($aData, $id);
+                // Add root id
+                array_push($branch_ids, $id);
+                // delete branch
+                if($this->blogModel->deleteBranch($branch_ids)){
+                    // OK
+                } else {
+                    die("Error: Something went wrong during deletion of blog pages");
+                }
+            } else {
+                die("Error: Something went wrong during branch deletion 1");
+            }
+        } else {
+            die("Error: Something went wrong during branch deletion 2");
+        }
+    }
+
+    public function search_menu($observe_permissions)
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // Init data
+            $data = [
+                'search' => trim($_POST['search_main_menu']),
+                'search_err' => '',
+                'content' => '',
+            ];
+
+            // Make sure errors are empty
+            if(empty($data['search_err'])){
+                $oData = $this->blogModel->searchMenu($data, $observe_permissions);
+                if($oData){
+                    // Convert object to array
+                    $aData = stdToArray($oData);
+                    // sort data items
+                    $aDataSort = array(
+                        'items' => array(),
+                        'parents' => array()
+                    );
+                    for($i=0; $i<count($aData); $i++){
+                        // Create current menus item id into array
+                        $aDataSort['items'][$aData[$i]['blog_id']] = $aData[$i];
+                        // Creates list of all items with children
+                        $aDataSort['parents'][$aData[$i]['parent_id']][] = $aData[$i]['blog_id'];
+                    }
+                    // change branches that have no root node
+                    $data['content'] = $this->menu_changeBranchesWithNoRootNode($aDataSort);
+                } else {
+                    $data['search_err'] = 'Nothing found';
+                }
+            }
+
+            return $data;
+        } else {
+            // Init data
+            $data = [
+                'search' => '',
+                'search_err' => '',
+                'content' => '',
+            ];
+
+            return $data;
+        }
+    }
+
+    // helpers
+    public function menu_changeBranchesWithNoRootNode($aDataSort)
+    {
+        $data['mm'] = $aDataSort;
+        // change branches that have no root node
+        foreach ($data['mm']['items'] as $key => $value) {
+            if ($data['mm']['items'][$key]['parent_id'] != 0 && !in_array($data['mm']['items'][$key]['parent_id'], array_column($data['mm']['items'], 'blog_id'))) {
+                // set not found parents as root node
+                $data['mm']['items'][$key]['parent_id'] = 0;
+
+                // add not found parent ids to root group
+                $data['mm']['parents'][0][] = $data['mm']['items'][$key]['blog_id'];
+                // delete old group with no root
+                foreach ($data['mm']['parents'] as $pk => $pv) {
+                    foreach ($pv as $i => $v) {
+                        if ($pk != 0 && $data['mm']['parents'][$pk][$i] == $data['mm']['items'][$key]['blog_id']) {
+                            unset($data['mm']['parents'][$pk][$i]);
+                        }
+                    }
+                    if (empty($data['mm']['parents'][$pk])) {
+                        unset($data['mm']['parents'][$pk]);
+                    }
+                }
+            }
+        }
+
+        return $data['mm'];
+    }
+
 
 }

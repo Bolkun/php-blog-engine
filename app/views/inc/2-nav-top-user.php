@@ -195,21 +195,21 @@
                     <div id="mm_search_form">
                         <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
                             <input id="search_main_menu" type="text" name="search_main_menu"
-                                   class="form-control <?php echo (!empty($data['mm_search_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['mm_search']; ?>"
+                                   class="form-control <?php echo (!empty($data['blog_mm_search_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['blog_mm_search']; ?>"
                                    placeholder="Search">
                             <button id="submit_search_input" name="submit_search_input" class="btn btn-success"
                                     type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
-                            <span class="invalid-feedback"><?php echo $data['mm_search_err']; ?></span>
+                            <span class="invalid-feedback"><?php echo $data['blog_mm_search_err']; ?></span>
                         </form>
                     </div>
                     <div id="mm_add_child_form">
                         <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
                             <input id="mm_add_child" type="text" name="mm_add_child"
-                                   class="form-control <?php echo (!empty($data['mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['mm_add_child']; ?>"
+                                   class="form-control <?php echo (!empty($data['blog_mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['blog_mm_add_child']; ?>"
                                    placeholder="Add child">
                             <input id="mm_add_child_parentId" type="text" name="mm_add_child_parentId"
                                    style="display: none"
@@ -222,7 +222,7 @@
                                     class="btn btn-success">
                                 <i class='fa fa-plus'></i>
                             </button>
-                            <span class="invalid-feedback"><?php echo $data['mm_add_child_err']; ?></span>
+                            <span class="invalid-feedback"><?php echo $data['blog_mm_add_child_err']; ?></span>
                         </form>
                     </div>
                     <div id="mm_edit_title_form">
@@ -233,8 +233,8 @@
                                    value=""
                                    placeholder="Id">
                             <input id="mm_edit_title" type="text" name="mm_edit_title"
-                                   class="form-control <?php echo (!empty($data['mm_edit_title_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['mm_edit_title']; ?>"
+                                   class="form-control <?php echo (!empty($data['blog_mm_edit_title_err'])) ? 'is-invalid' : ''; ?>"
+                                   value="<?php echo $data['blog_mm_edit_title']; ?>"
                                    placeholder="Edit title">
                             <button type="button"
                                     id="submit_edit_input"
@@ -242,14 +242,14 @@
                                     class="btn btn-success">
                                 <i class='fa fa-pencil'></i>
                             </button>
-                            <span class="invalid-feedback"><?php echo $data['mm_edit_title_err']; ?></span>
+                            <span class="invalid-feedback"><?php echo $data['blog_mm_edit_title_err']; ?></span>
                         </form>
                     </div>
                     <div id="mm_load_box">
                         <div id="mm_load_trees">
                             <div id="main_menu_message"><?php flash('main_menu'); ?></div>
                             <!----------------------------------------------------------------------------------------->
-                            <?php echo createTreeView(0, $data['mm']); ?>
+                            <?php echo createTreeView(0, $data['blog_mm']); ?>
                             <!----------------------------------------------------------------------------------------->
                         </div>
                     </div>
