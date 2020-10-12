@@ -13,7 +13,7 @@ class Blog
     {
         $sObserve_permissions = implode("','", $observe_permissions);
 
-        $this->db->query("SELECT blog_id, created_by_user_id, last_edit_date, preview_image, category, title, rank, views FROM blog 
+        $this->db->query("SELECT blog_id, created_by_user_id, last_edit_date, preview_image, observe_permissions, category, title, rank, views FROM blog 
           WHERE observe_permissions IN ('".$sObserve_permissions."') ORDER BY last_edit_date DESC LIMIT 10");
 
         $row = $this->db->resultSet();
@@ -113,7 +113,7 @@ class Blog
     {
         $sObserve_permissions = implode("','", $observe_permissions);
 
-        $this->db->query("SELECT blog_id, title, parent_id FROM blog WHERE observe_permissions IN ('".$sObserve_permissions."') ORDER BY title ASC");
+        $this->db->query("SELECT blog_id, observe_permissions, title, parent_id FROM blog WHERE observe_permissions IN ('".$sObserve_permissions."') ORDER BY title ASC");
 
         $row = $this->db->resultSet();
 

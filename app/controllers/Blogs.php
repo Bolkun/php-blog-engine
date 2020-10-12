@@ -20,6 +20,7 @@ class Blogs extends Controller
             'created_by_user_id' => [],
             'last_edit_date' => [],
             'preview_image' => [],
+            'observe_permissions' => [],
             'category' => [],
             'title' => [],
             'rank' => [],
@@ -34,6 +35,7 @@ class Blogs extends Controller
                 array_push($data['created_by_user_id'], $oData[$i]->created_by_user_id);
                 array_push($data['last_edit_date'], $oData[$i]->last_edit_date);
                 array_push($data['preview_image'], $oData[$i]->preview_image);
+                array_push($data['observe_permissions'], $oData[$i]->observe_permissions);
                 array_push($data['category'], $oData[$i]->category);
                 array_push($data['title'], $oData[$i]->title);
                 array_push($data['rank'], $oData[$i]->rank);
@@ -299,5 +301,5 @@ class Blogs extends Controller
 
         return $data['mm'];
     }
-    
+
 }

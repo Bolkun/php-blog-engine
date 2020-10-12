@@ -396,15 +396,26 @@ function createTreeView($parent, $menu)
 {
     $html = "";
     if (isset($menu['parents'][$parent])) {
+        $permission_color = 'white';
         $html .= "<ol class='tree'>";
         foreach ($menu['parents'][$parent] as $itemId) {
             if (!isset($menu['parents'][$itemId])) {
+                // check permission color
+                if(isset($_SESSION['user_role'])) {
+                    if ($menu['items'][$itemId]['observe_permissions'] === $_SESSION['user_email']) {
+                        $permission_color = 'red';
+                    } else if ($menu['items'][$itemId]['observe_permissions'] === 'Admins') {
+                        $permission_color = 'yellow';
+                    } else if ($menu['items'][$itemId]['observe_permissions'] === 'RegisteredUsers') {
+                        $permission_color = '#76b901';
+                    }
+                }
                 // node with no children
                 if(isAdminLoggedIn()){
                     $html .= "<li><label for='subfolder2'>
                     <i style='color: grey;' id='mmAddChild" . $menu['items'][$itemId]['blog_id'] . "' onclick='mmAddChild(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-plus mm_add_child_icon' aria-hidden='true'></i>
                     <i style='color: grey;' id='mmEditTitle" . $menu['items'][$itemId]['blog_id'] . "' onclick='mmEditTitle(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-pencil mm_edit_title_icon' aria-hidden='true'></i>
-                    <a class='main_menu_link' href='" . URLROOT . '/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
+                    <a class='main_menu_link' style='color: " . $permission_color . "' href='" . URLROOT . '/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
                     <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='ajax_menuDeleteTree(" .  jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")'></label>
                     <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
                 } else {
@@ -414,6 +425,16 @@ function createTreeView($parent, $menu)
                 }
             }
             if (isset($menu['parents'][$itemId])) {
+                // check permission color
+                if(isset($_SESSION['user_role'])) {
+                    if ($menu['items'][$itemId]['observe_permissions'] === $_SESSION['user_email']) {
+                        $permission_color = 'red';
+                    } else if ($menu['items'][$itemId]['observe_permissions'] === 'Admins') {
+                        $permission_color = 'yellow';
+                    } else if ($menu['items'][$itemId]['observe_permissions'] === 'RegisteredUsers') {
+                        $permission_color = '#76b901';
+                    }
+                }
                 // node with children
                 if(isAdminLoggedIn()) {
                     $html .= "<li><label for='subfolder2'>

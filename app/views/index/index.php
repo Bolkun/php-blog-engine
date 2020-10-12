@@ -43,7 +43,18 @@
                                         <h2><?php echo $data['blog_category'][$i]; ?></h2>
                                         <p class="col-lg-6_p"><?php echo $data['blog_title'][$i]; ?></p>
                                     </div>
-                                    <div class="img-text-clicked">
+                                    <div class="img-text-clicked" style="color:
+                                    <?php
+                                         if(isset($_SESSION['user_role'])) {
+                                             if ($data['blog_observe_permissions'][$i] === $_SESSION['user_email']) {
+                                                 echo "red";
+                                             } else if ($data['blog_observe_permissions'][$i] === 'Admins') {
+                                                 echo "yellow";
+                                             } else if ($data['blog_observe_permissions'][$i] === 'RegisteredUsers') {
+                                                 echo "#76b901";
+                                             }
+                                         }
+                                    ?>;">
                                         <span class="col-lg-6_p">
                                             <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
                                         </span>
@@ -67,7 +78,18 @@
                                         <h4><?php echo $data['blog_category'][$i]; ?></h4>
                                         <p><?php echo $data['blog_title'][$i]; ?></p>
                                     </div>
-                                    <div class="img-text-clicked">
+                                    <div class="img-text-clicked" style="color:
+                                    <?php
+                                        if(isset($_SESSION['user_role'])) {
+                                            if ($data['blog_observe_permissions'][$i] === $_SESSION['user_email']) {
+                                                echo "red";
+                                            } else if ($data['blog_observe_permissions'][$i] === 'Admins') {
+                                                echo "yellow";
+                                            } else if ($data['blog_observe_permissions'][$i] === 'RegisteredUsers') {
+                                                echo "#76b901";
+                                            }
+                                        }
+                                    ?>;">
                                         <span class="col-lg-3_p">
                                             <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
                                         </span>
