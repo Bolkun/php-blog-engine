@@ -80,3 +80,13 @@ function jsonEncodeMenuEditTitle($oData = NULL){
     $sJSON = json_encode($aData);
     return $sJSON;
 }
+
+function jsonSelectedPreviewImage($oData = NULL, $preview_image){
+    // convert object to associative array
+    $aData = (array) $oData;
+    // add url to array being posted to
+    $aData['URLCURRENT'] = URLCURRENT;
+    $aData['preview_image'] = $preview_image;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}

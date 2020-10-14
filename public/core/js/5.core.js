@@ -384,3 +384,29 @@ function mmEditTitle_success(title, id) {
 }
 
 /**********************************************************************************************************************/
+
+/*
+ *   view: index/index.php
+ */
+// file input
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+
+function displayBlogServerPreviewImageDiv() {
+    document.getElementById("blog_preview_image_server_div").style.display = "block";
+    document.getElementById("blog_preview_image_local_div").style.display = "none";
+}
+
+function displayBlogLocalPreviewImageDiv() {
+    document.getElementById("blog_preview_image_server_div").style.display = "none";
+    document.getElementById("blog_preview_image_local_div").style.display = "block";
+}
+
+function selectedPreviewImage(values) {
+    var preview_image = values['preview_image'];
+    document.getElementById('close_blog_preview_images_list').click();
+    document.getElementById("blog_preview_image_server").value = preview_image;
+}

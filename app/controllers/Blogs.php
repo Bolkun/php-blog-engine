@@ -53,13 +53,26 @@ class Blogs extends Controller
         // Init data
         $data = [
             'blog_id' => $blog_id,
+            'created_by_user_id' => '',
+            'last_edit_date' => '',
+            'preview_image' => '',
+            'observe_permissions' => '',
+            'category' => '',
+            'title' => '',
+            'rank' => '',
             'content' => '',
         ];
 
         $oData = $this->blogModel->selectRecord($data, $observe_permissions);
         if ($oData) {
-            // Decode from db
-            $data['content'] = base64_decode($oData->content);
+            $data['created_by_user_id'] = $oData->created_by_user_id;
+            $data['last_edit_date'] = $oData->last_edit_date;
+            $data['preview_image'] = $oData->preview_image;
+            $data['observe_permissions'] = $oData->observe_permissions;
+            $data['category'] = $oData->category;
+            $data['title'] = $oData->title;
+            $data['rank'] = $oData->rank;
+            $data['content'] = base64_decode($oData->content); // Decode from db
             // update views count
             $this->blogModel->updateViews($data);
         } else {
@@ -75,6 +88,13 @@ class Blogs extends Controller
             // Init data
             $data = [
                 'blog_id' => trim($blog_id),
+                'created_by_user_id' => '',
+                'last_edit_date' => '',
+                'preview_image' => '',
+                'observe_permissions' => '',
+                'category' => '',
+                'title' => '',
+                'rank' => '',
                 'content' => base64_encode($_POST['blog_ta_tinymce']),
             ];
 

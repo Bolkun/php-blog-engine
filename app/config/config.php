@@ -45,6 +45,8 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
         define('PUBLIC_CORE_IMGROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'img');
             # dev folder
             define('PUBLIC_CORE_IMG_DEVROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'dev');
+            # preview folder
+            define('PUBLIC_CORE_IMG_PREVIEWROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'preview');
             # ui folder
             define('PUBLIC_CORE_IMG_UIROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'ui');
         # js folder
@@ -100,6 +102,8 @@ define('PUBLICURL', URLROOT . '/public');
         define('PUBLIC_CORE_IMGURL', PUBLIC_COREURL . '/img');
             # dev folder
             define('PUBLIC_CORE_IMG_DEVURL', PUBLIC_CORE_IMGURL . '/dev');
+            # preview folder
+            define('PUBLIC_CORE_IMG_PREVIEWURL', PUBLIC_CORE_IMGURL . '/preview');
             # ui folder
             define('PUBLIC_CORE_IMG_UIURL', PUBLIC_CORE_IMGURL . '/ui');
         # js folder

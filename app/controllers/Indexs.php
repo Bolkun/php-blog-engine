@@ -31,6 +31,10 @@ class Indexs extends Controller
             'blog_rank' => [],
             'blog_views' => [],
             'blog_content' => [],
+            'blog_preview_image_err' => '',
+            'blog_category_err' => '',
+            'blog_title_err' => '',
+            'blog_rank_err' => '',
             'blog_mm' => (new Blogs)->menu($observe_permissions),
             'blog_mm_search' => '',
             'blog_mm_edit_title' => '',
@@ -76,8 +80,15 @@ class Indexs extends Controller
             $blog = new Blogs();
             $blog->saveContent($url_param);
             // reload blog content
-            $blog_data = $blog->getAll($url_param, $observe_permissions);
+            $blog_data = $blog->getRecord($url_param, $observe_permissions);
             $new_data = [
+                'blog_created_by_user_id' => $blog_data['created_by_user_id'],
+                'blog_last_edit_date' => $blog_data['last_edit_date'],
+                'blog_preview_image' => $blog_data['preview_image'],
+                'blog_observe_permissions' => $blog_data['observe_permissions'],
+                'blog_category' => $blog_data['category'],
+                'blog_title' => $blog_data['title'],
+                'blog_rank' => $blog_data['rank'],
                 'blog_content' => $blog_data['content'],
             ];
             $data = mergeAsocArrays($data, $new_data);
@@ -190,6 +201,13 @@ class Indexs extends Controller
             $blog = new Blogs();
             $blog_data = $blog->getRecord($url_param, $observe_permissions);
             $new_data = [
+                'blog_created_by_user_id' => $blog_data['created_by_user_id'],
+                'blog_last_edit_date' => $blog_data['last_edit_date'],
+                'blog_preview_image' => $blog_data['preview_image'],
+                'blog_observe_permissions' => $blog_data['observe_permissions'],
+                'blog_category' => $blog_data['category'],
+                'blog_title' => $blog_data['title'],
+                'blog_rank' => $blog_data['rank'],
                 'blog_content' => $blog_data['content'],
             ];
             $data = mergeAsocArrays($data, $new_data);
