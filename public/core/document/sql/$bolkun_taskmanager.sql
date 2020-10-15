@@ -174,3 +174,17 @@ create table `blog` (
 ) engine=myisam default charset=utf8;
 
 -- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `preview_image`
+--
+create table `preview_image` (
+  `id`                          bigint(20)      unsigned not null auto_increment,
+  `created_by_user_id`          int(10)         unsigned not null                   comment 'user-id who created the article',
+  `creation_date`               datetime        default current_timestamp,
+  `preview_image`               varchar(100)    not null,
+  primary key (`id`)
+) engine=myisam default charset=utf8;
+
+-- --------------------------------------------------------
+

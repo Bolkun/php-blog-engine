@@ -341,8 +341,6 @@ body {
 }
 
 #submitTinyMCEContent {
-    position: relative;
-    top: 10px;
     margin-bottom: 10px;
 }
 
@@ -392,6 +390,9 @@ body {
 
 .article_main_img {
     width: 100%;
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .col-lg-6_p {

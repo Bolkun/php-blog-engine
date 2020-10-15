@@ -410,3 +410,23 @@ function selectedPreviewImage(values) {
     document.getElementById('close_blog_preview_images_list').click();
     document.getElementById("blog_preview_image_server").value = preview_image;
 }
+
+function listAllPreviewImages(values) {
+    var list = 'all';
+    $.ajax({
+        url: values['URLCURRENT'],
+        data: 'ajax_sListAllPreviewImages=' +list,
+        type: 'post',
+        error: listAllPreviewImages_error(),
+        success: listAllPreviewImages_success()
+    });
+}
+
+function listAllPreviewImages_error() {
+    console.log("istAllPreviewImages_error");
+}
+
+function listAllPreviewImages_success() {
+    // reload new view
+    $("#blog_load_preview_image_box").load(location.href + " #blog_load_preview_image_list");    // parent.load(child)
+}

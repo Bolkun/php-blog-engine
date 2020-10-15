@@ -41,11 +41,18 @@ class Blog
         }
     }
 
-    public function updateContent($data)
+    public function updateRecord($data)
     {
-        $this->db->query('UPDATE blog SET last_edit_date = CURRENT_TIMESTAMP, content = :content WHERE blog_id = :blog_id');
-        $this->db->bind(':content', $data['content']);
+        $this->db->query('UPDATE blog SET last_edit_date = CURRENT_TIMESTAMP, preview_image = :preview_image, 
+          observe_permissions = :observe_permissions, category = :category, title = :title, rank = :rank, content = :content 
+          WHERE blog_id = :blog_id');
         $this->db->bind(':blog_id', $data['blog_id']);
+        $this->db->bind(':preview_image', $data['preview_image']);
+        $this->db->bind(':observe_permissions', $data['observe_permissions']);
+        $this->db->bind(':category', $data['category']);
+        $this->db->bind(':title', $data['title']);
+        $this->db->bind(':rank', $data['rank']);
+        $this->db->bind(':content', $data['content']);
 
         if ($this->db->execute()) {
             return true;

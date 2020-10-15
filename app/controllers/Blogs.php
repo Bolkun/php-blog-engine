@@ -3,10 +3,12 @@
 class Blogs extends Controller
 {
     private $blogModel;
+    private $preview_imageModel;
 
     public function __construct()
     {
         $this->blogModel = $this->model('Blog');
+        $this->preview_imageModel = $this->model('Preview_Image');
     }
 
     /*
@@ -82,28 +84,108 @@ class Blogs extends Controller
         return $data;
     }
 
-    public function saveContent($blog_id)
+    public function saveBlogPage($blog_id, $observe_permissions)
     {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // Init data
             $data = [
                 'blog_id' => trim($blog_id),
-                'created_by_user_id' => '',
-                'last_edit_date' => '',
+                'created_by_user_id' => $_SESSION['user_id'],
                 'preview_image' => '',
-                'observe_permissions' => '',
-                'category' => '',
-                'title' => '',
-                'rank' => '',
+                'observe_permissions' => trim($_POST['blog_observe_permissions']),
+                'category' => trim($_POST['blog_category']),
+                'title' => trim($_POST['blog_title']),
+                'rank' => trim($_POST['blog_rank']),
                 'content' => base64_encode($_POST['blog_ta_tinymce']),
+                // radio choice
+                'radio_preview_image' => trim($_POST['blog_radio_preview_image']),
+                'preview_image_server' => '',
+                'preview_image_local' => '',
+                // errors
+                'preview_image_err' => '',
+                'category_err' => '',
+                'title_err' => '',
             ];
 
-            if ($this->blogModel->updateContent($data)) {
-                // OK
-            } else {
-                die("Could not save blog content");
+            // validating
+            if(empty($data['category'])) {
+                $data['category_err'] = 'Please enter category';
             }
 
+            if(empty($data['title'])) {
+                $data['title_err'] = 'Please enter title';
+            }
+
+            if($data['radio_preview_image'] === 'server'){
+                if(empty($_POST['blog_preview_image_server'])) {
+                    $oData = $this->blogModel->selectRecord($data, $observe_permissions);
+                    $data['preview_image'] = $oData->preview_image;
+                    if(empty($data['preview_image'])){
+                        $data['preview_image_err'] = 'No default preview image, upload new one';
+                    }
+                } else {
+                    $data['preview_image_server'] = trim($_POST['blog_preview_image_server']);
+                    $data['preview_image'] = $data['preview_image_server'];
+                }
+            } elseif ($data['radio_preview_image'] === 'local'){
+                if(isset($_FILES['blog_preview_image_local'])){
+                    $data['preview_image_local'] = htmlspecialchars( basename( $_FILES["blog_preview_image_local"]["name"]));
+                    if(empty($data['preview_image_local'])) {
+                        $data['preview_image_err'] = 'New preview image not selected';
+                    } else {
+                        // validate upload file
+                        $target_file = PUBLIC_CORE_IMG_PREVIEWROOT . '/' . basename($_FILES["blog_preview_image_local"]["name"]);
+
+                        // check if image file is actual image or fake image
+                        $check = getimagesize($_FILES["blog_preview_image_local"]["tmp_name"]);
+                        if($check !== false) {
+                            // check if file already exists
+                            if (! file_exists($target_file)) {
+                                // Check file size
+                                if ($_FILES["blog_preview_image_local"]["size"] <= 20971520) {
+                                    // allow certain file formats
+                                    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                                    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "svg") {
+                                        $data['preview_image_err'] = "Only JPG, JPEG, PNG, GIF & SVG files are allowed.";
+                                    } else {
+                                        // upload
+                                        if(move_uploaded_file($_FILES["blog_preview_image_local"]["tmp_name"], $target_file)) {
+                                            $data['preview_image'] = htmlspecialchars( basename( $_FILES["blog_preview_image_local"]["name"]));
+                                            if($this->preview_imageModel->insertPreviewImage($data)) {
+                                                // OK
+                                            } else {
+                                                die("Could not insert preview image");
+                                            }
+                                        } else {
+                                            die("There was an error uploading preview image file");
+                                        }
+                                    }
+                                } else {
+                                    $data['preview_image_err'] = "File must be less than 20MB";
+                                }
+                            } else {
+                                $data['preview_image_err'] = "File with this name already exists";
+                            }
+                        } else {
+                            $data['preview_image_err'] = "File is not an image";
+                        }
+                    }
+                } else {
+                    die('$_FILES is not set');
+                }
+            } else {
+                $data['preview_image_err'] = 'Preview image choice not selected';
+            }
+
+            if(empty($data['category_err']) && empty($data['title_err']) && empty($data['preview_image_err'])){
+                if($this->blogModel->updateRecord($data)) {
+                    $data['content'] = base64_decode($data['content']); // Decode from db
+                } else {
+                    die("Could not update db for uploaded preview image file");
+                }
+            }
+
+            return $data;
         } else {
             die("Not a post request for updating blog content");
         }

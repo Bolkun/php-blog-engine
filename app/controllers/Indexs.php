@@ -4,11 +4,13 @@ class Indexs extends Controller
 {
     private $blogController;
     private $userController;
+    private $preview_imageController;
 
     public function __construct()
     {
         $this->blogController = $this->controller('Blogs');
         $this->userController = $this->controller('Users');
+        $this->preview_imageController = $this->controller('Preview_Images');
     }
 
     /*
@@ -31,10 +33,11 @@ class Indexs extends Controller
             'blog_rank' => [],
             'blog_views' => [],
             'blog_content' => [],
+            // errors
             'blog_preview_image_err' => '',
             'blog_category_err' => '',
             'blog_title_err' => '',
-            'blog_rank_err' => '',
+            // blog mm
             'blog_mm' => (new Blogs)->menu($observe_permissions),
             'blog_mm_search' => '',
             'blog_mm_edit_title' => '',
@@ -42,6 +45,8 @@ class Indexs extends Controller
             'blog_mm_search_err' => '',
             'blog_mm_edit_title_err' => '',
             'blog_mm_add_child_err' => '',
+            // preview image
+            'preview_image_list' => [],
             // register
             'reg_firstname' => '',
             'reg_surname' => '',
@@ -78,18 +83,20 @@ class Indexs extends Controller
         // POST
         if (isset($_POST['submit_blog_ta_tinymce'])) {
             $blog = new Blogs();
-            $blog->saveContent($url_param);
-            // reload blog content
-            $blog_data = $blog->getRecord($url_param, $observe_permissions);
+            $blog_data = $blog->saveBlogPage($url_param, $observe_permissions);
             $new_data = [
                 'blog_created_by_user_id' => $blog_data['created_by_user_id'],
-                'blog_last_edit_date' => $blog_data['last_edit_date'],
+                'blog_last_edit_date' => date("Y-m-d H:i:s", time()),
                 'blog_preview_image' => $blog_data['preview_image'],
                 'blog_observe_permissions' => $blog_data['observe_permissions'],
                 'blog_category' => $blog_data['category'],
                 'blog_title' => $blog_data['title'],
                 'blog_rank' => $blog_data['rank'],
                 'blog_content' => $blog_data['content'],
+                // errors
+                'blog_preview_image_err' => $blog_data['preview_image_err'],
+                'blog_category_err' => $blog_data['category_err'],
+                'blog_title_err' => $blog_data['title_err'],
             ];
             $data = mergeAsocArrays($data, $new_data);
         }
@@ -117,6 +124,14 @@ class Indexs extends Controller
         elseif (isset($_POST['ajax_sMainMenuID'])) {
             $blog = new Blogs();
             $blog->deleteBranch($observe_permissions);
+        }
+        elseif (isset($_POST['ajax_sListAllPreviewImages'])){
+            $preview_image = new Preview_Images();
+            $preview_image_data = $preview_image->loadList();
+            $new_data = [
+                'preview_image_list' => $preview_image_data['preview_image_list'],
+            ];
+            $data = mergeAsocArrays($data, $new_data);
         }
         elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
@@ -196,7 +211,7 @@ class Indexs extends Controller
             $data = mergeAsocArrays($data, $new_data);
         }
 
-        if (is_numeric($url_param) && $url_param != '0') {
+        if (is_numeric($url_param) && $url_param != '0' /*&& !isset($_POST['submit_blog_ta_tinymce'])*/) {
             // one page
             $blog = new Blogs();
             $blog_data = $blog->getRecord($url_param, $observe_permissions);
