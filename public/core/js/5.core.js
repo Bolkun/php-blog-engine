@@ -410,3 +410,47 @@ function selectedPreviewImage(values) {
     document.getElementById('close_blog_preview_images_list').click();
     document.getElementById("blog_preview_image_server").value = preview_image;
 }
+
+function ajax_deletePreviewImage(values) {
+    if (confirm("Want to delete Preview Image " + values['preview_image'] + " from server?")) {
+        // Logic to delete the page
+        $.ajax({
+            url: values['URLCURRENT'],
+            data: 'ajax_sDeletePreviewImage=' + values['preview_image'],
+            type: 'post',
+            error: deletePreviewImage_error(values),
+            success: deletePreviewImage_success(values)
+        });
+    }
+}
+
+function deletePreviewImage_error(values) {
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert danger" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Error: Could not delete preview image =' + values['preview_image'] + '!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("message").innerHTML = message;
+    setTimeout(function () {
+        $('#message').fadeOut('fast');
+        // reload new view
+        $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
+    }, 3000);
+}
+
+function deletePreviewImage_success(values) {
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert success" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Sucess: Preview image ' + values['preview_image'] + ' was deleted!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("message").innerHTML = message;
+    setTimeout(function () {
+        $('#message').fadeOut('fast');
+        // reload new view
+        $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
+    }, 3000);
+}
+

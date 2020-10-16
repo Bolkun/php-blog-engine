@@ -35,4 +35,16 @@ class Preview_Image
         }
     }
 
+    public function deletePreviewImage($preview_image)
+    {
+        $this->db->query("DELETE FROM preview_image WHERE preview_image = :preview_image");
+        $this->db->bind(':preview_image', $preview_image);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

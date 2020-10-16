@@ -5,7 +5,7 @@
 <div id="load_blog_box">
     <div id="load_blog_divs">
         <?php if(is_numeric($data['url_param']) && $data['url_param'] != '0'){ ?>
-            <div class="container">
+            <div class="<?php if (isAdminLoggedIn() === true) { echo 'container-fluid'; } else { echo 'container'; }?>" style="<?php if (isAdminLoggedIn() === true) { echo 'width: 95%'; } ?>">
                 <div class="row" style="margin-top: -6px; z-index: -1;">
                     <?php if (isAdminLoggedIn() === true) { ?>
                         <form style="z-index: 0;" class="form-inline" action="<?php echo URLCURRENT; ?>/index" method="post" enctype="multipart/form-data">
@@ -67,7 +67,7 @@
                                            value="<?php echo $data['blog_title']; ?>" placeholder="Title">
                                     <span class="invalid-feedback"><?php echo $data['blog_title_err']; ?></span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <!-- Radio choice -->
                                     <label for="blog_preview_image" style="padding-right: 5px;">Preview Image: </label>
                                     <div class="custom-control custom-radio custom-control-inline">
@@ -78,6 +78,13 @@
                                         <input id="blog_local_preview_image" onclick="displayBlogLocalPreviewImageDiv()" type="radio" class="custom-control-input" name="blog_radio_preview_image" value="local">
                                         <label class="custom-control-label" for="blog_local_preview_image">New</label>
                                     </div>
+                                </div>
+                                <div class="form-group col-md-12" style="padding-top: 5px; padding-bottom: 10px;">
+                                    <div class="form-group col-md-2">
+                                        <img class="img-fluid article_main_img" style="border: 1px solid rgba(0, 0, 0, 0.5);" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['blog_preview_image']; ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
                                     <!-- Server -->
                                     <div id="blog_preview_image_server_div" class="custom-file">
                                         <input id="blog_preview_image_server" type="text" name="blog_preview_image_server"
@@ -95,13 +102,24 @@
                                                         </button>
                                                     </div>
                                                     <div id="blog_preview_images_list_modal_body" class="modal-body">
-                                                        <div id="message"><?php flash('preview_images'); ?></div>
-                                                        <div class="row">
-                                                            <?php for ($p = 0; $p < count($data['preview_image_list']); $p++) {  ?>
-                                                                <div class="col-sm-2">
-                                                                    <img style="border: 1px solid rgba(0, 0, 0, 0.5);" onclick='selectedPreviewImage(<?php echo jsonSelectedPreviewImage(NULL, $data['preview_image_list'][$p]); ?>)' class="blog_preview_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['preview_image_list'][$p]; ?>">
+                                                        <div id="blog_preview_images_list_load">
+                                                            <div id="blog_preview_images_list_load_content">
+                                                                <div id="message"><?php flash('preview_images'); ?></div>
+                                                                <div class="row">
+                                                                    <?php for ($p = 0; $p < count($data['preview_image_list']); $p++) {  ?>
+                                                                        <div class="col-sm-2">
+                                                                            <img style="border: 1px solid rgba(0, 0, 0, 0.5);" onclick='selectedPreviewImage(<?php echo jsonSelectedPreviewImage(NULL, $data['preview_image_list'][$p]); ?>)' class="blog_preview_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['preview_image_list'][$p]; ?>">
+                                                                            <?php if(DEFAULT_PREVIEW_IMAGE !== $data['preview_image_list'][$p]){ ?>
+                                                                                <div class="img-text-clicked" style="cursor: pointer;" onclick='ajax_deletePreviewImage(<?php echo jsonSelectedPreviewImage(NULL, $data['preview_image_list'][$p]); ?>)'>
+                                                                                    <span>
+                                                                                        <i class="fa fa-trash-o"></i>
+                                                                                    </span>
+                                                                                </div>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    <?php } ?>
                                                                 </div>
-                                                            <?php } ?>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -112,7 +130,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div><br>
+                                    </div>
                                     <!-- Local -->
                                     <div style="display: none;" id="blog_preview_image_local_div" class="custom-file">
                                         <input id="blog_preview_image" type="file" name="blog_preview_image_local" accept="image/.jpg,.png,.jpeg,.gif,.svg"

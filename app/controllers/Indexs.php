@@ -125,6 +125,10 @@ class Indexs extends Controller
             $blog = new Blogs();
             $blog->deleteBranch($observe_permissions);
         }
+        elseif (isset($_POST['ajax_sDeletePreviewImage'])) {
+            $preview_image = new Preview_Images();
+            $preview_image->deletePreviewImage();
+        }
         elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
             $user_data = $user->login();

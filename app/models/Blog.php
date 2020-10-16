@@ -147,4 +147,15 @@ class Blog
         }
     }
 
+    public function replacePreviewImageWithDefaultImage($preview_image){
+        $this->db->query('UPDATE blog SET preview_image = :default_preview_image WHERE preview_image = :preview_image');
+        $this->db->bind(':default_preview_image', DEFAULT_PREVIEW_IMAGE);
+        $this->db->bind(':preview_image', $preview_image);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

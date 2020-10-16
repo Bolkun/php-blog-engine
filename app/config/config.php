@@ -17,6 +17,8 @@ define('SITENAME', 'Bolkun');
 define('APPVERSION', '1.0.0');
 # clear page cache*
 define('CLEARPAGECACHE', true);
+# preview image name*
+define('DEFAULT_PREVIEW_IMAGE', 'default_blog_page-min.png');
 
 /*** APP ***/
 # app folder (absolute path)
@@ -46,7 +48,7 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
             # dev folder
             define('PUBLIC_CORE_IMG_DEVROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'dev');
             # preview folder
-            define('PUBLIC_CORE_IMG_PREVIEWROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'preview_image');
+            define('PUBLIC_CORE_IMG_PREVIEWROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'preview');
             # ui folder
             define('PUBLIC_CORE_IMG_UIROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'ui');
         # js folder
@@ -103,7 +105,7 @@ define('PUBLICURL', URLROOT . '/public');
             # dev folder
             define('PUBLIC_CORE_IMG_DEVURL', PUBLIC_CORE_IMGURL . '/dev');
             # preview folder
-            define('PUBLIC_CORE_IMG_PREVIEWURL', PUBLIC_CORE_IMGURL . '/preview_image');
+            define('PUBLIC_CORE_IMG_PREVIEWURL', PUBLIC_CORE_IMGURL . '/preview');
             # ui folder
             define('PUBLIC_CORE_IMG_UIURL', PUBLIC_CORE_IMGURL . '/ui');
         # js folder
