@@ -141,59 +141,23 @@
                 <div class="row" id="results">
                     <?php
                         for ($i = 0; $i < count($data['blog_created_by_user_id']); $i++) {
-                            if ($i === 0 || $i === 1) {
-                                // display 2 divs in a row ?>
-                                <div class="col-lg-6">
-                                    <a href="<?php echo URLROOT . '/' . $data['blog_id'][$i]; ?>">
-                                        <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL . '/' . $data['blog_preview_image'][$i]; ?>">
-                                    </a>
-                                    <div class="img-rank-block">
-                                        <span class="col-lg-6_p">
-                                            <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>
-                                                <i class="fa fa-star"></i>
-                                            <?php } ?>
-                                        </span>
-                                    </div>
-                                    <div class="img-text-block">
-                                        <h2><?php echo $data['blog_category'][$i]; ?></h2>
-                                        <p class="col-lg-6_p"><?php echo $data['blog_title'][$i]; ?></p>
-                                    </div>
-                                    <div class="img-text-clicked" style="color:
-                                    <?php
-                                         if(isset($_SESSION['user_role'])) {
-                                             if ($data['blog_observe_permissions'][$i] === $_SESSION['user_email']) {
-                                                 echo "#ff7f50";
-                                             } else if ($data['blog_observe_permissions'][$i] === 'Admins') {
-                                                 echo "#f1f227";
-                                             } else if ($data['blog_observe_permissions'][$i] === 'RegisteredUsers') {
-                                                 echo "#98fb98";
-                                             }
-                                         }
-                                    ?>;">
-                                        <span class="col-lg-6_p">
-                                            <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
-                                        </span>
-                                    </div>
+                            // display 4 divs in a row ?>
+                            <div class="col-sm-3">
+                                <a href="<?php echo URLROOT . '/' . $data['blog_id'][$i]; ?>">
+                                    <img style="border: 1px solid rgba(0, 0, 0, 0.5);" class="article_main_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['blog_preview_image'][$i]; ?>">
+                                </a>
+                                <div class="img-rank-block">
+                                    <span>
+                                        <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>
+                                            <i class="fa fa-star"></i>
+                                        <?php } ?>
+                                    </span>
                                 </div>
-                                <?php
-                            } else {
-                                // display 4 divs in a row ?>
-                                <div class="col-lg-3">
-                                    <a href="<?php echo URLROOT . '/' . $data['blog_id'][$i]; ?>">
-                                        <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['blog_preview_image'][$i]; ?>">
-                                    </a>
-                                    <div class="img-rank-block">
-                                        <span class="col-lg-3_p">
-                                            <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>
-                                                <i class="fa fa-star"></i>
-                                            <?php } ?>
-                                        </span>
-                                    </div>
-                                    <div class="img-text-block">
-                                        <h4><?php echo $data['blog_category'][$i]; ?></h4>
-                                        <p><?php echo $data['blog_title'][$i]; ?></p>
-                                    </div>
-                                    <div class="img-text-clicked" style="color:
+                                <div class="img-text-block">
+                                    <h4><?php echo $data['blog_category'][$i]; ?></h4>
+                                    <p><?php echo $data['blog_title'][$i]; ?></p>
+                                </div>
+                                <div class="img-text-clicked" style="color:
                                     <?php
                                         if(isset($_SESSION['user_role'])) {
                                             if ($data['blog_observe_permissions'][$i] === $_SESSION['user_email']) {
@@ -205,13 +169,12 @@
                                             }
                                         }
                                     ?>;">
-                                        <span class="col-lg-3_p">
-                                            <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
-                                        </span>
-                                    </div>
+                                    <span>
+                                        <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
+                                    </span>
                                 </div>
-                                <?php
-                            }
+                            </div>
+                            <?php
                         }
                     ?>
                 </div>
