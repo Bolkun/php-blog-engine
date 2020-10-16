@@ -436,6 +436,10 @@ body {
 #blog_preview_image_server {
     text-align: center;
     width: 100%;
+    background: white;
+}
+#blog_preview_image_server:hover {
+    cursor: default;
 }
 
 /* input type=file */

@@ -125,14 +125,6 @@ class Indexs extends Controller
             $blog = new Blogs();
             $blog->deleteBranch($observe_permissions);
         }
-        elseif (isset($_POST['ajax_sListAllPreviewImages'])){
-            $preview_image = new Preview_Images();
-            $preview_image_data = $preview_image->loadList();
-            $new_data = [
-                'preview_image_list' => $preview_image_data['preview_image_list'],
-            ];
-            $data = mergeAsocArrays($data, $new_data);
-        }
         elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
             $user_data = $user->login();
@@ -211,7 +203,7 @@ class Indexs extends Controller
             $data = mergeAsocArrays($data, $new_data);
         }
 
-        if (is_numeric($url_param) && $url_param != '0' /*&& !isset($_POST['submit_blog_ta_tinymce'])*/) {
+        if (is_numeric($url_param) && $url_param != '0') {
             // one page
             $blog = new Blogs();
             $blog_data = $blog->getRecord($url_param, $observe_permissions);
@@ -225,6 +217,14 @@ class Indexs extends Controller
                 'blog_rank' => $blog_data['rank'],
                 'blog_content' => $blog_data['content'],
             ];
+
+            // load all preview images
+            if(isAdminLoggedIn() === true) {
+                $preview_image = new Preview_Images();
+                $preview_image_data = $preview_image->loadList();
+                $new_data['preview_image_list'] = $preview_image_data['preview_image_list'];
+            }
+
             $data = mergeAsocArrays($data, $new_data);
         }
         elseif ($url_param == '0' || $url_param === 'index') {

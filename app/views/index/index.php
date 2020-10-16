@@ -80,37 +80,34 @@
                                     </div>
                                     <!-- Server -->
                                     <div id="blog_preview_image_server_div" class="custom-file">
-                                        <input id="blog_preview_image_server" type="button" name="blog_preview_image_server" onclick='listAllPreviewImages(<?php echo jsonEncode(NULL); ?>)'
+                                        <input id="blog_preview_image_server" type="text" name="blog_preview_image_server"
                                                class="form-control <?php echo (!empty($data['blog_preview_image_err'])) ? 'is-invalid' : ''; ?>"
-                                               value="<?php echo $data['blog_preview_image']; ?>" data-toggle="modal" data-target="#blog_preview_images_list">
+                                               value="<?php echo $data['blog_preview_image']; ?>" data-toggle="modal" data-target="#blog_preview_images_list" readonly>
                                         <span class="invalid-feedback"><?php echo $data['blog_preview_image_err']; ?></span>
                                         <!-- Modal -->
                                         <div class="modal fade" id="blog_preview_images_list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                            <div id="blog_load_preview_image_box">
-                                                <div id="blog_load_preview_image_list">
-                                                    <div class="modal-dialog modal-xl" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Preview images</h5>
-                                                                <button id="close_blog_preview_images_list" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div id="blog_preview_images_list_modal_body" class="modal-body">
-                                                                <div class="row">
-                                                                <?php for ($p = 0; $p < count($data['preview_image_list']); $p++) { ?>
-                                                                    <div class="col-sm-2">
-                                                                        <img onclick='selectedPreviewImage(<?php echo jsonSelectedPreviewImage(NULL, $data['preview_image_list'][$p]); ?>)' class="blog_preview_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['preview_image_list'][$p]; ?>">
-                                                                    </div>
-                                                                <?php } ?>
+                                            <div class="modal-dialog modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Preview images</h5>
+                                                        <button id="close_blog_preview_images_list" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div id="blog_preview_images_list_modal_body" class="modal-body">
+                                                        <div id="message"><?php flash('preview_images'); ?></div>
+                                                        <div class="row">
+                                                            <?php for ($p = 0; $p < count($data['preview_image_list']); $p++) {  ?>
+                                                                <div class="col-sm-2">
+                                                                    <img style="border: 1px solid rgba(0, 0, 0, 0.5);" onclick='selectedPreviewImage(<?php echo jsonSelectedPreviewImage(NULL, $data['preview_image_list'][$p]); ?>)' class="blog_preview_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['preview_image_list'][$p]; ?>">
                                                                 </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
+                                                            <?php } ?>
                                                         </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -14,32 +14,20 @@ class Preview_Images extends Controller
      */
     public function loadList()
     {
-        // Check for POST
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $data = [
+            'preview_image_list' => [],
+        ];
 
-            // Init data
-            $data = [
-                'request' => trim($_POST['ajax_sListAllPreviewImages']),
-                'preview_image_list' => [],
-            ];
-
-            if($data['request'] === 'all'){
-                $oData = $this->preview_imageModel->select();
-                if ($oData) {
-                    $data['preview_image_list'] = $oData->preview_image;
-                } else {
-                    $data['preview_image_list'][-1] = 'Preview image list empty';
-                }
-            } else {
-                die("Not valid post request for Preview image list");
+        $oData = $this->preview_imageModel->select();
+        if ($oData) {
+            for ($i = 0; $i < count($oData); $i++) {
+                array_push($data['preview_image_list'], $oData[$i]->preview_image);
             }
-
-            return $data;
         } else {
-            die("POST request failed by loading preview images list");
+            die('Preview image list empty, load locally');
         }
+
+        return $data;
     }
 
 }
