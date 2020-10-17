@@ -392,25 +392,52 @@ function mmEditTitle_success(title, id) {
 // Add the following code if you want the name of the file appear on select
 $(".custom-file-input").on("change", function() {
     var fileName = $(this).val().split("\\").pop();
-    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    if(fileName){
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    }
 });
 
+// radio choice
 function displayBlogServerPreviewImageDiv() {
     document.getElementById("blog_preview_image_server_div").style.display = "block";
     document.getElementById("blog_preview_image_local_div").style.display = "none";
+    document.getElementById("selectedServerPreviewImageDiv").style.display = "block";
+    document.getElementById("selectedLocalPreviewImageDiv").style.display = "none";
 }
 
 function displayBlogLocalPreviewImageDiv() {
     document.getElementById("blog_preview_image_server_div").style.display = "none";
     document.getElementById("blog_preview_image_local_div").style.display = "block";
+    document.getElementById("selectedServerPreviewImageDiv").style.display = "none";
+    document.getElementById("selectedLocalPreviewImageDiv").style.display = "block";
 }
 
+// server preview image
 function selectedPreviewImage(values) {
     var preview_image = values['preview_image'];
+    var PUBLIC_CORE_IMG_PREVIEWURL = values['PUBLIC_CORE_IMG_PREVIEWURL'];
     document.getElementById('close_blog_preview_images_list').click();
     document.getElementById("blog_preview_image_server").value = preview_image;
+    document.getElementById("selectedServerPreviewImage").src = PUBLIC_CORE_IMG_PREVIEWURL + '/' + preview_image;
 }
 
+// local preview image
+function selectedUploadpreviewImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#selectedLocalPreviewImage')
+                .attr('src', e.target.result);
+        };
+
+        document.getElementById("selectedLocalPreviewImage").classList.add("article_main_img");
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// delete preview image
 function ajax_deletePreviewImage(values) {
     if (confirm("Want to delete Preview Image " + values['preview_image'] + " from server?")) {
         // Logic to delete the page
@@ -443,14 +470,25 @@ function deletePreviewImage_success(values) {
     // [alert info, alert success, alert warning, alert danger]
     var message = '<div class="alert success" id="msg-flash">' +
         '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Sucess: Preview image ' + values['preview_image'] + ' was deleted!' +
+        'Success: Preview image ' + values['preview_image'] + ' was deleted!' +
         '</div>';
     // Inserting the code block
     document.getElementById("message").innerHTML = message;
+
     setTimeout(function () {
         $('#message').fadeOut('fast');
         // reload new view
         $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
+
+        // check gui
+        var selectedPreviewImageURL = document.getElementById("selectedServerPreviewImage").src;
+        var parts = selectedPreviewImageURL.split('/');
+        var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+        if(values['preview_image'] === lastSegment){
+            document.getElementById("selectedServerPreviewImage").src = values['PUBLIC_CORE_IMG_PREVIEWURL'] + '/' + values['DEFAULT_PREVIEW_IMAGE'];
+            document.getElementById("blog_preview_image_server").value = values['DEFAULT_PREVIEW_IMAGE'];
+        }
     }, 3000);
 }
 
+/**********************************************************************************************************************/

@@ -79,9 +79,16 @@
                                         <label class="custom-control-label" for="blog_local_preview_image">New</label>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-12" style="padding-top: 5px; padding-bottom: 10px;">
+                                <!-- server preview image -->
+                                <div id="selectedServerPreviewImageDiv" class="form-group col-md-12" style="padding-top: 5px; padding-bottom: 10px;">
                                     <div class="form-group col-md-2">
-                                        <img class="img-fluid article_main_img" style="border: 1px solid rgba(0, 0, 0, 0.5);" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['blog_preview_image']; ?>">
+                                        <img id="selectedServerPreviewImage" class="img-fluid article_main_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL  . '/' . $data['blog_preview_image']; ?>">
+                                    </div>
+                                </div>
+                                <!-- local preview image -->
+                                <div id="selectedLocalPreviewImageDiv" class="form-group col-md-12" style="padding-top: 5px; padding-bottom: 10px; display: none;">
+                                    <div class="form-group col-md-2">
+                                        <img id="selectedLocalPreviewImage" class="img-fluid">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -133,7 +140,7 @@
                                     </div>
                                     <!-- Local -->
                                     <div style="display: none;" id="blog_preview_image_local_div" class="custom-file">
-                                        <input id="blog_preview_image" type="file" name="blog_preview_image_local" accept="image/.jpg,.png,.jpeg,.gif,.svg"
+                                        <input id="blog_preview_image" onchange="selectedUploadpreviewImage(this)" type="file" name="blog_preview_image_local" accept="image/.jpg,.png,.jpeg,.gif,.svg"
                                                class="custom-file-input <?php echo (!empty($data['blog_preview_image_err'])) ? 'is-invalid' : ''; ?>">
                                         <label id="custom-file-label_blog_preview_image" class="custom-file-label" for="blog_preview_image">Browse</label>
                                         <span class="invalid-feedback"><?php echo $data['blog_preview_image_err']; ?></span>

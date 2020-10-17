@@ -86,6 +86,8 @@ function jsonSelectedPreviewImage($oData = NULL, $preview_image){
     $aData = (array) $oData;
     // add url to array being posted to
     $aData['URLCURRENT'] = URLCURRENT;
+    $aData['PUBLIC_CORE_IMG_PREVIEWURL'] = PUBLIC_CORE_IMG_PREVIEWURL;
+    $aData['DEFAULT_PREVIEW_IMAGE'] = DEFAULT_PREVIEW_IMAGE;
     $aData['preview_image'] = $preview_image;
     $sJSON = json_encode($aData);
     return $sJSON;
