@@ -6,7 +6,7 @@ define('DB_HOST', 'localhost');
 # user*
 define('DB_USER', 'root');
 # pass*
-define('DB_PASS', '');
+define('DB_PASS', '$Bolkun_db93');
 # name*
 define('DB_NAME', '$bolkun_taskmanager');
 
@@ -82,10 +82,10 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
 
 /*** URL ***/
 # url root* redirects to STARTPAGE
-define('URLROOT', 'http://localhost/bolkun');
+define('URLROOT', 'http://192.168.178.29/bolkun');
 # url of current page
 define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-# start page* ( Hint: libraries/Core.php calls controllers/Dashboards and method always index() )
+# start page ( Hint: libraries/Core.php calls controllers/Dashboards and method always index() )
 define('STARTPAGE', 'Indexs');
 /*** PUBLIC ***/
 # public url
