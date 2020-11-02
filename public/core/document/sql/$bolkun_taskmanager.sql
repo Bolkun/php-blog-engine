@@ -186,5 +186,8 @@ create table `preview_image` (
   primary key (`id`)
 ) engine=myisam default charset=utf8;
 
+INSERT INTO `preview_image` (`id`, `created_by_user_id`, `preview_image`) VALUES
+(1, 1, 'default_blog_page-min.png');
+
 -- --------------------------------------------------------
 

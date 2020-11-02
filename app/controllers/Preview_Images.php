@@ -26,7 +26,7 @@ class Preview_Images extends Controller
                 array_push($data['preview_image_list'], $oData[$i]->preview_image);
             }
         } else {
-            die('Preview image list empty, load locally');
+            die('Preview image list empty, please load DEFAULT_PREVIEW_IMAGE to db');
         }
 
         return $data;
