@@ -45,10 +45,6 @@ tinymce.init({
     autosave_restore_when_empty: false,
     autosave_retention: "2m",
 
-	// only for premium user
-    a11y_advanced_options: true,
-    a11ychecker_allow_decorative_images: true,
-
 	// display logo "POWERED BY TINY"
     branding: false,
 
@@ -104,5 +100,5 @@ tinymce.init({
     image_class_list: [
         //{title: 'None', value: ''},
         {title: 'img-fluid', value: 'img-fluid'}
-    ]
+    ],
 });
