@@ -168,7 +168,7 @@ create table `blog` (
   `title`                       text            not null,
   `rank`                        tinyint(1)      unsigned default 5,
   `views`                       bigint(20)      unsigned default 0,
-  `content`                     blob            default null                        comment 'blog main content',
+  `content`                     longblob        default null                        comment 'longblog main content',
   `parent_id`                   bigint(20)      not null                            comment 'id for main_menu',
   primary key (`blog_id`)
 ) engine=myisam default charset=utf8;
