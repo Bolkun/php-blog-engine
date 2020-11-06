@@ -8,8 +8,8 @@
             <div class="<?php if (isAdminLoggedIn() === true) { echo 'container-fluid'; } else { echo 'container'; }?>" style="<?php if (isAdminLoggedIn() === true) { echo 'width: 95%'; } ?>">
                 <div class="row" style="margin-top: -6px; z-index: -1;">
                     <?php if (isAdminLoggedIn() === true) { ?>
-                        <form style="z-index: 0;" class="form-inline" action="<?php echo URLCURRENT; ?>/index" method="post" enctype="multipart/form-data">
-                            <div class="form-row">
+                        <form style="z-index: 0; width: 100%;" class="form-inline" action="<?php echo URLCURRENT; ?>/index" method="post" enctype="multipart/form-data">
+                            <div class="form-row" style="width: 103%;">
                                 <div class="form-group col-lg-12">
                                     <textarea class="tinymce" name="blog_ta_tinymce">
                                         <?php echo $data['blog_content']; ?>
