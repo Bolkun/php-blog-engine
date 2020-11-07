@@ -11,6 +11,10 @@ a:hover {
     flex-grow: 0;
 }
 
+.list-group-item {
+    display: list-item;
+}
+
 /**********************************************************************************************************************/
 
 /* view: inc/2-nav-top-user */
@@ -163,11 +167,11 @@ ol.tree {
     padding: 0px 10px 0 27px;
     width: inherit;
     margin-bottom: 5px;
+    list-style: none;
 }
 li {
     position: relative;
     margin-left: -15px;
-    list-style: none;
 }
 li input {
     position: absolute;
