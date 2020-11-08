@@ -2,6 +2,9 @@ tinymce.init({
     // replace textarea having class .tinymce with tinymce editor
     selector: "textarea.tinymce",
 
+    // toolbar sticky when scrolling down a web page until the editor is no longer visible.
+    toolbar_sticky: true,
+
     // width and height of the editor
     width: "100%",
 

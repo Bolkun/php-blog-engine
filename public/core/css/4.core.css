@@ -573,3 +573,8 @@ body {
 }
 
 /**********************************************************************************************************************/
+/* tinymce */
+/* position fixed of toolbars */
+.tox.tox-tinymce--toolbar-sticky-on .tox-editor-header {
+    top: 90px !important;
+}
