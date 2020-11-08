@@ -5,7 +5,7 @@
 <div id="load_blog_box">
     <div id="load_blog_divs">
         <?php if(is_numeric($data['url_param']) && $data['url_param'] != '0'){ ?>
-            <div class="<?php if (isAdminLoggedIn() === true) { echo 'container-fluid'; } else { echo 'container'; }?>" style="<?php if (isAdminLoggedIn() === true) { echo 'width: 95%'; } ?>">
+            <div class="container" style="<?php if (isAdminLoggedIn() === true) { echo 'width: 95%'; } ?>">
                 <div class="row" style="margin-top: -6px; z-index: -1;">
                     <?php if (isAdminLoggedIn() === true) { ?>
                         <form style="z-index: 0; width: 100%;" class="form-inline" action="<?php echo URLCURRENT; ?>/index" method="post" enctype="multipart/form-data">
