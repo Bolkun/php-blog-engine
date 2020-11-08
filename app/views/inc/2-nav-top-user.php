@@ -249,7 +249,9 @@
                         <div id="mm_load_trees">
                             <div id="main_menu_message"><?php flash('main_menu'); ?></div>
                             <!----------------------------------------------------------------------------------------->
-                            <?php echo createTreeView(0, $data['blog_mm']); ?>
+                            <?php
+                                echo createTreeView(0, $data['blog_mm']);
+                            ?>
                             <!----------------------------------------------------------------------------------------->
                         </div>
                     </div>

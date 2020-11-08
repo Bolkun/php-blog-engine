@@ -400,12 +400,16 @@ function createTreeView($parent, $menu)
         foreach ($menu['parents'][$parent] as $itemId) {
             // check permission color
             if(isset($_SESSION['user_role'])) {
-                if ($menu['items'][$itemId]['observe_permissions'] === $_SESSION['user_email']) {
-                    $permission_color = '#ff7f50';
-                } else if ($menu['items'][$itemId]['observe_permissions'] === 'Admins') {
-                    $permission_color = '#f1f227';
-                } else if ($menu['items'][$itemId]['observe_permissions'] === 'RegisteredUsers') {
-                    $permission_color = '#98fb98';
+                if (isset($menu['items'][$itemId]['observe_permissions'])) {
+                    if($menu['items'][$itemId]['observe_permissions'] === $_SESSION['user_email']){
+                        $permission_color = '#ff7f50';
+                    }else if ($menu['items'][$itemId]['observe_permissions'] === 'Admins') {
+                        $permission_color = '#f1f227';
+                    } else if ($menu['items'][$itemId]['observe_permissions'] === 'RegisteredUsers') {
+                        $permission_color = '#98fb98';
+                    } else {
+                        $permission_color = 'white';
+                    }
                 } else {
                     $permission_color = 'white';
                 }
