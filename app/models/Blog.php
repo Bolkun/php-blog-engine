@@ -120,7 +120,8 @@ class Blog
     {
         $sObserve_permissions = implode("','", $observe_permissions);
 
-        $this->db->query("SELECT blog_id, observe_permissions, title, parent_id FROM blog WHERE observe_permissions IN ('".$sObserve_permissions."') ORDER BY title ASC");
+        $this->db->query("SELECT blog_id, observe_permissions, title, parent_id FROM blog 
+          WHERE observe_permissions IN ('".$sObserve_permissions."') ORDER BY title ASC");
 
         $row = $this->db->resultSet();
 
@@ -135,7 +136,7 @@ class Blog
     {
         $sObserve_permissions = implode("','", $observe_permissions);
 
-        $this->db->query("SELECT blog_id, title, parent_id FROM blog 
+        $this->db->query("SELECT blog_id, observe_permissions, title, parent_id FROM blog 
           WHERE observe_permissions IN ('".$sObserve_permissions."') AND title LIKE '%" . $data['search'] . "%' ORDER BY title ASC");
 
         $row = $this->db->resultSet();
