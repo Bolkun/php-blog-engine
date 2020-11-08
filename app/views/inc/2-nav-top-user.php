@@ -184,6 +184,9 @@
         <div id="collapse_main_menu" class="dropdown-menu bg-dark">
             <div id="mm_load">
                 <h4 class="h4_nav_top_user">
+                    <i id='mmDropDownItems' style='color: white; cursor: pointer;'
+                       onclick="mmDropDownItems()" class='fa fa-play'
+                       aria-hidden='true'></i>
                     Main
                     <?php if (isAdminLoggedIn()) { ?>
                         <i id='mmAddChild0' style='color: grey; cursor: pointer'
