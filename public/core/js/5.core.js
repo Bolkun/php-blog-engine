@@ -1,6 +1,7 @@
 /*
  *   view: admins/pages/newEditDelete.php
  */
+
 // Auto generate link from given path
 function pagesPathtoPagesLink(values) {
     var linkRoot = values['URLROOT'];
@@ -90,6 +91,7 @@ function pagesDeletePage_success(values) {
 /*
  *   view: inc/3-nav-top-admin.php
  */
+
 // Delete main menu item
 function ajax_menuDeleteTree(values) {
 
@@ -399,7 +401,6 @@ function mmDropDownItems() {
     } else {
         // All checkboxes unchecked
         $(".main_menu_checkbox").prop("checked", false);
-        document.getElementsByClassName("main_menu_checkbox").checked = false;
         // rotate
         document.getElementById("mmDropDownItems").style.transform = "rotate(0deg)";
         // Set selected element to grey
@@ -414,9 +415,9 @@ function mmDropDownItems() {
  */
 // file input
 // Add the following code if you want the name of the file appear on select
-$(".custom-file-input").on("change", function() {
+$(".custom-file-input").on("change", function () {
     var fileName = $(this).val().split("\\").pop();
-    if(fileName){
+    if (fileName) {
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     }
 });
@@ -508,7 +509,7 @@ function deletePreviewImage_success(values) {
         var selectedPreviewImageURL = document.getElementById("selectedServerPreviewImage").src;
         var parts = selectedPreviewImageURL.split('/');
         var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
-        if(values['preview_image'] === lastSegment){
+        if (values['preview_image'] === lastSegment) {
             document.getElementById("selectedServerPreviewImage").src = values['PUBLIC_CORE_IMG_PREVIEWURL'] + '/' + values['DEFAULT_PREVIEW_IMAGE'];
             document.getElementById("blog_preview_image_server").value = values['DEFAULT_PREVIEW_IMAGE'];
         }
