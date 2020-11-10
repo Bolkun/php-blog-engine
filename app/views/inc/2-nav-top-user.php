@@ -254,6 +254,14 @@
                             <!----------------------------------------------------------------------------------------->
                             <?php
                                 echo createTreeView(0, $data['blog_mm']);
+
+                                // display or hide mmDropDownItems
+                                if(! isset($GLOBALS['HAS_CHILDREN_MM_DROP_DOWN'])){ ?>
+                                    <script>
+                                        document.getElementById("mmDropDownItems").style.display = "none";
+                                    </script>
+                            <?php
+                                }
                             ?>
                             <!----------------------------------------------------------------------------------------->
                         </div>

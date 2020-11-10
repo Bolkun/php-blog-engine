@@ -448,6 +448,9 @@ function createTreeView($parent, $menu)
                     $html .= createTreeView($itemId, $menu);
                     $html .= "</li>";
                 }
+
+                // for displaying mmDropDown All items
+                $GLOBALS['HAS_CHILDREN_MM_DROP_DOWN'] = "true";
             }
         }
         $html .= "</ol>";
