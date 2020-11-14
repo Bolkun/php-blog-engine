@@ -14,15 +14,6 @@ function autoload_stylesheet()
         }
     }
     unset($aStyles);
-
-    // custom styles
-    $aStyles = getAllFilesInDir(PUBLIC_CUSTOM_CSSROOT);
-    foreach ($aStyles as $file) {
-        if (preg_match("/^.*\.css$/", $file)) {
-            echo '<link rel="stylesheet" href="' . PUBLIC_CUSTOM_CSSURL . '/' . $file . '">';
-        }
-    }
-    unset($aStyles);
 }
 
 /**
@@ -34,15 +25,6 @@ function autoload_javascript()
 {
     // core js files
     $aJs = getAllFilesInDir(PUBLIC_CORE_JSROOT);
-    foreach ($aJs as $file) {
-        if (preg_match("/^.*\.js$/", $file)) {
-            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file . '"></script>';
-        }
-    }
-    unset($aJs);
-
-    //custom js files
-    $aJs = getAllFilesInDir(PUBLIC_CUSTOM_JSROOT);
     foreach ($aJs as $file) {
         if (preg_match("/^.*\.js$/", $file)) {
             echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file . '"></script>';

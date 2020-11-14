@@ -1,5 +1,0 @@
-# Zugriff auf .htaccess und .htpasswd verbieten, falls in Benutzung
-<FilesMatch "(\.htaccess)">
-  Order allow,deny
-  Deny from all
-</FilesMatch>

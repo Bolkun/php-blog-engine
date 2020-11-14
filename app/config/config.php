@@ -59,26 +59,6 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
         define('PUBLIC_CORE_OBJECTROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'object');
         # video folder
         define('PUBLIC_CORE_VIDEOROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'video');
-    /*** CUSTOM ***/
-    define('PUBLIC_CUSTOMROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'custom');
-        # css folder
-        define('PUBLIC_CUSTOM_CSSROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'css');
-        # document folder
-        define('PUBLIC_CUSTOM_DOCUMENTROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'document');
-        # download folder
-        define('PUBLIC_CUSTOM_DOWNLOADROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'download');
-        # font folder
-        define('PUBLIC_CCUSTOM_FONTROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'font');
-        # img folder
-        define('PUBLIC_CUSTOM_IMGROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'img');
-        # js folder
-        define('PUBLIC_CUSTOM_JSROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'js');
-        # music folder
-        define('PUBLIC_CUSTOM_MUSICROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'music');
-        # object folder
-        define('PUBLIC_CUSTOM_OBJECTROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'object');
-        # video folder
-        define('PUBLIC_CUSTOM_VIDEOROOT', PUBLIC_CUSTOMROOT . DIRECTORY_SEPARATOR . 'video');
 
 /*** URL ***/
 # url root* redirects to STARTPAGE
@@ -116,27 +96,5 @@ define('PUBLICURL', URLROOT . '/public');
         define('PUBLIC_CORE_OBJECTURL', PUBLIC_COREURL . '/object');
         # video folder
         define('PUBLIC_CORE_VIDEOURL', PUBLIC_COREURL . '/video');
-    /*** CUSTOM ***/
-    define('PUBLIC_CUSTOMURL', PUBLICURL . '/core');
-        # css folder
-        define('PUBLIC_CUSTOM_CSSURL', PUBLIC_CUSTOMURL . '/css');
-        # document folder
-        define('PUBLIC_CUSTOM_DOCUMENTURL', PUBLIC_CUSTOMURL . '/document');
-        # download folder
-        define('PUBLIC_CUSTOM_DOWNLOADURL', PUBLIC_CUSTOMURL . '/download');
-        # font folder
-        define('PUBLIC_CCUSTOM_FONTURL', PUBLIC_CUSTOMURL . '/font');
-        # img folder
-        define('PUBLIC_CUSTOM_IMGURL', PUBLIC_CUSTOMURL . '/img');
-        # js folder
-        define('PUBLIC_CUSTOM_JSURL', PUBLIC_CUSTOMURL . '/js');
-        # music folder
-        define('PUBLIC_CUSTOM_MUSICURL', PUBLIC_CUSTOMURL . '/music');
-        # object folder
-        define('PUBLIC_CUSTOM_OBJECTURL', PUBLIC_CUSTOMURL . '/object');
-        # video folder
-        define('PUBLIC_CUSTOM_VIDEOURL', PUBLIC_CUSTOMURL . '/video');
 
-/*** STYLE ***/
-
-
+/*** OTHER ***/
