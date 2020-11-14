@@ -16,14 +16,14 @@ tinymce.init({
 		'advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr ' +
 		'pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker ' +
 		'a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap tinycomments ' +
-		'mentions quickbars linkchecker emoticons advtable autoresize',
+		'mentions quickbars linkchecker emoticons advtable autoresize code',
 
     mobile: {
         plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save ' +
 			'directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample ' +
 			'table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount ' +
 			'tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter pageembed charmap mentions ' +
-			'quickbars linkchecker emoticons advtable autoresize'
+			'quickbars linkchecker emoticons advtable autoresize code'
     },
     menu: {
         tc: {
@@ -37,7 +37,7 @@ tinymce.init({
 		'alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | ' +
 		'forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | ' +
 		'fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | ' +
-		'a11ycheck ltr rtl | showcomments addcomment',
+		'a11ycheck ltr rtl | showcomments addcomment | code',
 
     // display all toolbar in a line
     toolbar_mode: 'wrap',
