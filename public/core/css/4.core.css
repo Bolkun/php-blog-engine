@@ -62,7 +62,7 @@ a:hover {
     float: left;
 }
 
-#toggle_bell_menu, #toggle_login_menu, #toggle_main_menu {
+#toggle_share_menu, #toggle_login_menu, #toggle_main_menu {
     color: white;
     border: 1px solid white;
     border-radius: .25rem;
@@ -74,14 +74,14 @@ a:hover {
     color: #808488;
 }
 
-#collapse_bell_menu, #collapse_login_menu, #collapse_main_menu {
+#collapse_share_menu, #collapse_login_menu, #collapse_main_menu {
     border-top: none;
     left: 4px;
     min-width: 280px;
 }
 
 @media (max-width: 590px) {
-    #collapse_bell_menu, #collapse_login_menu, #collapse_main_menu {
+    #collapse_share_menu, #collapse_login_menu, #collapse_main_menu {
         margin-left: -16px;
     }
 }

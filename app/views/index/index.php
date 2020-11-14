@@ -151,11 +151,11 @@
                                 </div>
                             </div>
                         </form>
-                    <?php } //else { ?>
+                    <?php } else { ?>
                     <div id="tinymce_data">
                         <?php echo $data['blog_content']; ?>
                     </div>
-                    <?php// }  ?>
+                    <?php } ?>
                 </div>
             </div>
         <?php } elseif($data['url_param'] == '0' || $data['url_param'] === 'index'){ ?>

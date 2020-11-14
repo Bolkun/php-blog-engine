@@ -7,15 +7,15 @@
         </a>
 
         <!-- element 2 -->
-        <button id="toggle_bell_menu" class="btn btn-default float-left"
-                onclick="changeNavTopUserColor('toggle_bell_menu', 'collapse_bell_menu')" type="button"
-                data-toggle="collapse" data-target="#collapse_bell_menu">
-            <i id="subscribe" class="fa fa-bell"></i>
+        <button id="toggle_share_menu" class="btn btn-default float-left"
+                onclick="changeNavTopUserColor('toggle_share_menu', 'collapse_share_menu')" type="button"
+                data-toggle="collapse" data-target="#collapse_share_menu">
+            <i id="subscribe" class="fa fa-share-alt"></i>
         </button>
         <!-- Toggler Bell Menu -->
-        <div id="collapse_bell_menu" class="dropdown-menu bg-dark">
+        <div id="collapse_share_menu" class="dropdown-menu bg-dark">
             <div id="accordion">
-                <h4 class="h4_nav_top_user">Notifications</h4>
+                <h4 class="h4_nav_top_user">Social Media</h4>
                 <form class="form-inline" action="/action_page1.php">
 
                 </form>

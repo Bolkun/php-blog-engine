@@ -1,8 +1,8 @@
 // change color and hide another opened togglers
 function changeNavTopUserColor(id, cid) {
     // just add one more id in array
-    var icons_ids = ['home_menu', 'toggle_bell_menu', 'toggle_login_menu', 'toggle_main_menu'];
-    var collapse_ids = ['collapse_bell_menu', 'collapse_login_menu', 'collapse_main_menu'];
+    var icons_ids = ['home_menu', 'toggle_share_menu', 'toggle_login_menu', 'toggle_main_menu'];
+    var collapse_ids = ['collapse_share_menu', 'collapse_login_menu', 'collapse_main_menu'];
     var icons_ids_length = icons_ids.length;
     var count = 0;
     var getColor = document.getElementById(id).style.color;
