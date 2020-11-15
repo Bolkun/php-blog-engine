@@ -12,13 +12,164 @@
                 data-toggle="collapse" data-target="#collapse_share_menu">
             <i id="subscribe" class="fa fa-share-alt"></i>
         </button>
-        <!-- Toggler Bell Menu -->
+        <!-- Toggler Social Media Menu -->
         <div id="collapse_share_menu" class="dropdown-menu bg-dark">
-            <div id="accordion">
-                <h4 class="h4_nav_top_user">Social Media</h4>
-                <form class="form-inline" action="/action_page1.php">
-
-                </form>
+            <h4 class="h4_nav_top_user">Social Media</h4>
+            <div id="share_menu_load">
+                <div id="share_menu_content">
+                    <div id="message_sm"><?php flash('social_media'); ?></div>
+                    <div id="accordion">
+                        <?php if (isAdminLoggedIn() === true) { ?>
+                            <form action="<?php echo URLROOT; ?>/index" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input id="socialMedia_name" type="text" name="socialMedia_name"
+                                           class="form-control <?php echo (!empty($data['sm_add_name_err'])) ? 'is-invalid' : ''; ?>"
+                                           value="<?php echo $data['sm_add_name']; ?>" placeholder="Name">
+                                    <span class="invalid-feedback"><?php echo $data['sm_add_name_err']; ?></span>
+                                </div>
+                                <div class="form-group">
+                                    <input id="socialMedia_link" type="text" name="socialMedia_link"
+                                           class="form-control <?php echo (!empty($data['sm_add_link_err'])) ? 'is-invalid' : ''; ?>"
+                                           value="<?php echo $data['sm_add_link']; ?>" placeholder="Link">
+                                    <span class="invalid-feedback"><?php echo $data['sm_add_link_err']; ?></span>
+                                </div>
+                                <div style="color: white; padding-left: 10px;">
+                                    <!-- Radio choice -->
+                                    <label for="sm_server_image">Image</label>
+                                    <div class="custom-control custom-radio custom-control-inline text-center" style="left: 1.5rem;">
+                                        <input id="sm_server_social_image" onclick="displaySMServerSocialImageDiv()"
+                                               type="radio" class="custom-control-input" name="sm_radio_social_image"
+                                               value="server" checked>
+                                        <label class="custom-control-label"
+                                               for="sm_server_social_image">server</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline text-center" style="left: 1.5rem;">
+                                        <input id="sm_local_social_image" onclick="displaySMLocalSocialImageDiv()"
+                                               type="radio" class="custom-control-input" name="sm_radio_social_image"
+                                               value="local">
+                                        <label class="custom-control-label" for="sm_local_social_image">local</label>
+                                    </div>
+                                </div>
+                                <!-- server social image -->
+                                <div id="selectedServerSocialImageDiv">
+                                    <div class="form-group col-md-12">
+                                        <img id="selectedServerSocialImage" class="img-fluid sm_main_img"
+                                             src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . DEFAULT_SOCIAL_IMAGE; ?>">
+                                    </div>
+                                </div>
+                                <!-- local preview image -->
+                                <div id="selectedLocalSocialImageDiv" style="display: none;">
+                                    <div class="form-group col-md-12">
+                                        <img id="selectedLocalSocialImage" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!-- Server -->
+                                    <div id="sm_social_image_server_div" class="custom-file">
+                                        <input id="sm_social_image_server" type="text" name="sm_social_image_server"
+                                               class="form-control <?php echo (!empty($data['sm_add_image_server_err'])) ? 'is-invalid' : ''; ?>"
+                                               value="<?php if (empty($data['sm_add_image'])) {
+                                                   echo DEFAULT_SOCIAL_IMAGE;
+                                               } else {
+                                                   echo $data['sm_add_image'];
+                                               }; ?>" data-toggle="modal" data-target="#sm_social_images_list" readonly>
+                                        <span class="invalid-feedback"><?php echo $data['sm_add_image_server_err']; ?></span>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="sm_social_images_list" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Social
+                                                            images</h5>
+                                                        <button id="close_sm_social_images_list" type="button"
+                                                                class="close"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div id="sm_social_images_list_modal_body" class="modal-body">
+                                                        <div id="sm_social_images_list_load">
+                                                            <div id="sm_social_images_list_load_content">
+                                                                <div id="message"><?php flash('social_images'); ?></div>
+                                                                <div class="row">
+                                                                    <?php for ($p = 0; $p < count($data['social_image_list']); $p++) { ?>
+                                                                        <div class="col-sm-2">
+                                                                            <img style="border: 1px solid rgba(0, 0, 0, 0.5);"
+                                                                                 onclick='selectedSocialImage(<?php echo jsonSelectedSocialImage(NULL, $data['social_image_list'][$p]); ?>)'
+                                                                                 class="sm_social_img"
+                                                                                 src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['social_image_list'][$p]; ?>">
+                                                                            <?php if (DEFAULT_SOCIAL_IMAGE !== $data['social_image_list'][$p]) { ?>
+                                                                                <div class="img-text-clicked"
+                                                                                     style="cursor: pointer;"
+                                                                                     onclick='ajax_deleteSocialImage(<?php echo jsonSelectedSocialImage(NULL, $data['social_image_list'][$p]); ?>)'>
+                                                                            <span>
+                                                                                <i class="fa fa-trash-o"></i>
+                                                                            </span>
+                                                                                </div>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Local -->
+                                    <div style="display: none;" id="sm_social_image_local_div" class="custom-file">
+                                        <input id="sm_local_image" onchange="selectedUploadSocialImage(this)"
+                                               type="file"
+                                               name="sm_image_local" accept="image/.jpg,.png,.jpeg,.gif,.svg"
+                                               class="custom-file-input <?php echo (!empty($data['sm_add_image_local_err'])) ? 'is-invalid' : ''; ?>">
+                                        <label id="custom-file-label_sm_social_image" class="custom-file-label"
+                                               for="sm_local_image">Browse</label>
+                                        <span class="invalid-feedback"><?php echo $data['sm_add_image_local_err']; ?></span>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     style=" <?php if (!empty($data['sm_add_image_server_err']) || !empty($data['sm_add_image_local_err'])) {
+                                         echo "padding-top: 20px";
+                                     } ?>">
+                                    <input id="submit_social_media" name="submitSocialMedia" type="submit" value="Add"
+                                           class="btn btn-success btn-block">
+                                </div>
+                            </form>
+                        <?php } ?>
+                        <div id="social_media_data">
+                            <div class="col text-center">
+                                <?php
+                                if ($data['sm'] !== false) {
+                                    if (isAdminLoggedIn()) {
+                                        for ($i = 0; $i < count($data['sm']['id']); $i++) { ?>
+                                            <img onclick='ajax_deleteSocialMedia(<?php echo jsonEncodeDeleteSocialMedia(NULL, $data['sm']['name'][$i]); ?>)'
+                                                 src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['sm']['image'][$i]; ?>"
+                                                 alt="<?php echo $data['sm']['name'][$i]; ?>" class="img-responsive sm_admin_image">
+                                            <?php
+                                        }
+                                    } else {
+                                        // users
+                                        for ($i = 0; $i < count($data['sm']['id']); $i++) { ?>
+                                            <a href="<?php echo $data['sm']['link'][$i]; ?>" target="_blank" style="text-decoration: none;">
+                                                <img src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['sm']['image'][$i]; ?>"
+                                                     alt="<?php echo $data['sm']['name'][$i]; ?>" class="img-responsive sm_user_image">
+                                            </a>
+                                            <?php
+                                        }
+                                    }
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -209,7 +360,8 @@
                         </form>
                     </div>
                     <div id="mm_add_child_form">
-                        <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                        <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index"
+                              method="post">
                             <input id="mm_add_child" type="text" name="mm_add_child"
                                    class="form-control <?php echo (!empty($data['blog_mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['blog_mm_add_child']; ?>"
@@ -229,7 +381,8 @@
                         </form>
                     </div>
                     <div id="mm_edit_title_form">
-                        <form id="mmEditTitleForm" class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                        <form id="mmEditTitleForm" class="form-inline" action="<?php echo URLROOT; ?>/index"
+                              method="post">
                             <input id="mm_edit_title_id" type="text" name="mm_edit_title_id"
                                    style="display: none"
                                    class="form-control"
@@ -253,15 +406,15 @@
                             <div id="main_menu_message"><?php flash('main_menu'); ?></div>
                             <!----------------------------------------------------------------------------------------->
                             <?php
-                                echo createTreeView(0, $data['blog_mm']);
+                            echo createTreeView(0, $data['blog_mm']);
 
-                                // display or hide mmDropDownItems
-                                if(! isset($GLOBALS['HAS_CHILDREN_MM_DROP_DOWN'])){ ?>
-                                    <script>
-                                        document.getElementById("mmDropDownItems").style.display = "none";
-                                    </script>
-                            <?php
-                                }
+                            // display or hide mmDropDownItems
+                            if (!isset($GLOBALS['HAS_CHILDREN_MM_DROP_DOWN'])) { ?>
+                                <script>
+                                    document.getElementById("mmDropDownItems").style.display = "none";
+                                </script>
+                                <?php
+                            }
                             ?>
                             <!----------------------------------------------------------------------------------------->
                         </div>

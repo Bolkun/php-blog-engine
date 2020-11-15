@@ -86,6 +86,7 @@ a:hover {
     }
 }
 
+#socialMedia_name, #socialMedia_link, #sm_social_image_server, #custom-file-label_sm_social_image, #message_sm,
 #register_firstname, #register_surname, #register_email, #register_password, #register_confirm_password, #submit_register,
 #login_email, #login_password, #login_verification_code, #submit_login,
 #setting_old_password, #setting_new_password {
@@ -94,6 +95,15 @@ a:hover {
     background-color: transparent;
     margin-left: 5px;
     color: #76b901;
+}
+
+.sm_admin_image {
+    cursor: no-drop;
+    padding: 5px;
+}
+.sm_user_image {
+    cursor: pointer;
+    padding: 5px;
 }
 
 #register_link,
@@ -105,7 +115,7 @@ a:hover {
     color: white;
 }
 
-#logout {
+#logout, #submit_social_media {
     width: 96%;
     border-color: deepskyblue;
     background-color: transparent;
@@ -160,26 +170,33 @@ a:hover {
     padding: 0;
 }
 
-#mm_load_box {
-    height: 100%;
+#mm_load_box, #collapse_share_menu {
     max-height: 400px;
     overflow: scroll;
     border: 4px solid #333a40;
 }
-#mm_load_box::-webkit-scrollbar {
+#collapse_login_menu{
+    max-height: 450px;
+    overflow: scroll;
+    border: 4px solid #333a40;
+}
+#mm_load_box::-webkit-scrollbar, #collapse_share_menu::-webkit-scrollbar, #collapse_login_menu::-webkit-scrollbar
+{
     height: 2px;
     width: 2px;
 }
-#mm_load_box::-webkit-scrollbar-thumb {
+#mm_load_box::-webkit-scrollbar-thumb, #collapse_share_menu::-webkit-scrollbar-thumb, #collapse_login_menu::-webkit-scrollbar-thumb
+{
     background-color: #76b901; /*scroll line color*/
 }
-#mm_load_box::-webkit-scrollbar-track {
+#mm_load_box::-webkit-scrollbar-track, #collapse_share_menu::-webkit-scrollbar-track, #collapse_login_menu::-webkit-scrollbar-track
+{
     background: #333a40;    /*scroll bg*/
 }
-#mm_load_box::-webkit-scrollbar-corner {
+#mm_load_box::-webkit-scrollbar-corner, #collapse_share_menu::-webkit-scrollbar-corner, #collapse_login_menu::-webkit-scrollbar-corner
+{
     background: #333a40;    /*scroll bg*/
 }
-
 
 /*****************************************************************************************************************/
 /* CSS to style Treeview main menu  */
@@ -420,6 +437,10 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
+.sm_main_img {
+    object-fit: cover;
+}
+
 .col-lg-6_p {
     font-size: 1.3rem;
 }
@@ -488,9 +509,9 @@ body {
 
 /* radio buttons */
 .custom-control-input:checked ~ .custom-control-label::before {
-    color: #fff;
-    border-color: #28a745;
-    background-color: #28a745;
+    color: white;
+    border-color: rgb(118, 185, 1);
+    background-color: rgb(118, 185, 1);
 }
 
 /* Hidden Main Context */
@@ -514,11 +535,12 @@ body {
     padding-left: 20px;
 }
 
-.blog_preview_img {
+.blog_preview_img, .sm_social_img {
     width: 100%;
     cursor: pointer;
 }
-.blog_preview_img:hover {
+
+.blog_preview_img:hover, .sm_social_img:hover {
     -ms-transform: scale(0.8); /* IE 9 */
     -webkit-transform: scale(0.8); /* Safari 3-8 */
     transform: scale(0.8);

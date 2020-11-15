@@ -5,12 +5,16 @@ class Indexs extends Controller
     private $blogController;
     private $userController;
     private $preview_imageController;
+    private $social_mediaController;
+    private $social_imageController;
 
     public function __construct()
     {
         $this->blogController = $this->controller('Blogs');
         $this->userController = $this->controller('Users');
         $this->preview_imageController = $this->controller('Preview_Images');
+        $this->social_mediaController = $this->controller('Social_Medias');
+        $this->social_imageController = $this->controller('Social_Images');
     }
 
     /*
@@ -22,6 +26,17 @@ class Indexs extends Controller
         $observe_permissions = getUserPermissions();
         $data = [
             'url_param' => $url_param,
+            // social media
+            'sm' => (new Social_Medias)->index(),
+            'sm_add_name' => '',
+            'sm_add_link' => '',
+            'sm_add_image' => '',
+            'sm_add_name_err' => '',
+            'sm_add_link_err' => '',
+            'sm_add_image_server_err' => '',
+            'sm_add_image_local_err' => '',
+            // social image
+            'social_image_list' => (new Social_Images)->loadList(),
             // blog
             'blog_id' => [],
             'blog_created_by_user_id' => [],
@@ -33,7 +48,6 @@ class Indexs extends Controller
             'blog_rank' => [],
             'blog_views' => [],
             'blog_content' => [],
-            // errors
             'blog_preview_image_err' => '',
             'blog_category_err' => '',
             'blog_title_err' => '',
@@ -205,6 +219,34 @@ class Indexs extends Controller
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
+        }
+        elseif (isset($_POST['submitSocialMedia'])) {
+            $sm = new Social_Medias();
+            $sm_data = $sm->save();
+            $new_data = [
+                'sm' => (new Social_Medias)->index(),
+                'sm_add_name' => $sm_data['name'],
+                'sm_add_link' => $sm_data['link'],
+                'sm_add_image' => $sm_data['image'],
+                'sm_add_name_err' => $sm_data['name_err'],
+                'sm_add_link_err' => $sm_data['link_err'],
+                'sm_add_image_server_err' => $sm_data['server_image_err'],
+                'sm_add_image_local_err' => $sm_data['local_image_err'],
+                // social image
+                'social_image_list' => (new Social_Images)->loadList(),
+                // other
+                'display_div' => array('collapse_share_menu'),
+            ];
+
+            $data = mergeAsocArrays($data, $new_data);
+        }
+        elseif (isset($_POST['ajax_sDeleteSocialImage'])) {
+            $social_image = new Social_Images();
+            $social_image->deleteSocialImage();
+        }
+        elseif (isset($_POST['ajax_sDeleteSocialMedia'])) {
+            $sm = new Social_Medias();
+            $sm->delete();
         }
 
         if (is_numeric($url_param) && $url_param != '0') {

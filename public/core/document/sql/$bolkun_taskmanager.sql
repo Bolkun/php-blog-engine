@@ -191,3 +191,31 @@ INSERT INTO `preview_image` (`id`, `created_by_user_id`, `preview_image`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Tabellenstruktur für Tabelle `social_media`
+--
+create table `social_media` (
+  `id`                          bigint(20)      unsigned not null auto_increment,
+  `name`                        varchar(100)    not null,
+  `link`                        varchar(100)    not null,
+  `image`                       varchar(100)    not null,
+  primary key (`id`)
+) engine=myisam default charset=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `social_image`
+--
+create table `social_image` (
+  `id`                          bigint(20)      unsigned not null auto_increment,
+  `created_by_user_id`          int(10)         unsigned not null,
+  `creation_date`               datetime        default current_timestamp,
+  `image`                       varchar(100)    not null,
+  primary key (`id`)
+) engine=myisam default charset=utf8;
+
+INSERT INTO `social_image` (`id`, `created_by_user_id`, `image`) VALUES
+(1, 1, 'default_social_image-min.png');
+
+-- --------------------------------------------------------

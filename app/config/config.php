@@ -19,6 +19,8 @@ define('APPVERSION', '1.0.0');
 define('CLEARPAGECACHE', true);
 # preview image name*
 define('DEFAULT_PREVIEW_IMAGE', 'default_blog_page-min.png');
+# social image name*
+define('DEFAULT_SOCIAL_IMAGE', 'default_social_image-min.png');
 
 /*** APP ***/
 # app folder (absolute path)
@@ -49,6 +51,8 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
             define('PUBLIC_CORE_IMG_DEVROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'dev');
             # preview folder
             define('PUBLIC_CORE_IMG_PREVIEWROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'preview');
+            # social media folder
+            define('PUBLIC_CORE_IMG_SOCIALROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'social');
             # ui folder
             define('PUBLIC_CORE_IMG_UIROOT', PUBLIC_CORE_IMGROOT . DIRECTORY_SEPARATOR . 'ui');
         # js folder
@@ -86,6 +90,8 @@ define('PUBLICURL', URLROOT . '/public');
             define('PUBLIC_CORE_IMG_DEVURL', PUBLIC_CORE_IMGURL . '/dev');
             # preview folder
             define('PUBLIC_CORE_IMG_PREVIEWURL', PUBLIC_CORE_IMGURL . '/preview');
+            # social folder
+            define('PUBLIC_CORE_IMG_SOCIALURL', PUBLIC_CORE_IMGURL . '/social');
             # ui folder
             define('PUBLIC_CORE_IMG_UIURL', PUBLIC_CORE_IMGURL . '/ui');
         # js folder

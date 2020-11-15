@@ -89,7 +89,7 @@ function pagesDeletePage_success(values) {
 /**********************************************************************************************************************/
 
 /*
- *   view: inc/3-nav-top-admin.php
+ *   view: inc/3-nav-top-user.php
  */
 
 // Delete main menu item
@@ -408,6 +408,145 @@ function mmDropDownItems() {
     }
 }
 
+// Social Media
+// radio choice
+function displaySMServerSocialImageDiv() {
+    document.getElementById("sm_social_image_server_div").style.display = "block";
+    document.getElementById("sm_social_image_local_div").style.display = "none";
+    document.getElementById("selectedServerSocialImageDiv").style.display = "block";
+    document.getElementById("selectedLocalSocialImageDiv").style.display = "none";
+}
+
+function displaySMLocalSocialImageDiv() {
+    document.getElementById("sm_social_image_server_div").style.display = "none";
+    document.getElementById("sm_social_image_local_div").style.display = "block";
+    document.getElementById("selectedServerSocialImageDiv").style.display = "none";
+    document.getElementById("selectedLocalSocialImageDiv").style.display = "block";
+}
+
+// server social image
+function selectedSocialImage(values) {
+    var social_image = values['social_image'];
+    var PUBLIC_CORE_IMG_SOCIALURL = values['PUBLIC_CORE_IMG_SOCIALURL'];
+    document.getElementById('close_sm_social_images_list').click();
+    document.getElementById("sm_social_image_server").value = social_image;
+    document.getElementById("selectedServerSocialImage").src = PUBLIC_CORE_IMG_SOCIALURL + '/' + social_image;
+}
+
+// local social image
+function selectedUploadSocialImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#selectedLocalSocialImage')
+                .attr('src', e.target.result);
+        };
+
+        //document.getElementById("selectedLocalSocialImage").classList.add("article_main_img");
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// delete social image
+function ajax_deleteSocialImage(values) {
+    if (confirm("Want to delete Social Image " + values['social_image'] + " from server?")) {
+        // Logic to delete the page
+        $.ajax({
+            url: values['URLCURRENT'],
+            data: 'ajax_sDeleteSocialImage=' + values['social_image'],
+            type: 'post',
+            error: deleteSocialImage_error(values),
+            success: deleteSocialImage_success(values)
+        });
+    }
+}
+
+function deleteSocialImage_error(values) {
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert danger" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Error: Could not delete social image =' + values['social_image'] + '!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("message").innerHTML = message;
+    setTimeout(function () {
+        $('#message').fadeOut('fast');
+        // reload new view
+        $("#sm_social_images_list_load").load(location.href + " #sm_social_images_list_load_content");    // parent.load(child)
+    }, 3000);
+}
+
+function deleteSocialImage_success(values) {
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert success" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Success: Social image ' + values['social_image'] + ' was deleted!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("message").innerHTML = message;
+
+    setTimeout(function () {
+        $('#message').fadeOut('fast');
+        // reload new view
+        $("#sm_social_images_list_load").load(location.href + " #sm_social_images_list_load_content");    // parent.load(child)
+
+        // check gui
+        var selectedSocialImageURL = document.getElementById("selectedServerSocialImage").src;
+        var parts = selectedSocialImageURL.split('/');
+        var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+        if (values['social_image'] === lastSegment) {
+            document.getElementById("selectedServerSocialImage").src = values['PUBLIC_CORE_IMG_SOCIALURL'] + '/' + values['DEFAULT_SOCIAL_IMAGE'];
+            document.getElementById("sm_social_image_server").value = values['DEFAULT_SOCIAL_IMAGE'];
+        }
+    }, 3000);
+}
+
+// delete social media
+function ajax_deleteSocialMedia(values) {
+    if (confirm("Want to delete social media " + values['name'] + " from server?")) {
+        // Logic to delete the page
+        $.ajax({
+            url: values['URLCURRENT'],
+            data: 'ajax_sDeleteSocialMedia=' + values['name'],
+            type: 'post',
+            error: deleteSocialMedia_error(values),
+            success: deleteSocialMedia_success(values)
+        });
+    }
+}
+
+function deleteSocialMedia_error(values) {
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert danger" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        'Could not delete ' + values['name'] + '!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("message_sm").innerHTML = message;
+    setTimeout(function () {
+        $('#message_sm').fadeOut('fast');
+        // reload new view
+        $("#share_menu_load").load(location.href + " #share_menu_content");    // parent.load(child)
+    }, 3000);
+}
+
+function deleteSocialMedia_success(values) {
+    // [alert info, alert success, alert warning, alert danger]
+    var message = '<div class="alert success" id="msg-flash">' +
+        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+        '' + values['name'] + ' was deleted!' +
+        '</div>';
+    // Inserting the code block
+    document.getElementById("message_sm").innerHTML = message;
+    setTimeout(function () {
+        $('#message_sm').fadeOut('fast');
+        // reload new view
+        $("#share_menu_load").load(location.href + " #share_menu_content");    // parent.load(child)
+    }, 3000);
+}
+
 /**********************************************************************************************************************/
 
 /*
@@ -447,7 +586,7 @@ function selectedPreviewImage(values) {
 }
 
 // local preview image
-function selectedUploadpreviewImage(input) {
+function selectedUploadPreviewImage(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 

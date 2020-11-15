@@ -92,3 +92,25 @@ function jsonSelectedPreviewImage($oData = NULL, $preview_image){
     $sJSON = json_encode($aData);
     return $sJSON;
 }
+
+function jsonSelectedSocialImage($oData = NULL, $social_image){
+    // convert object to associative array
+    $aData = (array) $oData;
+    // add url to array being posted to
+    $aData['URLCURRENT'] = URLCURRENT;
+    $aData['PUBLIC_CORE_IMG_SOCIALURL'] = PUBLIC_CORE_IMG_SOCIALURL;
+    $aData['DEFAULT_SOCIAL_IMAGE'] = DEFAULT_SOCIAL_IMAGE;
+    $aData['social_image'] = $social_image;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}
+
+function jsonEncodeDeleteSocialMedia($oData = NULL, $name){
+    // convert object to associative array
+    $aData = (array) $oData;
+    // add url to array being posted to
+    $aData['URLCURRENT'] = URLCURRENT;
+    $aData['name'] = $name;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}

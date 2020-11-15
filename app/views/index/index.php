@@ -140,7 +140,7 @@
                                     </div>
                                     <!-- Local -->
                                     <div style="display: none;" id="blog_preview_image_local_div" class="custom-file">
-                                        <input id="blog_preview_image" onchange="selectedUploadpreviewImage(this)" type="file" name="blog_preview_image_local" accept="image/.jpg,.png,.jpeg,.gif,.svg"
+                                        <input id="blog_preview_image" onchange="selectedUploadPreviewImage(this)" type="file" name="blog_preview_image_local" accept="image/.jpg,.png,.jpeg,.gif,.svg"
                                                class="custom-file-input <?php echo (!empty($data['blog_preview_image_err'])) ? 'is-invalid' : ''; ?>">
                                         <label id="custom-file-label_blog_preview_image" class="custom-file-label" for="blog_preview_image">Browse</label>
                                         <span class="invalid-feedback"><?php echo $data['blog_preview_image_err']; ?></span>
