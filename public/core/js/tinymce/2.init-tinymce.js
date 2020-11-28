@@ -99,9 +99,9 @@ tinymce.init({
 
         input.click();
     },
-    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+    content_style: 'body { font-family:Arial,sans-serif; font-size:14px }',
     image_class_list: [
         //{title: 'None', value: ''},
-        {title: 'img-fluid', value: 'img-fluid'}
+        {title: 'img-fluid zoom', value: 'img-fluid zoom'}
     ],
 });
