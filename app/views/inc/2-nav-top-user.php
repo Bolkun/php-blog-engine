@@ -185,60 +185,63 @@
                 <!-- Setting Form -->
                 <div id="setting_form">
                     <h4 class="h4_nav_top_user"><?php echo $_SESSION['user_firstname'] . " " . $_SESSION['user_surname']; ?></h4>
-                    <!-- Change Email -->
-                    <form action="<?php echo URLROOT; ?>/index" method="post">
+                    <div class="login_menu_content">
+                        <!-- Change Email -->
+                        <form action="<?php echo URLROOT; ?>/index" method="post">
+                            <div class="form-group">
+                                <p class="p_nav_top_user">Change email</p>
+                                <input id="setting_email" type="email" name="email"
+                                       class="form-control <?php echo (!empty($data['set_email_err'])) ? 'is-invalid' : ''; ?>"
+                                       value="<?php echo $data['set_email']; ?>" placeholder="Email">
+                                <button name="submitUserEmail" id="setting_submit_email" class="btn btn-success"
+                                        type="submit">
+                                    <i class="fa fa-envelope"></i>
+                                </button>
+                                <span class="invalid-feedback"><?php echo $data['set_email_err']; ?></span>
+                            </div>
+                        </form>
+                        <hr class="hr_menu">
+                        <!-- Change Password -->
+                        <form action="<?php echo URLROOT; ?>/index" method="post">
+                            <p class="p_nav_top_user">Change password</p>
+                            <div class="form-group">
+                                <input id="setting_old_password" type="password" name="old_password"
+                                       class="form-control <?php echo (!empty($data['set_old_password_err'])) ? 'is-invalid' : ''; ?>"
+                                       value="<?php echo $data['set_old_password']; ?>" placeholder="Old Password">
+                                <span class="invalid-feedback"><?php echo $data['set_old_password_err']; ?></span>
+                            </div>
+                            <div class="form-group">
+                                <input id="setting_new_password" type="password" name="new_password"
+                                       class="form-control <?php echo (!empty($data['set_new_password_err'])) ? 'is-invalid' : ''; ?>"
+                                       value="<?php echo $data['set_new_password']; ?>" placeholder="New Password">
+                                <span class="invalid-feedback"><?php echo $data['set_new_password_err']; ?></span>
+                            </div>
+                            <div class="form-group">
+                                <input id="setting_new_password_confirm" type="password" name="new_password_confirm"
+                                       class="form-control <?php echo (!empty($data['set_new_password_confirm_err'])) ? 'is-invalid' : ''; ?>"
+                                       value="<?php echo $data['set_new_password_confirm']; ?>"
+                                       placeholder="Confirm New Password">
+                                <button name="submitUserPassword" id="setting_submit_password" class="btn btn-success"
+                                        type="submit">
+                                    <i class="fa fa-lock"></i>
+                                </button>
+                                <span class="invalid-feedback"><?php echo $data['set_new_password_confirm_err']; ?></span>
+                            </div>
+                        </form>
+                        <hr class="hr_menu">
+                        <!-- logout -->
                         <div class="form-group">
-                            <p class="p_nav_top_user">Change email</p>
-                            <input id="setting_email" type="email" name="email"
-                                   class="form-control <?php echo (!empty($data['set_email_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['set_email']; ?>" placeholder="Email">
-                            <button name="submitUserEmail" id="setting_submit_email" class="btn btn-success"
-                                    type="submit">
-                                <i class="fa fa-envelope"></i>
-                            </button>
-                            <span class="invalid-feedback"><?php echo $data['set_email_err']; ?></span>
+                            <a id="logout" href="<?php echo URLROOT; ?>/users/logout"
+                               class="btn btn-light btn-block">Logout</a>
                         </div>
-                    </form>
-                    <hr class="hr_menu">
-                    <!-- Change Password -->
-                    <form action="<?php echo URLROOT; ?>/index" method="post">
-                        <p class="p_nav_top_user">Change password</p>
-                        <div class="form-group">
-                            <input id="setting_old_password" type="password" name="old_password"
-                                   class="form-control <?php echo (!empty($data['set_old_password_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['set_old_password']; ?>" placeholder="Old Password">
-                            <span class="invalid-feedback"><?php echo $data['set_old_password_err']; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <input id="setting_new_password" type="password" name="new_password"
-                                   class="form-control <?php echo (!empty($data['set_new_password_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['set_new_password']; ?>" placeholder="New Password">
-                            <span class="invalid-feedback"><?php echo $data['set_new_password_err']; ?></span>
-                        </div>
-                        <div class="form-group">
-                            <input id="setting_new_password_confirm" type="password" name="new_password_confirm"
-                                   class="form-control <?php echo (!empty($data['set_new_password_confirm_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['set_new_password_confirm']; ?>"
-                                   placeholder="Confirm New Password">
-                            <button name="submitUserPassword" id="setting_submit_password" class="btn btn-success"
-                                    type="submit">
-                                <i class="fa fa-lock"></i>
-                            </button>
-                            <span class="invalid-feedback"><?php echo $data['set_new_password_confirm_err']; ?></span>
-                        </div>
-                    </form>
-                    <hr class="hr_menu">
-                    <!-- logout -->
-                    <div class="form-group">
-                        <a id="logout" href="<?php echo URLROOT; ?>/users/logout"
-                           class="btn btn-light btn-block">Logout</a>
                     </div>
                 </div>
             <?php } else { ?>
                 <!-- Authentication Form -->
                 <div id="login_form">
                     <h4 class="h4_nav_top_user">Authentication</h4>
-                    <div id="accordion">
+                    <div class="login_menu_content">
+                        <div id="accordion">
                         <?php flash('register_success'); ?>
                         <form action="<?php echo URLROOT; ?>/index" method="post">
                             <div class="form-group">
@@ -272,11 +275,13 @@
                             </button>
                         </div>
                     </div>
+                    </div>
                 </div>
                 <!-- Registration Form -->
                 <div id="registration_form" style="display: none;">
                     <h4 class="h4_nav_top_user">Registration</h4>
-                    <div id="accordion">
+                    <div class="login_menu_content">
+                        <div id="accordion">
                         <form name="registration_form" action="<?php echo URLROOT; ?>/index" method="post">
                             <div class="form-group">
                                 <input id="register_firstname" type="text" name="firstname"
@@ -321,11 +326,12 @@
                             </button>
                         </div>
                     </div>
+                    </div>
                 </div>
             <?php } ?>
         </div>
 
-        <!-- element last -->
+        <!-- element 4 -->
         <button id="toggle_main_menu" class="btn btn-default float-left"
                 onclick="changeNavTopUserColor('toggle_main_menu', 'collapse_main_menu')" type="button"
                 data-toggle="collapse" data-target="#collapse_main_menu">

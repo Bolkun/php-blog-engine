@@ -170,30 +170,26 @@ a:hover {
     padding: 0;
 }
 
-#mm_load_box, #share_menu_content {
+#mm_load_box, .login_menu_content, #share_menu_content {
     max-height: 400px;
     overflow: auto;
     border: 4px solid #333a40;
 }
-#collapse_login_menu{
-    max-height: 450px;
-    overflow: auto;
-    border: 4px solid #333a40;
-}
-#mm_load_box::-webkit-scrollbar, #share_menu_content::-webkit-scrollbar, #collapse_login_menu::-webkit-scrollbar
+
+#mm_load_box::-webkit-scrollbar, #share_menu_content::-webkit-scrollbar, .login_menu_content::-webkit-scrollbar
 {
     height: 2px;
     width: 2px;
 }
-#mm_load_box::-webkit-scrollbar-thumb, #share_menu_content::-webkit-scrollbar-thumb, #collapse_login_menu::-webkit-scrollbar-thumb
+#mm_load_box::-webkit-scrollbar-thumb, #share_menu_content::-webkit-scrollbar-thumb, .login_menu_content::-webkit-scrollbar-thumb
 {
     background-color: #76b901; /*scroll line color*/
 }
-#mm_load_box::-webkit-scrollbar-track, #share_menu_content::-webkit-scrollbar-track, #collapse_login_menu::-webkit-scrollbar-track
+#mm_load_box::-webkit-scrollbar-track, #share_menu_content::-webkit-scrollbar-track, .login_menu_content::-webkit-scrollbar-track
 {
     background: #333a40;    /*scroll bg*/
 }
-#mm_load_box::-webkit-scrollbar-corner, #share_menu_content::-webkit-scrollbar-corner, #collapse_login_menu::-webkit-scrollbar-corner
+#mm_load_box::-webkit-scrollbar-corner, #share_menu_content::-webkit-scrollbar-corner, .login_menu_content::-webkit-scrollbar-corner
 {
     background: #333a40;    /*scroll bg*/
 }
