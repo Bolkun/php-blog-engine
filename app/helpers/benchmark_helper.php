@@ -9,7 +9,7 @@ function echo_vs_print()
     // echo '';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         echo '';
         $i++;
     }
@@ -20,7 +20,7 @@ function echo_vs_print()
     // print '';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         print '';
         $i++;
     }
@@ -31,7 +31,7 @@ function echo_vs_print()
     // echo 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         echo '<span class="none">aaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>';
         $i++;
     }
@@ -42,7 +42,7 @@ function echo_vs_print()
     // print 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         print '<span class="none">aaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>';
         $i++;
     }
@@ -53,8 +53,8 @@ function echo_vs_print()
     // echo 'aaaaaaa'.'aaaaaaa'.'aaaaaaa'.'aaaaaaa';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
-        echo '<span class="none">aaaaaaa'.'aaaaaaa'.'aaaaaaa'.'aaaaaaa</span>';
+    while ($i < 1000) {
+        echo '<span class="none">aaaaaaa' . 'aaaaaaa' . 'aaaaaaa' . 'aaaaaaa</span>';
         $i++;
     }
     $result5 = microtime(true) - $start;
@@ -64,8 +64,8 @@ function echo_vs_print()
     // print 'aaaaaaa'.'aaaaaaa'.'aaaaaaa'.'aaaaaaa';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
-        print '<span class="none">aaaaaaa'.'aaaaaaa'.'aaaaaaa'.'aaaaaaa</span>';
+    while ($i < 1000) {
+        print '<span class="none">aaaaaaa' . 'aaaaaaa' . 'aaaaaaa' . 'aaaaaaa</span>';
         $i++;
     }
     $result6 = microtime(true) - $start;
@@ -76,9 +76,9 @@ function echo_vs_print()
     // echo 'aaaaaaa'.$a.'aaaaaaa'.$a;
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $a = 'aaaaaaa';
-        echo '<span class="none">aaaaaaa'.$a.'aaaaaaa'.$a.'</span>';
+        echo '<span class="none">aaaaaaa' . $a . 'aaaaaaa' . $a . '</span>';
         $i++;
     }
     $result7 = microtime(true) - $start;
@@ -90,9 +90,9 @@ function echo_vs_print()
     // echo 'aaaaaaa'.$a.'aaaaaaa'.$a;
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $a = 'aaaaaaa';
-        print '<span class="none">aaaaaaa'.$a.'aaaaaaa'.$a.'</span>';
+        print '<span class="none">aaaaaaa' . $a . 'aaaaaaa' . $a . '</span>';
         $i++;
     }
     $result8 = microtime(true) - $start;
@@ -104,9 +104,9 @@ function echo_vs_print()
     // echo $a.$a.$a.$a;
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $a = 'aaaaaaa';
-        echo '<span class="none">'.$a.$a.$a.$a.'</span>';
+        echo '<span class="none">' . $a . $a . $a . $a . '</span>';
         $i++;
     }
     $result9 = microtime(true) - $start;
@@ -118,9 +118,9 @@ function echo_vs_print()
     // print $a.$a.$a.$a;
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $a = 'aaaaaaa';
-        print '<span class="none">'.$a.$a.$a.$a.'</span>';
+        print '<span class="none">' . $a . $a . $a . $a . '</span>';
         $i++;
     }
     $result10 = microtime(true) - $start;
@@ -129,25 +129,60 @@ function echo_vs_print()
     unset($a);
 
     //compare results and
-    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
-    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
-    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+    if ($result1 > $result2) {
+        $class1 = 'alert-danger';
+        $class2 = 'alert-success';
+    } elseif ($result1 < $result2) {
+        $class1 = 'alert-success';
+        $class2 = 'alert-danger';
+    } else {
+        $class1 = 'alert-warning';
+        $class2 = 'alert-warning';
+    }
 
-    if($result3 > $result4) { $class3 = 'alert-danger'; $class4 = 'alert-success'; }
-    elseif($result3 < $result4) { $class3 = 'alert-success'; $class4 = 'alert-danger'; }
-    else { $class3 = 'alert-warning'; $class4 = 'alert-warning'; }
+    if ($result3 > $result4) {
+        $class3 = 'alert-danger';
+        $class4 = 'alert-success';
+    } elseif ($result3 < $result4) {
+        $class3 = 'alert-success';
+        $class4 = 'alert-danger';
+    } else {
+        $class3 = 'alert-warning';
+        $class4 = 'alert-warning';
+    }
 
-    if($result5 > $result6) { $class5 = 'alert-danger'; $class6 = 'alert-success'; }
-    elseif($result5 < $result6) { $class5 = 'alert-success'; $class6 = 'alert-danger'; }
-    else { $class5 = 'alert-warning'; $class6 = 'alert-warning'; }
+    if ($result5 > $result6) {
+        $class5 = 'alert-danger';
+        $class6 = 'alert-success';
+    } elseif ($result5 < $result6) {
+        $class5 = 'alert-success';
+        $class6 = 'alert-danger';
+    } else {
+        $class5 = 'alert-warning';
+        $class6 = 'alert-warning';
+    }
 
-    if($result7 > $result8) { $class7 = 'alert-danger'; $class8 = 'alert-success'; }
-    elseif($result7 < $result8) { $class7 = 'alert-success'; $class8 = 'alert-danger'; }
-    else { $class7 = 'alert-warning'; $class8 = 'alert-warning'; }
+    if ($result7 > $result8) {
+        $class7 = 'alert-danger';
+        $class8 = 'alert-success';
+    } elseif ($result7 < $result8) {
+        $class7 = 'alert-success';
+        $class8 = 'alert-danger';
+    } else {
+        $class7 = 'alert-warning';
+        $class8 = 'alert-warning';
+    }
 
-    if($result9 > $result10) { $class9 = 'alert-danger'; $class10 = 'alert-success'; }
-    elseif($result9 < $result10) { $class9 = 'alert-success'; $class10 = 'alert-danger'; }
-    else { $class9 = 'alert-warning'; $class10 = 'alert-warning'; }
+    if ($result9 > $result10) {
+        $class9 = 'alert-danger';
+        $class10 = 'alert-success';
+    } elseif ($result9 < $result10) {
+        $class9 = 'alert-success';
+        $class10 = 'alert-danger';
+    } else {
+        $class9 = 'alert-warning';
+        $class10 = 'alert-warning';
+    }
 
     return array(
         array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'echo \'\';',),
@@ -173,7 +208,7 @@ function single_vs_double_quotes()
     // single (') quotes. Just an empty string: $tmp[] = '';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $tmp[] = '';
         $i++;
     }
@@ -185,7 +220,7 @@ function single_vs_double_quotes()
     // double (") quotes. Just an empty string: $tmp[] = "";
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $tmp[] = "";
         $i++;
     }
@@ -197,7 +232,7 @@ function single_vs_double_quotes()
     // single (') quotes. 20 bytes Text : $tmp[] = 'aaaaaaaaaaaaaaaaaaaa';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $tmp[] = 'aaaaaaaaaaaaaaaaaaaa';
         $i++;
     }
@@ -209,7 +244,7 @@ function single_vs_double_quotes()
     // double (") quotes. 20 bytes Text : $tmp[] = "aaaaaaaaaaaaaaaaaaaa";
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $tmp[] = "aaaaaaaaaaaaaaaaaaaa";
         $i++;
     }
@@ -221,7 +256,7 @@ function single_vs_double_quotes()
     // single (') quotes. 20 bytes Text and 3x a $ : $tmp[] = 'aa $ aaaa $ aaaa $ a';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $tmp[] = 'aa $ aaaa $ aaaa $ a';
         $i++;
     }
@@ -233,7 +268,7 @@ function single_vs_double_quotes()
     // double (") quotes. 20 bytes Text and 3x a $ : $tmp[] = "aa \$ aaaa \$ aaaa \$ a";
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $tmp[] = "aa \$ aaaa \$ aaaa \$ a";
         $i++;
     }
@@ -245,9 +280,9 @@ function single_vs_double_quotes()
     // single (') quotes. $a = 'a'; $tmp[] = $a.' aaaa '.$a.' aaaa '.$a.' aaaa';
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $a = 'a';
-        $tmp[] = $a.' aaaa '.$a.' aaaa '.$a.' aaaa';
+        $tmp[] = $a . ' aaaa ' . $a . ' aaaa ' . $a . ' aaaa';
         $i++;
     }
     $result7 = microtime(true) - $start;
@@ -259,7 +294,7 @@ function single_vs_double_quotes()
     // double (") quotes. $a = 'a'; $tmp[] = "$a aaaa $a aaaa $a aaaa";
     $start = microtime(true);
     $i = 0;
-    while($i < 1000){
+    while ($i < 1000) {
         $a = "a";
         $tmp[] = "$a aaaa $a aaaa $a aaaa";
         $i++;
@@ -271,21 +306,49 @@ function single_vs_double_quotes()
     unset($tmp);
 
     //compare results and
-    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
-    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
-    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+    if ($result1 > $result2) {
+        $class1 = 'alert-danger';
+        $class2 = 'alert-success';
+    } elseif ($result1 < $result2) {
+        $class1 = 'alert-success';
+        $class2 = 'alert-danger';
+    } else {
+        $class1 = 'alert-warning';
+        $class2 = 'alert-warning';
+    }
 
-    if($result3 > $result4) { $class3 = 'alert-danger'; $class4 = 'alert-success'; }
-    elseif($result3 < $result4) { $class3 = 'alert-success'; $class4 = 'alert-danger'; }
-    else { $class3 = 'alert-warning'; $class4 = 'alert-warning'; }
+    if ($result3 > $result4) {
+        $class3 = 'alert-danger';
+        $class4 = 'alert-success';
+    } elseif ($result3 < $result4) {
+        $class3 = 'alert-success';
+        $class4 = 'alert-danger';
+    } else {
+        $class3 = 'alert-warning';
+        $class4 = 'alert-warning';
+    }
 
-    if($result5 > $result6) { $class5 = 'alert-danger'; $class6 = 'alert-success'; }
-    elseif($result5 < $result6) { $class5 = 'alert-success'; $class6 = 'alert-danger'; }
-    else { $class5 = 'alert-warning'; $class6 = 'alert-warning'; }
+    if ($result5 > $result6) {
+        $class5 = 'alert-danger';
+        $class6 = 'alert-success';
+    } elseif ($result5 < $result6) {
+        $class5 = 'alert-success';
+        $class6 = 'alert-danger';
+    } else {
+        $class5 = 'alert-warning';
+        $class6 = 'alert-warning';
+    }
 
-    if($result7 > $result8) { $class7 = 'alert-danger'; $class8 = 'alert-success'; }
-    elseif($result7 < $result8) { $class7 = 'alert-success'; $class8 = 'alert-danger'; }
-    else { $class7 = 'alert-warning'; $class8 = 'alert-warning'; }
+    if ($result7 > $result8) {
+        $class7 = 'alert-danger';
+        $class8 = 'alert-success';
+    } elseif ($result7 < $result8) {
+        $class7 = 'alert-success';
+        $class8 = 'alert-danger';
+    } else {
+        $class7 = 'alert-warning';
+        $class8 = 'alert-warning';
+    }
 
     return array(
         array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'single (\') quotes. Just an empty string: $tmp[] = \'\';',),
@@ -310,10 +373,10 @@ function if_vs_switch()
     $start = microtime(true);
     $i = 0;
     $a = 2;
-    while($i < 1000){
-        if($a == 1){
+    while ($i < 1000) {
+        if ($a == 1) {
 
-        } else if($a == 2){
+        } else if ($a == 2) {
 
         }
         $i++;
@@ -327,8 +390,8 @@ function if_vs_switch()
     $start = microtime(true);
     $i = 0;
     $a = 2;
-    while($i < 1000){
-        switch($a){
+    while ($i < 1000) {
+        switch ($a) {
             case 1:
 
                 break;
@@ -348,10 +411,10 @@ function if_vs_switch()
     $start = microtime(true);
     $i = 0;
     $a = 3;
-    while($i < 1000){
-        if($a == 1){
+    while ($i < 1000) {
+        if ($a == 1) {
 
-        } else if($a == 2){
+        } else if ($a == 2) {
 
         } else {
 
@@ -367,8 +430,8 @@ function if_vs_switch()
     $start = microtime(true);
     $i = 0;
     $a = 3;
-    while($i < 1000){
-        switch($a){
+    while ($i < 1000) {
+        switch ($a) {
             case 1:
 
                 break;
@@ -391,10 +454,10 @@ function if_vs_switch()
     $start = microtime(true);
     $i = 0;
     $a = 2;
-    while($i < 1000){
-        if($a === 1){
+    while ($i < 1000) {
+        if ($a === 1) {
 
-        } else if($a === 2){
+        } else if ($a === 2) {
 
         }
         $i++;
@@ -408,8 +471,8 @@ function if_vs_switch()
     $start = microtime(true);
     $i = 0;
     $a = 2;
-    while($i < 1000){
-        switch($a){
+    while ($i < 1000) {
+        switch ($a) {
             case 1:
 
                 break;
@@ -429,10 +492,10 @@ function if_vs_switch()
     $start = microtime(true);
     $i = 0;
     $a = 3;
-    while($i < 1000){
-        if($a === 1){
+    while ($i < 1000) {
+        if ($a === 1) {
 
-        } else if($a === 2){
+        } else if ($a === 2) {
 
         } else {
 
@@ -448,8 +511,8 @@ function if_vs_switch()
     $start = microtime(true);
     $i = 0;
     $a = 3;
-    while($i < 1000){
-        switch($a){
+    while ($i < 1000) {
+        switch ($a) {
             case 1:
 
                 break;
@@ -469,21 +532,49 @@ function if_vs_switch()
     unset($a);
 
     //compare results and
-    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
-    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
-    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+    if ($result1 > $result2) {
+        $class1 = 'alert-danger';
+        $class2 = 'alert-success';
+    } elseif ($result1 < $result2) {
+        $class1 = 'alert-success';
+        $class2 = 'alert-danger';
+    } else {
+        $class1 = 'alert-warning';
+        $class2 = 'alert-warning';
+    }
 
-    if($result3 > $result4) { $class3 = 'alert-danger'; $class4 = 'alert-success'; }
-    elseif($result3 < $result4) { $class3 = 'alert-success'; $class4 = 'alert-danger'; }
-    else { $class3 = 'alert-warning'; $class4 = 'alert-warning'; }
+    if ($result3 > $result4) {
+        $class3 = 'alert-danger';
+        $class4 = 'alert-success';
+    } elseif ($result3 < $result4) {
+        $class3 = 'alert-success';
+        $class4 = 'alert-danger';
+    } else {
+        $class3 = 'alert-warning';
+        $class4 = 'alert-warning';
+    }
 
-    if($result5 > $result6) { $class5 = 'alert-danger'; $class6 = 'alert-success'; }
-    elseif($result5 < $result6) { $class5 = 'alert-success'; $class6 = 'alert-danger'; }
-    else { $class5 = 'alert-warning'; $class6 = 'alert-warning'; }
+    if ($result5 > $result6) {
+        $class5 = 'alert-danger';
+        $class6 = 'alert-success';
+    } elseif ($result5 < $result6) {
+        $class5 = 'alert-success';
+        $class6 = 'alert-danger';
+    } else {
+        $class5 = 'alert-warning';
+        $class6 = 'alert-warning';
+    }
 
-    if($result7 > $result8) { $class7 = 'alert-danger'; $class8 = 'alert-success'; }
-    elseif($result7 < $result8) { $class7 = 'alert-success'; $class8 = 'alert-danger'; }
-    else { $class7 = 'alert-warning'; $class8 = 'alert-warning'; }
+    if ($result7 > $result8) {
+        $class7 = 'alert-danger';
+        $class8 = 'alert-success';
+    } elseif ($result7 < $result8) {
+        $class7 = 'alert-success';
+        $class8 = 'alert-danger';
+    } else {
+        $class7 = 'alert-warning';
+        $class8 = 'alert-warning';
+    }
 
     return array(
         array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'if and elseif (using ==)',),
@@ -506,22 +597,30 @@ function for_vs_while_counting()
     /************************************************* test 1 *********************************************************/
     // for($i = 0; $i < 1000; $i++);
     $start = microtime(true);
-    for($i = 0; $i < 1000; $i++);
+    for ($i = 0; $i < 1000; $i++) ;
     $result1 = microtime(true) - $start;
     unset($start);
     unset($i);
     /************************************************* test 2 *********************************************************/
     // $i = 0; while($i < 1000) $i++;
     $start = microtime(true);
-    $i = 0; while($i < 1000) $i++;
+    $i = 0;
+    while ($i < 1000) $i++;
     $result2 = microtime(true) - $start;
     unset($start);
     unset($i);
 
     //compare results and
-    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
-    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
-    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+    if ($result1 > $result2) {
+        $class1 = 'alert-danger';
+        $class2 = 'alert-success';
+    } elseif ($result1 < $result2) {
+        $class1 = 'alert-success';
+        $class2 = 'alert-danger';
+    } else {
+        $class1 = 'alert-warning';
+        $class2 = 'alert-warning';
+    }
 
     return array(
         array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'for($i = 0; $i < 1000; $i++);',),
@@ -540,15 +639,15 @@ function readAssocArray_foreach_vs_for()
     $i = 0;
     $tmp = '';
     $aHash = array();
-    while($i < 1000) {
+    while ($i < 1000) {
         $tmp .= 'a';
         $aHash[$tmp] = $i;
         $i++;
     }
 
     $start = microtime(true);
-    foreach($aHash as $key => $val){
-        echo '<span class="none">'.$key . '=' . $val . '</span>';
+    foreach ($aHash as $key => $val) {
+        echo '<span class="none">' . $key . '=' . $val . '</span>';
     }
     $result1 = microtime(true) - $start;
     unset($i);
@@ -562,7 +661,7 @@ function readAssocArray_foreach_vs_for()
     $i = 0;
     $tmp = '';
     $aHash = array();
-    while($i < 1000) {
+    while ($i < 1000) {
         $tmp .= 'a';
         $aHash[$tmp] = $i;
         $i++;
@@ -572,8 +671,8 @@ function readAssocArray_foreach_vs_for()
     $start = microtime(true);
     $size = count($aHash);
     $keys = array_keys($aHash);
-    for($i=0; $i<$size; $i++){
-        echo '<span class="none">'.$keys[$i] . '=' . $aHash[$keys[$i]] . '</span>';
+    for ($i = 0; $i < $size; $i++) {
+        echo '<span class="none">' . $keys[$i] . '=' . $aHash[$keys[$i]] . '</span>';
     }
     $result2 = microtime(true) - $start;
     unset($i);
@@ -584,9 +683,16 @@ function readAssocArray_foreach_vs_for()
     unset($keys);
 
     //compare results and
-    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
-    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
-    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+    if ($result1 > $result2) {
+        $class1 = 'alert-danger';
+        $class2 = 'alert-success';
+    } elseif ($result1 < $result2) {
+        $class1 = 'alert-success';
+        $class2 = 'alert-danger';
+    } else {
+        $class1 = 'alert-warning';
+        $class2 = 'alert-warning';
+    }
 
     return array(
         array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'foreach($aHash as $key => $val);',),
@@ -605,7 +711,7 @@ function writeAssocArray_for_vs_while()
     $start = microtime(true);
     $tmp = '';
     $aHash = array();
-    for($i=0; $i<1000; $i++) {
+    for ($i = 0; $i < 1000; $i++) {
         $tmp .= 'a';
         $aHash[$tmp] = $i;
         $i++;
@@ -621,7 +727,7 @@ function writeAssocArray_for_vs_while()
     $i = 0;
     $tmp = '';
     $aHash = array();
-    while($i < 1000) {
+    while ($i < 1000) {
         $tmp .= 'a';
         $aHash[$tmp] = $i;
         $i++;
@@ -633,9 +739,16 @@ function writeAssocArray_for_vs_while()
     unset($aHash);
 
     //compare results and
-    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
-    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
-    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+    if ($result1 > $result2) {
+        $class1 = 'alert-danger';
+        $class2 = 'alert-success';
+    } elseif ($result1 < $result2) {
+        $class1 = 'alert-success';
+        $class2 = 'alert-danger';
+    } else {
+        $class1 = 'alert-warning';
+        $class2 = 'alert-warning';
+    }
 
     return array(
         array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'for($i=0; $i<1000; $i++);',),
@@ -654,14 +767,14 @@ function modifyAssocArray_foreach_vs_for()
     $i = 0;
     $tmp = '';
     $aHash = array();
-    while($i < 1000) {
+    while ($i < 1000) {
         $tmp .= 'a';
         $aHash[$tmp] = $i;
         $i++;
     }
 
     $start = microtime(true);
-    foreach($aHash as $key => $val){
+    foreach ($aHash as $key => $val) {
         $aHash[$key] .= "a";
     }
     $result1 = microtime(true) - $start;
@@ -676,7 +789,7 @@ function modifyAssocArray_foreach_vs_for()
     $i = 0;
     $tmp = '';
     $aHash = array();
-    while($i < 1000) {
+    while ($i < 1000) {
         $tmp .= 'a';
         $aHash[$tmp] = $i;
         $i++;
@@ -686,7 +799,7 @@ function modifyAssocArray_foreach_vs_for()
     $start = microtime(true);
     $size = count($aHash);
     $keys = array_keys($aHash);
-    for($i=0; $i<$size; $i++){
+    for ($i = 0; $i < $size; $i++) {
         $aHash[$keys[$i]] .= "a";
     }
     $result2 = microtime(true) - $start;
@@ -698,9 +811,16 @@ function modifyAssocArray_foreach_vs_for()
     unset($keys);
 
     //compare results and
-    if($result1 > $result2) { $class1 = 'alert-danger'; $class2 = 'alert-success'; }
-    elseif($result1 < $result2) { $class1 = 'alert-success'; $class2 = 'alert-danger'; }
-    else { $class1 = 'alert-warning'; $class2 = 'alert-warning'; }
+    if ($result1 > $result2) {
+        $class1 = 'alert-danger';
+        $class2 = 'alert-success';
+    } elseif ($result1 < $result2) {
+        $class1 = 'alert-success';
+        $class2 = 'alert-danger';
+    } else {
+        $class1 = 'alert-warning';
+        $class2 = 'alert-warning';
+    }
 
     return array(
         array('nr1' => 1, 'test1' => $result1, 'class1' => $class1, 'name1' => 'foreach($aHash as $key=>$val) $aHash[$key] .= "a";',),

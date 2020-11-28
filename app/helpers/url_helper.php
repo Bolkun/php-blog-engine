@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @goal   simple page redirection
  * @param  string $page @example users/login

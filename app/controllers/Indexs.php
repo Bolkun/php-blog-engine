@@ -17,15 +17,16 @@ class Indexs extends Controller
         $this->social_imageController = $this->controller('Social_Images');
     }
 
-    /*
-     * All Pages ▼
-     */
-    public function index($url_param = 0)
+    public function getObservePermissions()
     {
-        // Init data
-        $observe_permissions = getUserPermissions();
-        $data = [
-            'url_param' => $url_param,
+        return getUserPermissions();
+    }
+
+    public function getData()
+    {
+        $observe_permissions = $this->getObservePermissions();
+        return [
+            'url_param' => '',
             // social media
             'sm' => (new Social_Medias)->index(),
             'sm_add_name' => '',
@@ -93,6 +94,17 @@ class Indexs extends Controller
             // other
             'display_div' => array(),
         ];
+    }
+
+    /*
+     * All Pages ▼
+     */
+    public function index($url_param = 0)
+    {
+        // Init data
+        $observe_permissions = $this->getObservePermissions();
+        $data = $this->getData();
+        $data['url_param'] = $url_param;
 
         // POST
         if (isset($_POST['submit_blog_ta_tinymce'])) {
@@ -299,5 +311,99 @@ class Indexs extends Controller
 
         $this->view('index/index', $data);
     } // end function
+
+    public function devs()
+    {
+        if (isAdminLoggedIn() === true) {
+            $data = $this->getData();
+            $properties = [
+                "Browser" => "Google Chrome",
+                "PHP" => "v7.3.10 (This server use PHP v" . phpversion() . ")",
+                "Database" => "MySQL (PDO connection required)",
+                "jQuery" => "v3.4.1",
+                "Bootstrap" => "v4.5.2",
+                "Tinymce" => "v5.4.1",
+            ];
+
+            $data['title'] = "Development";
+            $data['properties'] = $properties;
+
+            $this->view('index/devs/index', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    public function phpinfo()
+    {
+        if (isAdminLoggedIn() === true) {
+            $this->view('index/devs/phpinfo');
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    /******************************************************************************************************************/
+    public function tests()
+    {
+        if (isAdminLoggedIn() === true) {
+            $data = $this->getData();
+            $aHelpersFiles = getAllFilesInDir(APPROOT . DIRECTORY_SEPARATOR . 'helpers');
+
+            $data['title'] = "Tests";
+            $data['aHelpersFiles'] = $aHelpersFiles;
+
+            $this->view('index/tests/index', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    public function benchmark()
+    {
+        if (isAdminLoggedIn() === true) {
+            $data = $this->getData();
+
+            $aEchoVsPrint = echo_vs_print();
+            $aSingleVsDoubleQuotes = single_vs_double_quotes();
+            $aIfVsSwitch = if_vs_switch();
+            $aForVsWhileCounting = for_vs_while_counting();
+            $aReadLoop = readAssocArray_foreach_vs_for();
+            $aWriteLoop = writeAssocArray_for_vs_while();
+            $aModifyLoop = modifyAssocArray_foreach_vs_for();
+
+            $data['title'] = "Performance Testing";
+            $data['stringOutputs'] = $aEchoVsPrint;
+            $data['quotes'] = $aSingleVsDoubleQuotes;
+            $data['conditions'] = $aIfVsSwitch;
+            $data['countingLoops'] = $aForVsWhileCounting;
+            $data['readLoop'] = $aReadLoop;
+            $data['writeLoop'] = $aWriteLoop;
+            $data['modifyLoop'] = $aModifyLoop;
+
+            $this->view('index/tests/benchmark', $data);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    public function date_helper()
+    {
+        if (isAdminLoggedIn() === true) {
+            $this->view('index/tests/helpers/date_helper');
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+
+    public function var_helper()
+    {
+        if (isAdminLoggedIn() === true) {
+            $this->view('index/tests/helpers/var_helper');
+        } else {
+            header("HTTP/1.0 404 Not Found");
+        }
+    }
+    /******************************************************************************************************************/
 
 } // end class

@@ -1,13 +1,31 @@
 <?php
 /**
- * @goal    convert object data to JSON readable string and adds 3 extra key value pairs, usable for AJAX post requests
- * @param   object $oData @example print_r ([id] => 1 [created] => John ...)
- * @return  string        @example print_r {"URLCURRENT":"...","URLROOT":"...","VIEWSROOT":"...","id":"1","created":"John" ...)
+ * @goal    convert array data to JSON readable string, usable for AJAX post requests
+ * @param   array $array @example print_r ([id] => 1 [created] => John ...)
+ * @return  string         @example print_r {"id":"1","created":"John" ...)
  */
-function jsonEncode($oData = NULL){
+function jsonEncodeArray($array)
+{
+    $oData = NULL;
     // convert object to associative array
-    $aData = (array) $oData;
+    $aData = (array)$oData;
+    $aData['array'] = $array;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}
+
+/**
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   object $oData, string $sID, string $sTitle
+ * @return  string
+ */
+function jsonEncodeMenu($oData = NULL, $id, $title)
+{
+    // convert object to associative array
+    $aData = (array)$oData;
     // add url to array being posted to
+    $aData['blog_id'] = $id;
+    $aData['title'] = $title;
     $aData['URLCURRENT'] = URLCURRENT;
     $aData['URLROOT'] = URLROOT;
     $aData['VIEWSROOT'] = VIEWSROOT;
@@ -16,74 +34,44 @@ function jsonEncode($oData = NULL){
 }
 
 /**
- * @goal    convert object data to JSON readable string and adds 4 extra key value pairs, usable for AJAX post requests
- * @param   object $oData, string sPage @example print_r ([id] => 1 [created] => John ...)
- * @return  string                      @example print_r {"URLCURRENT":"...","URLROOT":"...","VIEWSROOT":"...","id":"1","created":"John" ...)
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   object $oData
+ * @return  string
  */
-function jsonEncodePage($oData = NULL, $sPage){
+function jsonEncodeMenuAddChild($oData = NULL)
+{
     // convert object to associative array
-    $aData = (array) $oData;
-    // add url to array being posted to
-    $aData['sPage'] = $sPage;   // path
-    $aData['URLCURRENT'] = URLCURRENT;
-    $aData['URLROOT'] = URLROOT;
-    $aData['VIEWSROOT'] = VIEWSROOT;
-    $sJSON = json_encode($aData);
-    return $sJSON;
-}
-
-function jsonEncodeString($string){
-    $oData = NULL;
-    // convert object to associative array
-    $aData = (array) $oData;
-    $aData['string'] = $string;
-    $sJSON = json_encode($aData);
-    return $sJSON;
-}
-
-function jsonEncodeArray($array){
-    $oData = NULL;
-    // convert object to associative array
-    $aData = (array) $oData;
-    $aData['array'] = $array;
-    $sJSON = json_encode($aData);
-    return $sJSON;
-}
-
-function jsonEncodeMenu($oData = NULL, $sID, $sTitle){
-    // convert object to associative array
-    $aData = (array) $oData;
-    // add url to array being posted to
-    $aData['blog_id'] = $sID;
-    $aData['title'] = $sTitle;
-    $aData['URLCURRENT'] = URLCURRENT;
-    $aData['URLROOT'] = URLROOT;
-    $aData['VIEWSROOT'] = VIEWSROOT;
-    $sJSON = json_encode($aData);
-    return $sJSON;
-}
-
-function jsonEncodeMenuAddChild($oData = NULL){
-    // convert object to associative array
-    $aData = (array) $oData;
+    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLCURRENT'] = URLCURRENT;
     $sJSON = json_encode($aData);
     return $sJSON;
 }
 
-function jsonEncodeMenuEditTitle($oData = NULL){
+/**
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   object $oData
+ * @return  string
+ */
+function jsonEncodeMenuEditTitle($oData = NULL)
+{
     // convert object to associative array
-    $aData = (array) $oData;
+    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLCURRENT'] = URLCURRENT;
     $sJSON = json_encode($aData);
     return $sJSON;
 }
 
-function jsonSelectedPreviewImage($oData = NULL, $preview_image){
+/**
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   object $oData, string $preview_image
+ * @return  string
+ */
+function jsonSelectedPreviewImage($oData = NULL, $preview_image)
+{
     // convert object to associative array
-    $aData = (array) $oData;
+    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLCURRENT'] = URLCURRENT;
     $aData['PUBLIC_CORE_IMG_PREVIEWURL'] = PUBLIC_CORE_IMG_PREVIEWURL;
@@ -93,9 +81,15 @@ function jsonSelectedPreviewImage($oData = NULL, $preview_image){
     return $sJSON;
 }
 
-function jsonSelectedSocialImage($oData = NULL, $social_image){
+/**
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   object $oData, string $social_image
+ * @return  string
+ */
+function jsonSelectedSocialImage($oData = NULL, $social_image)
+{
     // convert object to associative array
-    $aData = (array) $oData;
+    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLCURRENT'] = URLCURRENT;
     $aData['PUBLIC_CORE_IMG_SOCIALURL'] = PUBLIC_CORE_IMG_SOCIALURL;
@@ -105,9 +99,15 @@ function jsonSelectedSocialImage($oData = NULL, $social_image){
     return $sJSON;
 }
 
-function jsonEncodeDeleteSocialMedia($oData = NULL, $name){
+/**
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   object $oData, string $name
+ * @return  string
+ */
+function jsonEncodeDeleteSocialMedia($oData = NULL, $name)
+{
     // convert object to associative array
-    $aData = (array) $oData;
+    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLCURRENT'] = URLCURRENT;
     $aData['name'] = $name;

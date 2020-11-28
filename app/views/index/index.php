@@ -4,7 +4,8 @@
 <br><br><br>
 <div id="load_blog_box">
     <div id="load_blog_divs">
-        <?php if(is_numeric($data['url_param']) && $data['url_param'] != '0'){ ?>
+        <?php
+        if(is_numeric($data['url_param']) && $data['url_param'] != '0'){ ?>
             <div class="container" style="<?php if (isAdminLoggedIn() === true) { echo 'width: 95%'; } ?>">
                 <div style="margin-top: -6px; z-index: -1;">
                     <?php if (isAdminLoggedIn() === true) { ?>
@@ -158,7 +159,8 @@
                     <?php } ?>
                 </div>
             </div>
-        <?php } elseif($data['url_param'] == '0' || $data['url_param'] === 'index'){ ?>
+        <?php }
+        elseif($data['url_param'] == '0' || $data['url_param'] === 'index'){ ?>
             <div class="container scrollpane">
                 <div class="row" id="results">
                     <?php

@@ -30,9 +30,8 @@ class Blogs extends Controller
         ];
 
         $oData = $this->blogModel->start($observe_permissions);
-
         if ($oData) {
-            for($i=0; $i<count($oData); $i++){
+            for ($i = 0; $i < count($oData); $i++) {
                 array_push($data['blog_id'], $oData[$i]->blog_id);
                 array_push($data['created_by_user_id'], $oData[$i]->created_by_user_id);
                 array_push($data['last_edit_date'], $oData[$i]->last_edit_date);
@@ -86,7 +85,7 @@ class Blogs extends Controller
 
     public function saveBlogPage($blog_id, $observe_permissions)
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Init data
             $data = [
                 'blog_id' => trim($blog_id),
@@ -108,29 +107,29 @@ class Blogs extends Controller
             ];
 
             // validating
-            if(empty($data['category'])) {
+            if (empty($data['category'])) {
                 $data['category_err'] = 'Please enter category';
             }
 
-            if(empty($data['title'])) {
+            if (empty($data['title'])) {
                 $data['title_err'] = 'Please enter title';
             }
 
-            if($data['radio_preview_image'] === 'server'){
-                if(empty($_POST['blog_preview_image_server'])) {
+            if ($data['radio_preview_image'] === 'server') {
+                if (empty($_POST['blog_preview_image_server'])) {
                     $oData = $this->blogModel->selectRecord($data, $observe_permissions);
                     $data['preview_image'] = $oData->preview_image;
-                    if(empty($data['preview_image'])){
+                    if (empty($data['preview_image'])) {
                         $data['preview_image_err'] = 'No default preview image, upload new one';
                     }
                 } else {
                     $data['preview_image_server'] = trim($_POST['blog_preview_image_server']);
                     $data['preview_image'] = $data['preview_image_server'];
                 }
-            } elseif ($data['radio_preview_image'] === 'local'){
-                if(isset($_FILES['blog_preview_image_local'])){
-                    $data['preview_image_local'] = htmlspecialchars( basename( $_FILES["blog_preview_image_local"]["name"]));
-                    if(empty($data['preview_image_local'])) {
+            } elseif ($data['radio_preview_image'] === 'local') {
+                if (isset($_FILES['blog_preview_image_local'])) {
+                    $data['preview_image_local'] = htmlspecialchars(basename($_FILES["blog_preview_image_local"]["name"]));
+                    if (empty($data['preview_image_local'])) {
                         $data['preview_image_err'] = 'New preview image not selected';
                     } else {
                         // validate upload file
@@ -138,20 +137,20 @@ class Blogs extends Controller
 
                         // check if image file is actual image or fake image
                         $check = getimagesize($_FILES["blog_preview_image_local"]["tmp_name"]);
-                        if($check !== false) {
+                        if ($check !== false) {
                             // check if file already exists
-                            if (! file_exists($target_file)) {
+                            if (!file_exists($target_file)) {
                                 // Check file size
                                 if ($_FILES["blog_preview_image_local"]["size"] <= 20971520) {
                                     // allow certain file formats
-                                    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                                    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "svg") {
+                                    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                                    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "svg") {
                                         $data['preview_image_err'] = "Only JPG, JPEG, PNG, GIF & SVG files are allowed.";
                                     } else {
                                         // upload
-                                        if(move_uploaded_file($_FILES["blog_preview_image_local"]["tmp_name"], $target_file)) {
-                                            $data['preview_image'] = htmlspecialchars( basename( $_FILES["blog_preview_image_local"]["name"]));
-                                            if($this->preview_imageModel->insertPreviewImage($data)) {
+                                        if (move_uploaded_file($_FILES["blog_preview_image_local"]["tmp_name"], $target_file)) {
+                                            $data['preview_image'] = htmlspecialchars(basename($_FILES["blog_preview_image_local"]["name"]));
+                                            if ($this->preview_imageModel->insertPreviewImage($data)) {
                                                 // OK
                                             } else {
                                                 die("Could not insert preview image");
@@ -177,8 +176,8 @@ class Blogs extends Controller
                 $data['preview_image_err'] = 'Preview image choice not selected';
             }
 
-            if(empty($data['category_err']) && empty($data['title_err']) && empty($data['preview_image_err'])){
-                if($this->blogModel->updateRecord($data)) {
+            if (empty($data['category_err']) && empty($data['title_err']) && empty($data['preview_image_err'])) {
+                if ($this->blogModel->updateRecord($data)) {
                     $data['content'] = base64_decode($data['content']); // Decode from db
                 } else {
                     die("Could not update db for uploaded preview image file");
@@ -194,8 +193,7 @@ class Blogs extends Controller
     public function menu($observe_permissions)
     {
         $oData = $this->blogModel->selectMenuData($observe_permissions);
-
-        if($oData){
+        if ($oData) {
             // Convert object to array
             $aData = stdToArray($oData);
             // sort data items
@@ -203,7 +201,7 @@ class Blogs extends Controller
                 'items' => array(),
                 'parents' => array()
             );
-            for($i=0; $i<count($aData); $i++){
+            for ($i = 0; $i < count($aData); $i++) {
                 // Create current menus item id into array
                 $aDataSort['items'][$aData[$i]['blog_id']] = $aData[$i];
                 // Creates list of all items with children
@@ -221,7 +219,7 @@ class Blogs extends Controller
 
     public function add()
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -232,14 +230,14 @@ class Blogs extends Controller
                 'parent_id' => trim($_POST['ajax_mm_add_child_parentId']),
             ];
 
-            if(empty($data['title'])){
+            if (empty($data['title'])) {
                 die("Error: Title cannot be empty");
             } else {
                 // delete ""
                 $data['title'] = replaceString('&#34;', '', $data['title']);
             }
 
-            if(empty($data['parent_id'])){
+            if (empty($data['parent_id'])) {
                 die("Error: Parent id cannot be empty");
             } else {
                 // delete ""
@@ -247,7 +245,7 @@ class Blogs extends Controller
             }
 
             // Make sure errors are empty
-            if($this->blogModel->insert($data)){
+            if ($this->blogModel->insert($data)) {
                 // OK
             } else {
                 die("Error: Could not insert new blog page, due to server problems");
@@ -259,7 +257,7 @@ class Blogs extends Controller
 
     public function editTitle()
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -269,21 +267,21 @@ class Blogs extends Controller
                 'title' => trim($_POST['ajax_mm_edit_title']),
             ];
 
-            if(empty($data['blog_id'])){
+            if (empty($data['blog_id'])) {
                 die("Error: blog_id cannot be empty");
             } else {
                 // delete ""
                 $data['blog_id'] = replaceString('&#34;', '', $data['blog_id']);
             }
 
-            if(empty($data['title'])){
+            if (empty($data['title'])) {
                 die("Error: Title cannot be empty");
             } else {
                 // delete ""
                 $data['title'] = replaceString('&#34;', '', $data['title']);
             }
 
-            if($this->blogModel->updateTitle($data)){
+            if ($this->blogModel->updateTitle($data)) {
                 // OK
             } else {
                 die("Error: Could not update blog title, due to server problems");
@@ -295,15 +293,14 @@ class Blogs extends Controller
 
     public function deleteBranch($observe_permissions)
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $id = trim($_POST['ajax_sMainMenuID']);
 
             $oData = $this->blogModel->selectMenuData($observe_permissions);
-
-            if($oData){
+            if ($oData) {
                 // Convert object to array
                 $aData = stdToArray($oData);
                 // Get branch ids
@@ -311,7 +308,7 @@ class Blogs extends Controller
                 // Add root id
                 array_push($branch_ids, $id);
                 // delete branch
-                if($this->blogModel->deleteBranch($branch_ids)){
+                if ($this->blogModel->deleteBranch($branch_ids)) {
                     // replace leaf with no root as a root
 
                 } else {
@@ -327,7 +324,7 @@ class Blogs extends Controller
 
     public function search_menu($observe_permissions)
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -339,9 +336,9 @@ class Blogs extends Controller
             ];
 
             // Make sure errors are empty
-            if(empty($data['search_err'])){
+            if (empty($data['search_err'])) {
                 $oData = $this->blogModel->searchMenu($data, $observe_permissions);
-                if($oData){
+                if ($oData) {
                     // Convert object to array
                     $aData = stdToArray($oData);
                     // sort data items
@@ -349,7 +346,7 @@ class Blogs extends Controller
                         'items' => array(),
                         'parents' => array()
                     );
-                    for($i=0; $i<count($aData); $i++){
+                    for ($i = 0; $i < count($aData); $i++) {
                         // Create current menus item id into array
                         $aDataSort['items'][$aData[$i]['blog_id']] = $aData[$i];
                         // Creates list of all items with children

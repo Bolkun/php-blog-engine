@@ -26,7 +26,7 @@ class Social_Medias extends Controller
 
         $oData = $this->social_mediaModel->start();
         if ($oData) {
-            for($i=0; $i<count($oData); $i++){
+            for ($i = 0; $i < count($oData); $i++) {
                 array_push($data['id'], $oData[$i]->id);
                 array_push($data['name'], $oData[$i]->name);
                 array_push($data['link'], $oData[$i]->link);
@@ -41,7 +41,7 @@ class Social_Medias extends Controller
 
     public function save()
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Init data
             $data = [
                 'name' => trim($_POST['socialMedia_name']),
@@ -59,53 +59,53 @@ class Social_Medias extends Controller
             ];
 
             // validating
-            if(empty($data['name'])) {
+            if (empty($data['name'])) {
                 $data['name_err'] = 'Please enter name';
             }
 
-            if(empty($data['link'])) {
+            if (empty($data['link'])) {
                 $data['link_err'] = 'Please enter link';
             } else {
-                if (! filter_var($data['link'], FILTER_VALIDATE_URL)) {
+                if (!filter_var($data['link'], FILTER_VALIDATE_URL)) {
                     $data['link_err'] = $data['link'] . ' is not a valid url.';
                 }
             }
 
-            if($data['radio_social_image'] === 'server'){
-                if(empty($data['image_server'])) {
+            if ($data['radio_social_image'] === 'server') {
+                if (empty($data['image_server'])) {
                     $data['server_image_err'] = 'Server image not selected';
                 } else {
                     $data['image'] = $data['image_server'];
                 }
-            } elseif ($data['radio_social_image'] === 'local'){
-                if(isset($_FILES['sm_image_local'])){
-                    $data['image_local'] = basename( $_FILES["sm_image_local"]["name"]);
-                    if(! empty($data['image_local'])) {
+            } elseif ($data['radio_social_image'] === 'local') {
+                if (isset($_FILES['sm_image_local'])) {
+                    $data['image_local'] = basename($_FILES["sm_image_local"]["name"]);
+                    if (!empty($data['image_local'])) {
                         // validate upload file
                         $target_file = PUBLIC_CORE_IMG_SOCIALROOT . '/' . $data['image_local'];
 
                         // check if image file is actual image or fake image
                         $check = getimagesize($_FILES["sm_image_local"]["tmp_name"]);
-                        if($check !== false) {
+                        if ($check !== false) {
                             // check if file already exists
-                            if (! file_exists($target_file)) {
+                            if (!file_exists($target_file)) {
                                 // Check file size
                                 if ($_FILES["sm_image_local"]["size"] <= 20971520) {
                                     // allow certain file formats
-                                    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                                    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "svg") {
+                                    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                                    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "svg") {
                                         $data['local_image_err'] = "Only JPG, JPEG, PNG, GIF & SVG file extensions are allowed.";
                                     } else {
                                         // upload
-                                        if(move_uploaded_file($_FILES["sm_image_local"]["tmp_name"], $target_file)) {
+                                        if (move_uploaded_file($_FILES["sm_image_local"]["tmp_name"], $target_file)) {
                                             $data['image'] = $data['image_local'];
-                                            if($this->social_imageModel->insert($data)) {
+                                            if ($this->social_imageModel->insert($data)) {
                                                 // OK
                                             } else {
                                                 $data['local_image_err'] = "Could not insert social image in db";
                                             }
                                         } else {
-                                            $data['local_image_err'] ="Could not upload social image file";
+                                            $data['local_image_err'] = "Could not upload social image file";
                                         }
                                     }
                                 } else {
@@ -128,8 +128,8 @@ class Social_Medias extends Controller
                 $data['local_image_err'] = 'Server or local image must be selected';
             }
 
-            if(empty($data['name_err']) && empty($data['link_err']) && empty($data['server_image_err']) && empty($data['local_image_err'])){
-                if($this->social_mediaModel->insertRecord($data)) {
+            if (empty($data['name_err']) && empty($data['link_err']) && empty($data['server_image_err']) && empty($data['local_image_err'])) {
+                if ($this->social_mediaModel->insertRecord($data)) {
                     // ok
                 } else {
                     die("Could not update db for uploaded social image file");
@@ -142,14 +142,15 @@ class Social_Medias extends Controller
         }
     }
 
-    public function delete(){
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    public function delete()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $name = trim($_POST['ajax_sDeleteSocialMedia']);
 
-            if($this->social_mediaModel->deleteBasedOnName($name)){
+            if ($this->social_mediaModel->deleteBasedOnName($name)) {
                 // OK
             } else {
                 die("Error: could not delete social media in db");
@@ -158,4 +159,5 @@ class Social_Medias extends Controller
             die("Error: could not delete social media");
         }
     }
+
 }

@@ -86,7 +86,7 @@ function setAllCharsLowercase($string)
  */
 function deleteCharsInStringBasedOnPosition($string, $iPosition)
 {
-    return substr_replace($string ,"", $iPosition);
+    return substr_replace($string, "", $iPosition);
 }
 
 /**
@@ -104,8 +104,9 @@ function replaceString($search, $replace, $text)
  * @param  string, string   @example /^.*_helper.php$/, date_helper.php
  * @return bool             @example true
  */
-function checkIfStringMatchRegex($regex, $string){
-    if(preg_match($regex, $string)){
+function checkIfStringMatchRegex($regex, $string)
+{
+    if (preg_match($regex, $string)) {
         return true;
     } else {
         return false;

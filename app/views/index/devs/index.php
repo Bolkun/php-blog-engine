@@ -1,4 +1,7 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/1-header.php'; ?>
+<?php require APPROOT . '/views/inc/2-nav-top-user.php'; ?>
+<?php require APPROOT . '/views/inc/3-nav-top-admin.php'; ?>
+    <br><br><br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2"></div>
@@ -57,7 +60,7 @@
                     </div>
                     <div id="viewsAdminsDevsIndex">
                         <h2>Installation</h2>
-                        <p>Check PHP's Configuration: <a href="<?php echo URLROOT; ?>/admins/devs/phpinfo">phpinfo();</a></p>
+                        <p>Check PHP's Configuration: <a href="<?php echo URLROOT; ?>/index/devs/phpinfo">phpinfo();</a></p>
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -66,8 +69,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            foreach ($data['properties'] as $key => $property) { ?>
+                            <?php foreach ($data['properties'] as $key => $property) { ?>
                                 <tr>
                                     <td><?php echo $key; ?></td>
                                     <td><?php echo $property; ?></td>
@@ -88,3 +90,4 @@
         </div>
     </div>
 <?php require APPROOT . '/views/inc/4-footer.php'; ?>
+<?php require APPROOT . '/views/inc/5-cookies.php'; ?>

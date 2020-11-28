@@ -1,4 +1,5 @@
 <?php
+
 /*
  * PDO Database Class
  * Connect to database
@@ -6,13 +7,15 @@
  * Bind values
  * Return rows and results
  */
-class Database {
+
+class Database
+{
     private $host = DB_HOST;
     private $user = DB_USER;
     private $pass = DB_PASS;
     private $dbname = DB_NAME;
 
-    private $dbh;   //database handler
+    private $dbh;   // database handler
     private $stmt;
     private $error;
 
@@ -28,21 +31,23 @@ class Database {
         // Create PDO instance
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;
         }
     }
 
     // Prepare statement with query
-    public function query($sql){
+    public function query($sql)
+    {
         $this->stmt = $this->dbh->prepare($sql);
     }
 
     // Bind values
-    public function bind($param, $value, $type = null){
-        if(is_null($type)){
-            switch(true){
+    public function bind($param, $value, $type = null)
+    {
+        if (is_null($type)) {
+            switch (true) {
                 case is_int($value):
                     $type = PDO::PARAM_INT;
                     break;
@@ -61,28 +66,29 @@ class Database {
     }
 
     // Execute the prepared statement
-    public function execute(){
+    public function execute()
+    {
         return $this->stmt->execute();
     }
 
-    /*
-     * returns array of objects
-     */
     // Get result set as array of objects
-    public function resultSet(){
+    public function resultSet()
+    {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     // Get single record as object
-    public function single(){
+    public function single()
+    {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    // Get row count
-    public function rowCount(){
-        return $this->stmt->rowCount(); //returns int
+    // Get row count, returns integer
+    public function rowCount()
+    {
+        return $this->stmt->rowCount();
     }
 
     // Get last inserted id
@@ -90,5 +96,4 @@ class Database {
     {
         return $this->dbh->lastInsertId();
     }
-
 }

@@ -27,7 +27,7 @@ class Social_Media
         $this->db->query('INSERT INTO social_media (name, link, image) VALUES (:name, :link, :image)');
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':link', $data['link']);
-        $this->db->bind(':image',  $data['image']);
+        $this->db->bind(':image', $data['image']);
 
         if ($this->db->execute()) {
             return true;
@@ -36,7 +36,8 @@ class Social_Media
         }
     }
 
-    public function replaceImageMatchesWithDefaultImage($image){
+    public function replaceImageMatchesWithDefaultImage($image)
+    {
         $this->db->query('UPDATE social_media SET image = :default_social_image WHERE image = :image');
         $this->db->bind(':default_social_image', DEFAULT_SOCIAL_IMAGE);
         $this->db->bind(':image', $image);
@@ -48,7 +49,8 @@ class Social_Media
         }
     }
 
-    public function deleteBasedOnName($name){
+    public function deleteBasedOnName($name)
+    {
         $this->db->query("DELETE FROM social_media WHERE name = :name");
         $this->db->bind(':name', $name);
 
@@ -58,4 +60,5 @@ class Social_Media
             return false;
         }
     }
+
 }

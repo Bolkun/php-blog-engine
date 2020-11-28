@@ -1,4 +1,6 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/1-header.php'; ?>
+<?php require APPROOT . '/views/inc/2-nav-top-user.php'; ?>
+<?php require APPROOT . '/views/inc/3-nav-top-admin.php'; ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2"></div>
@@ -224,3 +226,4 @@
         </div>
     </div>
 <?php require APPROOT . '/views/inc/4-footer.php'; ?>
+<?php require APPROOT . '/views/inc/5-cookies.php'; ?>

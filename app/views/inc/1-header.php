@@ -10,11 +10,7 @@ clearPageCache();
     <meta charset="utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>
-        <?php
-            echo SITENAME;
-        ?>
-    </title>
+    <title><?php echo SITENAME; ?></title>
     <link rel="shortcut icon" href="<?php echo PUBLIC_CORE_IMG_UIURL . '/logo24x24.png'; ?>" type="image/png">
     <?php
     // Autoload Stylesheet

@@ -9,7 +9,7 @@ define('DB_USER', 'root');
 # pass*
 define('DB_PASS', '');
 # name*
-define('DB_NAME', '$bolkun_taskmanager');
+define('DB_NAME', 'bolkun');
 
 /*** PROJECT ***/
 # site name*

@@ -14,7 +14,7 @@ class Blog
         $sObserve_permissions = implode("','", $observe_permissions);
 
         $this->db->query("SELECT blog_id, created_by_user_id, last_edit_date, preview_image, observe_permissions, category, title, rank, views FROM blog 
-          WHERE observe_permissions IN ('".$sObserve_permissions."') ORDER BY last_edit_date DESC LIMIT 10");
+          WHERE observe_permissions IN ('" . $sObserve_permissions . "') ORDER BY last_edit_date DESC LIMIT 10");
 
         $row = $this->db->resultSet();
 
@@ -29,7 +29,7 @@ class Blog
     {
         $sObserve_permissions = implode("','", $observe_permissions);
 
-        $this->db->query("SELECT * FROM blog WHERE observe_permissions IN ('".$sObserve_permissions."') AND blog_id = :blog_id");
+        $this->db->query("SELECT * FROM blog WHERE observe_permissions IN ('" . $sObserve_permissions . "') AND blog_id = :blog_id");
         $this->db->bind(':blog_id', $data['blog_id']);
 
         $row = $this->db->single();
@@ -107,7 +107,7 @@ class Blog
     {
         $blog_ids = implode("','", $aIds);
 
-        $this->db->query("DELETE FROM blog WHERE blog_id IN ('".$blog_ids."')");
+        $this->db->query("DELETE FROM blog WHERE blog_id IN ('" . $blog_ids . "')");
 
         if ($this->db->execute()) {
             return true;
@@ -121,7 +121,7 @@ class Blog
         $sObserve_permissions = implode("','", $observe_permissions);
 
         $this->db->query("SELECT blog_id, observe_permissions, title, parent_id FROM blog 
-          WHERE observe_permissions IN ('".$sObserve_permissions."') ORDER BY title ASC");
+          WHERE observe_permissions IN ('" . $sObserve_permissions . "') ORDER BY title ASC");
 
         $row = $this->db->resultSet();
 
@@ -137,7 +137,7 @@ class Blog
         $sObserve_permissions = implode("','", $observe_permissions);
 
         $this->db->query("SELECT blog_id, observe_permissions, title, parent_id FROM blog 
-          WHERE observe_permissions IN ('".$sObserve_permissions."') AND title LIKE '%" . $data['search'] . "%' ORDER BY title ASC");
+          WHERE observe_permissions IN ('" . $sObserve_permissions . "') AND title LIKE '%" . $data['search'] . "%' ORDER BY title ASC");
 
         $row = $this->db->resultSet();
 
@@ -148,7 +148,8 @@ class Blog
         }
     }
 
-    public function replacePreviewImageWithDefaultImage($preview_image){
+    public function replacePreviewImageWithDefaultImage($preview_image)
+    {
         $this->db->query('UPDATE blog SET preview_image = :default_preview_image WHERE preview_image = :preview_image');
         $this->db->bind(':default_preview_image', DEFAULT_PREVIEW_IMAGE);
         $this->db->bind(':preview_image', $preview_image);
@@ -159,4 +160,5 @@ class Blog
             return false;
         }
     }
+
 }

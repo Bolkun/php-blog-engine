@@ -1,10 +1,13 @@
 <?php
+
 /*
  * App Core Class
  * Creates URL & loads core controller
  * URL FORMAT - /controller/method/params
  */
-class Core {
+
+class Core
+{
     protected $currentController = STARTPAGE;
     protected $currentMethod = '';
     protected $params = [];
@@ -15,7 +18,7 @@ class Core {
         //get split array after bolkun ( Example: http://localhost/bolkun/index/ )
         $url = $this->getUrl(); // [0] => index
         // delete duplicates from array
-        if($url == NULL){
+        if ($url == NULL) {
             require_once '../app/controllers/' . $this->currentController . '.php';
             $this->currentController = new $this->currentController;
             $this->currentMethod = 'index';
@@ -27,9 +30,9 @@ class Core {
         } else {
             $url_unique = array_unique($url);
         }
-        if(count($url) !== count($url_unique)){
+        if (count($url) !== count($url_unique)) {
             $page = '';
-            foreach ($url_unique as $dir){
+            foreach ($url_unique as $dir) {
                 $page .= $dir . '/';
             }
             redirect($page);
@@ -37,7 +40,7 @@ class Core {
         $lastElement = end($url);
 
         // Look in controllers for controller(first index or value)
-        if(file_exists('../app/controllers/' . ucwords($url[0]) . '.php')){
+        if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
             $this->currentController = ucwords($url[0]);
         }
 
@@ -46,17 +49,17 @@ class Core {
         $this->currentController = new $this->currentController;
 
         // Check for last part of url
-        if($lastElement != $url[0]){
+        if ($lastElement != $url[0]) {
             // Check to see if method exists in controller
-            if(method_exists($this->currentController, $lastElement)){
+            if (method_exists($this->currentController, $lastElement)) {
                 $this->currentMethod = $lastElement;
                 unset($lastElement);
             }
-        } else if(count($url) == 0 || count($url) == 1) {
+        } else if (count($url) == 0 || count($url) == 1) {
             $this->currentMethod = 'index';
         }
         // Incorrect url
-        if($this->currentMethod == ''){
+        if ($this->currentMethod == '') {
             die();
         }
 
@@ -74,7 +77,7 @@ class Core {
 
     public function getUrl()
     {
-        if(isset($_GET['url'])){
+        if (isset($_GET['url'])) {
             $url = rtrim($_GET['url'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);

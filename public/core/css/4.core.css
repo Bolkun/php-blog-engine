@@ -589,12 +589,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb { /* Handle */
-    border-radius: 1rem;
+    border-radius: 0;
     background-color: #333a40;
 }
 
 ::-webkit-scrollbar-thumb:hover { /* Handle on hover */
-    border-radius: 1rem;
+    border-radius: 0;
 }
 
 /**********************************************************************************************************************/

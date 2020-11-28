@@ -34,26 +34,25 @@ class Social_Images extends Controller
 
     public function deleteSocialImage()
     {
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $image = trim($_POST['ajax_sDeleteSocialImage']);
-            $file = PUBLIC_CORE_IMG_SOCIALROOT  . '/' . $image;
+            $file = PUBLIC_CORE_IMG_SOCIALROOT . '/' . $image;
 
             // delete file
-            if (is_file($file)){
-                if(! unlink($file)){
+            if (is_file($file)) {
+                if (!unlink($file)) {
                     die("Could not delete social image file from server!");
                 }
             }
 
             // delete from db
             $oData = $this->social_imageModel->delete($image);
-
-            if($oData){
+            if ($oData) {
                 // find all social media images with the same file name and update to default image
-                if($this->social_mediaModel->replaceImageMatchesWithDefaultImage($image)){
+                if ($this->social_mediaModel->replaceImageMatchesWithDefaultImage($image)) {
                     // OK
                 } else {
                     die("Error: Something went wrong during replacing social image");

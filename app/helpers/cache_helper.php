@@ -1,11 +1,11 @@
 <?php
 /**
  * @goal   clear page cache for development mode and disable warnings
- * @param
  * @result on new page reload changes are visible
  */
-function clearPageCache(){
-    if(CLEARPAGECACHE === true){
+function clearPageCache()
+{
+    if (CLEARPAGECACHE === true) {
         // Skip warning messages
         error_reporting(E_ERROR | E_PARSE);
 
@@ -15,4 +15,5 @@ function clearPageCache(){
         // Report all PHP errors
         error_reporting(-1);
     }
+
 }

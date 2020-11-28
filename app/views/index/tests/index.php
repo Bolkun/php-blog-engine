@@ -1,4 +1,7 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/1-header.php'; ?>
+<?php require APPROOT . '/views/inc/2-nav-top-user.php'; ?>
+<?php require APPROOT . '/views/inc/3-nav-top-admin.php'; ?>
+    <br><br><br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2"></div>
@@ -40,14 +43,14 @@
                             <tr>
                                 <td>Integration Tests</td>
                                 <td>
-                                    <a href="<?php echo URLROOT; ?>/admins/tests/benchmark">performance testing (benchmarks)</a>
+                                    <a href="<?php echo URLROOT; ?>/index/tests/benchmark">performance testing (benchmarks)</a>
                                 </td>
                             </tr>
                             <?php foreach ($data['aHelpersFiles'] as $helper) { ?>
                             <tr>
                                 <td>Unit Tests</td>
                                 <td>
-                                    <a href="<?php echo URLROOT; ?>/admins/tests/helpers/<?php echo deleteCharsInStringBasedOnPosition($helper, -4); ?>">helpers/<?php echo $helper; ?></a>
+                                    <a href="<?php echo URLROOT; ?>/index/tests/helpers/<?php echo deleteCharsInStringBasedOnPosition($helper, -4); ?>">helpers/<?php echo $helper; ?></a>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -60,3 +63,4 @@
         </div>
     </div>
 <?php require APPROOT . '/views/inc/4-footer.php'; ?>
+<?php require APPROOT . '/views/inc/5-cookies.php'; ?>

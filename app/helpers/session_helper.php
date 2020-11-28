@@ -1,26 +1,29 @@
 <?php
+
 session_start();
+
 /**
  * @goal   display flash messages in view with echo flash('name');
  * @param  string $name, string $message, string $class @example flash('register', 'You are now registered', '[alert info, alert success, alert warning, alert danger]');
  * @result html
  */
-function flash($name = '', $message = '', $class = 'alert alert-success'){
-    if(!empty($name)){
-        if(!empty($message) && empty($_SESSION[$name])){
-            if(!empty($_SESSION[$name])){
+function flash($name = '', $message = '', $class = 'alert alert-success')
+{
+    if (!empty($name)) {
+        if (!empty($message) && empty($_SESSION[$name])) {
+            if (!empty($_SESSION[$name])) {
                 unset($_SESSION[$name]);
             }
-            if(!empty($_SESSION[$name . '_class'])){
+            if (!empty($_SESSION[$name . '_class'])) {
                 unset($_SESSION[$name . '_class']);
             }
             $_SESSION[$name] = $message;
             $_SESSION[$name . '_class'] = $class;
-        } elseif(empty($message) && !empty($_SESSION[$name])){
+        } elseif (empty($message) && !empty($_SESSION[$name])) {
             $class = !empty($_SESSION[$name . '_class']) ? $_SESSION[$name . '_class'] : '';
             echo '<div class="' . $class . '" id="msg-flash">';
-                echo '<span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
-                echo $_SESSION[$name];
+            echo '<span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
+            echo $_SESSION[$name];
             echo '</div>';
             ?>
             <!--<script>
@@ -41,7 +44,8 @@ function flash($name = '', $message = '', $class = 'alert alert-success'){
  */
 function isLoggedIn()
 {
-    if(isset($_SESSION['user_id']) && isset($_SESSION['user_email']) && isset($_SESSION['user_firstname']) && isset($_SESSION['user_surname']) && isset($_SESSION['user_role'])){
+    if (isset($_SESSION['user_id']) && isset($_SESSION['user_email']) &&
+        isset($_SESSION['user_firstname']) && isset($_SESSION['user_surname']) && isset($_SESSION['user_role'])) {
         return true;
     } else {
         return false;
@@ -67,8 +71,8 @@ function createUserSession($user)
  */
 function isAdminLoggedIn()
 {
-    if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] === 'Admin'){
+    if (isset($_SESSION['user_role'])) {
+        if ($_SESSION['user_role'] === 'Admin') {
             // Admin logged in
             return true;
         } else {
@@ -85,7 +89,7 @@ function isAdminLoggedIn()
  */
 function isUserLoggedIn()
 {
-    if(isset($_SESSION['user_role'])) {
+    if (isset($_SESSION['user_role'])) {
         if ($_SESSION['user_role'] === 'RegisteredUser') {
             // Coworker logged in
             return true;
@@ -103,7 +107,7 @@ function isUserLoggedIn()
  */
 function isAdminLoggedInAsCoworker()
 {
-    if(isset($_SESSION['temp_user_role'])) {
+    if (isset($_SESSION['temp_user_role'])) {
         if ($_SESSION['temp_user_role'] === 'RegisteredUser') {
             // Admin as coworker logged in
             return true;
@@ -119,12 +123,13 @@ function isAdminLoggedInAsCoworker()
  * @goal   get user permissions to view a content
  * @return array
  */
-function getUserPermissions(){
-    if(isset($_SESSION['user_role'])){
-        if($_SESSION['user_role'] === 'Admin'){
+function getUserPermissions()
+{
+    if (isset($_SESSION['user_role'])) {
+        if ($_SESSION['user_role'] === 'Admin') {
             $I = $_SESSION['user_email'];
             $observe_permissions = [$I, 'Admins', 'RegisteredUsers', 'All'];
-        } else if($_SESSION['user_role'] === 'RegisteredUser'){
+        } else if ($_SESSION['user_role'] === 'RegisteredUser') {
             $observe_permissions = ['RegisteredUsers', 'All'];
         } else {
             $observe_permissions = ['All'];
