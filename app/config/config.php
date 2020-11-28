@@ -2,6 +2,7 @@
 // IMPORTANT*: rewrite .htaccess for production (RewriteBase /bolkun/public to /public)
 
 /*** DB ***/
+# host*
 define('DB_HOST', 'localhost');
 # user*
 define('DB_USER', 'root');
@@ -17,9 +18,9 @@ define('SITENAME', 'Bolkun');
 define('APPVERSION', '1.0.0');
 # clear page cache*
 define('CLEARPAGECACHE', true);
-# preview image name*
-define('DEFAULT_PREVIEW_IMAGE', 'default_blog_page-min.png');
-# social image name*
+# preview image name
+define('DEFAULT_PREVIEW_IMAGE', 'default_preview_image-min.png');
+# social image name
 define('DEFAULT_SOCIAL_IMAGE', 'default_social_image-min.png');
 
 /*** APP ***/
@@ -71,6 +72,7 @@ define('URLROOT', 'http://localhost/bolkun');
 define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 # start page* ( Hint: libraries/Core.php calls controllers/Dashboards and method always index() )
 define('STARTPAGE', 'Indexs');
+
 /*** PUBLIC ***/
 # public url
 define('PUBLICURL', URLROOT . '/public');
