@@ -1,7 +1,6 @@
 /*
- *   view: inc/3-nav-top-user.php
+ *   view: inc/2-nav-top-user.php
  */
-
 // Delete main menu item
 function ajax_menuDeleteTree(values) {
 
@@ -49,8 +48,6 @@ function menuDeleteTree_success(values) {
     }, 3000);
 }
 
-/**********************************************************************************************************************/
-
 // Style main menu title gui
 function mmEditTitle(values) {
     var id = values['blog_id'];
@@ -96,8 +93,6 @@ function mmEditTitle(values) {
     // set parent id input
     document.getElementById('mm_edit_title_id').value = id;
 }
-
-/**********************************************************************************************************************/
 
 // Style main menu node gui
 function mmAddChild(values) {
@@ -150,8 +145,6 @@ function mmAddChild(values) {
     // set parent id input
     document.getElementById('mm_add_child_parentId').value = id;
 }
-
-/**********************************************************************************************************************/
 
 // Add main menu node
 function ajax_mmAddChild(values) {
@@ -223,8 +216,6 @@ function mmAddChild_success(title, parent_id) {
     }, 3000);
 }
 
-/**********************************************************************************************************************/
-
 // Edit main menu title
 function ajax_mmEditTitle(values) {
     var formdata = $("#mmEditTitleForm").serializeArray();
@@ -295,8 +286,6 @@ function mmEditTitle_success(title, id) {
     }, 3000);
 }
 
-/**********************************************************************************************************************/
-
 // Drop down items
 function mmDropDownItems() {
     var color = document.getElementById("mmDropDownItems").style.color;
@@ -319,8 +308,8 @@ function mmDropDownItems() {
 }
 
 // Social Media
-// radio choice
 function displaySMServerSocialImageDiv() {
+    // radio choice
     document.getElementById("sm_social_image_server_div").style.display = "block";
     document.getElementById("sm_social_image_local_div").style.display = "none";
     document.getElementById("selectedServerSocialImageDiv").style.display = "block";
@@ -328,6 +317,7 @@ function displaySMServerSocialImageDiv() {
 }
 
 function displaySMLocalSocialImageDiv() {
+    // radio choice
     document.getElementById("sm_social_image_server_div").style.display = "none";
     document.getElementById("sm_social_image_local_div").style.display = "block";
     document.getElementById("selectedServerSocialImageDiv").style.display = "none";
@@ -457,7 +447,24 @@ function deleteSocialMedia_success(values) {
     }, 3000);
 }
 
-/**********************************************************************************************************************/
+/*
+ *   view: inc/3-nav-top-admin.php
+ */
+// read and write mode for blog content
+function displayBlogContent() {
+    var user_content = document.getElementById("tinymce_data").style.display;
+    if(user_content === "none"){
+        document.getElementById("tinymce_data").style.display = "block";
+        document.getElementById("blog_form").style.display = "none";
+        // change icon color
+        document.getElementById("edit_content").style.color = "white";
+    } else {
+        document.getElementById("tinymce_data").style.display = "none";
+        document.getElementById("blog_form").style.display = "block";
+        // change icon color
+        document.getElementById("edit_content").style.color = "rgb(118, 185, 1)";
+    }
+}
 
 /*
  *   view: index/index.php
@@ -564,8 +571,6 @@ function deletePreviewImage_success(values) {
         }
     }, 3000);
 }
-
-/**********************************************************************************************************************/
 
 // Zoom image on click
 $('.zoom').css({cursor: 'pointer'}).on('click', function () {

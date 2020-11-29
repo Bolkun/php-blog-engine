@@ -9,7 +9,7 @@
             <div class="container" style="<?php if (isAdminLoggedIn() === true) { echo 'width: 95%'; } ?>">
                 <div style="margin-top: -6px; z-index: -1;">
                     <?php if (isAdminLoggedIn() === true) { ?>
-                        <form style="z-index: 0; width: 100%;" class="form-inline" action="<?php echo URLCURRENT; ?>/index" method="post" enctype="multipart/form-data">
+                        <form id="blog_form" style="z-index: 0; width: 100%;" class="form-inline" action="<?php echo URLCURRENT; ?>/index" method="post" enctype="multipart/form-data">
                             <div class="form-row" style="width: 103%;">
                                 <div class="form-group col-lg-12">
                                     <textarea class="tinymce" name="blog_ta_tinymce">
@@ -152,11 +152,10 @@
                                 </div>
                             </div>
                         </form>
-                    <?php } else { ?>
-                    <div id="tinymce_data">
+                    <?php } ?>
+                    <div id="tinymce_data" style="<?php if(isAdminLoggedIn()){ echo "display: none"; } ?>">
                         <?php echo $data['blog_content']; ?>
                     </div>
-                    <?php } ?>
                 </div>
             </div>
         <?php }

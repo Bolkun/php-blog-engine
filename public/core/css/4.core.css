@@ -312,6 +312,15 @@ li input:checked + ol > li:last-child {
     padding-left: 15px;
 }
 
+#edit_content {
+    color: #76b901;
+}
+
+#edit_content_icon {
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
 /**********************************************************************************************************************/
 
 /* flash messages */
