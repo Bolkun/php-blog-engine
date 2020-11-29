@@ -61,10 +61,11 @@ class Blog
         }
     }
 
-    public function updateViews($data)
+    public function updateViewsBasedOnVisitorIP($data)
     {
         $max = 1000000000;
-        $this->db->query('UPDATE blog SET views = views + 1 WHERE blog_id = :blog_id AND views != :max');
+        $this->db->query('UPDATE blog SET views = views + 1, views_ip = :views_ip WHERE blog_id = :blog_id AND views != :max');
+        $this->db->bind(':views_ip', $data['views_ip']);
         $this->db->bind(':blog_id', $data['blog_id']);
         $this->db->bind(':max', $max);
 

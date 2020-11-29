@@ -61,6 +61,7 @@ class Blogs extends Controller
             'category' => '',
             'title' => '',
             'rank' => '',
+            'views_ip' => '',
             'content' => '',
         ];
 
@@ -73,9 +74,15 @@ class Blogs extends Controller
             $data['category'] = $oData->category;
             $data['title'] = $oData->title;
             $data['rank'] = $oData->rank;
+            $data['views_ip'] = $oData->views_ip;
             $data['content'] = base64_decode($oData->content); // Decode from db
-            // update views count
-            $this->blogModel->updateViews($data);
+            // update views count based on ip
+            $visitor_ip = getUserIP();
+            if (!checkIfStringHasWord($data['views_ip'], $visitor_ip)) {
+                // add to string new ip
+                $data['views_ip'] = ' ' . $visitor_ip;
+                $this->blogModel->updateViewsBasedOnVisitorIP($data);
+            }
         } else {
             die("Blog title not found");
         }

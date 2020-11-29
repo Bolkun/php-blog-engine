@@ -40,7 +40,7 @@ create table `user` (
   `email`                       varchar(80)     not null                            comment 'email',
   `password`                    varchar(100)    not null                            comment 'hashed password',
   `password_tries`              int(1)          not null default 5                  comment 'max 5 tries available, 0 no tries available',
-  `ip`                          varchar(45)     not null                            comment 'ip',
+  `ip`                          longtext        not null                            comment 'ip',
   `creation_date`               datetime        default current_timestamp,
   `verification_code`           varchar(100)    default null,
   `inactive_date`               datetime        default null,
@@ -67,6 +67,7 @@ create table `blog` (
   `title`                       text            not null,
   `rank`                        tinyint(1)      unsigned default 5,
   `views`                       bigint(20)      unsigned default 0,
+  `views_ip`                    longtext        default null,
   `content`                     longblob        default null                        comment 'longblog main content',
   `parent_id`                   bigint(20)      not null                            comment 'id for main_menu',
   primary key (`blog_id`)
