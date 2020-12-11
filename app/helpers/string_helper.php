@@ -1,6 +1,6 @@
 <?php
 /**
- * @goal   get length of a string
+ * @goal   get length in bytes of a string
  * @param  string  @example Hello World!
  * @return int     @example 12
  */

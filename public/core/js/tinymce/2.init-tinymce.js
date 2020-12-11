@@ -65,6 +65,7 @@ tinymce.init({
       here we add custom filepicker only to Image dialog
     */
     file_picker_types: 'image',
+    image_dimensions: true,
     /* and here's our custom image picker*/
     file_picker_callback: function (cb, value, meta) {
         var input = document.createElement('input');
