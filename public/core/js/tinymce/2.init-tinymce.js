@@ -27,7 +27,7 @@ tinymce.init({
 			'directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample ' +
 			'table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount ' +
 			'tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter pageembed charmap mentions ' +
-			'quickbars linkchecker emoticons advtable autoresize code'
+			'quickbars linkchecker emoticons advtable autoresize code',
     },
     menu: {
         tc: {
