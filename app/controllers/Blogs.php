@@ -234,6 +234,7 @@ class Blogs extends Controller
             $data = [
                 'id' => '',
                 'title' => trim($_POST['ajax_mm_add_child']),
+                'content' => '',
                 'parent_id' => trim($_POST['ajax_mm_add_child_parentId']),
             ];
 
@@ -250,6 +251,9 @@ class Blogs extends Controller
                 // delete ""
                 $data['parent_id'] = replaceString('&#34;', '', $data['parent_id']);
             }
+
+            // add default header
+            $data["content"] = base64_encode('<h1>' . $data['title'] . '</h1>');
 
             // Make sure errors are empty
             if ($this->blogModel->insert($data)) {

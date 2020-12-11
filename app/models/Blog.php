@@ -91,10 +91,11 @@ class Blog
 
     public function insert($data)
     {
-        $this->db->query('INSERT INTO blog (created_by_user_id, observe_permissions, title, parent_id) VALUES (:created_by_user_id, :observe_permissions, :title, :parent_id)');
+        $this->db->query('INSERT INTO blog (created_by_user_id, observe_permissions, title, content, parent_id) VALUES (:created_by_user_id, :observe_permissions, :title, :content, :parent_id)');
         $this->db->bind(':created_by_user_id', $_SESSION['user_id']);
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':observe_permissions', $_SESSION['user_email']);
+        $this->db->bind(':content', $data['content']);
         $this->db->bind(':parent_id', $data['parent_id']);
 
         if ($this->db->execute()) {
