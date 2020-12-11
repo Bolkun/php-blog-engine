@@ -2,6 +2,10 @@ tinymce.init({
     // replace textarea having class .tinymce with tinymce editor
     selector: "textarea.tinymce",
 
+    // check spelling in text area
+    browser_spellcheck: true,   // Press [STRG]+RM or RM
+    contextmenu: false,
+
     // toolbar sticky when scrolling down a web page until the editor is no longer visible.
     toolbar_sticky: true,
 
