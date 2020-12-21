@@ -49,6 +49,41 @@ class Blogs extends Controller
         return $data;
     }
 
+    public function getRecordsBasedOnPaginationBlock($url_param, $pagination, $observe_permissions)
+    {
+        // Init data
+        $data = [
+            'blog_id' => [],
+            'created_by_user_id' => [],
+            'last_edit_date' => [],
+            'preview_image' => [],
+            'observe_permissions' => [],
+            'category' => [],
+            'title' => [],
+            'rank' => [],
+            'views' => [],
+        ];
+
+        $oData = $this->blogModel->getRecordsBasedOnPaginationBlock($pagination['allSortedBlocksWithBlogIds'][$url_param - 1], $observe_permissions);
+        if ($oData) {
+            for ($i = 0; $i < count($oData); $i++) {
+                array_push($data['blog_id'], $oData[$i]->blog_id);
+                array_push($data['created_by_user_id'], $oData[$i]->created_by_user_id);
+                array_push($data['last_edit_date'], $oData[$i]->last_edit_date);
+                array_push($data['preview_image'], $oData[$i]->preview_image);
+                array_push($data['observe_permissions'], $oData[$i]->observe_permissions);
+                array_push($data['category'], $oData[$i]->category);
+                array_push($data['title'], $oData[$i]->title);
+                array_push($data['rank'], $oData[$i]->rank);
+                array_push($data['views'], $oData[$i]->views);
+            }
+        } else {
+            $data = false;
+        }
+
+        return $data;
+    }
+
     public function getRecord($blog_id, $observe_permissions)
     {
         // Init data
@@ -410,6 +445,37 @@ class Blogs extends Controller
         }
 
         return $data['mm'];
+    }
+
+    public function pagination($observe_permissions)
+    {
+        $data = [
+            'allBlogIds' => [],
+            'sizeAllBlogIds' => '',
+            'sizeAllBlocks' => '',
+            'allSortedBlocksWithBlogIds' => [],
+        ];
+
+        // initialize $data['allBlogIds']
+        $oData = $this->blogModel->pagination($observe_permissions);
+        if ($oData) {
+            for ($i = 0; $i < count($oData); $i++) {
+                array_push($data['allBlogIds'], $oData[$i]->blog_id);
+            }
+        } else {
+            $data = false;
+        }
+
+        // initialize $data['sizeAllBlogIds']
+        $data['sizeAllBlogIds'] = count($data['allBlogIds']);
+
+        // initialize $data['sizeAllBlogIds'], round to the next integer
+        $data['sizeAllBlocks'] = ceil($data['sizeAllBlogIds'] / MAX_BLOG_DIVS);
+
+        // initialize $data['allSortedBlocksWithBlogIds'], split array into parts with new keys
+        $data['allSortedBlocksWithBlogIds'] = array_chunk($data['allBlogIds'], MAX_BLOG_DIVS, false);
+
+        return $data;
     }
 
 }

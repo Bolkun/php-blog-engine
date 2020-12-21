@@ -22,11 +22,11 @@ class Indexs extends Controller
         return getUserPermissions();
     }
 
-    public function getData()
+    public function getData($url_param)
     {
         $observe_permissions = $this->getObservePermissions();
         return [
-            'url_param' => '',
+            'url_param' => $url_param,
             // social media
             'sm' => (new Social_Medias)->index(),
             'sm_add_name' => '',
@@ -52,6 +52,8 @@ class Indexs extends Controller
             'blog_preview_image_err' => '',
             'blog_category_err' => '',
             'blog_title_err' => '',
+            // pagination
+            'pagination' => (new Blogs)->pagination($observe_permissions),
             // blog mm
             'blog_mm' => (new Blogs)->menu($observe_permissions),
             'blog_mm_search' => '',
@@ -103,8 +105,7 @@ class Indexs extends Controller
     {
         // Init data
         $observe_permissions = $this->getObservePermissions();
-        $data = $this->getData();
-        $data['url_param'] = $url_param;
+        $data = $this->getData($url_param);
 
         // POST
         if (isset($_POST['submit_blog_ta_tinymce'])) {
@@ -138,22 +139,6 @@ class Indexs extends Controller
                 'display_div' => array('collapse_main_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
-            $blog = new Blogs();
-            $blog->add();
-        }
-        elseif (isset($_POST['ajax_mm_edit_title_id']) && isset($_POST['ajax_mm_edit_title'])) {
-            $blog = new Blogs();
-            $blog->editTitle();
-        }
-        elseif (isset($_POST['ajax_sMainMenuID'])) {
-            $blog = new Blogs();
-            $blog->deleteBranch($observe_permissions);
-        }
-        elseif (isset($_POST['ajax_sDeletePreviewImage'])) {
-            $preview_image = new Preview_Images();
-            $preview_image->deletePreviewImage();
         }
         elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
@@ -252,6 +237,22 @@ class Indexs extends Controller
 
             $data = mergeAsocArrays($data, $new_data);
         }
+        elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
+            $blog = new Blogs();
+            $blog->add();
+        }
+        elseif (isset($_POST['ajax_mm_edit_title_id']) && isset($_POST['ajax_mm_edit_title'])) {
+            $blog = new Blogs();
+            $blog->editTitle();
+        }
+        elseif (isset($_POST['ajax_sMainMenuID'])) {
+            $blog = new Blogs();
+            $blog->deleteBranch($observe_permissions);
+        }
+        elseif (isset($_POST['ajax_sDeletePreviewImage'])) {
+            $preview_image = new Preview_Images();
+            $preview_image->deletePreviewImage();
+        }
         elseif (isset($_POST['ajax_sDeleteSocialImage'])) {
             $social_image = new Social_Images();
             $social_image->deleteSocialImage();
@@ -261,7 +262,8 @@ class Indexs extends Controller
             $sm->delete();
         }
 
-        if (is_numeric($url_param) && $url_param != '0') {
+        // Pages
+        if ($url_param !== 0) {
             // one page
             $blog = new Blogs();
             $blog_data = $blog->getRecord($url_param, $observe_permissions);
@@ -285,10 +287,11 @@ class Indexs extends Controller
 
             $data = mergeAsocArrays($data, $new_data);
         }
-        elseif ($url_param == '0' || $url_param === 'index') {
-            // start page
+        elseif ($url_param === 0) {
+            // all pages
             $blog = new Blogs();
             $blog_data = $blog->index($observe_permissions);
+
             if ($blog_data !== false) {
                 $new_data = [
                     // blog index
@@ -310,12 +313,40 @@ class Indexs extends Controller
         }
 
         $this->view('index/index', $data);
-    } // end function
+    }
+
+    public function page($url_param = 0)
+    {
+        if ($url_param !== 0) {
+            $observe_permissions = $this->getObservePermissions();
+            $data = $this->getData($url_param);
+
+            $blog = new Blogs();
+            $blog_data = $blog->getRecordsBasedOnPaginationBlock($url_param, $data['pagination'], $observe_permissions);
+            $new_data = [
+                // blog index
+                'blog_id' => $blog_data['blog_id'],
+                'blog_created_by_user_id' => $blog_data['created_by_user_id'],
+                'blog_last_edit_date' => $blog_data['last_edit_date'],
+                'blog_preview_image' => $blog_data['preview_image'],
+                'blog_observe_permissions' => $blog_data['observe_permissions'],
+                'blog_category' => $blog_data['category'],
+                'blog_title' => $blog_data['title'],
+                'blog_rank' => $blog_data['rank'],
+                'blog_views' => $blog_data['views'],
+            ];
+            $data = mergeAsocArrays($data, $new_data);
+
+            $this->view('index/page', $data);
+        } else {
+            die('Page Not Found!');
+        }
+    }
 
     public function devs()
     {
         if (isAdminLoggedIn() === true) {
-            $data = $this->getData();
+            $data = $this->getData(NULL);
             $properties = [
                 "Browser" => "Google Chrome",
                 "PHP" => "v7.3.10 (This server use PHP v" . phpversion() . ")",
@@ -347,7 +378,7 @@ class Indexs extends Controller
     public function tests()
     {
         if (isAdminLoggedIn() === true) {
-            $data = $this->getData();
+            $data = $this->getData(NULL);
             $aHelpersFiles = getAllFilesInDir(APPROOT . DIRECTORY_SEPARATOR . 'helpers');
 
             $data['title'] = "Tests";
@@ -362,7 +393,7 @@ class Indexs extends Controller
     public function benchmark()
     {
         if (isAdminLoggedIn() === true) {
-            $data = $this->getData();
+            $data = $this->getData(NULL);
 
             $aEchoVsPrint = echo_vs_print();
             $aSingleVsDoubleQuotes = single_vs_double_quotes();

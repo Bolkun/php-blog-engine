@@ -114,3 +114,20 @@ function jsonEncodeDeleteSocialMedia($oData = NULL, $name)
     $sJSON = json_encode($aData);
     return $sJSON;
 }
+
+/**
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   int $pagination_block
+ * @return  string
+ */
+function jsonPagination($oData = NULL, $pagination_block)
+{
+    // convert object to associative array
+    $aData = (array)$oData;
+    // add url to array being posted to
+    $aData['URLCURRENT'] = URLCURRENT;
+    // block to load
+    $aData['pagination_block'] = $pagination_block;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}

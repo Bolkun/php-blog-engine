@@ -66,12 +66,16 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
         define('PUBLIC_CORE_VIDEOROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'video');
 
 /*** URL ***/
-# url root* redirects to STARTPAGE
+# url root*
 define('URLROOT', 'http://localhost/bolkun');
 # url of current page
 define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-# start page* ( Hint: libraries/Core.php calls controllers/Dashboards and method always index() )
-define('STARTPAGE', 'Indexs');
+# start controller* (Core: defines controller name, always ending with 's')
+define('STARTCONTROLLER', 'Indexs');
+# start method* (Core: defines controller method name)
+define('STARTMETHOD', 'index');
+# maximum blocks on start page ( minimum: 1, default: 36, formula: MAX_BLOG_DIVS=4(rows)*n(columns) )
+define('MAX_BLOG_DIVS', 4);
 
 /*** PUBLIC ***/
 # public url

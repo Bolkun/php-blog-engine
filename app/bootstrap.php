@@ -28,7 +28,7 @@ foreach ($aHelpers as $helper) {
 unset($aHelpers);
 
 /*
- * Autoload Core Libraries
+ * Autoload Libraries
  */
 spl_autoload_register(function ($className) {
     require_once 'libraries/' . $className . '.php';

@@ -10,7 +10,7 @@ function autoload_stylesheet()
     $aStyles = getAllFilesInDir(PUBLIC_CORE_CSSROOT);
     foreach ($aStyles as $file) {
         if (preg_match("/^.*\.css$/", $file)) {
-            echo '<link rel="stylesheet" href="' . PUBLIC_CORE_CSSURL . '/' . $file . '">';
+            echo '<link rel="stylesheet" href="' . PUBLIC_CORE_CSSURL . '/' . $file . '">' . "\n    ";
         }
     }
     unset($aStyles);
@@ -27,7 +27,7 @@ function autoload_javascript()
     $aJs = getAllFilesInDir(PUBLIC_CORE_JSROOT);
     foreach ($aJs as $file) {
         if (preg_match("/^.*\.js$/", $file)) {
-            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file . '"></script>';
+            echo '<script src="' . PUBLIC_CORE_JSURL . '/' . $file . '"></script>' . "\n";
         }
     }
     unset($aJs);
@@ -107,12 +107,12 @@ function createTreeView($parent, $menu)
                     $html .= "<li><label for='subfolder2'>
                     <i style='color: grey;' id='mmAddChild" . $menu['items'][$itemId]['blog_id'] . "' onclick='mmAddChild(" . jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-plus mm_add_child_icon' aria-hidden='true'></i>
                     <i style='color: grey;' id='mmEditTitle" . $menu['items'][$itemId]['blog_id'] . "' onclick='mmEditTitle(" . jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-pencil mm_edit_title_icon' aria-hidden='true'></i>
-                    <a class='main_menu_link' style='color: " . $permission_color . ";' href='" . URLROOT . '/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
+                    <a class='main_menu_link' style='color: " . $permission_color . ";' href='" . URLROOT . '/index/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
                     <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='ajax_menuDeleteTree(" . jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")'></label>
                     <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
                 } else {
                     $html .= "<li><label for='subfolder2'>
-                    <a class='main_menu_link' href='" . URLROOT . '/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label> 
+                    <a class='main_menu_link' href='" . URLROOT . '/index/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label> 
                     <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
                 }
             }
@@ -122,14 +122,14 @@ function createTreeView($parent, $menu)
                     $html .= "<li><label for='subfolder2'>
                     <i style='color: grey;' id='mmAddChild" . $menu['items'][$itemId]['blog_id'] . "' onclick='mmAddChild(" . jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-plus mm_add_child_icon' aria-hidden='true'></i>
                     <i style='color: grey;' id='mmEditTitle" . $menu['items'][$itemId]['blog_id'] . "' onclick='mmEditTitle(" . jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-pencil mm_edit_title_icon' aria-hidden='true'></i>
-                    <a class='main_menu_link' style='color: " . $permission_color . ";' href='" . URLROOT . '/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
+                    <a class='main_menu_link' style='color: " . $permission_color . ";' href='" . URLROOT . '/index/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
                     <img class='delete_main_menu_el' src='" . PUBLIC_CORE_IMG_UIURL . "/delete_white12x12.png' onclick='ajax_menuDeleteTree(" . jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")'></label>
                     <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
                     $html .= createTreeView($itemId, $menu);
                     $html .= "</li>";
                 } else {
                     $html .= "<li><label for='subfolder2'>
-                    <a class='main_menu_link' href='" . URLROOT . '/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label>
+                    <a class='main_menu_link' href='" . URLROOT . '/index/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a></label>
                     <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
                     $html .= createTreeView($itemId, $menu);
                     $html .= "</li>";

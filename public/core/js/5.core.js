@@ -3,7 +3,6 @@
  */
 // Delete main menu item
 function ajax_menuDeleteTree(values) {
-
     if (confirm("Want to delete Menu Item with title=" + values['title'] + " ?")) {
         // Logic to delete the page
         $.ajax({

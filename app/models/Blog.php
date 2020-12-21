@@ -14,7 +14,41 @@ class Blog
         $sObserve_permissions = implode("','", $observe_permissions);
 
         $this->db->query("SELECT blog_id, created_by_user_id, last_edit_date, preview_image, observe_permissions, category, title, rank, views FROM blog 
-          WHERE observe_permissions IN ('" . $sObserve_permissions . "') ORDER BY last_edit_date DESC LIMIT 10");
+          WHERE observe_permissions IN ('" . $sObserve_permissions . "') ORDER BY last_edit_date DESC LIMIT :max_blog_divs");
+        $this->db->bind(':max_blog_divs', MAX_BLOG_DIVS);
+
+        $row = $this->db->resultSet();
+
+        if (empty($row)) {
+            return false;
+        } else {
+            return $row;
+        }
+    }
+
+    public function getRecordsBasedOnPaginationBlock($blogIdsNeeded, $observe_permissions)
+    {
+        $sBlogIdsNeeded = implode("','", $blogIdsNeeded);
+        $sObserve_permissions = implode("','", $observe_permissions);
+
+        $this->db->query("SELECT blog_id, created_by_user_id, last_edit_date, preview_image, observe_permissions, category, title, rank, views FROM blog 
+          WHERE observe_permissions IN ('" . $sObserve_permissions . "') AND blog_id IN ('" . $sBlogIdsNeeded . "') ORDER BY last_edit_date DESC LIMIT :max_blog_divs");
+        $this->db->bind(':max_blog_divs', MAX_BLOG_DIVS);
+
+        $row = $this->db->resultSet();
+
+        if (empty($row)) {
+            return false;
+        } else {
+            return $row;
+        }
+    }
+
+    public function pagination($observe_permissions)
+    {
+        $sObserve_permissions = implode("','", $observe_permissions);
+
+        $this->db->query("SELECT blog_id FROM blog WHERE observe_permissions IN ('" . $sObserve_permissions . "') ORDER BY last_edit_date DESC");
 
         $row = $this->db->resultSet();
 

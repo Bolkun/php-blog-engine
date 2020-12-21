@@ -1,12 +1,12 @@
 <nav id="nav_top_user" class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
     <div class="container">
 
-        <!-- element 1 -->
+        <!-- home -->
         <a id="home_menu" href="<?php echo URLROOT; ?>" class="btn btn-default float-left">
             <i class="fa fa-home" aria-hidden="true"></i>
         </a>
 
-        <!-- element 2 -->
+        <!-- social media -->
         <button id="toggle_share_menu" class="btn btn-default float-left"
                 onclick="changeNavTopUserColor('toggle_share_menu', 'collapse_share_menu')" type="button"
                 data-toggle="collapse" data-target="#collapse_share_menu">
@@ -173,13 +173,13 @@
             </div>
         </div>
 
-        <!-- element 3 -->
+        <!-- authentication -->
         <button id="toggle_login_menu" class="btn btn-default float-left"
                 onclick="changeNavTopUserColor('toggle_login_menu', 'collapse_login_menu')" type="button"
                 data-toggle="collapse" data-target="#collapse_login_menu">
             <i id="login" class="fa fa-user-circle"></i>
         </button>
-        <!-- Toggler Login Menu -->
+        <!-- Toggler Authentication Menu -->
         <div id="collapse_login_menu" class="dropdown-menu bg-dark">
             <?php if (isLoggedIn() === true) { ?>
                 <!-- Setting Form -->
@@ -331,7 +331,7 @@
             <?php } ?>
         </div>
 
-        <!-- element 4 -->
+        <!-- main menu -->
         <button id="toggle_main_menu" class="btn btn-default float-left"
                 onclick="changeNavTopUserColor('toggle_main_menu', 'collapse_main_menu')" type="button"
                 data-toggle="collapse" data-target="#collapse_main_menu">
@@ -429,5 +429,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 </nav>
