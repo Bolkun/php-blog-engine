@@ -48,8 +48,11 @@
                 <?php
                     $current_page = 0;
                     for ($i = 0; $i < count($data['pagination']['allSortedBlocksWithBlogIds']); $i++) {
-                        if($data['blog_id'][0] === $data['pagination']['allBlogIds'][$i]) {
-                            $current_page = $i+1;
+                        for($j = 0; $j < count($data['pagination']['allSortedBlocksWithBlogIds'][$i]); $j++){
+                            if($data['blog_id'][0] === $data['pagination']['allSortedBlocksWithBlogIds'][$i][$j]) {
+                                $current_page = $i+1;
+                                break;
+                            }
                         }
                     }
                     // previous page
@@ -57,7 +60,7 @@
                         ?>
                         <li class="page-item">
                             <a class="page-link"
-                               href="<?php echo URLROOT; ?>/index/page/<?php if(($current_page - 1) == 0){ echo end($data['pagination']['allBlogIds']); } else { echo $current_page - 1; } ?>">
+                               href="<?php echo URLROOT; ?>/index/page/<?php if(($current_page - 1) == 0){ echo count($data['pagination']['allSortedBlocksWithBlogIds']); } else { echo $current_page - 1; } ?>">
                                 <i class="fa fa-arrow-left"></i>
                             </a>
                         </li>
@@ -97,12 +100,18 @@
                         </li>
                 <?php
                     }
-                    // last page
+                    // Hint, there are more pages left
                     if (array_key_exists($current_page + 2, $data['pagination']['allSortedBlocksWithBlogIds'])) {
                         ?>
                         <li class="page-item">
-                            <a class="page-link">...</a>
+                            <a class="page-link" style="color: grey;">...</a>
                         </li>
+                <?php
+                    }
+                    // last page
+                    if (array_key_exists($current_page + 2, $data['pagination']['allSortedBlocksWithBlogIds']) ||
+                        array_key_exists($current_page + 1, $data['pagination']['allSortedBlocksWithBlogIds'])) {
+                        ?>
                         <li class="page-item">
                             <a class="page-link"
                                href="<?php echo URLROOT; ?>/index/page/<?php echo count($data['pagination']['allSortedBlocksWithBlogIds']); ?>">
@@ -114,7 +123,7 @@
                     // next page
                     if($data['pagination']['sizeAllBlocks'] > 1){ ?>
                         <li class="page-item">
-                            <a class="page-link" href="<?php echo URLROOT; ?>/index/page/<?php if($current_page == end($data['pagination']['allBlogIds'])){ echo '1'; } else { echo $current_page + 1; } ?>">
+                            <a class="page-link" href="<?php echo URLROOT; ?>/index/page/<?php if($current_page == count($data['pagination']['allSortedBlocksWithBlogIds'])){ echo '1'; } else { echo $current_page + 1; } ?>">
                                 <i class="fa fa-arrow-right"></i>
                             </a>
                         </li>
