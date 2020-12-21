@@ -75,7 +75,7 @@ define('STARTCONTROLLER', 'Indexs');
 # start method* (Core: defines controller method name)
 define('STARTMETHOD', 'index');
 # maximum blocks on start page ( minimum: 1, default: 36, formula: MAX_BLOG_DIVS=4(rows)*n(columns) )
-define('MAX_BLOG_DIVS', 4);
+define('MAX_BLOG_DIVS', 36);
 
 /*** PUBLIC ***/
 # public url
