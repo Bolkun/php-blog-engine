@@ -41,7 +41,7 @@
         ?>
     </div>
 </div>
-<nav id="pagination" class="bg-dark navbar-dark" style="display: none">
+<nav id="pagination" class="bg-dark navbar-dark">
     <div class="container">
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
@@ -134,15 +134,3 @@
         </nav>
     </div>
 </nav>
-<script>
-    // load pagination navbar after bottom reached by scrolling
-    function addMoreContent() {
-        window.addEventListener('scroll', function() {
-            // if reached bottom of a page
-            if ($(window).scrollTop() === $(document).height() - $(window).height()) {
-                document.getElementById("pagination").style.display = "block";
-            }
-        });
-    }
-    addMoreContent();
-</script>
