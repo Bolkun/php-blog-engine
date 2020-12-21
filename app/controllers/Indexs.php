@@ -157,6 +157,8 @@ class Indexs extends Controller
                 'log_email_err' => $user_data['email_err'],
                 'log_password_err' => $user_data['password_err'],
                 'log_verification_code_err' => $user_data['verification_code_err'],
+                // pagination
+                'pagination' => (new Blogs)->pagination($observe_permissions),
                 // other
                 'display_div' => array('collapse_login_menu'),
             ];
