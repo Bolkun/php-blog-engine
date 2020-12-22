@@ -446,6 +446,22 @@ function deleteSocialMedia_success(values) {
     }, 3000);
 }
 
+// read and write mode for social media content
+function displaySocialMediaContent() {
+    var social_media_content = document.getElementById("social_media_data").style.display;
+    if(social_media_content === "none"){
+        document.getElementById("social_media_data").style.display = "block";
+        document.getElementById("edit_social_media_content").style.display = "none";
+        // change icon color
+        document.getElementById("edit_social_media_icon").style.color = "white";
+    } else {
+        document.getElementById("social_media_data").style.display = "none";
+        document.getElementById("edit_social_media_content").style.display = "block";
+        // change icon color
+        document.getElementById("edit_social_media_icon").style.color = "rgb(118, 185, 1)";
+    }
+}
+
 /*
  *   view: inc/3-nav-top-admin.php
  */

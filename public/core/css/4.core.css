@@ -123,6 +123,17 @@ a:hover {
     color: deepskyblue;
 }
 
+/* social media */
+#edit_social_media_icon {
+    color: #76b901;
+    cursor: pointer;
+    padding-left: 3px;
+    font-size: 1.4rem;
+}
+#social_media_data {
+    margin-top: -5px;
+}
+
 #search_main_menu,
 #mm_edit_title,
 #mm_add_child,
