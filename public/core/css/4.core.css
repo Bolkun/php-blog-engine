@@ -199,6 +199,9 @@ a:hover {
     margin-top: 5px;
     padding-top: 10px;
     padding-bottom: 1px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 .page-item {
     margin-left: 0;
