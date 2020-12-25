@@ -5,7 +5,7 @@
             // display 4 divs in a row ?>
             <div class="col-sm-3">
                 <a href="<?php echo URLROOT . '/index/' . $data['blog_id'][$i]; ?>">
-                    <img style="border: 1px solid rgba(0, 0, 0, 0.5);" class="article_main_img"
+                    <img class="article_main_img"
                          src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL . '/' . $data['blog_preview_image'][$i]; ?>">
                 </a>
                 <div class="img-rank-block">
@@ -16,7 +16,7 @@
                     </span>
                 </div>
                 <div class="img-text-block">
-                    <h4><?php echo $data['blog_category'][$i]; ?></h4>
+                    <h4><?php if(isset($data['blog_category'][$i])){ echo $data['blog_category'][$i]; } ?></h4>
                     <p><?php echo $data['blog_title'][$i]; ?></p>
                 </div>
                 <div class="img-text-clicked" style="color:
@@ -41,6 +41,7 @@
         ?>
     </div>
 </div>
+<script src="<?php echo PUBLIC_CORE_JSURL . '/all-page-content/all-page-content.js'; ?>"></script>
 <?php
 if ($data['pagination'] !== false) {
     ?>

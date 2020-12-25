@@ -63,7 +63,7 @@ create table `blog` (
   `last_edit_date`              datetime        default current_timestamp,
   `preview_image`               varchar(100)    not null default 'default_preview_image-min.png',
   `observe_permissions`         varchar(20)     not null                            comment 'All, RegisteredUsers, Admins, (I is [UserEmail])',
-  `category`                    varchar(100)    not null default 'Info',
+  `category`                    varchar(100)    default null,
   `title`                       text            not null,
   `rank`                        tinyint(1)      unsigned default 5,
   `views`                       bigint(20)      unsigned default 0,

@@ -149,10 +149,6 @@ class Blogs extends Controller
             ];
 
             // validating
-            if (empty($data['category'])) {
-                $data['category_err'] = 'Please enter category';
-            }
-
             if (empty($data['title'])) {
                 $data['title_err'] = 'Please enter title';
             }
@@ -218,7 +214,7 @@ class Blogs extends Controller
                 $data['preview_image_err'] = 'Preview image choice not selected';
             }
 
-            if (empty($data['category_err']) && empty($data['title_err']) && empty($data['preview_image_err'])) {
+            if (empty($data['title_err']) && empty($data['preview_image_err'])) {
                 if ($this->blogModel->updateRecord($data)) {
                     $data['content'] = base64_decode($data['content']); // Decode from db
                 } else {
