@@ -462,18 +462,18 @@ class Blogs extends Controller
             for ($i = 0; $i < count($oData); $i++) {
                 array_push($data['allBlogIds'], $oData[$i]->blog_id);
             }
+
+            // initialize $data['sizeAllBlogIds']
+            $data['sizeAllBlogIds'] = count($data['allBlogIds']);
+
+            // initialize $data['sizeAllBlogIds'], round to the next integer
+            $data['sizeAllBlocks'] = ceil($data['sizeAllBlogIds'] / MAX_BLOG_DIVS);
+
+            // initialize $data['allSortedBlocksWithBlogIds'], split array into parts with new keys
+            $data['allSortedBlocksWithBlogIds'] = array_chunk($data['allBlogIds'], MAX_BLOG_DIVS, false);
         } else {
             $data = false;
         }
-
-        // initialize $data['sizeAllBlogIds']
-        $data['sizeAllBlogIds'] = count($data['allBlogIds']);
-
-        // initialize $data['sizeAllBlogIds'], round to the next integer
-        $data['sizeAllBlocks'] = ceil($data['sizeAllBlogIds'] / MAX_BLOG_DIVS);
-
-        // initialize $data['allSortedBlocksWithBlogIds'], split array into parts with new keys
-        $data['allSortedBlocksWithBlogIds'] = array_chunk($data['allBlogIds'], MAX_BLOG_DIVS, false);
 
         return $data;
     }
