@@ -18,6 +18,8 @@ define('SITENAME', 'Bolkun');
 define('APPVERSION', '1.0.0');
 # clear page cache*
 define('CLEARPAGECACHE', true);
+# define downtime*
+define('DOWNTIME', false);
 # preview image name
 define('DEFAULT_PREVIEW_IMAGE', 'default_preview_image-min.png');
 # social image name

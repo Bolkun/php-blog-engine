@@ -3,6 +3,10 @@
  * Cache control for development
  */
 clearPageCache();
+/*
+ * Downtime control for development
+ */
+websiteIsDown(DOWNTIME);
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -18,7 +22,6 @@ clearPageCache();
     <?php
     // Autoload Stylesheet
     autoload_stylesheet();
-
     // Autoload JavaScript
     autoload_javascript();
     ?>
