@@ -167,3 +167,26 @@ function getBranchIds(array $elements, $parentId)
 
     return $branch;
 }
+
+/**
+ * @goal   get keywords from title of a page blog or just website name
+ * @param  string $blog_title
+ * @return string
+ */
+function getKeywords($blog_title)
+{
+    $keywords = '';
+
+    if (preg_match("#^" . URLROOT . '/index/' . "[0-9]+$#", URLCURRENT)) {
+        $aKeywords = explode(" ", $blog_title);
+        $aKeywordsSize = count($aKeywords);
+        for ($i = 0; $i < $aKeywordsSize; $i++) {
+            $keywords .= $aKeywords[$i] . ', ';
+        }
+        $keywords .= $blog_title;
+    } else {
+        $keywords = SITENAME;
+    }
+
+    return $keywords;
+}

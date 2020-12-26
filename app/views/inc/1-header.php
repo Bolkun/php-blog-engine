@@ -9,6 +9,9 @@ clearPageCache();
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="keywords" content="<?php echo getKeywords($data['blog_title']); ?>">
+    <meta name="description" content="Web application to store different kind of Information like news, films, blog, photography and more">
+    <meta name="author" content="Serhiy Bolkun">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title><?php echo SITENAME; ?></title>
     <link rel="shortcut icon" href="<?php echo PUBLIC_CORE_IMG_UIURL . '/logo24x24.png'; ?>" type="image/png">
