@@ -90,4 +90,3 @@
         </div>
     </div>
 <?php require APPROOT . '/views/inc/4-footer.php'; ?>
-<?php require APPROOT . '/views/inc/5-cookies.php'; ?>

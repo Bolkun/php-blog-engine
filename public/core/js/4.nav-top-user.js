@@ -53,7 +53,7 @@ function loginRegister(hide, show){
     //element.classList.add("show");
 }
 
-//Replace Value by Registration
+// replace value by registration
 $(function () {
     count = 0;
     wordsArray = ["Register", "Send Verification Code"];

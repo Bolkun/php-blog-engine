@@ -195,6 +195,7 @@
         </div>
     </div>
 </div>
+<script src="<?php echo PUBLIC_CORE_JSURL . '/zoom-images/zoom-images.js'; ?>"></script>
 <?php
 if (isAdminLoggedIn() === true) {
     echo '<script src="' . PUBLIC_CORE_JSURL . '/tinymce/1.tinymce.min.js' . '"></script>' . "\n";

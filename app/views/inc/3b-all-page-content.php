@@ -41,7 +41,6 @@
         ?>
     </div>
 </div>
-<script src="<?php echo PUBLIC_CORE_JSURL . '/all-page-content/all-page-content.js'; ?>"></script>
 <?php
 if ($data['pagination'] !== false) {
     ?>
@@ -149,7 +148,7 @@ if ($data['pagination'] !== false) {
             </nav>
         </div>
     </nav>
-    <script src="<?php echo PUBLIC_CORE_JSURL . '/pagination/pagination.js'; ?>"></script>
     <?php
 }
 ?>
+<script src="<?php echo PUBLIC_CORE_JSURL . '/pagination/pagination.js'; ?>"></script>
