@@ -194,7 +194,7 @@ function getKeywords($blog_title)
 /**
  * @goal   get keywords from title of a page blog or just website name
  * @param  bool $state
- * @return string
+ * @result html
  */
 function websiteIsDown($state)
 {
@@ -237,7 +237,7 @@ function websiteIsDown($state)
     <div class="bg"></div>
     <div class="text-block">
         <h1>Downtime</h1>
-        <h2>Sorry, we are down for scheduled maintenance right now.</h2>
+        <h2>Sorry, we are down for scheduled maintenance right now. Please check back soon.</h2>
     </div>
     </body>
 </html>
