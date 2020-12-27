@@ -17,12 +17,12 @@ class Indexs extends Controller
         $this->social_imageController = $this->controller('Social_Images');
     }
 
-    public function getObservePermissions()
+    private function getObservePermissions()
     {
         return getUserPermissions();
     }
 
-    public function getData($url_param)
+    private function getData($url_param)
     {
         $observe_permissions = $this->getObservePermissions();
         return [
@@ -98,16 +98,8 @@ class Indexs extends Controller
         ];
     }
 
-    /*
-     * All Pages ▼
-     */
-    public function index($url_param = 0)
+    private function post($url_param, $observe_permissions, $data)
     {
-        // Init data
-        $observe_permissions = $this->getObservePermissions();
-        $data = $this->getData($url_param);
-
-        // POST
         if (isset($_POST['submit_blog_ta_tinymce'])) {
             $blog = new Blogs();
             $blog_data = $blog->saveBlogPage($url_param, $observe_permissions);
@@ -264,6 +256,20 @@ class Indexs extends Controller
             $sm->delete();
         }
 
+        return $data;
+    }
+
+    /*
+     * All Pages ▼
+     */
+    public function index($url_param = 0)
+    {
+        // Init
+        $observe_permissions = $this->getObservePermissions();
+        $data = $this->getData($url_param);
+        // POST
+        $data = $this->post($url_param, $observe_permissions, $data);
+
         // Pages
         if ($url_param !== 0) {
             // one page
@@ -320,8 +326,11 @@ class Indexs extends Controller
     public function page($url_param = 0)
     {
         if ($url_param !== 0) {
+            // Init
             $observe_permissions = $this->getObservePermissions();
             $data = $this->getData($url_param);
+            // POST
+            $data = $this->post($url_param, $observe_permissions, $data);
 
             $blog = new Blogs();
             $blog_data = $blog->getRecordsBasedOnPaginationBlock($url_param, $data['pagination'], $observe_permissions);
@@ -348,7 +357,12 @@ class Indexs extends Controller
     public function devs()
     {
         if (isAdminLoggedIn() === true) {
+            // Init
+            $observe_permissions = $this->getObservePermissions();
             $data = $this->getData(NULL);
+            // POST
+            $data = $this->post(NULL, $observe_permissions, $data);
+
             $properties = [
                 "Browser" => "Google Chrome",
                 "PHP" => "v7.3.10 (This server use PHP v" . phpversion() . ")",
@@ -357,7 +371,6 @@ class Indexs extends Controller
                 "Bootstrap" => "v4.5.2",
                 "Tinymce" => "v5.4.1",
             ];
-
             $data['title'] = "Development";
             $data['properties'] = $properties;
 
@@ -380,7 +393,12 @@ class Indexs extends Controller
     public function tests()
     {
         if (isAdminLoggedIn() === true) {
+            // Init
+            $observe_permissions = $this->getObservePermissions();
             $data = $this->getData(NULL);
+            // POST
+            $data = $this->post(NULL, $observe_permissions, $data);
+
             $aHelpersFiles = getAllFilesInDir(APPROOT . DIRECTORY_SEPARATOR . 'helpers');
 
             $data['title'] = "Tests";
@@ -395,8 +413,6 @@ class Indexs extends Controller
     public function benchmark()
     {
         if (isAdminLoggedIn() === true) {
-            $data = $this->getData(NULL);
-
             $aEchoVsPrint = echo_vs_print();
             $aSingleVsDoubleQuotes = single_vs_double_quotes();
             $aIfVsSwitch = if_vs_switch();
