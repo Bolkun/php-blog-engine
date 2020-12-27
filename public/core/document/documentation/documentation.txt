@@ -25,3 +25,6 @@ Examples:
 <View>
 index.php == view.php (mode)
 
+Add Video in tinymce
+Edit media ../public/core/video/test.mp4
+
