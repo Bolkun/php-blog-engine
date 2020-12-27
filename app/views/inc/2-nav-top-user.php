@@ -1,6 +1,5 @@
 <nav id="nav_top_user" class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
     <div class="container">
-
         <!-- home -->
         <a id="home_menu" href="<?php echo URLROOT; ?>" class="btn btn-default float-left">
             <i class="fa fa-home" aria-hidden="true"></i>
@@ -450,6 +449,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </nav>
