@@ -339,7 +339,7 @@ class Blogs extends Controller
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $id = trim($_POST['ajax_sMainMenuID']);
+            $id = trim($_POST['ajax_mm_delete_branch_id']);
 
             $oData = $this->blogModel->selectMenuData($observe_permissions);
             if ($oData) {
@@ -352,7 +352,6 @@ class Blogs extends Controller
                 // delete branch
                 if ($this->blogModel->deleteBranch($branch_ids)) {
                     // replace leaf with no root as a root
-
                 } else {
                     die("Error: Something went wrong during deletion of blog pages");
                 }

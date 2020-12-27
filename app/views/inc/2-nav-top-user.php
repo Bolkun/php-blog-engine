@@ -362,92 +362,90 @@
         </button>
         <!-- Toggler Main Menu -->
         <div id="collapse_main_menu" class="dropdown-menu bg-dark">
-            <div id="mm_load">
-                <h4 class="h4_nav_top_user">
-                    <i id='mmDropDownItems' style='color: white; cursor: pointer;'
-                       onclick="mmDropDownItems()" class='fa fa-play'
+            <h4 class="h4_nav_top_user">
+                <i id='mmDropDownItems' style='color: white; cursor: pointer;'
+                   onclick="mmDropDownItems()" class='fa fa-play'
+                   aria-hidden='true'></i>
+                Main
+                <?php if (isAdminLoggedIn()) { ?>
+                    <i id='mmAddChild0' style='color: grey; cursor: pointer'
+                       onclick="mmAddChild({blog_id:'0', title:''})" class='fa fa-plus mm_add_child_icon'
                        aria-hidden='true'></i>
-                    Main
-                    <?php if (isAdminLoggedIn()) { ?>
-                        <i id='mmAddChild0' style='color: grey; cursor: pointer'
-                           onclick="mmAddChild({blog_id:'0', title:''})" class='fa fa-plus mm_add_child_icon'
-                           aria-hidden='true'></i>
-                    <?php } ?>
-                </h4>
-                <div id="accordion">
-                    <div id="mm_search_form">
-                        <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
-                            <input id="search_main_menu" type="text" name="search_main_menu"
-                                   class="form-control <?php echo (!empty($data['blog_mm_search_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['blog_mm_search']; ?>"
-                                   placeholder="Search">
-                            <button id="submit_search_input" name="submit_search_input" class="btn btn-success"
-                                    type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            <span class="invalid-feedback"><?php echo $data['blog_mm_search_err']; ?></span>
-                        </form>
-                    </div>
-                    <div id="mm_add_child_form">
-                        <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index"
-                              method="post">
-                            <input id="mm_add_child" type="text" name="mm_add_child"
-                                   class="form-control <?php echo (!empty($data['blog_mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['blog_mm_add_child']; ?>"
-                                   placeholder="Add child">
-                            <input id="mm_add_child_parentId" type="text" name="mm_add_child_parentId"
-                                   style="display: none"
-                                   class="form-control"
-                                   value=""
-                                   placeholder="Parent id">
-                            <button type="button"
-                                    id="submit_add_child_input"
-                                    onclick='ajax_mmAddChild(<?php echo jsonEncodeMenuAddChild(NULL); ?>)'
-                                    class="btn btn-success">
-                                <i class='fa fa-plus'></i>
-                            </button>
-                            <span class="invalid-feedback"><?php echo $data['blog_mm_add_child_err']; ?></span>
-                        </form>
-                    </div>
-                    <div id="mm_edit_title_form">
-                        <form id="mmEditTitleForm" class="form-inline" action="<?php echo URLROOT; ?>/index"
-                              method="post">
-                            <input id="mm_edit_title_id" type="text" name="mm_edit_title_id"
-                                   style="display: none"
-                                   class="form-control"
-                                   value=""
-                                   placeholder="Id">
-                            <input id="mm_edit_title" type="text" name="mm_edit_title"
-                                   class="form-control <?php echo (!empty($data['blog_mm_edit_title_err'])) ? 'is-invalid' : ''; ?>"
-                                   value="<?php echo $data['blog_mm_edit_title']; ?>"
-                                   placeholder="Edit title">
-                            <button type="button"
-                                    id="submit_edit_input"
-                                    onclick='ajax_mmEditTitle(<?php echo jsonEncodeMenuEditTitle(NULL); ?>)'
-                                    class="btn btn-success">
-                                <i class='fa fa-pencil'></i>
-                            </button>
-                            <span class="invalid-feedback"><?php echo $data['blog_mm_edit_title_err']; ?></span>
-                        </form>
-                    </div>
-                    <div id="mm_load_box">
-                        <div id="mm_load_trees">
-                            <div id="main_menu_message"><?php flash('main_menu'); ?></div>
-                            <!----------------------------------------------------------------------------------------->
+                <?php } ?>
+            </h4>
+            <div id="accordion">
+                <div id="mm_search_form">
+                    <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
+                        <input id="search_main_menu" type="text" name="search_main_menu"
+                               class="form-control <?php echo (!empty($data['blog_mm_search_err'])) ? 'is-invalid' : ''; ?>"
+                               value="<?php echo $data['blog_mm_search']; ?>"
+                               placeholder="Search">
+                        <button id="submit_search_input" name="submit_search_input" class="btn btn-success"
+                                type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <span class="invalid-feedback"><?php echo $data['blog_mm_search_err']; ?></span>
+                    </form>
+                </div>
+                <div id="mm_add_child_form">
+                    <form id="mmAddChildForm" class="form-inline" action="<?php echo URLROOT; ?>/index"
+                          method="post">
+                        <input id="mm_add_child" type="text" name="mm_add_child"
+                               class="form-control <?php echo (!empty($data['blog_mm_add_child_err'])) ? 'is-invalid' : ''; ?>"
+                               value="<?php echo $data['blog_mm_add_child']; ?>"
+                               placeholder="Add child">
+                        <input id="mm_add_child_parentId" type="text" name="mm_add_child_parentId"
+                               style="display: none"
+                               class="form-control"
+                               value=""
+                               placeholder="Parent id">
+                        <button type="button"
+                                id="submit_add_child_input"
+                                onclick='ajax_mmAddChild(<?php echo jsonEncodeMenuAddChild(NULL); ?>)'
+                                class="btn btn-success">
+                            <i class='fa fa-plus'></i>
+                        </button>
+                        <span class="invalid-feedback"><?php echo $data['blog_mm_add_child_err']; ?></span>
+                    </form>
+                </div>
+                <div id="mm_edit_title_form">
+                    <form id="mmEditTitleForm" class="form-inline" action="<?php echo URLROOT; ?>/index"
+                          method="post">
+                        <input id="mm_edit_title_id" type="text" name="mm_edit_title_id"
+                               style="display: none"
+                               class="form-control"
+                               value=""
+                               placeholder="Id">
+                        <input id="mm_edit_title" type="text" name="mm_edit_title"
+                               class="form-control <?php echo (!empty($data['blog_mm_edit_title_err'])) ? 'is-invalid' : ''; ?>"
+                               value="<?php echo $data['blog_mm_edit_title']; ?>"
+                               placeholder="Edit title">
+                        <button type="button"
+                                id="submit_edit_input"
+                                onclick='ajax_mmEditTitle(<?php echo jsonEncodeMenuEditTitle(NULL); ?>)'
+                                class="btn btn-success">
+                            <i class='fa fa-pencil'></i>
+                        </button>
+                        <span class="invalid-feedback"><?php echo $data['blog_mm_edit_title_err']; ?></span>
+                    </form>
+                </div>
+                <div id="mm_load_box">
+                    <div id="mm_load_trees">
+                        <div id="main_menu_message"><?php flash('main_menu'); ?></div>
+                        <!----------------------------------------------------------------------------------------->
+                        <?php
+
+                        echo createTreeView(0, $data['blog_mm']);
+
+                        // display or hide mmDropDownItems
+                        if (!isset($GLOBALS['HAS_CHILDREN_MM_DROP_DOWN'])) { ?>
+                            <script>
+                                document.getElementById("mmDropDownItems").style.display = "none";
+                            </script>
                             <?php
-
-                            echo createTreeView(0, $data['blog_mm']);
-
-                            // display or hide mmDropDownItems
-                            if (!isset($GLOBALS['HAS_CHILDREN_MM_DROP_DOWN'])) { ?>
-                                <script>
-                                    document.getElementById("mmDropDownItems").style.display = "none";
-                                </script>
-                                <?php
-                            }
-                            ?>
-                            <!----------------------------------------------------------------------------------------->
-                        </div>
+                        }
+                        ?>
+                        <!----------------------------------------------------------------------------------------->
                     </div>
                 </div>
             </div>

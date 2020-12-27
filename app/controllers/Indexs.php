@@ -247,7 +247,7 @@ class Indexs extends Controller
             $blog = new Blogs();
             $blog->editTitle();
         }
-        elseif (isset($_POST['ajax_sMainMenuID'])) {
+        elseif (isset($_POST['ajax_mm_delete_branch_id'])) {
             $blog = new Blogs();
             $blog->deleteBranch($observe_permissions);
         }

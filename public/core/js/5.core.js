@@ -7,7 +7,7 @@ function ajax_menuDeleteTree(values) {
         // Logic to delete the page
         $.ajax({
             url: values['URLCURRENT'],
-            data: 'ajax_sMainMenuID=' + values['blog_id'],
+            data: 'ajax_mm_delete_branch_id=' + values['blog_id'],
             type: 'post',
             error: menuDeleteTree_error(values),
             success: menuDeleteTree_success(values)
@@ -26,7 +26,7 @@ function menuDeleteTree_error(values) {
     setTimeout(function () {
         $('#main_menu_message').fadeOut('fast');
         // reload new view
-        $("#collapse_main_menu").load(location.href + " #mm_load");    // parent.load(child)
+        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
     }, 3000);
 }
 
@@ -41,9 +41,13 @@ function menuDeleteTree_success(values) {
 
     setTimeout(function () {
         $('#main_menu_message').fadeOut('fast');
-        // reload new view
-        $("#collapse_main_menu").load(location.href + " #mm_load");    // parent.load(child)
-        $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
+        if(values['URLCURRENT'] === values['URLROOT'] + "/index/" + values['blog_id']){
+            window.location.href = values['URLROOT'];
+        } else {
+            // reload new view
+            $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
+            $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
+        }
     }, 3000);
 }
 
