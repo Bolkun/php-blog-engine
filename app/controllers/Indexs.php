@@ -8,6 +8,8 @@ class Indexs extends Controller
     private $social_mediaController;
     private $social_imageController;
 
+    private $observe_permissions;
+
     public function __construct()
     {
         $this->blogController = $this->controller('Blogs');
@@ -15,6 +17,8 @@ class Indexs extends Controller
         $this->preview_imageController = $this->controller('Preview_Images');
         $this->social_mediaController = $this->controller('Social_Medias');
         $this->social_imageController = $this->controller('Social_Images');
+
+        $this->observe_permissions = $this->getObservePermissions();
     }
 
     private function getObservePermissions()
@@ -24,7 +28,6 @@ class Indexs extends Controller
 
     private function getData($url_param)
     {
-        $observe_permissions = $this->getObservePermissions();
         return [
             'url_param' => $url_param,
             // social media
@@ -53,9 +56,9 @@ class Indexs extends Controller
             'blog_category_err' => '',
             'blog_title_err' => '',
             // pagination
-            'pagination' => (new Blogs)->pagination($observe_permissions),
+            'pagination' => (new Blogs)->pagination($this->observe_permissions),
             // blog mm
-            'blog_mm' => (new Blogs)->menu($observe_permissions),
+            'blog_mm' => (new Blogs)->menu($this->observe_permissions),
             'blog_mm_search' => '',
             'blog_mm_edit_title' => '',
             'blog_mm_add_child' => '',
@@ -98,11 +101,11 @@ class Indexs extends Controller
         ];
     }
 
-    private function post($url_param, $observe_permissions, $data)
+    private function post($url_param, $data)
     {
         if (isset($_POST['submit_blog_ta_tinymce'])) {
             $blog = new Blogs();
-            $blog_data = $blog->saveBlogPage($url_param, $observe_permissions);
+            $blog_data = $blog->saveBlogPage($url_param, $this->observe_permissions);
             $new_data = [
                 'blog_created_by_user_id' => $blog_data['created_by_user_id'],
                 'blog_last_edit_date' => date("Y-m-d H:i:s", time()),
@@ -121,7 +124,7 @@ class Indexs extends Controller
         }
         elseif (isset($_POST['submit_search_input'])) {
             $blog = new Blogs();
-            $blog_data = $blog->search_menu($observe_permissions);
+            $blog_data = $blog->search_menu($this->observe_permissions);
             $new_data = [
                 // main menu
                 'blog_mm_search' => $blog_data['search'],
@@ -137,8 +140,8 @@ class Indexs extends Controller
             $user_data = $user->login();
 
             // reload data
-            $observe_permissions = getUserPermissions();
-            $data['blog_mm'] = (new Blogs)->menu($observe_permissions);
+            $this->observe_permissions = getUserPermissions();
+            $data['blog_mm'] = (new Blogs)->menu($this->observe_permissions);
 
             $new_data = [
                 // login
@@ -150,7 +153,7 @@ class Indexs extends Controller
                 'log_password_err' => $user_data['password_err'],
                 'log_verification_code_err' => $user_data['verification_code_err'],
                 // pagination
-                'pagination' => (new Blogs)->pagination($observe_permissions),
+                'pagination' => (new Blogs)->pagination($this->observe_permissions),
                 // other
                 'display_div' => array('collapse_login_menu'),
             ];
@@ -241,7 +244,7 @@ class Indexs extends Controller
         }
         elseif (isset($_POST['ajax_mm_delete_branch_id'])) {
             $blog = new Blogs();
-            $blog->deleteBranch($observe_permissions);
+            $blog->deleteBranch($this->observe_permissions);
         }
         elseif (isset($_POST['ajax_sDeletePreviewImage'])) {
             $preview_image = new Preview_Images();
@@ -262,19 +265,19 @@ class Indexs extends Controller
     /*
      * All Pages ▼
      */
+    /******************************************************************************************************************/
     public function index($url_param = 0)
     {
         // Init
-        $observe_permissions = $this->getObservePermissions();
         $data = $this->getData($url_param);
         // POST
-        $data = $this->post($url_param, $observe_permissions, $data);
+        $data = $this->post($url_param, $data);
 
         // Pages
         if ($url_param !== 0) {
             // one page
             $blog = new Blogs();
-            $blog_data = $blog->getRecord($url_param, $observe_permissions);
+            $blog_data = $blog->getRecord($url_param, $this->observe_permissions);
             $new_data = [
                 'blog_created_by_user_id' => $blog_data['created_by_user_id'],
                 'blog_last_edit_date' => $blog_data['last_edit_date'],
@@ -298,7 +301,7 @@ class Indexs extends Controller
         elseif ($url_param === 0) {
             // all pages
             $blog = new Blogs();
-            $blog_data = $blog->index($observe_permissions);
+            $blog_data = $blog->index($this->observe_permissions);
 
             if ($blog_data !== false) {
                 $new_data = [
@@ -327,13 +330,12 @@ class Indexs extends Controller
     {
         if ($url_param !== 0) {
             // Init
-            $observe_permissions = $this->getObservePermissions();
             $data = $this->getData($url_param);
             // POST
-            $data = $this->post($url_param, $observe_permissions, $data);
+            $data = $this->post($url_param, $data);
 
             $blog = new Blogs();
-            $blog_data = $blog->getRecordsBasedOnPaginationBlock($url_param, $data['pagination'], $observe_permissions);
+            $blog_data = $blog->getRecordsBasedOnPaginationBlock($url_param, $data['pagination'], $this->observe_permissions);
             $new_data = [
                 // blog index
                 'blog_id' => $blog_data['blog_id'],
@@ -353,15 +355,14 @@ class Indexs extends Controller
             die('Page Not Found!');
         }
     }
-
-    public function devs()
+    /******************************************************************************************************************/
+    public function devs($url_param = 0)
     {
         if (isAdminLoggedIn() === true) {
             // Init
-            $observe_permissions = $this->getObservePermissions();
-            $data = $this->getData(NULL);
+            $data = $this->getData($url_param);
             // POST
-            $data = $this->post(NULL, $observe_permissions, $data);
+            $data = $this->post($url_param, $data);
 
             $properties = [
                 "Browser" => "Google Chrome",
@@ -388,16 +389,14 @@ class Indexs extends Controller
             header("HTTP/1.0 404 Not Found");
         }
     }
-
     /******************************************************************************************************************/
-    public function tests()
+    public function tests($url_param = 0)
     {
         if (isAdminLoggedIn() === true) {
             // Init
-            $observe_permissions = $this->getObservePermissions();
-            $data = $this->getData(NULL);
+            $data = $this->getData($url_param);
             // POST
-            $data = $this->post(NULL, $observe_permissions, $data);
+            $data = $this->post($url_param, $data);
 
             $aHelpersFiles = getAllFilesInDir(APPROOT . DIRECTORY_SEPARATOR . 'helpers');
 
@@ -454,5 +453,4 @@ class Indexs extends Controller
         }
     }
     /******************************************************************************************************************/
-
-} // end class
+}

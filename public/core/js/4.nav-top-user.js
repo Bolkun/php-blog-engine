@@ -46,18 +46,18 @@ function changeNavTopUserColor(id, cid) {
 }
 
 // hide and display login <=> register
+var intervalId;
 function loginRegister(hide, show){
     document.getElementById(hide).style.display = "none";
     document.getElementById(show).style.display = "block";
-    //var element = document.getElementById("collapse_login_menu");
-    //element.classList.add("show");
-}
 
-// replace value by registration
-$(function () {
-    count = 0;
-    wordsArray = ["Register", "Send Verification Code"];
-    setInterval(function () {
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+    // "Blink effect" replace value by registration button
+    var count = 0;
+    var wordsArray = ["Register", "Send Verification Code"];
+    intervalId = setInterval(function () {
         count++;
         $("#submit_register").fadeOut(1000, function () {
             document.registration_form.submitRegister.value = wordsArray[count % wordsArray.length];
@@ -68,4 +68,10 @@ $(function () {
             // $(this).text(wordsArray[count % wordsArray.length]).fadeIn(500);
         });
     }, 6000);
-});
+
+    var registrationFormStyle = document.getElementById("registration_form").style.display;
+    if(registrationFormStyle === "none"){
+        // stop blink button
+        clearInterval(intervalId);
+    }
+}

@@ -7,7 +7,7 @@
                   action="" method="post" enctype="multipart/form-data">
                 <div class="form-row" style="width: 103%;">
                     <div class="form-group col-lg-12">
-                        <textarea class="tinymce" name="blog_ta_tinymce">
+                        <textarea class="tinymce_admins" name="blog_ta_tinymce">
                             <?php echo $data['blog_content']; ?>
                         </textarea>
                     </div>
@@ -199,6 +199,6 @@
 <?php
 if (isAdminLoggedIn() === true) {
     echo '<script src="' . PUBLIC_CORE_JSURL . '/tinymce/1.tinymce.min.js' . '"></script>' . "\n";
-    echo '<script src="' . PUBLIC_CORE_JSURL . '/tinymce/2.init-tinymce.js' . '"></script>' . "\n";
+    echo '<script src="' . PUBLIC_CORE_JSURL . '/tinymce/2.init-tinymce-admins.js' . '"></script>' . "\n";
 }
 ?>

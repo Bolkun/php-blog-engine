@@ -653,6 +653,15 @@ body {
 }
 #tinymce_data {
     width: 100%;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+/* don't display left tooltip, because it does not implement image zoom class by default */
+.tox-pop.tox-pop--left{
+    display: none !important;
 }
 
 /**********************************************************************************************************************/
