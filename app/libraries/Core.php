@@ -17,7 +17,7 @@ class Core
         /* See if statement:
          * 1. start page     Example: (min)  http://localhost/bolkun                (default controller, default method)
          *                                   http://localhost/[root_dir]
-         *                   Example: (max)  http://localhost/bolkun/1              (21.12.2020 not used!)
+         *                   Example: (max)  http://localhost/bolkun/1
          *                                   http://localhost/[root_dir]/[params]
          * 2. index page     Example: (min)  http://localhost/bolkun/index          (default controller, ... is views dirs)
          *                                   http://localhost/[root_dir]/[method]
@@ -91,6 +91,7 @@ class Core
         elseif ($url[0] == 'core') {
             // This elseif must be present due to tinymce errors 'Uncaught SyntaxError: Unexpected identifier' with
             // plugin.min.js
+            die();
         }
         else {
             // set $currentController
