@@ -5,7 +5,7 @@
         <?php if (isAdminLoggedIn() === true) { ?>
             <form id="blog_form" style="z-index: 0; width: 100%;" class="form-inline"
                   action="" method="post" enctype="multipart/form-data">
-                <div class="form-row" style="width: 103%;">
+                <div class="form-row" style="width: 100%;">
                     <div class="form-group col-lg-12">
                         <textarea class="tinymce_admins" name="blog_ta_tinymce">
                             <?php echo $data['blog_content']; ?>
@@ -84,14 +84,14 @@
                     </div>
                     <div class="form-group col-md-12">
                         <!-- Radio choice -->
-                        <label for="blog_preview_image" style="padding-right: 5px;">Preview Image: </label>
+                        <label for="blog_preview_image" style="padding-right: 10px;">Preview Image: </label>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input id="blog_server_preview_image" onclick="displayBlogServerPreviewImageDiv()"
                                    type="radio" class="custom-control-input" name="blog_radio_preview_image"
                                    value="server" checked>
                             <label class="custom-control-label" for="blog_server_preview_image">Existing</label>
                         </div>
-                        <div class="custom-control custom-radio custom-control-inline">
+                        <div class="custom-control custom-radio custom-control-inline"  data-toggle="tooltip" data-placement="top" title="Recommended size 800x600">
                             <input id="blog_local_preview_image" onclick="displayBlogLocalPreviewImageDiv()"
                                    type="radio" class="custom-control-input" name="blog_radio_preview_image"
                                    value="local">
@@ -188,7 +188,7 @@
                 </div>
             </form>
         <?php } ?>
-        <div id="tinymce_data" style="<?php if (isAdminLoggedIn()) {
+        <div id="tinymce_data" style="width: 100%; overflow:scroll; <?php if (isAdminLoggedIn()) {
             echo "display: none";
         } ?>">
             <?php echo $data['blog_content']; ?>

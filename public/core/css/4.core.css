@@ -362,12 +362,9 @@ li input:checked + ol > li:last-child {
 
 /* flash messages */
 .alert {
-    padding: 20px;
-    background-color: #f44336;
     color: white;
     opacity: 1;
     transition: opacity 0.6s;
-    margin-bottom: 15px;
 }
 
 .alert.success {
@@ -380,6 +377,10 @@ li input:checked + ol > li:last-child {
 
 .alert.warning {
     background-color: #ff9800;
+}
+
+.alert.danger {
+    background-color: #f44336;
 }
 
 .closebtn {

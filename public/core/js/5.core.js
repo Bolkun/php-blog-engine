@@ -590,3 +590,8 @@ function deletePreviewImage_success(values) {
         }
     }, 3000);
 }
+
+// tooltip
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
