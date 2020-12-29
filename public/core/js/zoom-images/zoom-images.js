@@ -1,4 +1,5 @@
-// Zoom image on click
+// view: 3a-single-page-content
+// zoom image on click if set class in tinymce image insert
 $('.zoom').css({cursor: 'pointer'}).on('click', function () {
     var img = $(this);
     var bigImg = $('<img />').css({

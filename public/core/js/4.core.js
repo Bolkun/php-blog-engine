@@ -1,4 +1,33 @@
-// change color and hide another opened togglers
+/**********************************************************************************************************************/
+// view: 1-header
+// view: 2-nav-top-user
+// display user navigation bar and style gui
+function displayDivs(id) {
+    if(id['array'].length > 0) {
+        if(id['array'][0] === 'collapse_login_menu') {
+            document.getElementById(id['array'][0]).style.display = "block";
+            document.getElementById('toggle_login_menu').style.color = "rgb(118, 185, 1)";  // green
+            document.getElementById('toggle_login_menu').style.border = "1px solid rgb(118, 185, 1)";
+        } else if(id['array'][0] === 'registration_form') {
+            document.getElementById('collapse_login_menu').style.display = "block";
+            document.getElementById('toggle_login_menu').style.color = "rgb(118, 185, 1)";  // green
+            document.getElementById('toggle_login_menu').style.border = "1px solid rgb(118, 185, 1)";
+            loginRegister('login_form', id['array'][0]);
+        } else if(id['array'][0] === 'collapse_main_menu') {
+            document.getElementById('collapse_main_menu').style.display = "block";
+            document.getElementById('toggle_main_menu').style.color = "rgb(118, 185, 1)";  // green
+            document.getElementById('toggle_main_menu').style.border = "1px solid rgb(118, 185, 1)";
+        } else if(id['array'][0] === 'collapse_share_menu') {
+            document.getElementById('collapse_share_menu').style.display = "block";
+            document.getElementById('toggle_share_menu').style.color = "rgb(118, 185, 1)";  // green
+            document.getElementById('toggle_share_menu').style.border = "1px solid rgb(118, 185, 1)";
+        }
+        // console.log(id['array']);
+    }
+}
+
+// view: 2-nav-top-user
+// change color and hide another opened navigation bar
 function changeNavTopUserColor(id, cid) {
     // just add one more id in array
     var icons_ids = ['home_menu', 'toggle_share_menu', 'toggle_login_menu', 'toggle_main_menu'];
@@ -45,9 +74,10 @@ function changeNavTopUserColor(id, cid) {
     });
 }
 
-// hide and display login <=> register
+// view: 2-nav-top-user
+// hide and display login or register
 var intervalId;
-function loginRegister(hide, show){
+function loginRegister(hide, show) {
     document.getElementById(hide).style.display = "none";
     document.getElementById(show).style.display = "block";
 
@@ -75,3 +105,35 @@ function loginRegister(hide, show){
         clearInterval(intervalId);
     }
 }
+
+// view: 2-nav-top-user
+// main menu drop down items
+function mmDropDownItems() {
+    var color = document.getElementById("mmDropDownItems").style.color;
+
+    if (color === "white") {
+        // All checkboxes checked
+        $(".main_menu_checkbox").prop("checked", true);
+        // rotate
+        document.getElementById("mmDropDownItems").style.transform = "rotate(90deg)";
+        // Set selected element to green
+        document.getElementById("mmDropDownItems").style.color = "rgb(118, 185, 1)";
+    } else {
+        // All checkboxes unchecked
+        $(".main_menu_checkbox").prop("checked", false);
+        // rotate
+        document.getElementById("mmDropDownItems").style.transform = "rotate(0deg)";
+        // Set selected element to grey
+        document.getElementById("mmDropDownItems").style.color = "white";
+    }
+}
+
+/**********************************************************************************************************************/
+// view: 3a-single-page-content
+// show tooltips
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+/**********************************************************************************************************************/
+

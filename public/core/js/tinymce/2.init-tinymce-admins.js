@@ -1,3 +1,5 @@
+// view: 3a-single-page-content
+// init textarea
 tinymce.init({
     // replace textarea having class .tinymce with tinymce editor
     selector: "textarea.tinymce_admins",
@@ -111,4 +113,5 @@ tinymce.init({
         //{title: 'None', value: ''},
         {title: 'img-fluid zoom', value: 'img-fluid zoom'}
     ],
+
 });

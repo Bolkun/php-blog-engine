@@ -24,6 +24,9 @@ websiteIsDown(DOWNTIME);
     autoload_stylesheet();
     // Autoload JavaScript
     autoload_javascript();
+    if (isAdminLoggedIn() === true) {
+        echo '<script src="' . PUBLIC_CORE_JSURL . '/ajax/ajax-admin.js' . '"></script>' . "\n";
+    }
     ?>
 </head>
 <body onload='displayDivs(<?php echo jsonEncodeArray($data['display_div']); ?>)'>

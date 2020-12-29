@@ -1,3 +1,5 @@
+// view: all
+// display cookie bar on each web page
 (function () {
     "use strict";
 
