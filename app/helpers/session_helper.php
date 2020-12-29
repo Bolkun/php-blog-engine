@@ -102,24 +102,6 @@ function isUserLoggedIn()
 }
 
 /**
- * @goal   check if temp admin logged in as coworker
- * @return bool
- */
-function isAdminLoggedInAsCoworker()
-{
-    if (isset($_SESSION['temp_user_role'])) {
-        if ($_SESSION['temp_user_role'] === 'RegisteredUser') {
-            // Admin as coworker logged in
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-/**
  * @goal   get user permissions to view a content
  * @return array
  */

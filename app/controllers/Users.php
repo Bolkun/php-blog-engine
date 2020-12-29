@@ -419,20 +419,6 @@ class Users extends Controller
         }
     }
 
-    public function settingsAdminChangeRole()
-    {
-        if (isAdminLoggedIn()) {
-            $_SESSION['temp_user_role'] = 'RegisteredUser';
-            $_SESSION['user_role'] = 'RegisteredUser';
-        } elseif (isUserLoggedIn()) {
-            if (isAdminLoggedInAsCoworker()) {
-                $_SESSION['user_role'] = 'Admin';
-                unset($_SESSION['temp_user_role']);
-            }
-        }
-        redirect('');
-    }
-
     public function logout()
     {
         destroyUserSession();
