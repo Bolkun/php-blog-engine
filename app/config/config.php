@@ -42,8 +42,6 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
     define('PUBLIC_COREROOT', PUBLICROOT . DIRECTORY_SEPARATOR . 'core');
         # css folder
         define('PUBLIC_CORE_CSSROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'css');
-        # document folder
-        define('PUBLIC_CORE_DOCUMENTROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'document');
         # download folder
         define('PUBLIC_CORE_DOWNLOADROOT', PUBLIC_COREROOT . DIRECTORY_SEPARATOR . 'download');
         # font folder
@@ -86,8 +84,6 @@ define('PUBLICURL', URLROOT . '/public');
     define('PUBLIC_COREURL', PUBLICURL . '/core');
         # css folder
         define('PUBLIC_CORE_CSSURL', PUBLIC_COREURL . '/css');
-        # document folder
-        define('PUBLIC_CORE_DOCUMENTURL', PUBLIC_COREURL . '/document');
         # download folder
         define('PUBLIC_CORE_DOWNLOADURL', PUBLIC_COREURL . '/download');
         # font folder
