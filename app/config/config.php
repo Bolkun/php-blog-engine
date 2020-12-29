@@ -17,7 +17,7 @@ define('SITENAME', 'Bolkun');
 # app version*
 define('APPVERSION', '1.0.0');
 # clear page cache*
-define('CLEARPAGECACHE', true);
+define('CLEARPAGECACHE', false);
 # define downtime*
 define('DOWNTIME', false);
 # preview image name
@@ -76,7 +76,7 @@ define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "
 define('STARTCONTROLLER', 'Indexs');
 # start method* (Core: defines controller method name)
 define('STARTMETHOD', 'index');
-# maximum blocks on start page ( minimum: 1, default: 36, formula: MAX_BLOG_DIVS=4(rows)*n(columns) )
+# maximum blog divs on start page* ( minimum: 1, default: 36, formula: MAX_BLOG_DIVS=4(rows)*n(columns) )
 define('MAX_BLOG_DIVS', 36);
 
 /*** PUBLIC ***/
