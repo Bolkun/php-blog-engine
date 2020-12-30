@@ -25,14 +25,20 @@ minimum changes by configuration and that's it!
 ## Development
 * Install [XAMPP](https://www.apachefriends.org/download.html) to test locally
     * Configure **mailer**
-        * Open **C:\xampp\php\php.ini** and set **sendmail_path="C:\xampp\sendmail\sendmail.exe -t"**
-        * Open **C:\xampp\sendmail\sendmail.ini** and set **smtp_server=smtp.gmail.com**, **smtp_port=587**, 
-            **auth_username=mustermann@gmail.com**, **auth_password=123**
+        * Open **C:\xampp\php\php.ini** 
+            * Set **sendmail_path="C:\xampp\sendmail\sendmail.exe -t"**
+        * Open **C:\xampp\sendmail\sendmail.ini**
+            * Set **smtp_server=smtp.gmail.com**
+            * Set **smtp_port=587** 
+            * Set your own gmail address **auth_username=mustermann@gmail.com**
+            * Set your own gmail password **auth_password=123**
     * Check **other** php.ini configurations
         * **file_uploads=On**
         * **upload_max_filesize=40M**
     * Configure **mysql**
-        * Open **C:\xampp\mysql\bin\my.ini** and set value **max_allowed_packet = 4G** or smaller
+        * Open **C:\xampp\mysql\bin\my.ini**
+            * Set **max_allowed_packet=4G** or smaller, used in mysql table
+            "blog" to store longblob format in column "content"
     * Restart XAMPP  
 * Install [Git](https://git-scm.com/downloads) and clone project with (`git clone https://github.com/Bolkun/bolkun.git`)
     to **C:\xampp\htdocs**
