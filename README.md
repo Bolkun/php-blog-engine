@@ -24,10 +24,15 @@ minimum changes by configuration and that's it!
 
 ## Development
 * Install [XAMPP](https://www.apachefriends.org/download.html) to test locally
-    * Configure **mailer**
-        * Open **C:\xampp\php\php.ini** and set **sendmail_path="C:\xampp\sendmail\sendmail.exe -t"**
-        * Open **C:\xampp\sendmail\sendmail.ini** and set **smtp_server=smtp.gmail.com**, **smtp_port=587**, 
-            **auth_username=mustermann@gmail.com**, **auth_password=123**
+    * <details>
+        <summary>Configure **mailer**</summary>
+        <p>
+            * Open **C:\xampp\php\php.ini** and set **sendmail_path="C:\xampp\sendmail\sendmail.exe -t"**
+            * Open **C:\xampp\sendmail\sendmail.ini** and set **smtp_server=smtp.gmail.com**, **smtp_port=587**, 
+              **auth_username=mustermann@gmail.com**, **auth_password=123**
+        </p>
+    </details>
+        
     * Check **other** php.ini configurations
         * **file_uploads=On**
         * **upload_max_filesize=40M**
@@ -61,9 +66,4 @@ license.
 * Licenses are purchased by interested individuals or the company and can be used by any single person within this 
 organization. 
 * You can’t re-sell or re-distribute this project.
-
-Markup : <details>
-           <summary>Title 1</summary>
-           <p>Content 1 Content 1 Content 1 Content 1 Content 1</p>
-         </details>
 
