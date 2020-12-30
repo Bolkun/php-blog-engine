@@ -52,8 +52,10 @@ class Core
             }
 
             // set $params
-            if(is_numeric($url[0])){
-                array_push($this->params, $url[0]);
+            if($url != NULL){
+                if(is_numeric($url[0])){
+                    array_push($this->params, $url[0]);
+                } 
             }
 
             // Call a callback with array of params
