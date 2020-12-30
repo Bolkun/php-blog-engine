@@ -113,8 +113,7 @@
                                                                                      class="sm_social_img"
                                                                                      src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['social_image_list'][$p]; ?>">
                                                                                 <?php if (DEFAULT_SOCIAL_IMAGE !== $data['social_image_list'][$p]) { ?>
-                                                                                    <div class="img-text-clicked"
-                                                                                         style="cursor: pointer;"
+                                                                                    <div class="img-trash"
                                                                                          onclick='ajax_deleteSocialImage(<?php echo jsonSelectedSocialImage(NULL, $data['social_image_list'][$p]); ?>)'>
                                                                             <span>
                                                                                 <i class="fa fa-trash-o"></i>

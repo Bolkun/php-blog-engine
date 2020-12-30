@@ -91,7 +91,8 @@
                                    value="server" checked>
                             <label class="custom-control-label" for="blog_server_preview_image">Existing</label>
                         </div>
-                        <div class="custom-control custom-radio custom-control-inline"  data-toggle="tooltip" data-placement="top" title="Recommended size 800x600">
+                        <div class="custom-control custom-radio custom-control-inline" data-toggle="tooltip"
+                             data-placement="top" title="Recommended size 800x600">
                             <input id="blog_local_preview_image" onclick="displayBlogLocalPreviewImageDiv()"
                                    type="radio" class="custom-control-input" name="blog_radio_preview_image"
                                    value="local">
@@ -146,8 +147,7 @@
                                                                      class="blog_preview_img"
                                                                      src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL . '/' . $data['preview_image_list'][$p]; ?>">
                                                                 <?php if (DEFAULT_PREVIEW_IMAGE !== $data['preview_image_list'][$p]) { ?>
-                                                                    <div class="img-text-clicked"
-                                                                         style="cursor: pointer;"
+                                                                    <div class="img-trash"
                                                                          onclick='ajax_deletePreviewImage(<?php echo jsonSelectedPreviewImage(NULL, $data['preview_image_list'][$p]); ?>)'>
                                                                             <span>
                                                                                 <i class="fa fa-trash-o"></i>
@@ -188,7 +188,7 @@
                 </div>
             </form>
         <?php } ?>
-        <div id="tinymce_data" style="width: 100%; overflow:scroll; <?php if (isAdminLoggedIn()) {
+        <div id="tinymce_data" style="<?php if (isAdminLoggedIn()) {
             echo "display: none";
         } ?>">
             <?php echo $data['blog_content']; ?>

@@ -4,8 +4,8 @@
             <div class="row" id="results">
                 <?php
                 for ($i = 0; $i < count($data['blog_id']); $i++) {
-                    // display 4 divs in a row ?>
-                    <div class="col-sm-3">
+                    // display from 1, 2, 3 or max 4 divs in a row ?>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="<?php echo URLROOT . '/index/' . $data['blog_id'][$i]; ?>">
                             <img class="article_main_img"
                                  src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL . '/' . $data['blog_preview_image'][$i]; ?>">
