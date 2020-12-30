@@ -45,7 +45,7 @@ minimum changes by configuration and that's it!
     column **role=Admin** to give admin privilege to your account
 * You are ready to login and run the tests  
 
-## Running the tests
+## Running The Tests
 * Log in as an admin to [bolkun](http://localhost/bolkun/)
 * Open link [Tests](http://localhost/bolkun/index/tests)
 * Select a specific test by clicking on a link
@@ -61,4 +61,9 @@ license.
 * Licenses are purchased by interested individuals or the company and can be used by any single person within this 
 organization. 
 * You can’t re-sell or re-distribute this project.
+
+Markup : <details>
+           <summary>Title 1</summary>
+           <p>Content 1 Content 1 Content 1 Content 1 Content 1</p>
+         </details>
 
