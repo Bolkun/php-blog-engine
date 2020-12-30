@@ -24,21 +24,16 @@ minimum changes by configuration and that's it!
 
 ## Development
 * Install [XAMPP](https://www.apachefriends.org/download.html) to test locally
-<details>
-    <summary>Configure <b>mailer</b></summary>
-    <p>Open <b>C:\xampp\php\php.ini</b> and set <b>sendmail_path="C:\xampp\sendmail\sendmail.exe -t"</b></p>
-    <p>Open <b>C:\xampp\sendmail\sendmail.ini</b> and set <b>smtp_server=smtp.gmail.com</b>, <b>smtp_port=587</b>, 
-        <b>auth_username=mustermann@gmail.com</b>, <b>auth_password=123</b></p>
-</details>
-<details>
-    <summary>Check <b>other</b> configurations</summary>
-    <p>Open <b>C:\xampp\php\php.ini</b> and set <b>file_uploads=On</b>, <b>upload_max_filesize=40M</b></p>
-</details>
-<details>
-   <summary>Configure <b>mysql</b></summary>
-   <p>Open <b>C:\xampp\mysql\bin\my.ini</b> and set <b>max_allowed_packet = 4G</b> or smaller</p>
-</details>
-* Restart XAMPP  
+    * Configure **mailer**
+        * Open **C:\xampp\php\php.ini** and set **sendmail_path="C:\xampp\sendmail\sendmail.exe -t"**
+        * Open **C:\xampp\sendmail\sendmail.ini** and set **smtp_server=smtp.gmail.com**, **smtp_port=587**, 
+            **auth_username=mustermann@gmail.com**, **auth_password=123**
+    * Check **other** php.ini configurations
+        * **file_uploads=On**
+        * **upload_max_filesize=40M**
+    * Configure **mysql**
+        * Open **C:\xampp\mysql\bin\my.ini** and set value **max_allowed_packet = 4G** or smaller
+    * Restart XAMPP  
 * Install [Git](https://git-scm.com/downloads) and clone project with (`git clone https://github.com/Bolkun/bolkun.git`)
     to **C:\xampp\htdocs**
 * Open [Google Chrome](https://www.google.com/chrome/) and go to [phpMyAdmin](http://localhost/phpmyadmin)
