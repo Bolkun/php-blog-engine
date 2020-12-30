@@ -21,7 +21,7 @@ class User
         $this->db->bind(':verification_code', $data['verification_code']);
 
         if ($this->db->execute()) {
-            return true;
+            return $this->db->getLastInsertId();
         } else {
             return false;
         }
@@ -185,6 +185,18 @@ class User
         $row = $this->db->single();
 
         return $row;
+    }
+
+    public function deleteUserById($id)
+    {
+        $this->db->query("DELETE FROM user WHERE user_id = :id");
+        $this->db->bind(':id', $id);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

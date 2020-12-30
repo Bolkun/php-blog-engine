@@ -80,7 +80,8 @@ class Users extends Controller
                     $data['verification_code'] = mt_rand(100000, 999999);   // between 100,000 and 999,999
 
                     // Register User
-                    if ($this->userModel->register($data)) {
+                    $user_id = $this->userModel->register($data);
+                    if ($user_id) {
                         // Send verification mail
                         $message = "Hallo " . $data['firstname'] . ' ' . $data['surname'] . "!\n\n" .
                             "A sign in attempt requires further verification because we did not recognize your device. To complete the sign in, enter the verification code on the unrecognized device.\n\n" .
@@ -92,7 +93,12 @@ class Users extends Controller
                         if (mail($data['email'], '[' . SITENAME . '] Please verify your device', $message, $headers)) {
                             // mail send
                         } else {
-                            $data['confirm_password_err'] = 'Could not send mail, due to server problems';
+                            // delete user
+                            if($this->userModel->deleteUserById($user_id)){
+                                $data['confirm_password_err'] = 'Could not send mail, due to server problems';
+                            } else {
+                                $data['confirm_password_err'] = 'Could not send mail, due to server problems. Please contact administrator!';
+                            }
                         }
 
                         $data['password'] = trim($_POST['password']);
