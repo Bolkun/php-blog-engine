@@ -47,10 +47,6 @@ create table `user` (
   primary key (`user_id`)
 ) engine=myisam default charset=utf8                                                comment='hier werden alle registrierte users gespeichert';
 
-INSERT INTO `user` (`user_id`, `account_status`, `role`, `firstname`, `surname`, `email`, `password`, `ip`, `creation_date`, `verification_code`, `inactive_date`) VALUES
-(1, 1, 'Admin', 'Serhiy', 'Bolkun', 'serhij16@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '::1', '2020-07-02 10:53:21', '666666',  NULL),
-(2, 1, 'RegisteredUser', 'John', 'Snow', 'john@live.de', '$2y$10$QBe5F9nCEmFifRaBFAurbuZo9z2WKz9wwrsAv7peo.cdbtNrJ/jE.', '::1', '2020-07-02 10:53:21', '666666',  NULL);
-
 -- --------------------------------------------------------
 
 --
