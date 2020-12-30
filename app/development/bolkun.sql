@@ -30,7 +30,6 @@ SET time_zone = "+02:00";
 --
 -- Tabellenstruktur für Tabelle `user`
 --
-
 create table `user` (
   `user_id`                     bigint(20)      unsigned not null auto_increment,
   `account_status`              tinyint(1)      unsigned not null default 0         comment '1 account is active, 0 account ist inactive',
