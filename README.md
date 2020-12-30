@@ -38,20 +38,20 @@ minimum changes by configuration and that's it!
     to **C:\xampp\htdocs**
 * Open [Google Chrome](https://www.google.com/chrome/) and go to [phpMyAdmin](http://localhost/phpmyadmin)
 * Create new database with name **bolkun** and charset **utf8_general_ci**
-* Open file **bolkun/app/development/bolkun.sql** and set **time_zone**(default Berlin). Copy content and execute it in 
-[phpMyAdmin](http://localhost/phpmyadmin/db_sql.php?db=bolkun)
+* Open file **bolkun/app/development/bolkun.sql** and set **time_zone** (default Berlin). Copy content of the file and 
+    execute it in [phpMyAdmin](http://localhost/phpmyadmin/db_sql.php?db=bolkun)
 * Open link [bolkun](http://localhost/bolkun/) and process the registration form
 * Open [phpMyAdmin](http://localhost/phpmyadmin/sql.php?server=1&db=bolkun&table=user&pos=0) and set in table **user**
     column **role=Admin** to give admin privilege to your account
-* Log in [bolkun](http://localhost/bolkun/) 
-
-## Deployment
-coming soon ...
+* You are ready to login and run the tests  
 
 ## Running the tests
 * Log in as an admin to [bolkun](http://localhost/bolkun/)
 * Open link [Tests](http://localhost/bolkun/index/tests)
 * Select a specific test by clicking on a link
+
+## Deployment
+coming soon ...
 
 ## Versioning
 New versions will be stored at [GIT](https://github.com/Bolkun/bolkun) and can be only available after purchasing a new
