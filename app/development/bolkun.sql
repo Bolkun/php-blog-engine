@@ -111,6 +111,13 @@ create table `social_image` (
 ) engine=myisam default charset=utf8;
 
 INSERT INTO `social_image` (`id`, `created_by_user_id`, `image`) VALUES
-(1, 1, 'default_social_image-min.png');
+(1, 1, 'default_social_image-min.png'),
+(6, 1, 'facebook-min.png'),
+(5, 1, 'vk-min.png'),
+(7, 1, 'youtube-min.png'),
+(8, 1, 'twitch-min.png'),
+(9, 1, 'steam-min.png'),
+(10, 1, 'telegram-min.png'),
+(13, 1, 'donationalerts-min.png');
 
 -- --------------------------------------------------------
