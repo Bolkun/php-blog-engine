@@ -11,8 +11,8 @@ if (isAdminLoggedIn() === true) { ?>
             <div class="nav-item admin_nav_item <?php if (URLCURRENT === URLROOT . '/index/tests') echo 'active'; ?>">
                 <a class="nav-link" href="<?php echo URLROOT; ?>/index/tests">Tests</a>
             </div>
-            <div class="nav-item admin_nav_item <?php if (URLCURRENT === URLROOT . '/index/devs') echo 'active'; ?>">
-                <a class="nav-link" href="<?php echo URLROOT; ?>/index/devs">Development</a>
+            <div class="nav-item admin_nav_item <?php if (URLCURRENT === URLROOT . '/index/devs/phpinfo') echo 'active'; ?>">
+                <a class="nav-link" href="<?php echo URLROOT; ?>/index/devs/phpinfo">PHP Info</a>
             </div>
         </div>
     </nav>

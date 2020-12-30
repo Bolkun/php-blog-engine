@@ -356,31 +356,6 @@ class Indexs extends Controller
         }
     }
     /******************************************************************************************************************/
-    public function devs($url_param = 0)
-    {
-        if (isAdminLoggedIn() === true) {
-            // Init
-            $data = $this->getData($url_param);
-            // POST
-            $data = $this->post($url_param, $data);
-
-            $properties = [
-                "Browser" => "Google Chrome",
-                "PHP" => "v7.3.10 (This server use PHP v" . phpversion() . ")",
-                "Database" => "MySQL (PDO connection required)",
-                "jQuery" => "v3.4.1",
-                "Bootstrap" => "v4.5.2",
-                "Tinymce" => "v5.4.1",
-            ];
-            $data['title'] = "Development";
-            $data['properties'] = $properties;
-
-            $this->view('index/devs/index', $data);
-        } else {
-            header("HTTP/1.0 404 Not Found");
-        }
-    }
-
     public function phpinfo()
     {
         if (isAdminLoggedIn() === true) {
