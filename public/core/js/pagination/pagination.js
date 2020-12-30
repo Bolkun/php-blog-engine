@@ -1,13 +1,16 @@
 // view: 3b-all-page-content
 // pagination nav bar display always at a bottom of a page
 function setPaginationBottom(){
-    // Check if body height is higher than window height :)
-    if ($("html").height() > $(window).height()) {
-        // scrollable
-        document.getElementById("pagination").style.position = "relative";
-    } else {
-        // not scrollable
-        document.getElementById("pagination").style.position = "absolute";
+    var div = document.getElementById("pagination");
+    if(div != null){
+        // Check if body height is higher than window height :)
+        if ($("html").height() > $(window).height()) {
+            // scrollable
+            document.getElementById("pagination").style.position = "relative";
+        } else {
+            // not scrollable
+            document.getElementById("pagination").style.position = "absolute";
+        }
     }
 }
 
