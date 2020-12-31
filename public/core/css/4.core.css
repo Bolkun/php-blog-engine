@@ -624,8 +624,10 @@ li input:checked + ol > li:last-child {
     margin-top: 5px;
     padding-top: 10px;
     padding-bottom: 1px;
-    position: relative;
+    height: 70px;
+    position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
 }
 
