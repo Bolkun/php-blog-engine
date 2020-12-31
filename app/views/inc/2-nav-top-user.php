@@ -161,7 +161,7 @@
                                     <?php
                                     if ($data['sm'] !== false) {
                                         for ($i = 0; $i < count($data['sm']['id']); $i++) { ?>
-                                            <img onclick='ajax_deleteSocialMedia(<?php echo jsonEncodeDeleteSocialMedia(NULL, $data['sm']['name'][$i]); ?>)'
+                                            <img onclick='ajax_deleteSocialMedia(<?php echo jsonEncodeDeleteSocialMedia(NULL, $data['sm']['id'][$i], $data['sm']['name'][$i]); ?>)'
                                                  src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['sm']['image'][$i]; ?>"
                                                  alt="<?php echo $data['sm']['name'][$i]; ?>"
                                                  class="img-responsive sm_admin_image">

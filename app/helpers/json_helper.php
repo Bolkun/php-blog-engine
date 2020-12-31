@@ -101,15 +101,16 @@ function jsonSelectedSocialImage($oData = NULL, $social_image)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData, string $name
+ * @param   object $oData, string $id, string $name
  * @return  string
  */
-function jsonEncodeDeleteSocialMedia($oData = NULL, $name)
+function jsonEncodeDeleteSocialMedia($oData = NULL, $id, $name)
 {
     // convert object to associative array
     $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLCURRENT'] = URLCURRENT;
+    $aData['id'] = $id;
     $aData['name'] = $name;
     $sJSON = json_encode($aData);
     return $sJSON;

@@ -49,10 +49,10 @@ class Social_Media
         }
     }
 
-    public function deleteBasedOnName($name)
+    public function deleteBasedOnId($id)
     {
-        $this->db->query("DELETE FROM social_media WHERE name = :name");
-        $this->db->bind(':name', $name);
+        $this->db->query("DELETE FROM social_media WHERE id = :id");
+        $this->db->bind(':id', $id);
 
         if ($this->db->execute()) {
             return true;

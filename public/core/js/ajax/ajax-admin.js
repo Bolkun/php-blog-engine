@@ -98,11 +98,11 @@ function deleteSocialImage_success(values) {
 
 // delete social media
 function ajax_deleteSocialMedia(values) {
-    if (confirm("Want to delete social media " + values['name'] + " from server?")) {
+    if (confirm("Want to delete social media " + values['name']+  " with id=" + values['id'] + " from server?")) {
         // Logic to delete the page
         $.ajax({
             url: values['URLCURRENT'],
-            data: 'ajax_sDeleteSocialMedia=' + values['name'],
+            data: 'ajax_sDeleteSocialMedia=' + values['id'],
             type: 'post',
             error: deleteSocialMedia_error(values),
             success: deleteSocialMedia_success(values)
@@ -114,7 +114,7 @@ function deleteSocialMedia_error(values) {
     // [alert info, alert success, alert warning, alert danger]
     var message = '<div class="alert danger" id="msg-flash">' +
         '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Could not delete ' + values['name'] + '!' +
+        'Could not delete ' + values['name'] + ' with id=' + values['id'] + '!' +
         '</div>';
     // Inserting the code block
     document.getElementById("message_sm").innerHTML = message;
@@ -129,7 +129,7 @@ function deleteSocialMedia_success(values) {
     // [alert info, alert success, alert warning, alert danger]
     var message = '<div class="alert success" id="msg-flash">' +
         '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        '' + values['name'] + ' was deleted!' +
+        values['name'] + ' with id=' + values['id'] + ' was deleted!' +
         '</div>';
     // Inserting the code block
     document.getElementById("message_sm").innerHTML = message;
