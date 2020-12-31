@@ -52,7 +52,8 @@
                                                    for="sm_server_social_image">server</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline text-center"
-                                             style="left: 1.5rem;">
+                                             style="left: 1.5rem;" data-toggle="tooltip"
+                                             data-placement="top" title="Recommended size 32x32">
                                             <input id="sm_local_social_image" onclick="displaySMLocalSocialImageDiv()"
                                                    type="radio" class="custom-control-input"
                                                    name="sm_radio_social_image"
