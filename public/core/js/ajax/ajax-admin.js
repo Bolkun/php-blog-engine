@@ -277,6 +277,7 @@ function mmAddChild_success(title, parent_id) {
         // reload new view
         $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
         $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
+        $("#load_pagination_box").load(location.href + " #load_pagination_div");    // parent.load(child)
     }, 3000);
 }
 
@@ -442,6 +443,7 @@ function menuDeleteTree_success(values) {
             // reload new view
             $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
             $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
+            $("#load_pagination_box").load(location.href + " #load_pagination_div");    // parent.load(child)
         }
     }, 3000);
 }

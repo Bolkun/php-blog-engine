@@ -13,6 +13,7 @@
 }
 
 .cookiealert.show {
+    z-index: 1;
     opacity: 1;
     visibility: visible;
     transform: translateY(0%);

@@ -64,18 +64,23 @@ class Blogs extends Controller
             'views' => [],
         ];
 
-        $oData = $this->blogModel->getRecordsBasedOnPaginationBlock($pagination['allSortedBlocksWithBlogIds'][$url_param - 1], $observe_permissions);
-        if ($oData) {
-            for ($i = 0; $i < count($oData); $i++) {
-                array_push($data['blog_id'], $oData[$i]->blog_id);
-                array_push($data['created_by_user_id'], $oData[$i]->created_by_user_id);
-                array_push($data['last_edit_date'], $oData[$i]->last_edit_date);
-                array_push($data['preview_image'], $oData[$i]->preview_image);
-                array_push($data['observe_permissions'], $oData[$i]->observe_permissions);
-                array_push($data['category'], $oData[$i]->category);
-                array_push($data['title'], $oData[$i]->title);
-                array_push($data['rank'], $oData[$i]->rank);
-                array_push($data['views'], $oData[$i]->views);
+        // page exist in array
+        if($url_param <= count($pagination['allSortedBlocksWithBlogIds'])){
+            $oData = $this->blogModel->getRecordsBasedOnPaginationBlock($pagination['allSortedBlocksWithBlogIds'][$url_param - 1], $observe_permissions);
+            if ($oData) {
+                for ($i = 0; $i < count($oData); $i++) {
+                    array_push($data['blog_id'], $oData[$i]->blog_id);
+                    array_push($data['created_by_user_id'], $oData[$i]->created_by_user_id);
+                    array_push($data['last_edit_date'], $oData[$i]->last_edit_date);
+                    array_push($data['preview_image'], $oData[$i]->preview_image);
+                    array_push($data['observe_permissions'], $oData[$i]->observe_permissions);
+                    array_push($data['category'], $oData[$i]->category);
+                    array_push($data['title'], $oData[$i]->title);
+                    array_push($data['rank'], $oData[$i]->rank);
+                    array_push($data['views'], $oData[$i]->views);
+                }
+            } else {
+                $data = false;
             }
         } else {
             $data = false;

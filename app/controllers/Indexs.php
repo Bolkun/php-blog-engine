@@ -336,21 +336,25 @@ class Indexs extends Controller
 
             $blog = new Blogs();
             $blog_data = $blog->getRecordsBasedOnPaginationBlock($url_param, $data['pagination'], $this->observe_permissions);
-            $new_data = [
-                // blog index
-                'blog_id' => $blog_data['blog_id'],
-                'blog_created_by_user_id' => $blog_data['created_by_user_id'],
-                'blog_last_edit_date' => $blog_data['last_edit_date'],
-                'blog_preview_image' => $blog_data['preview_image'],
-                'blog_observe_permissions' => $blog_data['observe_permissions'],
-                'blog_category' => $blog_data['category'],
-                'blog_title' => $blog_data['title'],
-                'blog_rank' => $blog_data['rank'],
-                'blog_views' => $blog_data['views'],
-            ];
-            $data = mergeAsocArrays($data, $new_data);
+            if($blog_data) {
+                $new_data = [
+                    // blog index
+                    'blog_id' => $blog_data['blog_id'],
+                    'blog_created_by_user_id' => $blog_data['created_by_user_id'],
+                    'blog_last_edit_date' => $blog_data['last_edit_date'],
+                    'blog_preview_image' => $blog_data['preview_image'],
+                    'blog_observe_permissions' => $blog_data['observe_permissions'],
+                    'blog_category' => $blog_data['category'],
+                    'blog_title' => $blog_data['title'],
+                    'blog_rank' => $blog_data['rank'],
+                    'blog_views' => $blog_data['views'],
+                ];
+                $data = mergeAsocArrays($data, $new_data);
 
-            $this->view('index/page', $data);
+                $this->view('index/page', $data);
+            } else {
+                die('Page Not Exist!');
+            }
         } else {
             die('Page Not Found!');
         }

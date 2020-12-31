@@ -1,7 +1,12 @@
 /**********************************************************************************************************************/
 /* view: website */
-body {
+html, body {
     background: whitesmoke; /* fallback for old browsers */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 @font-face {
@@ -11,10 +16,6 @@ body {
 
 a:hover {
     color: #76b901;
-}
-
-.container {
-    position: relative;
 }
 
 .col {
@@ -156,6 +157,10 @@ a:hover {
 
 /**********************************************************************************************************************/
 /* view: 2-nav-top-user */
+#nav_top_user_content {
+    position: relative;
+}
+
 .hr_menu {
     border-top: 1px solid grey;
     width: 81%;
@@ -620,15 +625,11 @@ li input:checked + ol > li:last-child {
 }
 
 /* pagination */
-#pagination {
-    margin-top: 5px;
+#load_pagination_box {
+    margin-top: auto;
     padding-top: 10px;
     padding-bottom: 1px;
-    height: 70px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    border-top: 5px solid whitesmoke;
 }
 
 .page-item {
