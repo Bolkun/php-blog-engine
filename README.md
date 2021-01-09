@@ -57,7 +57,17 @@ minimum changes by configuration and that's it!
 * Select a specific test by clicking on a link
 
 ## Deployment
-coming soon ...
+* Create new database with name **bolkun** and charset **utf8_general_ci**
+* Open file **bolkun/app/development/bolkun.sql** and set **time_zone** (default Berlin). Copy content of the file and 
+      execute it in phpMyAdmin
+* Copy project to server
+    * Open **bolkun/app/config/config.php** and go through comments with *
+        * pass*
+        * url root*
+* Open project link and process the registration form
+    * If fails, than configure **mail sender** on your host
+* Test creating new article
+    * test uploading local image
 
 ## Versioning
 New versions will be stored at [GIT](https://github.com/Bolkun/bolkun) and can be only available after purchasing a new
