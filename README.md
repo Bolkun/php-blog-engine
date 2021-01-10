@@ -57,6 +57,7 @@ minimum changes by configuration and that's it!
 * Select a specific test by clicking on a link
 
 ## Deployment
+* Check server configuration like in Development XAMPP
 * Create new database with name **bolkun** and charset **utf8_general_ci**
 * Open file **bolkun/app/development/bolkun.sql** and set **time_zone** (default Berlin). Copy content of the file and 
       execute it in phpMyAdmin
