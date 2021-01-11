@@ -21,8 +21,8 @@ tinymce.init({
     plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality ' +
 		'advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr ' +
 		'pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker ' +
-		'a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap tinycomments ' +
-		'mentions quickbars linkchecker emoticons advtable autoresize code',
+		'a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap' +
+		'mentions quickbars linkchecker emoticons advtable autoresize code paste tinycomments',
 
     mobile: {
         plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save ' +
@@ -37,13 +37,15 @@ tinymce.init({
             items: 'addcomment showcomments deleteallconversations'
         }
     },
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author',
 
     // 2-d row toolbar
     toolbar: 'undo redo | bold italic underline strikethrough | fontselect | fontsizeselect | formatselect | ' +
 		'alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | ' +
 		'forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | ' +
 		'fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | ' +
-		'a11ycheck ltr rtl | showcomments addcomment | code',
+		'a11ycheck ltr rtl | showcomments addcomment | code | addcomment showcomments',
 
     // display all toolbar in a line
     toolbar_mode: 'wrap',
