@@ -120,7 +120,7 @@ class Blogs extends Controller
             $visitor_ip = getUserIP();
             if (!checkIfStringHasWord($data['views_ip'], $visitor_ip)) {
                 // add to string new ip
-                $data['views_ip'] = ' ' . $visitor_ip;
+                $data['views_ip'] = $data['views_ip'] . ' ' . $visitor_ip;
                 $this->blogModel->updateViewsBasedOnVisitorIP($data);
             }
         } else {
