@@ -228,20 +228,20 @@
                             <div class="form-group">
                                 <input id="setting_old_password" type="password" name="old_password"
                                        class="form-control <?php echo (!empty($data['set_old_password_err'])) ? 'is-invalid' : ''; ?>"
-                                       value="<?php echo $data['set_old_password']; ?>" placeholder="Old Password">
+                                       value="<?php echo $data['set_old_password']; ?>" placeholder="Current Password" autocomplete="off">
                                 <span class="invalid-feedback"><?php echo $data['set_old_password_err']; ?></span>
                             </div>
                             <div class="form-group">
                                 <input id="setting_new_password" type="password" name="new_password"
                                        class="form-control <?php echo (!empty($data['set_new_password_err'])) ? 'is-invalid' : ''; ?>"
-                                       value="<?php echo $data['set_new_password']; ?>" placeholder="New Password">
+                                       value="<?php echo $data['set_new_password']; ?>" placeholder="New Password" autocomplete="off">
                                 <span class="invalid-feedback"><?php echo $data['set_new_password_err']; ?></span>
                             </div>
                             <div class="form-group">
                                 <input id="setting_new_password_confirm" type="password" name="new_password_confirm"
                                        class="form-control <?php echo (!empty($data['set_new_password_confirm_err'])) ? 'is-invalid' : ''; ?>"
                                        value="<?php echo $data['set_new_password_confirm']; ?>"
-                                       placeholder="Confirm New Password">
+                                       placeholder="Confirm New Password" autocomplete="off">
                                 <button name="submitUserPassword" id="setting_submit_password" class="btn btn-success"
                                         type="submit">
                                     <i class="fa fa-lock"></i>
