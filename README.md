@@ -12,7 +12,7 @@ minimum changes by configuration and that's it!
 | XAMPP         | 7.2.31        |
 | PHP           | 7.3.8 - 8     |
 | MySQL         | 5.7           |
-| jQuery        | 3.4.1         |
+| jQuery        | 3.5.1         |
 | TinyMCE       | 5.4.1         |
 | Bootstrap     | 4.5.2         |
 
