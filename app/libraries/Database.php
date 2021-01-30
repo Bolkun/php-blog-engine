@@ -37,6 +37,12 @@ class Database
         }
     }
 
+    public function __destruct()
+    {
+        // Close the connection by setting the PDO object to NULL
+        $this->dbh = null;
+    }
+
     // Prepare statement with query
     public function query($sql)
     {
