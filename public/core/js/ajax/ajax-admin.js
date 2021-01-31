@@ -49,7 +49,7 @@ function ajax_deleteSocialImage(values) {
         $.ajax({
             url: values['URLCURRENT'],
             data: 'ajax_sDeleteSocialImage=' + values['social_image'],
-            type: 'post',
+            type: "POST",
             error: deleteSocialImage_error(values),
             success: deleteSocialImage_success(values)
         });
@@ -99,11 +99,14 @@ function deleteSocialImage_success(values) {
 // delete social media
 function ajax_deleteSocialMedia(values) {
     if (confirm("Want to delete social media " + values['name']+  " with id=" + values['id'] + " from server?")) {
+
+        //console.log(values['name'] + ' ' + values['id']);
+
         // Logic to delete the page
         $.ajax({
             url: values['URLCURRENT'],
             data: 'ajax_sDeleteSocialMedia=' + values['id'],
-            type: 'post',
+            type: "POST",
             error: deleteSocialMedia_error(values),
             success: deleteSocialMedia_success(values)
         });
@@ -214,17 +217,15 @@ function mmAddChild(values) {
 function ajax_mmAddChild(values) {
     var formdata = $("#mmAddChildForm").serializeArray();
     var title = formdata[0]['value'];
-    title = JSON.stringify(title);
     var parent_id = formdata[1]['value'];
-    parent_id = JSON.stringify(parent_id);
 
     //console.log(title + ' ' + title);
 
-    if (title !== "\"\"") {
+    if (title !== '') {
         $.ajax({
             url: values['URLCURRENT'],
-            data: 'ajax_mm_add_child=' + title + '&ajax_mm_add_child_parentId=' + parent_id,  // var="value"&var2="value2"
-            type: 'post',
+            data: 'ajax_mm_add_child=' + title + '&ajax_mm_add_child_parentId=' + parent_id,
+            type: "POST",
             error: mmAddChild_error(title, parent_id),
             success: mmAddChild_success(title, parent_id)
         });
@@ -341,7 +342,7 @@ function ajax_mmEditTitle(values) {
         $.ajax({
             url: values['URLCURRENT'],
             data: 'ajax_mm_edit_title_id=' + id + '&ajax_mm_edit_title=' + title,  // var="value"&var2="value2"
-            type: 'post',
+            type: "POST",
             error: mmEditTitle_error(title, id),
             success: mmEditTitle_success(title, id)
         });
@@ -404,7 +405,7 @@ function ajax_menuDeleteTree(values) {
         $.ajax({
             url: values['URLCURRENT'],
             data: 'ajax_mm_delete_branch_id=' + values['blog_id'],
-            type: 'post',
+            type: "POST",
             error: menuDeleteTree_error(values),
             success: menuDeleteTree_success(values)
         });
@@ -516,7 +517,7 @@ function ajax_deletePreviewImage(values) {
         $.ajax({
             url: values['URLCURRENT'],
             data: 'ajax_sDeletePreviewImage=' + values['preview_image'],
-            type: 'post',
+            type: "POST",
             error: deletePreviewImage_error(values),
             success: deletePreviewImage_success(values)
         });
