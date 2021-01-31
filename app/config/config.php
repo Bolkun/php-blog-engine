@@ -4,6 +4,8 @@
 /*** DB ***/
 # host*
 define('DB_HOST', 'localhost');
+# port*
+define('DB_PORT', '3306');
 # user*
 define('DB_USER', 'root');
 # pass*
