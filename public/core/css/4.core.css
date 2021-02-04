@@ -30,25 +30,6 @@ a:hover {
     display: list-item;
 }
 
-/* scrollbar */
-::-webkit-scrollbar {
-    height: 8px;
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: white;
-}
-
-::-webkit-scrollbar-thumb { /* Handle */
-    border-radius: 0;
-    background-color: #333a40;
-}
-
-::-webkit-scrollbar-thumb:hover { /* Handle on hover */
-    border-radius: 0;
-}
-
 /* flash messages */
 .alert {
     color: white;
