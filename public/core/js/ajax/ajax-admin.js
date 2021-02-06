@@ -161,7 +161,7 @@ function displaySocialMediaContent() {
 
 /**********************************************************************************************************************/
 // view: 3-nav-top-user (main menu)
-// style main menu node gui
+// style main menu add node gui
 function mmAddChild(values) {
     var id = values['blog_id'];
     var title = values['title'];
@@ -171,6 +171,7 @@ function mmAddChild(values) {
     if (color === "grey") {
         document.getElementById("mm_search_form").style.display = "none";
         document.getElementById("mm_edit_title_form").style.display = "none";
+        document.getElementById("mm_delete_branch_form").style.display = "none";
         document.getElementById("mm_add_child_form").style.display = "block";
         // Change all edit class elements to grey
         var edit_classes = document.getElementsByClassName("mm_edit_title_icon");
@@ -184,6 +185,13 @@ function mmAddChild(values) {
         for (var i = 0, len = add_classes.length; i < len; i++) {
             if (add_classes[i].style["color"] != "grey") {
                 add_classes[i].style["color"] = "grey";
+            }
+        }
+        // Change all delete class elements to grey
+        var delete_classes = document.getElementsByClassName("mm_delete_branch_icon");
+        for (var i = 0, len = delete_classes.length; i < len; i++) {
+            if (delete_classes[i].style["color"] != "grey") {
+                delete_classes[i].style["color"] = "grey";
             }
         }
         // Set selected element to green
@@ -203,6 +211,7 @@ function mmAddChild(values) {
         document.getElementById("mm_search_form").style.display = "block";
         document.getElementById("mm_edit_title_form").style.display = "none";
         document.getElementById("mm_add_child_form").style.display = "none";
+        document.getElementById("mm_delete_branch_form").style.display = "none";
         // Set selected element to green
         document.getElementById(current_item_id).style.color = "grey";
         // Focus on search input
@@ -211,75 +220,6 @@ function mmAddChild(values) {
     }
     // set parent id input
     document.getElementById('mm_add_child_parentId').value = id;
-}
-
-// add main menu node
-function ajax_mmAddChild(values) {
-    var formdata = $("#mmAddChildForm").serializeArray();
-    var title = formdata[0]['value'];
-    var parent_id = formdata[1]['value'];
-
-    //console.log(title + ' ' + title);
-
-    if (title !== '') {
-        $.ajax({
-            url: values['URLCURRENT'],
-            data: 'ajax_mm_add_child=' + title + '&ajax_mm_add_child_parentId=' + parent_id,
-            type: "POST",
-            error: mmAddChild_error(title, parent_id),
-            success: mmAddChild_success(title, parent_id)
-        });
-    } else {
-        mmAddEmptyChild_error(title, parent_id);
-    }
-}
-
-function mmAddEmptyChild_error(title, parent_id) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert danger" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Title=' + title + ' of parent_id=' + parent_id + ' cannot be empty!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("main_menu_message").innerHTML = message;
-    setTimeout(function () {
-        $('#main_menu_message').fadeOut('fast');
-        // reload new view
-        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
-    }, 3000);
-}
-
-function mmAddChild_error(title, parent_id) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert danger" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Add title=' + title + ' to parent_id=' + parent_id + ' failed!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("main_menu_message").innerHTML = message;
-    setTimeout(function () {
-        $('#main_menu_message').fadeOut('fast');
-        // reload new view
-        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
-    }, 3000);
-}
-
-function mmAddChild_success(title, parent_id) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert success" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Added title=' + title + ' to parent_id=' + parent_id +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("main_menu_message").innerHTML = message;
-
-    setTimeout(function () {
-        $('#main_menu_message').fadeOut('fast');
-        // reload new view
-        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
-        $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
-        $("#load_pagination_box").load(location.href + " #load_pagination_div");    // parent.load(child)
-    }, 3000);
 }
 
 // style main menu title gui
@@ -293,6 +233,7 @@ function mmEditTitle(values) {
         document.getElementById("mm_search_form").style.display = "none";
         document.getElementById("mm_edit_title_form").style.display = "block";
         document.getElementById("mm_add_child_form").style.display = "none";
+        document.getElementById("mm_delete_branch_form").style.display = "none";
         // Change all edit class elements to grey
         var edit_classes = document.getElementsByClassName("mm_edit_title_icon");
         for (var i = 0, len = edit_classes.length; i < len; i++) {
@@ -307,17 +248,25 @@ function mmEditTitle(values) {
                 add_classes[i].style["color"] = "grey";
             }
         }
+        // Change all delete class elements to grey
+        var delete_classes = document.getElementsByClassName("mm_delete_branch_icon");
+        for (var i = 0, len = delete_classes.length; i < len; i++) {
+            if (delete_classes[i].style["color"] != "grey") {
+                delete_classes[i].style["color"] = "grey";
+            }
+        }
         // Set selected element to green
         document.getElementById(current_item_id).style.color = "rgb(118, 185, 1)";
         // Change placeholder
         document.getElementById("mm_edit_title").placeholder = "Edit title \"" + title + "\"";
+        document.getElementById("mm_edit_title").value = title;
         document.getElementById("mm_edit_title").focus();
-        document.getElementById("mm_edit_title").select();
     } else {
         // green, than roll back
         document.getElementById("mm_search_form").style.display = "block";
         document.getElementById("mm_edit_title_form").style.display = "none";
         document.getElementById("mm_add_child_form").style.display = "none";
+        document.getElementById("mm_delete_branch_form").style.display = "none";
         // Set selected element to green
         document.getElementById(current_item_id).style.color = "grey";
         // Focus on search input
@@ -328,125 +277,59 @@ function mmEditTitle(values) {
     document.getElementById('mm_edit_title_id').value = id;
 }
 
-// edit main menu title
-function ajax_mmEditTitle(values) {
-    var formdata = $("#mmEditTitleForm").serializeArray();
-    var id = formdata[0]['value'];
-    id = JSON.stringify(id);
-    var title = formdata[1]['value'];
-    title = JSON.stringify(title);
+// style main menu delete node gui
+function mmDeleteBranch(values) {
+    var id = values['blog_id'];
+    var title = values['title'];
+    var current_item_id = "mmDeleteBranch" + id;
+    var color = document.getElementById(current_item_id).style.color;
 
-    //console.log(id+' '+title);
-
-    if (title !== "\"\"") {
-        $.ajax({
-            url: values['URLCURRENT'],
-            data: 'ajax_mm_edit_title_id=' + id + '&ajax_mm_edit_title=' + title,  // var="value"&var2="value2"
-            type: "POST",
-            error: mmEditTitle_error(title, id),
-            success: mmEditTitle_success(title, id)
-        });
-    } else {
-        mmEmptyTitle_error(title, id);
-    }
-}
-
-function mmEmptyTitle_error(title, id) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert danger" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Title=' + title + ' with id=' + id + ' cannot be empty!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("main_menu_message").innerHTML = message;
-    setTimeout(function () {
-        $('#main_menu_message').fadeOut('fast');
-        // reload new view
-        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
-    }, 3000);
-}
-
-function mmEditTitle_error(title, id) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert danger" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Edit title=' + title + ' with id=' + id + ' failed!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("main_menu_message").innerHTML = message;
-    setTimeout(function () {
-        $('#main_menu_message').fadeOut('fast');
-        // reload new view
-        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
-    }, 3000);
-}
-
-function mmEditTitle_success(title, id) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert success" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Edit title=' + title + ' with id=' + id +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("main_menu_message").innerHTML = message;
-
-    setTimeout(function () {
-        $('#main_menu_message').fadeOut('fast');
-        // reload new view
-        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
-        $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
-    }, 3000);
-}
-
-// delete main menu item
-function ajax_menuDeleteTree(values) {
-    if (confirm("Want to delete Menu Item with title=" + values['title'] + " ?")) {
-        // Logic to delete the page
-        $.ajax({
-            url: values['URLCURRENT'],
-            data: 'ajax_mm_delete_branch_id=' + values['blog_id'],
-            type: "POST",
-            error: menuDeleteTree_error(values),
-            success: menuDeleteTree_success(values)
-        });
-    }
-}
-
-function menuDeleteTree_error(values) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert danger" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Menu with title=' + values['title'] + ' was not deleted!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("main_menu_message").innerHTML = message;
-    setTimeout(function () {
-        $('#main_menu_message').fadeOut('fast');
-        // reload new view
-        $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
-    }, 3000);
-}
-
-function menuDeleteTree_success(values) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert success" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Menu with title=' + values['title'] + ' was deleted!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("main_menu_message").innerHTML = message;
-
-    setTimeout(function () {
-        $('#main_menu_message').fadeOut('fast');
-        if (values['URLCURRENT'] === values['URLROOT'] + "/index/" + values['blog_id']) {
-            window.location.href = values['URLROOT'];
-        } else {
-            // reload new view
-            $("#mm_load_box").load(location.href + " #mm_load_trees");    // parent.load(child)
-            $("#load_blog_box").load(location.href + " #load_blog_divs");    // parent.load(child)
-            $("#load_pagination_box").load(location.href + " #load_pagination_div");    // parent.load(child)
+    if (color == "grey") {
+        document.getElementById("mm_search_form").style.display = "none";
+        document.getElementById("mm_edit_title_form").style.display = "none";
+        document.getElementById("mm_add_child_form").style.display = "none";
+        document.getElementById("mm_delete_branch_form").style.display = "block";
+        // Change all edit class elements to grey
+        var edit_classes = document.getElementsByClassName("mm_edit_title_icon");
+        for (var i = 0, len = edit_classes.length; i < len; i++) {
+            if (edit_classes[i].style["color"] != "grey") {
+                edit_classes[i].style["color"] = "grey";
+            }
         }
-    }, 3000);
+        // Change all add class elements to grey
+        var add_classes = document.getElementsByClassName("mm_add_child_icon");
+        for (var i = 0, len = add_classes.length; i < len; i++) {
+            if (add_classes[i].style["color"] != "grey") {
+                add_classes[i].style["color"] = "grey";
+            }
+        }
+        // Change all delete class elements to grey
+        var delete_classes = document.getElementsByClassName("mm_delete_branch_icon");
+        for (var i = 0, len = delete_classes.length; i < len; i++) {
+            if (delete_classes[i].style["color"] != "grey") {
+                delete_classes[i].style["color"] = "grey";
+            }
+        }
+        // Set selected element to green
+        document.getElementById(current_item_id).style.color = "rgb(118, 185, 1)";
+        // Change placeholder
+        document.getElementById("mm_delete_branch_title").value = "Delete branch \"" + title + "\" with id \"" + id + "\"";
+        document.getElementById("mm_delete_branch_title").focus();
+        document.getElementById("mm_delete_branch_title").select();
+    } else {
+        // green, than roll back
+        document.getElementById("mm_search_form").style.display = "block";
+        document.getElementById("mm_edit_title_form").style.display = "none";
+        document.getElementById("mm_add_child_form").style.display = "none";
+        document.getElementById("mm_delete_branch_form").style.display = "none";
+        // Set selected element to green
+        document.getElementById(current_item_id).style.color = "grey";
+        // Focus on search input
+        document.getElementById("search_main_menu").focus();
+        document.getElementById("search_main_menu").select();
+    }
+    // set parent id input
+    document.getElementById('mm_delete_branch_id').value = id;
 }
 
 /**********************************************************************************************************************/

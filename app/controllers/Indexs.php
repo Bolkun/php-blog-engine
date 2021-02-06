@@ -62,9 +62,11 @@ class Indexs extends Controller
             'blog_mm_search' => '',
             'blog_mm_edit_title' => '',
             'blog_mm_add_child' => '',
+            'blog_mm_delete_branch' => '',
             'blog_mm_search_err' => '',
             'blog_mm_edit_title_err' => '',
             'blog_mm_add_child_err' => '',
+            'blog_mm_delete_branch_err' => '',
             // preview image
             'preview_image_list' => [],
             // register
@@ -234,17 +236,43 @@ class Indexs extends Controller
 
             $data = mergeAsocArrays($data, $new_data);
         }
-        elseif (isset($_POST['ajax_mm_add_child']) && isset($_POST['ajax_mm_add_child_parentId'])) {
+        elseif (isset($_POST['submit_add_child_input'])) {
             $blog = new Blogs();
-            $blog->add();
+            $blog_data = $blog->add();
+            $new_data = [
+                // pagination
+                'pagination' => (new Blogs)->pagination($this->observe_permissions),
+                // blog_mm
+                'blog_mm' => (new Blogs)->menu($this->observe_permissions),
+                'blog_mm_add_child_err' => $blog_data['mm_add_child_err'],
+                // other
+                'display_div' => array('collapse_main_menu'),
+            ];
+            $data = mergeAsocArrays($data, $new_data);
         }
-        elseif (isset($_POST['ajax_mm_edit_title_id']) && isset($_POST['ajax_mm_edit_title'])) {
+        elseif (isset($_POST['submit_edit_title_input'])) {
             $blog = new Blogs();
-            $blog->editTitle();
+            $blog_data = $blog->editTitle();
+            $new_data = [
+                // blog_mm
+                'blog_mm' => (new Blogs)->menu($this->observe_permissions),
+                'blog_mm_edit_title_err' => $blog_data['mm_edit_title_err'],
+                // other
+                'display_div' => array('collapse_main_menu'),
+            ];
+            $data = mergeAsocArrays($data, $new_data);
         }
-        elseif (isset($_POST['ajax_mm_delete_branch_id'])) {
+        elseif (isset($_POST['submit_delete_branch_input'])) {
             $blog = new Blogs();
-            $blog->deleteBranch($this->observe_permissions);
+            $blog_data = $blog->deleteBranch($this->observe_permissions);
+            $new_data = [
+                // blog_mm
+                'blog_mm' => (new Blogs)->menu($this->observe_permissions),
+                'blog_mm_delete_branch_err' => $blog_data['mm_delete_branch_err'],
+                // other
+                'display_div' => array('collapse_main_menu'),
+            ];
+            $data = mergeAsocArrays($data, $new_data);
         }
         elseif (isset($_POST['ajax_sDeletePreviewImage'])) {
             $preview_image = new Preview_Images();

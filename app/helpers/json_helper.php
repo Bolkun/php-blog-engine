@@ -35,36 +35,6 @@ function jsonEncodeMenu($oData = NULL, $id, $title)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData
- * @return  string
- */
-function jsonEncodeMenuAddChild($oData = NULL)
-{
-    // convert object to associative array
-    $aData = (array)$oData;
-    // add url to array being posted to
-    $aData['URLCURRENT'] = URLCURRENT;
-    $sJSON = json_encode($aData);
-    return $sJSON;
-}
-
-/**
- * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData
- * @return  string
- */
-function jsonEncodeMenuEditTitle($oData = NULL)
-{
-    // convert object to associative array
-    $aData = (array)$oData;
-    // add url to array being posted to
-    $aData['URLCURRENT'] = URLCURRENT;
-    $sJSON = json_encode($aData);
-    return $sJSON;
-}
-
-/**
- * @goal    convert object data to JSON readable string, usable for AJAX post requests
  * @param   object $oData, string $preview_image
  * @return  string
  */

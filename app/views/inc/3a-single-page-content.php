@@ -1,11 +1,9 @@
-<div class="container" style="<?php if (isAdminLoggedIn() === true) {
-    echo 'width: 95%';
-} ?>">
+<div class="container">
     <div style="margin-top: -6px; z-index: -1;">
         <?php if (isAdminLoggedIn() === true) { ?>
-            <form id="blog_form" style="z-index: 0; width: 100%;" class="form-inline"
+            <form id="blog_form" style="z-index: 0; " class="form-inline"
                   action="" method="post" enctype="multipart/form-data">
-                <div class="form-row" style="width: 100%;">
+                <div class="form-row">
                     <div class="form-group col-lg-12">
                         <textarea class="tinymce_admins" name="blog_ta_tinymce">
                             <?php echo $data['blog_content']; ?>
@@ -114,7 +112,7 @@
                             <img id="selectedLocalPreviewImage" class="img-fluid">
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6" style="padding-bottom: 78px;">
                         <!-- Server -->
                         <div id="blog_preview_image_server_div" class="custom-file">
                             <input id="blog_preview_image_server" type="text" name="blog_preview_image_server"
@@ -181,17 +179,21 @@
                             <span class="invalid-feedback"><?php echo $data['blog_preview_image_err']; ?></span>
                         </div>
                     </div>
-                    <div style="padding-top: 28px;" class="form-group col-lg-12">
-                        <input id="submitTinyMCEContent" name="submit_blog_ta_tinymce" type="submit"
-                               value="Save" class="btn btn-success btn-block">
+                    <div id="single_page_footer" class="form-group col-md-12 bg-dark navbar-dark">
+                        <div class="container center">
+                            <input id="submitTinyMCEContent" name="submit_blog_ta_tinymce" type="submit" value="Save" class="btn btn-success">
+                        </div>
                     </div>
+                    
                 </div>
             </form>
         <?php } ?>
-        <div id="tinymce_data" style="<?php if (isAdminLoggedIn()) {
-            echo "display: none";
-        } ?>">
-            <?php echo $data['blog_content']; ?>
+        <div id="tinymce_data" style="<?php if (isAdminLoggedIn()) { echo 'display: none'; } ?>">
+            <?php
+                if (!isAdminLoggedIn()) { 
+                    echo $data['blog_content'];
+                }
+            ?>
         </div>
     </div>
 </div>

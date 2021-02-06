@@ -269,34 +269,34 @@ class Blogs extends Controller
             // Init data
             $data = [
                 'id' => '',
-                'title' => trim($_POST['ajax_mm_add_child']),
+                'title' => trim($_POST['mm_add_child']),
                 'content' => '',
-                'parent_id' => trim($_POST['ajax_mm_add_child_parentId']),
+                'parent_id' => trim($_POST['mm_add_child_parentId']),
+                // error
+                'mm_add_child_err' => '',
             ];
 
             if (empty($data['title'])) {
-                die("Error: Title cannot be empty");
-            } else {
-                // delete ""
-                $data['title'] = replaceString('&#34;', '', $data['title']);
+                $data['mm_add_child_err'] = 'Title cannot be empty';
             }
 
             if (empty($data['parent_id'])) {
-                die("Error: Parent id cannot be empty");
-            } else {
-                // delete ""
-                $data['parent_id'] = replaceString('&#34;', '', $data['parent_id']);
+                $data['parent_id'] = 0;
             }
 
-            // add default header
-            $data["content"] = base64_encode('<h1>' . $data['title'] . '</h1>');
+            if (empty($data['mm_add_child_err'])) {
+                // add default header
+                $data["content"] = base64_encode('<h1>' . $data['title'] . '</h1>');
 
-            // Make sure errors are empty
-            if ($this->blogModel->insert($data)) {
-                // OK
-            } else {
-                die("Error: Could not insert new blog page, due to server problems");
+                // Make sure errors are empty
+                if ($this->blogModel->insert($data)) {
+                    // OK
+                } else {
+                    die("Error: Could not insert new blog page, due to server problems");
+                }
             }
+
+            return $data;
         } else {
             die("Error: Something went wrong during post request to add new node");
         }
@@ -310,29 +310,28 @@ class Blogs extends Controller
 
             // Init data
             $data = [
-                'blog_id' => trim($_POST['ajax_mm_edit_title_id']),
-                'title' => trim($_POST['ajax_mm_edit_title']),
+                'blog_id' => trim($_POST['mm_edit_title_id']),
+                'title' => trim($_POST['mm_edit_title']),
+                'mm_edit_title_err' => '',
             ];
 
             if (empty($data['blog_id'])) {
-                die("Error: blog_id cannot be empty");
-            } else {
-                // delete ""
-                $data['blog_id'] = replaceString('&#34;', '', $data['blog_id']);
+                $data['mm_edit_title_err'] = 'blog_id cannot be empty';
             }
 
             if (empty($data['title'])) {
-                die("Error: Title cannot be empty");
-            } else {
-                // delete ""
-                $data['title'] = replaceString('&#34;', '', $data['title']);
+                $data['mm_edit_title_err'] = 'title cannot be empty';
             }
 
-            if ($this->blogModel->updateTitle($data)) {
-                // OK
-            } else {
-                die("Error: Could not update blog title, due to server problems");
+            if (empty($data['mm_edit_title_err'])) {
+                if ($this->blogModel->updateTitle($data)) {
+                    // OK
+                } else {
+                    die("Error: Could not update blog title, due to server problems");
+                }
             }
+
+            return $data;
         } else {
             die("Error: Something went wrong during post request to edit title");
         }
@@ -344,25 +343,37 @@ class Blogs extends Controller
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $id = trim($_POST['ajax_mm_delete_branch_id']);
+            // Init data
+            $data = [
+                'blog_id' => trim($_POST['mm_delete_branch_id']),
+                'mm_delete_branch_err' => '',
+            ];
 
-            $oData = $this->blogModel->selectMenuData($observe_permissions);
-            if ($oData) {
-                // Convert object to array
-                $aData = stdToArray($oData);
-                // Get branch ids
-                $branch_ids = getBranchIds($aData, $id);
-                // Add root id
-                array_push($branch_ids, $id);
-                // delete branch
-                if ($this->blogModel->deleteBranch($branch_ids)) {
-                    // replace leaf with no root as a root
-                } else {
-                    die("Error: Something went wrong during deletion of blog pages");
-                }
-            } else {
-                die("Error: Something went wrong during branch deletion 1");
+            if(empty($data['blog_id'])){
+                $data['mm_delete_branch_err'] = "blog_id cannot be empty";
             }
+
+            if(empty($data['mm_delete_branch_err'])){
+                $oData = $this->blogModel->selectMenuData($observe_permissions);
+                if ($oData) {
+                    // Convert object to array
+                    $aData = stdToArray($oData);
+                    // Get branch ids
+                    $branch_ids = getBranchIds($aData, $data['blog_id']);
+                    // Add root id
+                    array_push($branch_ids, $data['blog_id']);
+                    // delete branch
+                    if ($this->blogModel->deleteBranch($branch_ids)) {
+                        // replace leaf with no root as a root
+                    } else {
+                        die("Error: Something went wrong during deletion of blog pages");
+                    }
+                } else {
+                    die("Error: Something went wrong during branch deletion 1");
+                }
+            }
+
+            return $data;
         } else {
             die("Error: Something went wrong during branch deletion 2");
         }

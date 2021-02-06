@@ -71,6 +71,7 @@ a:hover {
 /* modal window */
 .modal {
     position: fixed;
+    padding-right: 0 !important;
 }
 
 .modal-dialog {
@@ -208,6 +209,12 @@ a:hover {
     min-width: 280px;
 }
 
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+    display: none;
+}
+
 @media (max-width: 590px) {
     #collapse_share_menu, #collapse_login_menu, #collapse_main_menu {
         margin-left: -16px;
@@ -267,6 +274,7 @@ a:hover {
 #search_main_menu,
 #mm_edit_title,
 #mm_add_child,
+#mm_delete_branch_title,
 #setting_email, #setting_new_password_confirm {
     width: 81%;
     border-color: #76b901;
@@ -279,6 +287,7 @@ a:hover {
 #submit_search_input,
 #submit_edit_input,
 #submit_add_child_input,
+#submit_delete_branch_input,
 #setting_submit_email {
     margin-left: 3px;
     border-color: #76b901;
@@ -411,11 +420,6 @@ li input:checked + ol > li:last-child {
     margin: 5px 0 0 -7px;
 }
 
-.delete_main_menu_el {
-    float: right;
-    padding: 5px 0 0 15px;
-}
-
 /* message flash */
 #main_menu_message {
     padding-left: 5px;
@@ -434,7 +438,14 @@ li input:checked + ol > li:last-child {
     width: 12px;
 }
 
-#mm_edit_title_form, #mm_add_child_form {
+.mm_delete_branch_icon {
+    height: 12px;
+    width: 12px;
+    float: right;
+    padding-top: 4px;
+}
+
+#mm_edit_title_form, #mm_add_child_form, #mm_delete_branch_form {
     display: none;
 }
 
@@ -490,7 +501,7 @@ li input:checked + ol > li:last-child {
     border: 1px solid #ccc;
     margin-top: 15px;
     margin-bottom: 15px;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 /* don't display left tooltip, because it does not implement image zoom class by default */
@@ -499,8 +510,20 @@ li input:checked + ol > li:last-child {
 }
 
 /* form submit button */
+#single_page_footer {
+    position: fixed;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
 #submitTinyMCEContent {
-    margin-bottom: 10px;
+    width: 100%;
+    border-color: white;
+    background-color: transparent;
+    color: white;
 }
 
 #blog_observe_permissions, #blog_rank, #blog_category, #blog_title, #blog_preview_image {
@@ -652,4 +675,3 @@ li input:checked + ol > li:last-child {
 }
 
 /**********************************************************************************************************************/
-
