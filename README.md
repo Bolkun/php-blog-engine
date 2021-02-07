@@ -71,8 +71,8 @@ minimum changes by configuration and that's it!
     * test uploading local image
 
 ## Database migration
-* Export in utf-8 in file.sql
-* Open Notepad++ - Encoding - ANSI
+* Export in utf-8 file.sql
+* Open Notepad++ tab Encoding click ANSI
 * Copy content of a file and paste it in phpMyAdmin tab SQL
 * Run the process
 * **Now chars like äöüß in main menu title will properly set**
