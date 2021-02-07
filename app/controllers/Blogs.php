@@ -281,7 +281,7 @@ class Blogs extends Controller
             }
 
             if (empty($data['parent_id'])) {
-                $data['parent_id'] = 0;
+                $data['parent_id'] = '0';
             }
 
             if (empty($data['mm_add_child_err'])) {

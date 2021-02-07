@@ -110,12 +110,12 @@ function createTreeView($parent, $menu)
                     <a class='main_menu_link' style='color: " . $permission_color . ";' href='" . URLROOT . '/index/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
                     <i style='color: grey;' id='mmDeleteBranch" . $menu['items'][$itemId]['blog_id'] . "' onclick='mmDeleteBranch(" . jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-times mm_delete_branch_icon' aria-hidden='true'></i>
                     </label>
-                    <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
+                    <input id='arrow" . $menu['items'][$itemId]['blog_id'] . "' class='main_menu_checkbox' onclick='updateCookieArrow()' type='checkbox' name='subfolder2'/></li>";
                 } else {
                     $html .= "<li><label for='subfolder2'>
                     <a class='main_menu_link' href='" . URLROOT . '/index/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
                     </label> 
-                    <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/></li>";
+                    <input id='arrow" . $menu['items'][$itemId]['blog_id'] . "' class='main_menu_checkbox' onclick='updateCookieArrow()' type='checkbox' name='subfolder2'/></li>";
                 }
             }
             if (isset($menu['parents'][$itemId])) {
@@ -127,14 +127,14 @@ function createTreeView($parent, $menu)
                     <a class='main_menu_link' style='color: " . $permission_color . ";' href='" . URLROOT . '/index/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
                     <i style='color: grey;' id='mmDeleteBranch" . $menu['items'][$itemId]['blog_id'] . "' onclick='mmDeleteBranch(" . jsonEncodeMenu(NULL, $menu['items'][$itemId]['blog_id'], $menu['items'][$itemId]['title']) . ")' class='fa fa-times mm_delete_branch_icon' aria-hidden='true'></i>
                     </label>
-                    <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
+                    <input id='arrow" . $menu['items'][$itemId]['blog_id'] . "' class='main_menu_checkbox' onclick='updateCookieArrow()' type='checkbox' name='subfolder2'/>";
                     $html .= createTreeView($itemId, $menu);
                     $html .= "</li>";
                 } else {
                     $html .= "<li><label for='subfolder2'>
                     <a class='main_menu_link' href='" . URLROOT . '/index/' . $menu['items'][$itemId]['blog_id'] . "'>" . $menu['items'][$itemId]['title'] . "</a>
                     </label>
-                    <input class='main_menu_checkbox' type='checkbox' name='subfolder2'/>";
+                    <input id='arrow" . $menu['items'][$itemId]['blog_id'] . "' class='main_menu_checkbox' onclick='updateCookieArrow()' type='checkbox' name='subfolder2'/>";
                     $html .= createTreeView($itemId, $menu);
                     $html .= "</li>";
                 }

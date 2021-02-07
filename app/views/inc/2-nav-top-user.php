@@ -208,7 +208,7 @@
                                     <span class="invalid-feedback"><?php echo $data['log_email_err']; ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <input id="login_password" type="password" name="password" class="form-control <?php echo (!empty($data['log_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['log_password']; ?>" placeholder="Password">
+                                    <input id="login_password" type="password" name="password" class="form-control <?php echo (!empty($data['log_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['log_password']; ?>" placeholder="Password" autocomplete="on">
                                     <span class="invalid-feedback"><?php echo $data['log_password_err']; ?></span>
                                 </div>
                                 <div class="form-group">
@@ -245,11 +245,11 @@
                                     <span class="invalid-feedback"><?php echo $data['reg_email_err']; ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <input id="register_password" type="password" name="password" class="form-control <?php echo (!empty($data['reg_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['reg_password']; ?>" placeholder="Password">
+                                    <input id="register_password" type="password" name="password" class="form-control <?php echo (!empty($data['reg_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['reg_password']; ?>" placeholder="Password" autocomplete="on">
                                     <span class="invalid-feedback"><?php echo $data['reg_password_err']; ?></span>
                                 </div>
                                 <div class="form-group">
-                                    <input id="register_confirm_password" type="password" name="confirm_password" class="form-control <?php echo (!empty($data['reg_confirm_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['reg_confirm_password']; ?>" placeholder="Confirm password">
+                                    <input id="register_confirm_password" type="password" name="confirm_password" class="form-control <?php echo (!empty($data['reg_confirm_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['reg_confirm_password']; ?>" placeholder="Confirm password" autocomplete="on">
                                     <span class="invalid-feedback"><?php echo $data['reg_confirm_password_err']; ?></span>
                                 </div>
                                 <div class="form-group">
@@ -294,7 +294,7 @@
                     <div id="mm_add_child_form">
                         <form class="form-inline" action="<?php echo URLROOT; ?>/index" method="post">
                             <input id="mm_add_child" type="text" name="mm_add_child" class="form-control <?php echo (!empty($data['blog_mm_add_child_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['blog_mm_add_child']; ?>" placeholder="Add child">
-                            <input id="mm_add_child_parentId" type="text" name="mm_add_child_parentId" style="display: none" class="form-control" value="" placeholder="Parent id">
+                            <input id="mm_add_child_parentId" type="text" name="mm_add_child_parentId" style="display: none" class="form-control" value="0" placeholder="Parent id">
                             <button id="submit_add_child_input" name="submit_add_child_input" class="btn btn-success" type="submit">
                                 <i class='fa fa-plus'></i>
                             </button>

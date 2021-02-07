@@ -17,6 +17,21 @@ function displayDivs(id) {
             document.getElementById("toggle_main_menu").click();
             document.getElementById('toggle_main_menu').style.color = "rgb(118, 185, 1)";  // green
             document.getElementById('toggle_main_menu').style.border = "1px solid rgb(118, 185, 1)";
+            if(typeof id['array'][1] !== 'undefined'){
+                if(id['array'][1] === 'mm_add_child_form') {
+                    if(id['array'][2] === '0'){
+                        // root button
+                        document.getElementById("mmAddChild" + id['array'][2]).click();
+                    } else {
+                        // child button
+                        document.getElementById("mmAddChild" + id['array'][2]).click();
+                    }
+                } else if(id['array'][1] === 'mm_edit_title_form') {
+                    document.getElementById("mmEditTitle" + id['array'][2]).click();
+                } else if(id['array'][1] === 'mm_delete_branch_form') {
+                    // do nothing!
+                }
+            }
         } else if(id['array'][0] === 'collapse_share_menu') {
             document.getElementById("toggle_share_menu").click();
             document.getElementById('toggle_share_menu').style.color = "rgb(118, 185, 1)";  // green
@@ -126,7 +141,98 @@ function mmDropDownItems() {
         // Set selected element to grey
         document.getElementById("mmDropDownItems").style.color = "white";
     }
+    updateCookieArrow();
 }
+
+// onload get collapsed mm items
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function deleteCookie(cname) {
+    document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+function setCookieArrow(){
+    var classes = document.getElementsByClassName("main_menu_checkbox");
+    var objArrows = {};
+    for (var i = 0, len = classes.length; i < len; i++) {
+        var id = classes[i].id;
+        if($('#' + id).is(":checked")){
+            objArrows[id] = "checked";
+        } else {
+            objArrows[id] = "unchecked";
+        }
+    }
+    var json_arrows_str = JSON.stringify(objArrows);
+    setCookie("expand_mm_items", json_arrows_str, 365);
+}
+
+function loadCookieArrow(){
+    var sExpand_mm_items = getCookie("expand_mm_items");
+    //console.log(sExpand_mm_items);
+    var aExpand_mm_items = JSON.parse(sExpand_mm_items);
+    // console.log(aExpand_mm_items);
+    Object.keys(aExpand_mm_items).forEach(function(key){
+        var id = key;
+        var cookie_status = aExpand_mm_items[key];
+        // console.log(key + " " + cookie_status);
+        var status = $('#' + id).is(":checked");
+        if(status === true && cookie_status !== "checked"){
+            if(document.getElementById(id) != null){
+                document.getElementById(id).click();
+            }
+        } else if(status === false && cookie_status !== "unchecked"){
+            if(document.getElementById(id) != null){
+                document.getElementById(id).click();
+            }
+        }
+    });
+}
+
+function updateCookieArrow(){
+    deleteCookie("expand_mm_items");
+    var classes = document.getElementsByClassName("main_menu_checkbox");
+    var objArrows = {};
+    for (var i = 0, len = classes.length; i < len; i++) {
+        var id = classes[i].id;
+        if($('#' + id).is(":checked")){
+            objArrows[id] = "checked";
+        } else {
+            objArrows[id] = "unchecked";
+        }
+    }
+    var json_arrows_str = JSON.stringify(objArrows);
+    setCookie("expand_mm_items", json_arrows_str, 365);
+}
+
+$(document).ready(function(){
+    // check cookie
+    var mm_items = getCookie("expand_mm_items");
+    if (mm_items == "" || mm_items == null) {
+        setCookieArrow();
+    } else {
+        loadCookieArrow();
+    }
+});
 
 /**********************************************************************************************************************/
 // view: 3a-single-page-content

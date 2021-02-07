@@ -246,7 +246,7 @@ class Indexs extends Controller
                 'blog_mm' => (new Blogs)->menu($this->observe_permissions),
                 'blog_mm_add_child_err' => $blog_data['mm_add_child_err'],
                 // other
-                'display_div' => array('collapse_main_menu'),
+                'display_div' => array('collapse_main_menu', 'mm_add_child_form', $blog_data['parent_id']),
             ];
             $data = mergeAsocArrays($data, $new_data);
         }
@@ -258,7 +258,7 @@ class Indexs extends Controller
                 'blog_mm' => (new Blogs)->menu($this->observe_permissions),
                 'blog_mm_edit_title_err' => $blog_data['mm_edit_title_err'],
                 // other
-                'display_div' => array('collapse_main_menu'),
+                'display_div' => array('collapse_main_menu', 'mm_edit_title_form', $blog_data['blog_id']),
             ];
             $data = mergeAsocArrays($data, $new_data);
         }
@@ -270,7 +270,7 @@ class Indexs extends Controller
                 'blog_mm' => (new Blogs)->menu($this->observe_permissions),
                 'blog_mm_delete_branch_err' => $blog_data['mm_delete_branch_err'],
                 // other
-                'display_div' => array('collapse_main_menu'),
+                'display_div' => array('collapse_main_menu', 'mm_delete_branch_form'),
             ];
             $data = mergeAsocArrays($data, $new_data);
         }

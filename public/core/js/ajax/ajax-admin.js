@@ -314,8 +314,6 @@ function mmDeleteBranch(values) {
         document.getElementById(current_item_id).style.color = "rgb(118, 185, 1)";
         // Change placeholder
         document.getElementById("mm_delete_branch_title").value = "Delete branch \"" + title + "\" with id \"" + id + "\"";
-        document.getElementById("mm_delete_branch_title").focus();
-        document.getElementById("mm_delete_branch_title").select();
     } else {
         // green, than roll back
         document.getElementById("mm_search_form").style.display = "block";
