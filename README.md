@@ -75,7 +75,7 @@ minimum changes by configuration and that's it!
 * Open Notepad++ - Encoding - ANSI
 * Copy content of a file and paste it in phpMyAdmin tab SQL
 * Run the process
-* ** Now chars like äöüß in main menu title will properly set **
+* **Now chars like äöüß in main menu title will properly set**
 
 ## Versioning
 New versions will be stored at [GIT](https://github.com/Bolkun/bolkun) and can be only available after purchasing a new
