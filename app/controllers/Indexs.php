@@ -293,7 +293,6 @@ class Indexs extends Controller
     /*
      * All Pages ▼
      */
-    /******************************************************************************************************************/
     public function index($url_param = 0)
     {
         // Init
@@ -312,6 +311,7 @@ class Indexs extends Controller
                 'blog_preview_image' => $blog_data['preview_image'],
                 'blog_observe_permissions' => $blog_data['observe_permissions'],
                 'blog_category' => $blog_data['category'],
+                'blog_id' => $blog_data['blog_id'],
                 'blog_title' => $blog_data['title'],
                 'blog_rank' => $blog_data['rank'],
                 'blog_content' => $blog_data['content'],
@@ -457,6 +457,18 @@ class Indexs extends Controller
             $this->view('index/tests/helpers/var_helper');
         } else {
             header("HTTP/1.0 404 Not Found");
+        }
+    }
+    /******************************************************************************************************************/
+    public function ajax_displayBlogContent(){
+        if (isset($_POST['ajax_sDisplayBlogContentID'])) {
+            $blog = new Blogs();
+            $blog_id = trim($_POST['ajax_sDisplayBlogContentID']);
+            $blog_data = $blog->getRecord($blog_id, $this->observe_permissions);
+            $data = [
+                'blog_content' => $blog_data['content'],
+            ];
+            $this->view('index/ajax/ajax_displayBlogContent', $data);
         }
     }
     /******************************************************************************************************************/

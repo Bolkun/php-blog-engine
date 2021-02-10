@@ -334,9 +334,22 @@ function mmDeleteBranch(values) {
 // view: 3-nav-top-admin (navigation)
 // view: 3a-single-page-content (blog content)
 // blog content switcher view and edit mode
-function displayBlogContent() {
+function ajax_displayBlogContent(values) {
     var user_content = document.getElementById("tinymce_data").style.display;
+    //console.log(values);
     if (user_content === "none") {
+        $.ajax({
+            url: values['URLROOT'] + "/index/ajax_displayBlogContent",
+            type: "POST",
+            data: { ajax_sDisplayBlogContentID: values['blog_id'] },
+            success: function (result) {
+                // replace content of #tinymce_data with #ajax_displayBlogContent 
+                $('#tinymce_data').html($(result).html());
+            },
+            error: function (result) {
+                console.log("Error by ajax_displayBlogContent(): " + result);
+            }
+        });
         document.getElementById("tinymce_data").style.display = "block";
         document.getElementById("blog_form").style.display = "none";
         // change icon color
