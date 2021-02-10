@@ -124,7 +124,8 @@ class Blogs extends Controller
                 $this->blogModel->updateViewsBasedOnVisitorIP($data);
             }
         } else {
-            die("Blog title not found");
+            // Blog title not found
+            redirect('');
         }
 
         return $data;
