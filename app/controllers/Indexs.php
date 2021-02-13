@@ -56,7 +56,7 @@ class Indexs extends Controller
             'blog_category_err' => '',
             'blog_title_err' => '',
             // pagination
-            'pagination' => [],
+            'pagination' => (new Blogs)->pagination($this->observe_permissions),
             // blog mm
             'blog_mm' => (new Blogs)->menu($this->observe_permissions),
             'blog_mm_search' => '',
@@ -321,7 +321,6 @@ class Indexs extends Controller
                     'blog_title' => $blog_data['title'],
                     'blog_rank' => $blog_data['rank'],
                     'blog_views' => $blog_data['views'],
-                    'pagination' => (new Blogs)->pagination($this->observe_permissions),
                 ];
                 $data = mergeAsocArrays($data, $new_data);
             }
