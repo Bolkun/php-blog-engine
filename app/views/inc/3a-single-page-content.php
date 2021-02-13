@@ -1,9 +1,9 @@
 <div class="container">
     <div style="margin-top: -6px; z-index: -1;">
         <?php if (isAdminLoggedIn() === true) { ?>
-            <form id="blog_form" style="z-index: 0; " class="form-inline"
+            <form id="blog_form" style="z-index: 0;" class="form-inline"
                   action="" method="post" enctype="multipart/form-data">
-                <div class="form-row">
+                <div class="form-row" style="width: 100%;"> <!-- for responsive design -->
                     <div class="form-group col-lg-12">
                         <textarea class="tinymce_admins" name="blog_ta_tinymce">
                             <?php echo $data['blog_content']; ?>
@@ -188,12 +188,14 @@
                 </div>
             </form>
         <?php } ?>
-        <div id="tinymce_data" style="<?php if (isAdminLoggedIn()) { echo 'display: none'; } ?>">
-            <?php
-                if (!isAdminLoggedIn()) { 
-                    echo $data['blog_content'];
-                }
-            ?>
+        <div class="form-group col-xs-12">
+            <div id="tinymce_data" style="<?php if (isAdminLoggedIn()) { echo 'display: none'; } ?>">
+                <?php
+                    if (!isAdminLoggedIn()) { 
+                        echo $data['blog_content'];
+                    }
+                ?>
+            </div>
         </div>
     </div>
 </div>
