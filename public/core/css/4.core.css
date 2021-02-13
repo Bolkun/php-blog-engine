@@ -501,7 +501,7 @@ li input:checked + ol > li:last-child {
     border: 1px solid #ccc;
     margin-top: 15px;
     margin-bottom: 15px;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 /* don't display left tooltip, because it does not implement image zoom class by default */
