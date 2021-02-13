@@ -42,105 +42,97 @@ function selectedUploadSocialImage(input) {
     }
 }
 
-// delete social image
-function ajax_deleteSocialImage(values) {
-    if (confirm("Want to delete Social Image " + values['social_image'] + " from server?")) {
-        // Logic to delete the page
-        $.ajax({
-            url: values['URLCURRENT'],
-            data: 'ajax_sDeleteSocialImage=' + values['social_image'],
-            type: "POST",
-            error: deleteSocialImage_error(values),
-            success: deleteSocialImage_success(values)
-        });
-    }
-}
-
-function deleteSocialImage_error(values) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert danger" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Error: Could not delete social image =' + values['social_image'] + '!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("message").innerHTML = message;
-    setTimeout(function () {
-        $('#message').fadeOut('fast');
-        // reload new view
-        $("#sm_social_images_list_load").load(location.href + " #sm_social_images_list_load_content");    // parent.load(child)
-    }, 3000);
-}
-
-function deleteSocialImage_success(values) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert success" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Success: Social image ' + values['social_image'] + ' was deleted!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("message").innerHTML = message;
-
-    setTimeout(function () {
-        $('#message').fadeOut('fast');
-        // reload new view
-        $("#sm_social_images_list_load").load(location.href + " #sm_social_images_list_load_content");    // parent.load(child)
-
-        // check gui
-        var selectedSocialImageURL = document.getElementById("selectedServerSocialImage").src;
-        var parts = selectedSocialImageURL.split('/');
-        var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
-        if (values['social_image'] === lastSegment) {
-            document.getElementById("selectedServerSocialImage").src = values['PUBLIC_CORE_IMG_SOCIALURL'] + '/' + values['DEFAULT_SOCIAL_IMAGE'];
-            document.getElementById("sm_social_image_server").value = values['DEFAULT_SOCIAL_IMAGE'];
-        }
-    }, 3000);
-}
-
 // delete social media
 function ajax_deleteSocialMedia(values) {
     if (confirm("Want to delete social media " + values['name']+  " with id=" + values['id'] + " from server?")) {
-
         //console.log(values['name'] + ' ' + values['id']);
-
-        // Logic to delete the page
         $.ajax({
-            url: values['URLCURRENT'],
-            data: 'ajax_sDeleteSocialMedia=' + values['id'],
+            url: values['URLROOT'] + "/index/ajax_deleteSocialMedia",
             type: "POST",
-            error: deleteSocialMedia_error(values),
-            success: deleteSocialMedia_success(values)
+            data: { ajax_sDeleteSocialMediaID: values['id'] },
+            success: function (result) {
+                // [alert info, alert success, alert warning, alert danger]
+                var message = '<div class="alert success" id="msg-flash">' +
+                '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+                values['name'] + ' with id=' + values['id'] + ' was deleted!' +
+                '</div>';
+                // Inserting the code block
+                document.getElementById("message_sm").innerHTML = message;
+                setTimeout(function () {
+                    $('#message_sm').fadeOut('fast');
+                    // reload new view
+                    $("#share_menu_load").load(location.href + " #share_menu_content");    // parent.load(child)
+                }, 3000);
+                
+            },
+            error: function (result) {
+                // [alert info, alert success, alert warning, alert danger]
+                var message = '<div class="alert danger" id="msg-flash">' +
+                '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+                'Could not delete ' + values['name'] + ' with id=' + values['id'] + '!' +
+                '</div>';
+                // Inserting the code block
+                document.getElementById("message_sm").innerHTML = message;
+                setTimeout(function () {
+                    $('#message_sm').fadeOut('fast');
+                    // reload new view
+                    $("#share_menu_load").load(location.href + " #share_menu_content");    // parent.load(child)
+                }, 3000);
+                console.log("Error by ajax_deleteSocialMedia(): " + result);
+            }
         });
     }
 }
 
-function deleteSocialMedia_error(values) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert danger" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Could not delete ' + values['name'] + ' with id=' + values['id'] + '!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("message_sm").innerHTML = message;
-    setTimeout(function () {
-        $('#message_sm').fadeOut('fast');
-        // reload new view
-        $("#share_menu_load").load(location.href + " #share_menu_content");    // parent.load(child)
-    }, 3000);
-}
+// delete social image
+function ajax_deleteSocialImage(values) {
+    if (confirm("Want to delete Social Image " + values['social_image'] + " from server?")) {
+        //console.log(values['social_image']);
+        $.ajax({
+            url: values['URLROOT'] + "/index/ajax_deleteSocialImage",
+            type: "POST",
+            data: { ajax_sDeleteSocialImage: values['social_image'] },
+            success: function (result) {
+                // [alert info, alert success, alert warning, alert danger]
+                var message = '<div class="alert success" id="msg-flash">' +
+                '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+                'Success: Social image ' + values['social_image'] + ' was deleted!' +
+                '</div>';
+                // Inserting the code block
+                document.getElementById("message").innerHTML = message;
 
-function deleteSocialMedia_success(values) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert success" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        values['name'] + ' with id=' + values['id'] + ' was deleted!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("message_sm").innerHTML = message;
-    setTimeout(function () {
-        $('#message_sm').fadeOut('fast');
-        // reload new view
-        $("#share_menu_load").load(location.href + " #share_menu_content");    // parent.load(child)
-    }, 3000);
+                setTimeout(function () {
+                    $('#message').fadeOut('fast');
+                    // reload new view
+                    $("#sm_social_images_list_load").load(location.href + " #sm_social_images_list_load_content");    // parent.load(child)
+
+                    // check gui
+                    var selectedSocialImageURL = document.getElementById("selectedServerSocialImage").src;
+                    var parts = selectedSocialImageURL.split('/');
+                    var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+                    if (values['social_image'] === lastSegment) {
+                        document.getElementById("selectedServerSocialImage").src = values['PUBLIC_CORE_IMG_SOCIALURL'] + '/' + values['DEFAULT_SOCIAL_IMAGE'];
+                        document.getElementById("sm_social_image_server").value = values['DEFAULT_SOCIAL_IMAGE'];
+                    }
+                }, 3000);
+            },
+            error: function (result) {
+                // [alert info, alert success, alert warning, alert danger]
+                var message = '<div class="alert danger" id="msg-flash">' +
+                '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+                'Error: Could not delete social image =' + values['social_image'] + '!' +
+                '</div>';
+                // Inserting the code block
+                document.getElementById("message").innerHTML = message;
+                setTimeout(function () {
+                    $('#message').fadeOut('fast');
+                    // reload new view
+                    $("#sm_social_images_list_load").load(location.href + " #sm_social_images_list_load_content");    // parent.load(child)
+                }, 3000);
+                console.log("Error by ajax_deleteSocialImage(): " + result);
+            }
+        });
+    }
 }
 
 // social media switcher view and edit mode
@@ -407,55 +399,52 @@ function selectedUploadPreviewImage(input) {
 // delete preview image
 function ajax_deletePreviewImage(values) {
     if (confirm("Want to delete Preview Image " + values['preview_image'] + " from server?")) {
-        // Logic to delete the page
+        //console.log(values['preview_image']);
         $.ajax({
-            url: values['URLCURRENT'],
-            data: 'ajax_sDeletePreviewImage=' + values['preview_image'],
+            url: values['URLROOT'] + "/index/ajax_deletePreviewImage",
             type: "POST",
-            error: deletePreviewImage_error(values),
-            success: deletePreviewImage_success(values)
+            data: { ajax_sDeletePreviewImage: values['preview_image'] },
+            success: function (result) {
+                // [alert info, alert success, alert warning, alert danger]
+                var message = '<div class="alert success" id="msg-flash">' +
+                '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+                'Success: Preview image ' + values['preview_image'] + ' was deleted!' +
+                '</div>';
+                // Inserting the code block
+                document.getElementById("preview_images_message").innerHTML = message;
+
+                setTimeout(function () {
+                    $('#preview_images_message').fadeOut('fast');
+                    // reload new view
+                    $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
+
+                    // check gui
+                    var selectedPreviewImageURL = document.getElementById("selectedServerPreviewImage").src;
+                    var parts = selectedPreviewImageURL.split('/');
+                    var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+                    if (values['preview_image'] === lastSegment) {
+                        document.getElementById("selectedServerPreviewImage").src = values['PUBLIC_CORE_IMG_PREVIEWURL'] + '/' + values['DEFAULT_PREVIEW_IMAGE'];
+                        document.getElementById("blog_preview_image_server").value = values['DEFAULT_PREVIEW_IMAGE'];
+                    }
+                }, 3000);
+            },
+            error: function (result) {
+                // [alert info, alert success, alert warning, alert danger]
+                var message = '<div class="alert danger" id="msg-flash">' +
+                '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
+                'Error: Could not delete preview image=' + values['preview_image'] + '!' +
+                '</div>';
+                // Inserting the code block
+                document.getElementById("preview_images_message").innerHTML = message;
+                setTimeout(function () {
+                    $('#preview_images_message').fadeOut('fast');
+                    // reload new view
+                    $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
+                }, 3000);
+                console.log("Error by ajax_deletePreviewImage(): " + result);
+            }
         });
     }
-}
-
-function deletePreviewImage_error(values) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert danger" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Error: Could not delete preview image =' + values['preview_image'] + '!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("message").innerHTML = message;
-    setTimeout(function () {
-        $('#message').fadeOut('fast');
-        // reload new view
-        $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
-    }, 3000);
-}
-
-function deletePreviewImage_success(values) {
-    // [alert info, alert success, alert warning, alert danger]
-    var message = '<div class="alert success" id="msg-flash">' +
-        '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
-        'Success: Preview image ' + values['preview_image'] + ' was deleted!' +
-        '</div>';
-    // Inserting the code block
-    document.getElementById("message").innerHTML = message;
-
-    setTimeout(function () {
-        $('#message').fadeOut('fast');
-        // reload new view
-        $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
-
-        // check gui
-        var selectedPreviewImageURL = document.getElementById("selectedServerPreviewImage").src;
-        var parts = selectedPreviewImageURL.split('/');
-        var lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
-        if (values['preview_image'] === lastSegment) {
-            document.getElementById("selectedServerPreviewImage").src = values['PUBLIC_CORE_IMG_PREVIEWURL'] + '/' + values['DEFAULT_PREVIEW_IMAGE'];
-            document.getElementById("blog_preview_image_server").value = values['DEFAULT_PREVIEW_IMAGE'];
-        }
-    }, 3000);
 }
 
 /**********************************************************************************************************************/

@@ -115,7 +115,7 @@
                                         <input id="submit_social_media" name="submitSocialMedia" type="submit" value="Add" class="btn btn-success btn-block">
                                     </div>
                                 </form>
-                                <div class="col text-center" style="margin-top: -5px;">
+                                <div id="ajax_deleteSocialMedia" class="col text-center" style="margin-top: -5px;">
                                     <?php
                                     if ($data['sm'] !== false) {
                                         for ($i = 0; $i < count($data['sm']['id']); $i++) { ?>

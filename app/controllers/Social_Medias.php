@@ -148,7 +148,7 @@ class Social_Medias extends Controller
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $id = trim($_POST['ajax_sDeleteSocialMedia']);
+            $id = trim($_POST['ajax_sDeleteSocialMediaID']);
 
             if ($this->social_mediaModel->deleteBasedOnId($id)) {
                 // OK

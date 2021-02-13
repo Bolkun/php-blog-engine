@@ -1,3 +1,3 @@
-<div id="ajax_sDisplayBlogContentID">
+<div>
     <?php echo $data['blog_content'] ?>
 </div>

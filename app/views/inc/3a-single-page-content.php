@@ -136,7 +136,7 @@
                                         <div id="blog_preview_images_list_modal_body" class="modal-body">
                                             <div id="blog_preview_images_list_load">
                                                 <div id="blog_preview_images_list_load_content">
-                                                    <div id="message"><?php flash('preview_images'); ?></div>
+                                                    <div id="preview_images_message"><?php flash('preview_images'); ?></div>
                                                     <div class="row">
                                                         <?php for ($p = 0; $p < count($data['preview_image_list']); $p++) { ?>
                                                             <div class="col-sm-2">

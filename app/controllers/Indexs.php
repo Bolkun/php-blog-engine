@@ -124,19 +124,6 @@ class Indexs extends Controller
             ];
             $data = mergeAsocArrays($data, $new_data);
         }
-        elseif (isset($_POST['submit_search_input'])) {
-            $blog = new Blogs();
-            $blog_data = $blog->search_menu($this->observe_permissions);
-            $new_data = [
-                // main menu
-                'blog_mm_search' => $blog_data['search'],
-                'blog_mm_search_err' => $blog_data['search_err'],
-                'blog_mm' => $blog_data['content'],
-                // other
-                'display_div' => array('collapse_main_menu'),
-            ];
-            $data = mergeAsocArrays($data, $new_data);
-        }
         elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
             $user_data = $user->login();
@@ -236,6 +223,19 @@ class Indexs extends Controller
 
             $data = mergeAsocArrays($data, $new_data);
         }
+        elseif (isset($_POST['submit_search_input'])) {
+            $blog = new Blogs();
+            $blog_data = $blog->search_menu($this->observe_permissions);
+            $new_data = [
+                // main menu
+                'blog_mm_search' => $blog_data['search'],
+                'blog_mm_search_err' => $blog_data['search_err'],
+                'blog_mm' => $blog_data['content'],
+                // other
+                'display_div' => array('collapse_main_menu'),
+            ];
+            $data = mergeAsocArrays($data, $new_data);
+        }
         elseif (isset($_POST['submit_add_child_input'])) {
             $blog = new Blogs();
             $blog_data = $blog->add();
@@ -273,18 +273,6 @@ class Indexs extends Controller
                 'display_div' => array('collapse_main_menu', 'mm_delete_branch_form'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['ajax_sDeletePreviewImage'])) {
-            $preview_image = new Preview_Images();
-            $preview_image->deletePreviewImage();
-        }
-        elseif (isset($_POST['ajax_sDeleteSocialImage'])) {
-            $social_image = new Social_Images();
-            $social_image->deleteSocialImage();
-        }
-        elseif (isset($_POST['ajax_sDeleteSocialMedia'])) {
-            $sm = new Social_Medias();
-            $sm->delete();
         }
 
         return $data;
@@ -460,6 +448,27 @@ class Indexs extends Controller
         }
     }
     /******************************************************************************************************************/
+    public function ajax_deleteSocialMedia() {
+        if (isset($_POST['ajax_sDeleteSocialMediaID'])) {
+            $sm = new Social_Medias();
+            $sm->delete();
+        }
+    }
+
+    public function ajax_deleteSocialImage() {
+        if (isset($_POST['ajax_sDeleteSocialImage'])) {
+            $social_image = new Social_Images();
+            $social_image->deleteSocialImage();
+        }
+    }
+
+    public function ajax_deletePreviewImage() {
+        if (isset($_POST['ajax_sDeletePreviewImage'])) {
+            $preview_image = new Preview_Images();
+            $preview_image->deletePreviewImage();
+        }
+    }
+
     public function ajax_displayBlogContent(){
         if (isset($_POST['ajax_sDisplayBlogContentID'])) {
             $blog = new Blogs();
@@ -471,5 +480,6 @@ class Indexs extends Controller
             $this->view('index/ajax/ajax_displayBlogContent', $data);
         }
     }
+
     /******************************************************************************************************************/
 }

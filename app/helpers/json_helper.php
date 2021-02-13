@@ -2,7 +2,7 @@
 /**
  * @goal    convert array data to JSON readable string, usable for AJAX post requests
  * @param   array $array @example print_r ([id] => 1 [created] => John ...)
- * @return  string         @example print_r {"id":"1","created":"John" ...)
+ * @return  string       @example print_r {"id":"1","created":"John" ...)
  */
 function jsonEncodeArray($array)
 {
@@ -35,24 +35,6 @@ function jsonEncodeMenu($oData = NULL, $id, $title)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData, string $preview_image
- * @return  string
- */
-function jsonSelectedPreviewImage($oData = NULL, $preview_image)
-{
-    // convert object to associative array
-    $aData = (array)$oData;
-    // add url to array being posted to
-    $aData['URLCURRENT'] = URLCURRENT;
-    $aData['PUBLIC_CORE_IMG_PREVIEWURL'] = PUBLIC_CORE_IMG_PREVIEWURL;
-    $aData['DEFAULT_PREVIEW_IMAGE'] = DEFAULT_PREVIEW_IMAGE;
-    $aData['preview_image'] = $preview_image;
-    $sJSON = json_encode($aData);
-    return $sJSON;
-}
-
-/**
- * @goal    convert object data to JSON readable string, usable for AJAX post requests
  * @param   object $oData, string $social_image
  * @return  string
  */
@@ -61,10 +43,28 @@ function jsonSelectedSocialImage($oData = NULL, $social_image)
     // convert object to associative array
     $aData = (array)$oData;
     // add url to array being posted to
-    $aData['URLCURRENT'] = URLCURRENT;
+    $aData['URLROOT'] = URLROOT;
     $aData['PUBLIC_CORE_IMG_SOCIALURL'] = PUBLIC_CORE_IMG_SOCIALURL;
     $aData['DEFAULT_SOCIAL_IMAGE'] = DEFAULT_SOCIAL_IMAGE;
     $aData['social_image'] = $social_image;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}
+
+/**
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   object $oData, string $preview_image
+ * @return  string
+ */
+function jsonSelectedPreviewImage($oData = NULL, $preview_image)
+{
+    // convert object to associative array
+    $aData = (array)$oData;
+    // add url to array being posted to
+    $aData['URLROOT'] = URLROOT;
+    $aData['PUBLIC_CORE_IMG_PREVIEWURL'] = PUBLIC_CORE_IMG_PREVIEWURL;
+    $aData['DEFAULT_PREVIEW_IMAGE'] = DEFAULT_PREVIEW_IMAGE;
+    $aData['preview_image'] = $preview_image;
     $sJSON = json_encode($aData);
     return $sJSON;
 }
@@ -79,7 +79,7 @@ function jsonEncodeDeleteSocialMedia($oData = NULL, $id, $name)
     // convert object to associative array
     $aData = (array)$oData;
     // add url to array being posted to
-    $aData['URLCURRENT'] = URLCURRENT;
+    $aData['URLROOT'] = URLROOT;
     $aData['id'] = $id;
     $aData['name'] = $name;
     $sJSON = json_encode($aData);
