@@ -1,6 +1,6 @@
 /**********************************************************************************************************************/
 // view: 3-nav-top-user (social media)
-// radio choice switcher local or server div
+// radio choice for local or server div
 function displaySMServerSocialImageDiv() {
     // radio choice
     document.getElementById("sm_social_image_server_div").style.display = "block";
@@ -15,6 +15,22 @@ function displaySMLocalSocialImageDiv() {
     document.getElementById("sm_social_image_local_div").style.display = "block";
     document.getElementById("selectedServerSocialImageDiv").style.display = "none";
     document.getElementById("selectedLocalSocialImageDiv").style.display = "block";
+}
+
+// social media switcher view and edit mode
+function displaySocialMediaContent() {
+    var social_media_content = document.getElementById("social_media_data").style.display;
+    if (social_media_content === "none") {
+        document.getElementById("social_media_data").style.display = "block";
+        document.getElementById("edit_social_media_content").style.display = "none";
+        // change icon color
+        document.getElementById("edit_social_media_icon").style.color = "white";
+    } else {
+        document.getElementById("social_media_data").style.display = "none";
+        document.getElementById("edit_social_media_content").style.display = "block";
+        // change icon color
+        document.getElementById("edit_social_media_icon").style.color = "rgb(118, 185, 1)";
+    }
 }
 
 // server social image
@@ -103,8 +119,8 @@ function ajax_deleteSocialImage(values) {
 
                 setTimeout(function () {
                     $('#message').fadeOut('fast');
-                    // reload new view
-                    $("#sm_social_images_list_load").load(location.href + " #sm_social_images_list_load_content");    // parent.load(child)
+                    // replace content of #blog_preview_images_list_modal_body with <div> 
+                    $('#sm_social_images_list_modal_body').html($(result).html());
 
                     // check gui
                     var selectedSocialImageURL = document.getElementById("selectedServerSocialImage").src;
@@ -126,8 +142,8 @@ function ajax_deleteSocialImage(values) {
                 document.getElementById("message").innerHTML = message;
                 setTimeout(function () {
                     $('#message').fadeOut('fast');
-                    // reload new view
-                    $("#sm_social_images_list_load").load(location.href + " #sm_social_images_list_load_content");    // parent.load(child)
+                    // replace content of #blog_preview_images_list_modal_body with <div> 
+                    $('#sm_social_images_list_modal_body').html($(result).html());
                 }, 3000);
                 console.log("Error by ajax_deleteSocialImage(): " + result);
             }
@@ -135,20 +151,21 @@ function ajax_deleteSocialImage(values) {
     }
 }
 
-// social media switcher view and edit mode
-function displaySocialMediaContent() {
-    var social_media_content = document.getElementById("social_media_data").style.display;
-    if (social_media_content === "none") {
-        document.getElementById("social_media_data").style.display = "block";
-        document.getElementById("edit_social_media_content").style.display = "none";
-        // change icon color
-        document.getElementById("edit_social_media_icon").style.color = "white";
-    } else {
-        document.getElementById("social_media_data").style.display = "none";
-        document.getElementById("edit_social_media_content").style.display = "block";
-        // change icon color
-        document.getElementById("edit_social_media_icon").style.color = "rgb(118, 185, 1)";
-    }
+// load social images
+function ajax_loadSocialImageList(values) {
+    //console.log(values);
+    $.ajax({
+        url: values['URLROOT'] + "/index/ajax_loadSocialImageList",
+        type: "POST",
+        data: { ajax_sLoadSocialImageList: "please" },
+        success: function (result) {
+            // replace content of #blog_preview_images_list_modal_body with <div> 
+            $('#sm_social_images_list_modal_body').html($(result).html());
+        },
+        error: function (result) {
+            console.log("Error by ajax_loadSocialImageList(): " + result);
+        }
+    });
 }
 
 /**********************************************************************************************************************/
@@ -323,38 +340,6 @@ function mmDeleteBranch(values) {
 }
 
 /**********************************************************************************************************************/
-// view: 3-nav-top-admin (navigation)
-// view: 3a-single-page-content (blog content)
-// blog content switcher view and edit mode
-function ajax_displayBlogContent(values) {
-    var user_content = document.getElementById("tinymce_data").style.display;
-    //console.log(values);
-    if (user_content === "none") {
-        $.ajax({
-            url: values['URLROOT'] + "/index/ajax_displayBlogContent",
-            type: "POST",
-            data: { ajax_sDisplayBlogContentID: values['blog_id'] },
-            success: function (result) {
-                // replace content of #tinymce_data with #ajax_displayBlogContent 
-                $('#tinymce_data').html($(result).html());
-            },
-            error: function (result) {
-                console.log("Error by ajax_displayBlogContent(): " + result);
-            }
-        });
-        document.getElementById("tinymce_data").style.display = "block";
-        document.getElementById("blog_form").style.display = "none";
-        // change icon color
-        document.getElementById("edit_content").style.color = "white";
-    } else {
-        document.getElementById("tinymce_data").style.display = "none";
-        document.getElementById("blog_form").style.display = "block";
-        // change icon color
-        document.getElementById("edit_content").style.color = "rgb(118, 185, 1)";
-    }
-}
-
-/**********************************************************************************************************************/
 // view: 3a-single-page-content (blog content)
 // radio choice switcher local or server div
 function displayBlogServerPreviewImageDiv() {
@@ -415,9 +400,8 @@ function ajax_deletePreviewImage(values) {
 
                 setTimeout(function () {
                     $('#preview_images_message').fadeOut('fast');
-                    // reload new view
-                    $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
-
+                    // replace content of #blog_preview_images_list_modal_body with <div> 
+                    $('#blog_preview_images_list_modal_body').html($(result).html());       
                     // check gui
                     var selectedPreviewImageURL = document.getElementById("selectedServerPreviewImage").src;
                     var parts = selectedPreviewImageURL.split('/');
@@ -434,16 +418,65 @@ function ajax_deletePreviewImage(values) {
                 '<span class="closebtn" onclick="this.parentElement.style.display=\'none\'">&times;</span>' +
                 'Error: Could not delete preview image=' + values['preview_image'] + '!' +
                 '</div>';
+                // replace content of #blog_preview_images_list_modal_body with <div> 
+                $('#blog_preview_images_list_modal_body').html($(result).html());
                 // Inserting the code block
                 document.getElementById("preview_images_message").innerHTML = message;
                 setTimeout(function () {
                     $('#preview_images_message').fadeOut('fast');
-                    // reload new view
-                    $("#blog_preview_images_list_load").load(location.href + " #blog_preview_images_list_load_content");    // parent.load(child)
                 }, 3000);
                 console.log("Error by ajax_deletePreviewImage(): " + result);
             }
         });
+    }
+}
+
+// load preview images
+function ajax_loadPreviewImageList(values) {
+    //console.log(values);
+    $.ajax({
+        url: values['URLROOT'] + "/index/ajax_loadPreviewImageList",
+        type: "POST",
+        data: { ajax_sLoadPreviewImageList: "please" },
+        success: function (result) {
+            // replace content of #blog_preview_images_list_modal_body with <div> 
+            $('#blog_preview_images_list_modal_body').html($(result).html());
+        },
+        error: function (result) {
+            console.log("Error by ajax_loadPreviewImageList(): " + result);
+        }
+    });
+}
+
+/**********************************************************************************************************************/
+// view: 3-nav-top-admin (navigation)
+// view: 3a-single-page-content (blog content)
+// blog content switcher view and edit mode
+function ajax_loadBlogPage(values) {
+    var user_content = document.getElementById("tinymce_data").style.display;
+    //console.log(values);
+    if (user_content === "none") {
+        $.ajax({
+            url: values['URLROOT'] + "/index/ajax_loadBlogPage",
+            type: "POST",
+            data: { ajax_sDisplayBlogContentID: values['blog_id'] },
+            success: function (result) {
+                // replace content of #tinymce_data with <div>
+                $('#tinymce_data').html($(result).html());
+            },
+            error: function (result) {
+                console.log("Error by ajax_loadBlogPage(): " + result);
+            }
+        });
+        document.getElementById("tinymce_data").style.display = "block";
+        document.getElementById("blog_form").style.display = "none";
+        // change icon color
+        document.getElementById("edit_content").style.color = "white";
+    } else {
+        document.getElementById("tinymce_data").style.display = "none";
+        document.getElementById("blog_form").style.display = "block";
+        // change icon color
+        document.getElementById("edit_content").style.color = "rgb(118, 185, 1)";
     }
 }
 

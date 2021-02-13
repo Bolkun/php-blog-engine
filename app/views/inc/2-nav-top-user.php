@@ -59,7 +59,7 @@
                                     <div class="form-group">
                                         <!-- Server -->
                                         <div id="sm_social_image_server_div" class="custom-file">
-                                            <input id="sm_social_image_server" type="text" name="sm_social_image_server" class="form-control <?php echo (!empty($data['sm_add_image_server_err'])) ? 'is-invalid' : ''; ?>" value="<?php if (empty($data['sm_add_image'])) { echo DEFAULT_SOCIAL_IMAGE; } else { echo $data['sm_add_image'];  }; ?>" data-toggle="modal" data-target="#sm_social_images_list" readonly>                                                          
+                                            <input id="sm_social_image_server" onclick='ajax_loadSocialImageList(<?php echo jsonEncodeURLRoot(); ?>)' type="text" name="sm_social_image_server" class="form-control <?php echo (!empty($data['sm_add_image_server_err'])) ? 'is-invalid' : ''; ?>" value="<?php if (empty($data['sm_add_image'])) { echo DEFAULT_SOCIAL_IMAGE; } else { echo $data['sm_add_image'];  }; ?>" data-toggle="modal" data-target="#sm_social_images_list" readonly>                                                          
                                             <span class="invalid-feedback"><?php echo $data['sm_add_image_server_err']; ?></span>
                                             <!-- Modal -->
                                             <div class="modal" id="sm_social_images_list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

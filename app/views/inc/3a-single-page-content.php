@@ -115,7 +115,7 @@
                     <div class="form-group col-md-6" style="padding-bottom: 78px;">
                         <!-- Server -->
                         <div id="blog_preview_image_server_div" class="custom-file">
-                            <input id="blog_preview_image_server" type="text" name="blog_preview_image_server"
+                            <input id="blog_preview_image_server" type="text" name="blog_preview_image_server" onclick='ajax_loadPreviewImageList(<?php echo jsonEncodeURLRoot(); ?>)'
                                    class="form-control <?php echo (!empty($data['blog_preview_image_err'])) ? 'is-invalid' : ''; ?>"
                                    value="<?php echo $data['blog_preview_image']; ?>" data-toggle="modal"
                                    data-target="#blog_preview_images_list" readonly>

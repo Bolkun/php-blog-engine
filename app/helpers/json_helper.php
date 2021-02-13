@@ -16,6 +16,21 @@ function jsonEncodeArray($array)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
+ * @param   object $oData
+ * @return  string
+ */
+function jsonEncodeURLRoot($oData = NULL)
+{
+    // convert object to associative array
+    $aData = (array)$oData;
+    // add url to array being posted to
+    $aData['URLROOT'] = URLROOT;
+    $sJSON = json_encode($aData);
+    return $sJSON;
+}
+
+/**
+ * @goal    convert object data to JSON readable string, usable for AJAX post requests
  * @param   object $oData, string $sID, string $sTitle
  * @return  string
  */

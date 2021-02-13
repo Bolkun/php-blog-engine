@@ -40,7 +40,7 @@ class Indexs extends Controller
             'sm_add_image_server_err' => '',
             'sm_add_image_local_err' => '',
             // social image
-            'social_image_list' => (new Social_Images)->loadList(),
+            'social_image_list' => [],
             // blog
             'blog_id' => [],
             'blog_created_by_user_id' => [],
@@ -304,14 +304,6 @@ class Indexs extends Controller
                 'blog_rank' => $blog_data['rank'],
                 'blog_content' => $blog_data['content'],
             ];
-
-            // load all preview images
-            if(isAdminLoggedIn() === true) {
-                $preview_image = new Preview_Images();
-                $preview_image_data = $preview_image->loadList();
-                $new_data['preview_image_list'] = $preview_image_data['preview_image_list'];
-            }
-
             $data = mergeAsocArrays($data, $new_data);
         }
         elseif ($url_param === 0) {
@@ -375,7 +367,9 @@ class Indexs extends Controller
             die('Page Not Found!');
         }
     }
+
     /******************************************************************************************************************/
+
     public function phpinfo()
     {
         if (isAdminLoggedIn() === true) {
@@ -384,7 +378,9 @@ class Indexs extends Controller
             header("HTTP/1.0 404 Not Found");
         }
     }
+
     /******************************************************************************************************************/
+
     public function tests($url_param = 0)
     {
         if (isAdminLoggedIn() === true) {
@@ -447,29 +443,49 @@ class Indexs extends Controller
             header("HTTP/1.0 404 Not Found");
         }
     }
+
     /******************************************************************************************************************/
-    public function ajax_deleteSocialMedia() {
+
+    public function ajax_deleteSocialMedia()
+    {
         if (isset($_POST['ajax_sDeleteSocialMediaID'])) {
             $sm = new Social_Medias();
             $sm->delete();
         }
     }
 
-    public function ajax_deleteSocialImage() {
+    public function ajax_deleteSocialImage()
+    {
         if (isset($_POST['ajax_sDeleteSocialImage'])) {
+            // delete social image
             $social_image = new Social_Images();
             $social_image->deleteSocialImage();
+            // load social image list
+            $data = [
+                'social_image_list' => (new Social_Images)->loadList(),
+            ];
+            $this->view('index/ajax/ajax_loadSocialImageList', $data);
         }
     }
 
-    public function ajax_deletePreviewImage() {
+    public function ajax_deletePreviewImage()
+    {
         if (isset($_POST['ajax_sDeletePreviewImage'])) {
+            // delete preview image
             $preview_image = new Preview_Images();
             $preview_image->deletePreviewImage();
+            // load preview image list
+            $preview_image_data = $preview_image->loadList();
+            $data = [
+                'preview_image_list' => $preview_image_data['preview_image_list'],
+            ];
+            $this->view('index/ajax/ajax_loadPreviewImageList', $data);
+            
         }
     }
 
-    public function ajax_displayBlogContent(){
+    public function ajax_loadBlogPage()
+    {
         if (isset($_POST['ajax_sDisplayBlogContentID'])) {
             $blog = new Blogs();
             $blog_id = trim($_POST['ajax_sDisplayBlogContentID']);
@@ -477,9 +493,32 @@ class Indexs extends Controller
             $data = [
                 'blog_content' => $blog_data['content'],
             ];
-            $this->view('index/ajax/ajax_displayBlogContent', $data);
+            $this->view('index/ajax/ajax_loadBlogPage', $data);
+        }
+    }
+
+    public function ajax_loadPreviewImageList() 
+    {
+        if (isset($_POST['ajax_sLoadPreviewImageList'])) {
+            $preview_image = new Preview_Images();
+            $preview_image_data = $preview_image->loadList();
+            $data = [
+                'preview_image_list' => $preview_image_data['preview_image_list'],
+            ];
+            $this->view('index/ajax/ajax_loadPreviewImageList', $data);
+        }
+    }
+
+    public function ajax_loadSocialImageList()
+    {
+        if (isset($_POST['ajax_sLoadSocialImageList'])) {
+            $data = [
+                'social_image_list' => (new Social_Images)->loadList(),
+            ];
+            $this->view('index/ajax/ajax_loadSocialImageList', $data);
         }
     }
 
     /******************************************************************************************************************/
+
 }
