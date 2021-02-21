@@ -56,11 +56,11 @@ minimum changes by configuration and that's it!
 In this project was used "Test Automation Pyramid".  It consists of three parts:
 1. UI
 2. Integration
- * Log in as an admin to [bolkun](http://localhost/bolkun/)
- * Click Link [Benchmark](http://localhost/bolkun/index/tests/benchmark)
+    1. Log in as an admin to [bolkun](http://localhost/bolkun/)
+    2. Click Link [Benchmark](http://localhost/bolkun/index/tests/benchmark)
 3. Unit
- * Open terminal and navigate to **bolkun/app/phpunit**
- * Run `./vendor/bin/phpunit .\tests`
+    1. Open terminal and navigate to **bolkun/app/phpunit**
+    2. Run `./vendor/bin/phpunit .\tests`
 
 ## Deployment
 * Check server configuration like in Development XAMPP
