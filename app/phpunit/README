@@ -1,0 +1,2 @@
+# Command to run all php unit tests properly
+C:\app\phpunit> clear | ./vendor/bin/phpunit .\tests
