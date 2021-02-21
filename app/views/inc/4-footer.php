@@ -10,4 +10,5 @@
 </div>
 <script src="<?php echo PUBLIC_CORE_JSURL . '/cookies/cookies.js'; ?>"></script>
 </body>
+
 </html>

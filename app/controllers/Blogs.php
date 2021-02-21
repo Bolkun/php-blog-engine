@@ -65,7 +65,7 @@ class Blogs extends Controller
         ];
 
         // page exist in array
-        if($url_param <= count($pagination['allSortedBlocksWithBlogIds'])){
+        if ($url_param <= count($pagination['allSortedBlocksWithBlogIds'])) {
             $oData = $this->blogModel->getRecordsBasedOnPaginationBlock($pagination['allSortedBlocksWithBlogIds'][$url_param - 1], $observe_permissions);
             if ($oData) {
                 for ($i = 0; $i < count($oData); $i++) {
@@ -350,11 +350,11 @@ class Blogs extends Controller
                 'mm_delete_branch_err' => '',
             ];
 
-            if(empty($data['blog_id'])){
+            if (empty($data['blog_id'])) {
                 $data['mm_delete_branch_err'] = "blog_id cannot be empty";
             }
 
-            if(empty($data['mm_delete_branch_err'])){
+            if (empty($data['mm_delete_branch_err'])) {
                 $oData = $this->blogModel->selectMenuData($observe_permissions);
                 if ($oData) {
                     // Convert object to array
@@ -489,5 +489,4 @@ class Blogs extends Controller
 
         return $data;
     }
-
 }

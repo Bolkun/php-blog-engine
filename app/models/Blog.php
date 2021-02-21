@@ -196,5 +196,4 @@ class Blog
             return false;
         }
     }
-
 }

@@ -36,7 +36,7 @@ class Core
         // exploded array after bolkun ( [0] => index, [1] => 2 )
         $url = $this->getUrl();
 
-        if($url == NULL || is_numeric($url[0])){
+        if ($url == NULL || is_numeric($url[0])) {
             // set default $currentController
             if (file_exists('../app/controllers/' . $this->currentController . '.php')) {
                 require_once '../app/controllers/' . $this->currentController . '.php';
@@ -47,21 +47,20 @@ class Core
             }
 
             // check default $currentMethod
-            if (! method_exists($this->currentController, $this->currentMethod)) {
+            if (!method_exists($this->currentController, $this->currentMethod)) {
                 die("Core: method " . STARTMETHOD . " in controller " . STARTCONTROLLER . " not exists 1!");
             }
 
             // set $params
-            if($url != NULL){
-                if(is_numeric($url[0])){
+            if ($url != NULL) {
+                if (is_numeric($url[0])) {
                     array_push($this->params, $url[0]);
-                } 
+                }
             }
 
             // Call a callback with array of params
             call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
-        }
-        elseif ($url[0] == 'index') {
+        } elseif ($url[0] == 'index') {
             // set default $currentController
             if (file_exists('../app/controllers/' . $this->currentController . '.php')) {
                 require_once '../app/controllers/' . $this->currentController . '.php';
@@ -73,29 +72,27 @@ class Core
 
             // set $currentMethod and $params
             $lastElement = end($url);
-            if(is_numeric($lastElement)){   // if last element of url is a number, than it`s a parameter
+            if (is_numeric($lastElement)) {   // if last element of url is a number, than it`s a parameter
                 array_push($this->params, $lastElement);
                 // set before last url element as $currentController
-                $this->currentMethod = $url[count($url)-2];
+                $this->currentMethod = $url[count($url) - 2];
             } else {
                 // set last url element as $currentController
                 $this->currentMethod = $lastElement;
             }
 
             // check $currentMethod
-            if (! method_exists($this->currentController, $this->currentMethod)) {
+            if (!method_exists($this->currentController, $this->currentMethod)) {
                 die("Core: method " . STARTMETHOD . " in controller " . STARTCONTROLLER . " not exists 2!");
             }
 
             // Call a callback with array of params
             call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
-        }
-        elseif ($url[0] == 'core') {
+        } elseif ($url[0] == 'core') {
             // This elseif must be present due to tinymce errors 'Uncaught SyntaxError: Unexpected identifier' with
             // plugin.min.js
             die();
-        }
-        else {
+        } else {
             // set $currentController
             $this->currentController = ucwords($url[0]);  // Example: users to Users
             if (file_exists('../app/controllers/' . $this->currentController . '.php')) {
@@ -108,17 +105,17 @@ class Core
 
             // set $currentMethod and $params
             $lastElement = end($url);
-            if(is_numeric($lastElement)){   // if last element of url is a number, than it`s a parameter
+            if (is_numeric($lastElement)) {   // if last element of url is a number, than it`s a parameter
                 array_push($this->params, $lastElement);
                 // set before last url element as $currentController
-                $this->currentMethod = $url[count($url)-2];
+                $this->currentMethod = $url[count($url) - 2];
             } else {
                 // set last url element as $currentController
                 $this->currentMethod = $lastElement;
             }
 
             // check $currentMethod
-            if (! method_exists($this->currentController, $this->currentMethod)) {
+            if (!method_exists($this->currentController, $this->currentMethod)) {
                 die("Core: method " . STARTMETHOD . " in controller " . STARTCONTROLLER . " not exists 3!");
             }
 

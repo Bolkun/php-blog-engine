@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @goal    convert array data to JSON readable string, usable for AJAX post requests
- * @param   array $array @example print_r ([id] => 1 [created] => John ...)
- * @return  string       @example print_r {"id":"1","created":"John" ...)
+ * @param   array associative $array @example print_r ('id'=>1, 'created'=>'John'
+ * @return  string                   @example print_r {"array":{"id":1,"created":"John"}}
  */
 function jsonEncodeArray($array)
 {
@@ -16,13 +17,10 @@ function jsonEncodeArray($array)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData
- * @return  string
+ * @return  string  @example print_r {"URLROOT":"https:\/\/test.net\/bolkun"}
  */
-function jsonEncodeURLRoot($oData = NULL)
+function jsonEncodeURLRoot()
 {
-    // convert object to associative array
-    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLROOT'] = URLROOT;
     $sJSON = json_encode($aData);
@@ -31,13 +29,11 @@ function jsonEncodeURLRoot($oData = NULL)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData, string $sID, string $sTitle
+ * @param   string $sID, string $sTitle
  * @return  string
  */
-function jsonEncodeMenu($oData = NULL, $id, $title)
+function jsonEncodeMenu($id, $title)
 {
-    // convert object to associative array
-    $aData = (array)$oData;
     // add url to array being posted to
     $aData['blog_id'] = $id;
     $aData['title'] = $title;
@@ -50,13 +46,11 @@ function jsonEncodeMenu($oData = NULL, $id, $title)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData, string $social_image
+ * @param   string $social_image
  * @return  string
  */
-function jsonSelectedSocialImage($oData = NULL, $social_image)
+function jsonSelectedSocialImage($social_image)
 {
-    // convert object to associative array
-    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLROOT'] = URLROOT;
     $aData['PUBLIC_CORE_IMG_SOCIALURL'] = PUBLIC_CORE_IMG_SOCIALURL;
@@ -68,13 +62,11 @@ function jsonSelectedSocialImage($oData = NULL, $social_image)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData, string $preview_image
+ * @param   string $preview_image
  * @return  string
  */
-function jsonSelectedPreviewImage($oData = NULL, $preview_image)
+function jsonSelectedPreviewImage($preview_image)
 {
-    // convert object to associative array
-    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLROOT'] = URLROOT;
     $aData['PUBLIC_CORE_IMG_PREVIEWURL'] = PUBLIC_CORE_IMG_PREVIEWURL;
@@ -86,34 +78,15 @@ function jsonSelectedPreviewImage($oData = NULL, $preview_image)
 
 /**
  * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   object $oData, string $id, string $name
+ * @param   string $id, string $name
  * @return  string
  */
-function jsonEncodeDeleteSocialMedia($oData = NULL, $id, $name)
+function jsonEncodeDeleteSocialMedia($id, $name)
 {
-    // convert object to associative array
-    $aData = (array)$oData;
     // add url to array being posted to
     $aData['URLROOT'] = URLROOT;
     $aData['id'] = $id;
     $aData['name'] = $name;
-    $sJSON = json_encode($aData);
-    return $sJSON;
-}
-
-/**
- * @goal    convert object data to JSON readable string, usable for AJAX post requests
- * @param   int $pagination_block
- * @return  string
- */
-function jsonPagination($oData = NULL, $pagination_block)
-{
-    // convert object to associative array
-    $aData = (array)$oData;
-    // add url to array being posted to
-    $aData['URLCURRENT'] = URLCURRENT;
-    // block to load
-    $aData['pagination_block'] = $pagination_block;
     $sJSON = json_encode($aData);
     return $sJSON;
 }

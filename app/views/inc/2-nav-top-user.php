@@ -59,7 +59,11 @@
                                     <div class="form-group">
                                         <!-- Server -->
                                         <div id="sm_social_image_server_div" class="custom-file">
-                                            <input id="sm_social_image_server" onclick='ajax_loadSocialImageList(<?php echo jsonEncodeURLRoot(); ?>)' type="text" name="sm_social_image_server" class="form-control <?php echo (!empty($data['sm_add_image_server_err'])) ? 'is-invalid' : ''; ?>" value="<?php if (empty($data['sm_add_image'])) { echo DEFAULT_SOCIAL_IMAGE; } else { echo $data['sm_add_image'];  }; ?>" data-toggle="modal" data-target="#sm_social_images_list" readonly>                                                          
+                                            <input id="sm_social_image_server" onclick='ajax_loadSocialImageList(<?php echo jsonEncodeURLRoot(); ?>)' type="text" name="sm_social_image_server" class="form-control <?php echo (!empty($data['sm_add_image_server_err'])) ? 'is-invalid' : ''; ?>" value="<?php if (empty($data['sm_add_image'])) {
+                                                                                                                                                                                                                                                                                                                echo DEFAULT_SOCIAL_IMAGE;
+                                                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                                                echo $data['sm_add_image'];
+                                                                                                                                                                                                                                                                                                            }; ?>" data-toggle="modal" data-target="#sm_social_images_list" readonly>
                                             <span class="invalid-feedback"><?php echo $data['sm_add_image_server_err']; ?></span>
                                             <!-- Modal -->
                                             <div class="modal" id="sm_social_images_list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -79,9 +83,9 @@
                                                                     <div class="row">
                                                                         <?php for ($p = 0; $p < count($data['social_image_list']); $p++) { ?>
                                                                             <div class="col-sm-2">
-                                                                                <img style="border: 1px solid rgba(0, 0, 0, 0.5);" onclick='selectedSocialImage(<?php echo jsonSelectedSocialImage(NULL, $data['social_image_list'][$p]); ?>)' class="sm_social_img" src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['social_image_list'][$p]; ?>">
+                                                                                <img style="border: 1px solid rgba(0, 0, 0, 0.5);" onclick='selectedSocialImage(<?php echo jsonSelectedSocialImage($data['social_image_list'][$p]); ?>)' class="sm_social_img" src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['social_image_list'][$p]; ?>">
                                                                                 <?php if (DEFAULT_SOCIAL_IMAGE !== $data['social_image_list'][$p]) { ?>
-                                                                                    <div class="img-trash" onclick='ajax_deleteSocialImage(<?php echo jsonSelectedSocialImage(NULL, $data['social_image_list'][$p]); ?>)'>
+                                                                                    <div class="img-trash" onclick='ajax_deleteSocialImage(<?php echo jsonSelectedSocialImage($data['social_image_list'][$p]); ?>)'>
                                                                                         <span>
                                                                                             <i class="fa fa-trash-o"></i>
                                                                                         </span>
@@ -119,7 +123,7 @@
                                     <?php
                                     if ($data['sm'] !== false) {
                                         for ($i = 0; $i < count($data['sm']['id']); $i++) { ?>
-                                            <img onclick='ajax_deleteSocialMedia(<?php echo jsonEncodeDeleteSocialMedia(NULL, $data['sm']['id'][$i], $data['sm']['name'][$i]); ?>)' src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['sm']['image'][$i]; ?>" alt="<?php echo $data['sm']['name'][$i]; ?>" class="img-responsive sm_admin_image">
+                                            <img onclick='ajax_deleteSocialMedia(<?php echo jsonEncodeDeleteSocialMedia($data['sm']['id'][$i], $data['sm']['name'][$i]); ?>)' src="<?php echo PUBLIC_CORE_IMG_SOCIALURL . '/' . $data['sm']['image'][$i]; ?>" alt="<?php echo $data['sm']['name'][$i]; ?>" class="img-responsive sm_admin_image">
                                     <?php
                                         }
                                     } ?>

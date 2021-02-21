@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @goal   get best results between echo and print
  * @return array of associative arrays
@@ -375,9 +376,7 @@ function if_vs_switch()
     $a = 2;
     while ($i < 1000) {
         if ($a == 1) {
-
         } else if ($a == 2) {
-
         }
         $i++;
     }
@@ -413,11 +412,8 @@ function if_vs_switch()
     $a = 3;
     while ($i < 1000) {
         if ($a == 1) {
-
         } else if ($a == 2) {
-
         } else {
-
         }
         $i++;
     }
@@ -456,9 +452,7 @@ function if_vs_switch()
     $a = 2;
     while ($i < 1000) {
         if ($a === 1) {
-
         } else if ($a === 2) {
-
         }
         $i++;
     }
@@ -494,11 +488,8 @@ function if_vs_switch()
     $a = 3;
     while ($i < 1000) {
         if ($a === 1) {
-
         } else if ($a === 2) {
-
         } else {
-
         }
         $i++;
     }
@@ -597,7 +588,7 @@ function for_vs_while_counting()
     /************************************************* test 1 *********************************************************/
     // for($i = 0; $i < 1000; $i++);
     $start = microtime(true);
-    for ($i = 0; $i < 1000; $i++) ;
+    for ($i = 0; $i < 1000; $i++);
     $result1 = microtime(true) - $start;
     unset($start);
     unset($i);

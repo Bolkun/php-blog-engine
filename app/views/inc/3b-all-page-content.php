@@ -5,18 +5,18 @@
                 <?php
                 if ($data['blog_id'] != null) {
                     for ($i = 0; $i < count($data['blog_id']); $i++) {
-                        // display from 1, 2, 3 or max 4 divs in a row ?>
+                        // display from 1, 2, 3 or max 4 divs in a row 
+                ?>
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <a href="<?php echo URLROOT . '/index/' . $data['blog_id'][$i]; ?>">
-                                <img class="article_main_img"
-                                     src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL . '/' . $data['blog_preview_image'][$i]; ?>">
+                                <img class="article_main_img" src="<?php echo PUBLIC_CORE_IMG_PREVIEWURL . '/' . $data['blog_preview_image'][$i]; ?>">
                             </a>
                             <div class="img-rank-block">
-                        <span>
-                            <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>
-                                <i class="fa fa-star"></i>
-                            <?php } ?>
-                        </span>
+                                <span>
+                                    <?php for ($article_rank = $data['blog_rank'][$i]; $article_rank > 0; $article_rank--) { ?>
+                                        <i class="fa fa-star"></i>
+                                    <?php } ?>
+                                </span>
                             </div>
                             <div class="img-text-block">
                                 <h4><?php if (isset($data['blog_category'][$i])) {
@@ -36,12 +36,12 @@
                                 }
                             }
                             ?>;">
-                        <span>
-                            <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
-                        </span>
+                                <span>
+                                    <i class="fa fa-eye"></i> <?php echo number_format($data['blog_views'][$i], 0, ",", '.'); ?>
+                                </span>
                             </div>
                         </div>
-                        <?php
+                <?php
                     }
                 }
                 ?>

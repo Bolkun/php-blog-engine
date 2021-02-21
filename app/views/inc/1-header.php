@@ -10,9 +10,10 @@ websiteIsDown(DOWNTIME);
 ?>
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="keywords" content="<?php echo getKeywords($data['blog_title']); ?>">
     <meta name="description" content="Web application to store different kind of Information like news, films, blog, photography and more">
     <meta name="author" content="Serhiy Bolkun">
@@ -29,4 +30,5 @@ websiteIsDown(DOWNTIME);
     }
     ?>
 </head>
+
 <body onload='displayDivs(<?php echo jsonEncodeArray($data['display_div']); ?>)'>

@@ -11,6 +11,7 @@ minimum changes by configuration and that's it!
 | Google Chrome | 87.0.4280.88  |
 | XAMPP         | 7.2.31        |
 | PHP           | 7.3.8 - 8     |
+| PHPUnit       | 8.5.0         |
 | MySQL         | 5.7           |
 | jQuery        | 3.5.1         |
 | TinyMCE       | 5.4.1         |
@@ -52,9 +53,14 @@ minimum changes by configuration and that's it!
 * You are ready to login and run the tests  
 
 ## Running The Tests
-* Log in as an admin to [bolkun](http://localhost/bolkun/)
-* Open link [Tests](http://localhost/bolkun/index/tests)
-* Select a specific test by clicking on a link
+In this project was used "Test Automation Pyramid".  It consists of three parts:
+1. UI
+2. Integration
+ * Log in as an admin to [bolkun](http://localhost/bolkun/)
+ * Click Link [Benchmark](http://localhost/bolkun/index/tests/benchmark)
+3. Unit
+ * Open terminal and navigate to **bolkun/app/phpunit**
+ * Run `./vendor/bin/phpunit .\tests`
 
 ## Deployment
 * Check server configuration like in Development XAMPP

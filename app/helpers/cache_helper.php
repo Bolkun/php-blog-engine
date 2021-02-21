@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @goal   clear page cache for development mode and disable warnings
  * @result on new page reload changes are visible
@@ -15,5 +16,4 @@ function clearPageCache()
         // Report all PHP errors
         error_reporting(-1);
     }
-
 }

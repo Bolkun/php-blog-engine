@@ -60,5 +60,4 @@ class Social_Media
             return false;
         }
     }
-
 }

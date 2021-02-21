@@ -159,5 +159,4 @@ class Social_Medias extends Controller
             die("Error: could not delete social media");
         }
     }
-
 }

@@ -94,7 +94,7 @@ class Users extends Controller
                             // mail send
                         } else {
                             // delete user
-                            if($this->userModel->deleteUserById($user_id)){
+                            if ($this->userModel->deleteUserById($user_id)) {
                                 $data['confirm_password_err'] = 'Could not send mail, due to server problems';
                             } else {
                                 $data['confirm_password_err'] = 'Could not send mail, due to server problems. Please contact administrator!';
@@ -260,7 +260,6 @@ class Users extends Controller
                 } else {
                     $data['password_err'] = 'Password try limit reached, check email for verification code';
                 }
-
             }
 
             return $data;
@@ -430,5 +429,4 @@ class Users extends Controller
         destroyUserSession();
         redirect(strtolower(''));
     }
-
 }

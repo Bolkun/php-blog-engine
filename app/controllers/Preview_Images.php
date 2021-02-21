@@ -65,5 +65,4 @@ class Preview_Images extends Controller
             die("Error: Something went wrong during post request for preview image deletion");
         }
     }
-
 }

@@ -123,8 +123,7 @@ class Indexs extends Controller
                 'blog_title_err' => $blog_data['title_err'],
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submitLogin'])) {
+        } elseif (isset($_POST['submitLogin'])) {
             $user = new Users();
             $user_data = $user->login();
 
@@ -147,8 +146,7 @@ class Indexs extends Controller
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submitRegister'])) {
+        } elseif (isset($_POST['submitRegister'])) {
             $user = new Users();
             $user_data = $user->register();
             $new_data = [
@@ -168,14 +166,15 @@ class Indexs extends Controller
             ];
 
             // display login
-            if (empty($new_data['reg_firstname_err']) && empty($new_data['reg_surname_err']) && empty($new_data['reg_email_err'])
-                && empty($new_data['reg_password_err']) && empty($new_data['reg_confirm_password_err'])) {
+            if (
+                empty($new_data['reg_firstname_err']) && empty($new_data['reg_surname_err']) && empty($new_data['reg_email_err'])
+                && empty($new_data['reg_password_err']) && empty($new_data['reg_confirm_password_err'])
+            ) {
                 $new_data['display_div'] = array('collapse_login_menu');
             }
 
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submitUserEmail'])) {
+        } elseif (isset($_POST['submitUserEmail'])) {
             $user = new Users();
             $user_data = $user->settingsUserEmail();
             $new_data = [
@@ -186,8 +185,7 @@ class Indexs extends Controller
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submitUserPassword'])) {
+        } elseif (isset($_POST['submitUserPassword'])) {
             $user = new Users();
             $user_data = $user->settingsUserPassword();
             $new_data = [
@@ -202,8 +200,7 @@ class Indexs extends Controller
                 'display_div' => array('collapse_login_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submitSocialMedia'])) {
+        } elseif (isset($_POST['submitSocialMedia'])) {
             $sm = new Social_Medias();
             $sm_data = $sm->save();
             $new_data = [
@@ -222,8 +219,7 @@ class Indexs extends Controller
             ];
 
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submit_search_input'])) {
+        } elseif (isset($_POST['submit_search_input'])) {
             $blog = new Blogs();
             $blog_data = $blog->search_menu($this->observe_permissions);
             $new_data = [
@@ -235,8 +231,7 @@ class Indexs extends Controller
                 'display_div' => array('collapse_main_menu'),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submit_add_child_input'])) {
+        } elseif (isset($_POST['submit_add_child_input'])) {
             $blog = new Blogs();
             $blog_data = $blog->add();
             $new_data = [
@@ -247,8 +242,7 @@ class Indexs extends Controller
                 'display_div' => array('collapse_main_menu', 'mm_add_child_form', $blog_data['parent_id']),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submit_edit_title_input'])) {
+        } elseif (isset($_POST['submit_edit_title_input'])) {
             $blog = new Blogs();
             $blog_data = $blog->editTitle();
             $new_data = [
@@ -259,8 +253,7 @@ class Indexs extends Controller
                 'display_div' => array('collapse_main_menu', 'mm_edit_title_form', $blog_data['blog_id']),
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif (isset($_POST['submit_delete_branch_input'])) {
+        } elseif (isset($_POST['submit_delete_branch_input'])) {
             $blog = new Blogs();
             $blog_data = $blog->deleteBranch($this->observe_permissions);
             $new_data = [
@@ -303,8 +296,7 @@ class Indexs extends Controller
                 'blog_content' => $blog_data['content'],
             ];
             $data = mergeAsocArrays($data, $new_data);
-        }
-        elseif ($url_param === 0) {
+        } elseif ($url_param === 0) {
             // all pages
             $blog = new Blogs();
             $blog_data = $blog->index($this->observe_permissions);
@@ -324,8 +316,7 @@ class Indexs extends Controller
                 ];
                 $data = mergeAsocArrays($data, $new_data);
             }
-        }
-        else {
+        } else {
             die('Blog Page Not Found!');
         }
 
@@ -342,7 +333,7 @@ class Indexs extends Controller
 
             $blog = new Blogs();
             $blog_data = $blog->getRecordsBasedOnPaginationBlock($url_param, $data['pagination'], $this->observe_permissions);
-            if($blog_data) {
+            if ($blog_data) {
                 $new_data = [
                     // blog index
                     'blog_id' => $blog_data['blog_id'],
@@ -367,7 +358,6 @@ class Indexs extends Controller
     }
 
     /******************************************************************************************************************/
-
     public function phpinfo()
     {
         if (isAdminLoggedIn() === true) {
@@ -377,9 +367,7 @@ class Indexs extends Controller
         }
     }
 
-    /******************************************************************************************************************/
-
-    public function tests($url_param = 0)
+    public function php($url_param = 0)
     {
         if (isAdminLoggedIn() === true) {
             // Init
@@ -387,56 +375,24 @@ class Indexs extends Controller
             // POST
             $data = $this->post($url_param, $data);
 
-            $aHelpersFiles = getAllFilesInDir(APPROOT . DIRECTORY_SEPARATOR . 'helpers');
-
-            $data['title'] = "Tests";
-            $data['aHelpersFiles'] = $aHelpersFiles;
-
-            $this->view('index/tests/index', $data);
+            $this->view('index/devs/php', $data);
         } else {
             header("HTTP/1.0 404 Not Found");
         }
     }
+    /******************************************************************************************************************/
 
-    public function benchmark()
+    public function benchmark($url_param = 0)
     {
         if (isAdminLoggedIn() === true) {
-            $aEchoVsPrint = echo_vs_print();
-            $aSingleVsDoubleQuotes = single_vs_double_quotes();
-            $aIfVsSwitch = if_vs_switch();
-            $aForVsWhileCounting = for_vs_while_counting();
-            $aReadLoop = readAssocArray_foreach_vs_for();
-            $aWriteLoop = writeAssocArray_for_vs_while();
-            $aModifyLoop = modifyAssocArray_foreach_vs_for();
+            // Init
+            $data = $this->getData($url_param);
+            // POST
+            $data = $this->post($url_param, $data);
 
             $data['title'] = "Performance Testing";
-            $data['stringOutputs'] = $aEchoVsPrint;
-            $data['quotes'] = $aSingleVsDoubleQuotes;
-            $data['conditions'] = $aIfVsSwitch;
-            $data['countingLoops'] = $aForVsWhileCounting;
-            $data['readLoop'] = $aReadLoop;
-            $data['writeLoop'] = $aWriteLoop;
-            $data['modifyLoop'] = $aModifyLoop;
 
             $this->view('index/tests/benchmark', $data);
-        } else {
-            header("HTTP/1.0 404 Not Found");
-        }
-    }
-
-    public function date_helper()
-    {
-        if (isAdminLoggedIn() === true) {
-            $this->view('index/tests/helpers/date_helper');
-        } else {
-            header("HTTP/1.0 404 Not Found");
-        }
-    }
-
-    public function var_helper()
-    {
-        if (isAdminLoggedIn() === true) {
-            $this->view('index/tests/helpers/var_helper');
         } else {
             header("HTTP/1.0 404 Not Found");
         }
@@ -478,7 +434,6 @@ class Indexs extends Controller
                 'preview_image_list' => $preview_image_data['preview_image_list'],
             ];
             $this->view('index/ajax/ajax_loadPreviewImageList', $data);
-            
         }
     }
 
@@ -495,7 +450,7 @@ class Indexs extends Controller
         }
     }
 
-    public function ajax_loadPreviewImageList() 
+    public function ajax_loadPreviewImageList()
     {
         if (isset($_POST['ajax_sLoadPreviewImageList'])) {
             $preview_image = new Preview_Images();
@@ -518,5 +473,4 @@ class Indexs extends Controller
     }
 
     /******************************************************************************************************************/
-
 }

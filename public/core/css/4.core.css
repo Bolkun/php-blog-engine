@@ -232,6 +232,11 @@ a:hover {
     color: #76b901;
 }
 
+#sm_social_image_server, #custom-file-label_sm_social_image {
+    cursor: default;
+    text-align: center;
+}
+
 .sm_admin_image {
     cursor: no-drop;
     padding: 5px;
@@ -586,7 +591,7 @@ li input:checked + ol > li:last-child {
     position: absolute;
     bottom: 20px;
     background: rgb(0, 0, 0); /* Fallback color */
-    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    background: rgba(0, 0, 0, 0.8); /* Black background with 0.5 opacity */
     color: white;
     padding-left: 20px;
     padding-right: 20px;
@@ -598,7 +603,7 @@ li input:checked + ol > li:last-child {
     position: absolute; /* Position the background text */
     top: 5px; /* At the bottom. Use top:0 to append it to the top */
     background: rgb(0, 0, 0); /* Fallback color */
-    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    background: rgba(0, 0, 0, 0.8); /* Black background with 0.5 opacity */
     color: yellow; /* Grey text */
     padding-left: 5px;
     padding-right: 5px;
@@ -610,7 +615,7 @@ li input:checked + ol > li:last-child {
     top: 5px; /* At the bottom. Use top:0 to append it to the top */
     right: 5px;
     background: rgb(0, 0, 0); /* Fallback color */
-    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    background: rgba(0, 0, 0, 0.8); /* Black background with 0.5 opacity */
     color: #f1f1f1; /* Grey text */
     padding-left: 5px;
     padding-right: 5px;

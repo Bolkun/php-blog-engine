@@ -46,5 +46,4 @@ class Social_Image
             return false;
         }
     }
-
 }

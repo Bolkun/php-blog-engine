@@ -25,13 +25,13 @@ function flash($name = '', $message = '', $class = 'alert alert-success')
             echo '<span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>';
             echo $_SESSION[$name];
             echo '</div>';
-            ?>
+?>
             <!--<script>
                 setTimeout(function() {
                     $('#msg-flash').fadeOut('fast');
                 }, 3000); // after 3 sec hide
             </script>-->
-            <?php
+<?php
             unset($_SESSION[$name]);
             unset($_SESSION[$name . '_class']);
         }
@@ -44,8 +44,13 @@ function flash($name = '', $message = '', $class = 'alert alert-success')
  */
 function isLoggedIn()
 {
-    if (isset($_SESSION['user_id']) && isset($_SESSION['user_email']) &&
-        isset($_SESSION['user_firstname']) && isset($_SESSION['user_surname']) && isset($_SESSION['user_role'])) {
+    if (
+        isset($_SESSION['user_id']) &&
+        isset($_SESSION['user_email']) &&
+        isset($_SESSION['user_firstname']) &&
+        isset($_SESSION['user_surname']) &&
+        isset($_SESSION['user_role'])
+    ) {
         return true;
     } else {
         return false;
@@ -84,14 +89,13 @@ function isAdminLoggedIn()
 }
 
 /**
- * @goal   check if coworker logged in
+ * @goal   check if registered user logged in
  * @return bool
  */
 function isUserLoggedIn()
 {
     if (isset($_SESSION['user_role'])) {
         if ($_SESSION['user_role'] === 'RegisteredUser') {
-            // Coworker logged in
             return true;
         } else {
             return false;

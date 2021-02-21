@@ -46,5 +46,4 @@ class Preview_Image
             return false;
         }
     }
-
 }
