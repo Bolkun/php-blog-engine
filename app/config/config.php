@@ -69,7 +69,7 @@ define('PUBLICROOT', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR .
 
 /*** URL ***/
 # url root*
-define('URLROOT', 'http://localhost/bolkun');
+define('URLROOT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://localhost/bolkun");
 # url of current page
 define('URLCURRENT', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 # start controller* (Core: defines controller name, always ending with 's')
