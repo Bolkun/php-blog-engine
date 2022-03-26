@@ -21,6 +21,7 @@ minimum changes by configuration and that's it!
 * **Started:** 16.01.2020
 * **Author:** Serhiy Bolkun
 * **Architecture:** MVC
+* **Hosted:** bolkun.great-site.net
 * Made in Germany
 
 ## Development
